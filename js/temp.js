@@ -1,0 +1,78 @@
+function aa(head,msg){
+	var loader = new egret.URLLoader();
+	loader.dataFormat = egret.URLLoaderDataFormat.TEXT;
+	var request = new egret.URLRequest('http://172.17.196.195:90/gameindex.php');
+	request.method = egret.URLRequestMethod.POST;
+	var variables = new egret.URLVariables('head='+head);
+	variables.variables.msg = JSON.stringify(msg);
+	variables.variables.debug_client = 1;
+	variables.variables.version = '1';
+	request.data = variables;
+	loader.load(request);
+}
+
+aa('pk_server',{"landid":1449731763,"gameid":"1_10000","choose":{"list":[107,107,107],"ring":2,"index":0}})
+aa('pk_server_equal',{"landid":1449731763,"gameid":"1_10000","choose":{"list":[101],"ring":15,"index":0}})
+aa('get_my_card',{"landid":1449731763,"gameid":"1_10000","type":"server_game"})
+aa('pk_main',{"landid":1449731763,"gameid":"1_10000","choose":{"list":[101],"ring":1}})
+aa('get_my_card',{"landid":1449731763,"gameid":"1_10000","type":"main_game"})
+aa('main_kill',{"landid":1449731763,"gameid":"1_10000","kill":1})
+aa('main_award',{"landid":1449731763,"gameid":"1_10000"})
+aa('get_day_game',{"serverid":1})
+aa('pk_day_game',{"landid":1449731763,"gameid":"1_10000","choose":{"list":[201],"ring":5},"level":1})
+aa('friend_apply',{"landid":1449731763,"gameid":"1_10000","otherid":"1_10001"})
+aa('friend_log',{"landid":1449731763,"gameid":"1_10000","lasttime":0})
+aa('friend_refuse',{"landid":1449731763,"gameid":"1_10000","logid":1})
+aa('friend_pk_get_card',{"landid":1449731763,"gameid":"1_10000","otherid":"1_10001"})
+aa('get_other_info',{"serverid":1,"otherid":"1_10000"})
+aa('friend_pk_ask',{"landid":1449731763,"gameid":"1_10000","choose":{"list":[103],"ring":1},"otherid":"1_10001","isequal":true})
+
+aa('pk_result',{"team1":{"list":[103],"ring":{"id":1},"fight":3},"isequal":true,"team2":{"list":[103],"ring":{"id":1},"fight":3}})
+
+aa('get_rank',{"rank_type":1})
+aa('create_rank',{"serverid":1})
+
+aa('add_user_server',{"serverid":1,"id":10000,"password":"111111"})
+
+http://172.17.196.195:90/game/_create_db.php?serverid=1
+http://172.17.196.195:90/user/_create_db.php?serverid=1
+http://qxu1606510485.my3w.com/game/_create_db.php?serverid=1
+http://qxu1606510485.my3w.com/user/_create_db.php?serverid=1
+http://172.17.196.195:90/test.php
+
+http://172.17.196.195:90/new_index.php
+http://qxu1606510485.my3w.com/new_index.php
+
+
+
+
+
+aa('friend_log',{"landid":1449732148,"gameid":"1_10001","lasttime":0})
+aa('friend_refuse',{"landid":1449732148,"gameid":"1_10001","logid":2})
+aa('friend_agree',{"landid":1449732148,"gameid":"1_10001","logid":1})
+aa('friend_delete',{"landid":1449732148,"gameid":"1_10001","otherid":"1_10005"})
+aa('friend_list',{"landid":1449732148,"gameid":"1_10001","friends":[],"lasttime":0})
+aa('friend_pk_answer',{"landid":1449732148,"gameid":"1_10001","choose":{"list":[103],"ring":1},"logid":1})
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
