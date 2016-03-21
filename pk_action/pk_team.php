@@ -2,6 +2,7 @@
 class Team{
 	public $ring=1;	//令牌（召唤者技能）
 	public $ringLevel=1;	//令牌等级（召唤者技能等级）	
+	public $ringLevelAdd=0;	//令牌等级增加值
 	public $teamPlayer;//通用技能发送者(召唤者)
 	public $stopRing;//令牌技能无效
 	public $monsterBase;//备份怪物的战斗数据，用于传去客户端
@@ -98,6 +99,8 @@ class Team{
 	//重置战斗数据  
 	function resetPKData(){
 		global $pkData,$monster_base;
+		$this->ringLevelAdd = 0;
+		
 		$this->tArr = array();
 		$this->stopRing = false;
 		
@@ -170,10 +173,10 @@ class Team{
 		if($this->ring && !$this->stopRing)
 		{
 			$ringData = $ring_base[$this->ring];
-			$level = $ringData['begin'] + $this->ringLevel*$ringData['step'];
+			$level = $ringData['begin'] + ($this->ringLevel + $this->ringLevelAdd)*$ringData['step'];
 			
 			$otherRingData = $ring_base[$this->enemy->ring];
-			$otherLevel = $otherRingData['begin'] + $this->enemy->ringLevel*$otherRingData['step'];
+			$otherLevel = $otherRingData['begin'] + ($this->enemy->ringLevel + $this->enemy->ringLevelAdd)*$otherRingData['step'];
 			
 			if(!$this->enemy->stopRing && $this->enemy->ring == 13)//13令牌克制（减去对应等级）
 			{

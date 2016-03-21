@@ -149,7 +149,7 @@
 				$this->skillAction->user->atkhp = $add;
 				if(!$this->skillAction->skillData->type)
 				{
-					$this->skillAction->enemy->testTSkill('BEATK',$this->skillAction->user);
+					$this->skillAction->enemy->testTSkill('sm_50',$this->skillAction->user);
 					$this->skillAction->user->testStat2(-$add);
 				}
 			}	

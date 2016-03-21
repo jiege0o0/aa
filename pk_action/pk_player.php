@@ -7,7 +7,7 @@ class player{
 	public $atk;		
 	public $mp;	
 	
-	public $action1 = 0;//可以攻击
+	public $action1 = 0;//可以攻击(当不可以攻击时，小技也不能用)
 	public $action2 = 0;//可以小技
 	public $action3 = 0;//可以大技
 	public $action4 = 0;//特性技能
@@ -41,7 +41,7 @@ class player{
 
 	//
 	public $stat1 = 0;//魔免
-	public $stat2 = 0;//吸血
+	public $stat2 = 0;//吸血量
 	public $stat3 = 0;//比对方血少伤害加强
 	public $stat4 = 0;//比对方血多伤害加强
 	public $stat5 = 0;//破盾，无视对方防御
@@ -51,10 +51,12 @@ class player{
 	public $stat9 = 0;//unUse
 	public $stat10 = 0;//unUse
 	
-	public $atkhp = 0;//就是这次攻击造成的伤害，在双方身上
-	public $temp1 = 0;//人身上的临时变量
-	public $temp2 = 0;//人身上的临时变量
-	public $temp3 = 0;//人身上的临时变量
+	public $temp = 0;
+	
+	// public $atkhp = 0;//就是这次攻击造成的伤害，在双方身上
+	// public $temp1 = 0;//人身上的临时变量
+	// public $temp2 = 0;//人身上的临时变量
+	// public $temp3 = 0;//人身上的临时变量
 	
 	public $pkRound = 0;//参与PK的回合计数
 	public $haveSetCDCount = false;//已经计算过回合行动数据
@@ -65,7 +67,7 @@ class player{
 	public $joinRound = 0;//加入战斗时的回合
 	public $pos = 0;//在队伍中的位置
 	public $lastStatKey;
-	public $statKey = array('atk','speed','maxHp','action1','action2','action3','action4','action5','hurt','def','cdhp',
+	public $statKey = array('atk','speed','maxHp','action1','action2','action3','action4','action5','hurt','def','cdhp','healAdd'
 	'stat1','stat2','stat3','stat4','stat5','stat6','stat7','stat8','stat9','stat10');
 	
 		
@@ -222,8 +224,8 @@ class player{
 		$this->restrain = 0;
 		$this->unRestrain = 0;
 		$this->cdhp = 0;
-		$this->temp1 = 0;
-		$this->temp2 = 0;
+		// $this->temp1 = 0;
+		// $this->temp2 = 0;
 		
 		$this->haveSetCDCount = false;
 		
@@ -289,7 +291,7 @@ class player{
 	}
 	
 	//测试特性技能是否触发
-	function testTSkill($type,$other=null){
+	function testTSkill($type,$data=null){
 		global $pkData;
 		if(!$this->team->tArr[$type])
 			return;
@@ -305,7 +307,17 @@ class player{
 					continue;	
 				if($skillData->owner->action4 != 0 || $skillData->owner->action5 != 0)
 					continue;
-				array_push($pkData->tArray,$skillData);
+					
+				if(!in_array($skillData,$pkData->tArray))//一回合只能触发一次特性，相同的会被合并(数值上)	
+				{
+					$skillData->tData = $data;
+					array_push($pkData->tArray,$skillData);
+				}
+				else if($data)
+				{
+					$skillData->tData += $data;
+				}
+				
 			}
 		}
 	}
@@ -342,7 +354,7 @@ class player{
 			if(!$value->type && $value->actionCount <= 0)//可使用
 			{
 				// trace($value->actionCount);
-				if($this->action2 <= 0 && $this->action5 <= 0)
+				if($this->action2 <= 0 && $this->action5 <= 0 && $this->action1 <= 0)
 				{
 					array_push($arr,$value);
 				}
@@ -363,9 +375,9 @@ class player{
 	}	
 	//加入技能状态
 	function addState($user,$statObj,$round){
-		if($this->stat1 > 0 && $user->teamID != $this->teamID)//魔免状态下，回合结束时会清除所有异常
+		if($this->stat1 > 0 && $user->teamID != $this->teamID)//魔免状态下，会清除所有异常
 		{
-			$round = 1;
+			$round = 0;
 		}
 		
 		$statObj['cd'] = $round;
@@ -376,8 +388,41 @@ class player{
 				$this->tag[$statObj['tag']] = 0;
 			$this->tag[$statObj['tag']] ++;
 		}
+		
+		if(!$statObj['stopTag'])
+		{
+			$this->setStateTag($statObj);
+		}
+		
 		array_push($this->statCountArr,$statObj);
+		if($round == 0)
+			$this->testStateCD(0);
 		$this->testOutStat();
+	}
+	
+	//通过节点改变Tag
+	function setStateTag($statObj,$num = 1)
+	{
+		$len=count($this->statKey);	
+		for($i=0;$i<$len;$i++)
+		{
+			$key = $this->statKey[$i];
+			if($statObj[$key])
+			{
+				if($statObj[$key] > 0)
+				{
+					if(!$this->tag[$i])
+						$this->tag[$i] = 0;
+					$this->tag[$i] += $num;
+				}
+				else
+				{
+					if(!$this->tag[$i + 30])
+						$this->tag[$i + 30] = 0;
+					$this->tag[$i + 30] += $num;
+				}
+			}
+		}
 	}
 	
 	//玩家已经行动过了
@@ -431,10 +476,15 @@ class player{
 					}
 				}
 				//设标签
+				if(!$this->statCountArr[$i]['stopTag'])
+				{
+					$this->setStateTag($this->statCountArr[$i],-1);
+				}
 				if($this->statCountArr[$i]['tag'])
 				{
 					$this->tag[$this->statCountArr[$i]['tag']] --;
 				}
+				
 				array_splice($this->statCountArr,$i,1);	
 				$i--;
 				$len--;	
@@ -512,7 +562,7 @@ class player{
 			$this->hp = 0;				
 			
 		if($this->hp > 0)	
-			$this->testTSkill('HP',$this->hp);
+			$this->testTSkill('HP');
 		else
 		{
 			$this->testTSkill('DIE');

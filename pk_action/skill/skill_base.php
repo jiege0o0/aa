@@ -20,6 +20,8 @@
 		public $ringLevel = 0;
 		
 		
+		public $tData//特性触发时传入的值
+		
 		function __construct(){
 			$this->reInit();
 			if($this->type)
@@ -72,7 +74,7 @@
 			
 			if($user->teamID != $target->teamID)
 			{
-				$target->testTSkill('BEATK');
+				$target->testTSkill('BEATK',$value);
 			}
 			
 			return $value;
@@ -80,7 +82,7 @@
 		
 		//A结B加血
 		function addHp($user,$target,$value,$isMax=false,$forever=false){
-		
+			global $pkData;
 			$value = round(max(1,$value));
 			$value = pk_healHP($user,$target,$value);
 			if($isMax)
@@ -95,9 +97,12 @@
 			$this->setSkillEffect($target,pk_skillType('HP',$value));
 			
 			if(!$this->type)//不是特性加血，会触发事件
-			{
-				$user->testTSkill('HEAL',$target);
-				$target->testTSkill('BEHEAL',$user);
+			{			
+				$user->testTSkill('HEAL',$value);
+				$target->testTSkill('BEHEAL',$value);
+				//有治疗情况发生
+				$pkData->playArr1[0]->testTSkill('SHEAL',$value);
+				$pkData->playArr2[0]->testTSkill('SHEAL',$value);
 			}
 			
 			return $value;
@@ -122,12 +127,45 @@
 			if($value > 0)
 				$value = round(max(1,$value));
 			else
+			{
 				$value = -round(max(1,-$value));
+				if($target->atk < -$value)//攻击力不能少于0
+					$value = -$target->atk + 1; 
+			}
+				
 			$target->atk += $value;
 			if($forever)
 				$target->add_atk += $value;
 			$this->setSkillEffect($target,pk_skillType('ATK',$value));
 			
+			return $value;
+		}
+		
+		//加魔
+		function addMp($user,$target,$value){
+			$target->mp += $value;
+			$this->setSkillEffect($target,pk_skillType('MP',$value));
+			return $value;
+		}
+		
+		//加盾
+		function addDef($user,$target,$value){
+			$target->def += $value;
+			$this->setSkillEffect($target);
+			return $value;
+		}
+		
+		//加伤
+		function addHurt($user,$target,$value){
+			$target->hurt += $value;
+			$this->setSkillEffect($target);
+			return $value;
+		}	
+
+		//加每次行动血量改变
+		function addcdhp($user,$target,$value){
+			$target->cdhp += $value;
+			$this->setSkillEffect($target);
 			return $value;
 		}
 		

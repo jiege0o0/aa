@@ -1,7 +1,7 @@
 <?php
 	require_once($filePath."pk_action/skill_value_fun.php");
 	require_once($filePath."pk_action/skill_action_fun.php");
-	//特性类型 SKILL1(普攻),SKILL2（小技）,SKILL3（大技）,SKILL4（所有）,BEATK,DIE,BEHEAL,HEAL,HP,BEFORE,AFTER,STAT
+	//特性类型 SKILL1(普攻),SKILL2（小技）,SKILL3（大技）,SKILL4（所有）,BEATK,DIE,BEHEAL,HEAL,SHEAL(双方有治疗产生)HP,BEFORE,AFTER,STAT
 	$Skill_SAT = array(	//技能缩写
 			"HP"=>'1',
 			"SPD"=>'2',
@@ -38,10 +38,16 @@
 	
 	//根据技能ID实例化技能
 	function pk_decodeSkill($skillClass){
-		if(!class_exists($skillClass))
+		$arr = split('#',$skillClass);
+		if(!class_exists($arr[0]))
 			return null;
-		$refl = new ReflectionClass($skillClass);
-		return $refl->newInstance();
+		$refl = new ReflectionClass($arr[0]);
+		$vo = $refl->newInstance();
+		if($arr[1])
+		{
+			$vo->tData = (int)$arr[1];
+		}
+		return $vo;
 	}
 	
 	//加载技能数据
@@ -122,7 +128,7 @@
 		
 		
 		if($play2->hp > 0)
-			$play2->testTSkill('BEATK',$play1);
+			$play2->testTSkill('BEATK',$hp);
 			
 		$play1->testStat2(-$hp);
 		

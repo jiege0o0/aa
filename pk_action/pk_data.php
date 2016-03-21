@@ -134,7 +134,7 @@ class PKData{//主要记录一些PK中的数据
 		$this->team1->beforePK();
 		$this->team2->beforePK();
 		
-		
+
 		
 		// trace('---------------------------2');
 		// trace(count($this->team1->teamPlayer->skillArr));
@@ -262,6 +262,8 @@ class PKData{//主要记录一些PK中的数据
 		if(!$this->outDetail)
 			return;
 		$len = count($this->skillRecord);
+		$addMV = false;
+		$out8 = false;
 		if($len > 0)
 		{
 			$this->out_changeFrom($this->skillUser);//转换攻击者
@@ -273,8 +275,21 @@ class PKData{//主要记录一些PK中的数据
 				if($this->skillRecord[$i][1])
 					$this->out_changeTo($this->skillRecord[$i][1]);//转换被攻击者
 				if($this->skillRecord[$i][2])
-					$this->out_str('8'.$this->skillRecord[$i][2]);
+				{
+					if($this->skillRecord[$i][2] == '61')
+					{
+						$addMV = true;
+					}
+					else
+					{
+						$this->out_str('8'.$this->skillRecord[$i][2]);
+						$out8 = true;
+					}
+				}	
 			}
+			if($addMV && !$out8)
+				$this->out_str('8'.'61');
+			
 			$this->out_str('9');//技能结束
 		}
 		$this->skillRecord = array();

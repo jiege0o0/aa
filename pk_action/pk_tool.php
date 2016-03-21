@@ -105,6 +105,16 @@
 		}
 	}
 	
+	//编码压缩数据
+	function pkEncode($data){
+		
+	}
+	
+	//对数据进行解码还原
+	function pkDecode($data){
+		
+	}
+	
 	
 	
 	
