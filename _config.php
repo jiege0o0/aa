@@ -1,5 +1,6 @@
 <?php
 	$serverID = 1;
+	
 	$sql_url = "127.0.0.1";
 	$sql_user = "root";	
 	$sql_password = "111111";	
