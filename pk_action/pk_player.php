@@ -67,7 +67,7 @@ class player{
 	public $joinRound = 0;//加入战斗时的回合
 	public $pos = 0;//在队伍中的位置
 	public $lastStatKey;
-	public $statKey = array('atk','speed','maxHp','action1','action2','action3','action4','action5','hurt','def','cdhp','healAdd'
+	public $statKey = array('atk','speed','maxHp','action1','action2','action3','action4','action5','hurt','def','cdhp','healAdd',
 	'stat1','stat2','stat3','stat4','stat5','stat6','stat7','stat8','stat9','stat10');
 	
 		

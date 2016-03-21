@@ -20,7 +20,7 @@
 		public $ringLevel = 0;
 		
 		
-		public $tData//特性触发时传入的值
+		public $tData;//特性触发时传入的值
 		
 		function __construct(){
 			$this->reInit();
