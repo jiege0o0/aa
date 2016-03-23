@@ -27,6 +27,7 @@ server_game_equal Text,
 main_game Text,
 day_game Text,
 honor Text,
+active Text,
 land_key varchar(63),
 last_land INT UNSIGNED
 )",$connect)or die("message=F,Invalid query: " . mysql_error()); 

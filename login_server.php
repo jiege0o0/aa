@@ -17,6 +17,7 @@
 		unset($userData->collect->num);
 		$userData->collect->isred = $userData->collectIsRed();//初始红点
 		
+		
 		$userData->honor = new stdClass();
 		$userData->honor->isred = $userData->honorIsRed();
 		
@@ -28,6 +29,12 @@
 			$userData->server_game->pkdata = 1;
 		if($userData->server_game_equal->pkdata)
 			$userData->server_game_equal->pkdata = 1;
+			
+		if($userData->server_game->enemy && $userData->server_game->enemy->pkdata)
+			unset($userData->server_game->enemy->pkdata);
+			
+		if($userData->server_game_equal->enemy && $userData->server_game_equal->enemy->pkdata)
+			unset($userData->server_game_equal->enemy->pkdata);
 
 		$returnData->data = $userData;
 	}

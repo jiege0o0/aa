@@ -16,8 +16,8 @@
 	
 	//取PK所对应的表，如果没有，则生成
 	function testPKTable($pkType,$pkLevel){
-		global $conne;
-		$tableName = $pkType;
+		global $conne,$sql_table;
+		$tableName = $sql_table.$pkType;
 		$sql = "SHOW TABLES LIKE '".$tableName."_".$pkLevel."'";
 		if(!$conne->getRowsNum($sql))//没这个表
 		{
@@ -85,23 +85,23 @@
 	//完成等级任务
 	function testLevelTask($type,$result){
 		global $userData,$returnData;
-		if($userData->honor->task->doing  && $userData->honor->task->type = $type)
+		if($userData->active->task->doing  && $userData->active->task->type = $type)
 		{
 			if($result)
-				$userData->honor->task->win ++;
-			$userData->honor->task->total ++;
-			if($userData->honor->task->win == $userData->honor->task->targetwin)
+				$userData->active->task->win ++;
+			$userData->active->task->total ++;
+			if($userData->active->task->win == $userData->active->task->targetwin)
 			{
-				$returnData->honor_task_award = $userData->honor->task->award;
-				$userData->honor->task->doing = false;
-				$userData->addAwardForce($userData->honor->task->award);
+				$returnData->honor_task_award = $userData->active->task->award;
+				$userData->active->task->doing = false;
+				$userData->addAwardForce($userData->active->task->award);
 			}
-			else if($userData->honor->task->targettotal - $userData->honor->task->total < $userData->honor->task->targetwin - $userData->honor->task->win)
+			else if($userData->active->task->targettotal - $userData->active->task->total < $userData->active->task->targetwin - $userData->active->task->win)
 			{//可打的场数< 要胜的场数
-				$userData->honor->task->doing = false;
+				$userData->active->task->doing = false;
 			}
-			$returnData->sync_honor_task = $userData->honor->task;
-			$userData->setChangeKey('honor');
+			$returnData->sync_active_task = $userData->active->task;
+			$userData->setChangeKey('active');
 		}
 	}
 	

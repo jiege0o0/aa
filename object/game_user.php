@@ -35,8 +35,8 @@ class GameUser{
 		$this->coin = (int)$data['coin'];
 		
 
-		$this->server_game = $this->decode($data['server_game'],'{"choose":null,"exp":0,"win":0,"total":0,"last":0,"time":0,"pkdata":null,"enemy":null,pk:0}');
-		$this->server_game_equal = $this->decode($data['server_game_equal'],'{"choose":null,"exp":0,"win":0,"total":0,"last":0,"max":0,"time":0,"pkdata":null,"enemy":null,pk:0}');
+		$this->server_game = $this->decode($data['server_game'],'{"choose":null,"exp":0,"win":0,"total":0,"last":0,"time":0,"pkdata":null,"enemy":null,"pk":0}');
+		$this->server_game_equal = $this->decode($data['server_game_equal'],'{"choose":null,"exp":0,"win":0,"total":0,"last":0,"max":0,"time":0,"pkdata":null,"enemy":null,"pk":0}');
 		$this->main_game = $this->decode($data['main_game'],'{"choose":null,"level":1,"kill":[],"awardtime":0,"time":0,"pkdata":null}');
 
 		
@@ -47,11 +47,12 @@ class GameUser{
 		$this->tec = $this->decode($data['tec'],'{"main":{},"ring":{},"monster":{}}');
 		$this->collect = $this->decode($data['collect'],'{"level":{},"num":{}}');//碎片合成等级	
 		$this->day_game = $this->decode($data['day_game'],'{"level":0,"lasttime":0,"times":0,"pkdata":null}');
-		$this->honor = $this->decode($data['honor'],'{"monster":{},"ring":{},"task":{}}');
+		$this->honor = $this->decode($data['honor'],'{"monster":{},"ring":{}}');
 		$this->prop = $this->decode($data['prop']);
 		$this->energy = $this->decode($data['energy'],'{"v":0,"t":0,"rmb":0}');
 		$this->diamond = $this->decode($data['diamond'],'{"free":0,"rmb":0}');
 		$this->friends = $this->decode($data['friends'],'{"v":0,"t":0,"tk":0}');//好友相关
+		$this->active = $this->decode($data['active'],'{"task":{}}');//活动
 	}
 	
 	function decode($v,$default = null){
@@ -211,21 +212,21 @@ class GameUser{
 			{
 				if($this->level== 5 || $this->level== 8 || $this->level>= 10)//创建升级任务
 				{
-					if(!$this->honor->task->doing)//是否有进行中的任务
+					if(!$this->active->task->doing)//是否有进行中的任务
 					{
-						$this->honor->task->doing = true;
-						$this->honor->task->type = 'server_game';
+						$this->active->task->doing = true;
+						$this->active->task->type = 'server_game';
 						if($this->level >=10 && lcg_value()>0.6)
 						{
-							$this->honor->task->type = 'server_game_equal';
+							$this->active->task->type = 'server_game_equal';
 						}
-						$this->honor->task->win = 0;
-						$this->honor->task->total = 0;
-						$this->honor->task->targettotal = rand(10,50);
-						$this->honor->task->targetwin = round($this->honor->task->targettotal*rand(5,8)/10);
-						$this->honor->task->award = 1 + ceil($this->level/10);
-						$this->setChangeKey('honor');
-						$returnData->sync_honor_task = $this->honor->task;
+						$this->active->task->win = 0;
+						$this->active->task->total = 0;
+						$this->active->task->targettotal = rand(10,50);
+						$this->active->task->targetwin = round($this->active->task->targettotal*rand(5,8)/10);
+						$this->active->task->award = 1 + ceil($this->level/10);
+						$this->setChangeKey('task');
+						$returnData->sync_active_task = $this->active->task;
 					}
 				}
 			}
@@ -362,7 +363,7 @@ class GameUser{
 				return $key."=".$value;
 		}
 		
-		global $conne,$msg,$sendData;
+		global $conne,$msg,$sendData,$sql_table;
 		$arr = array();
 		
 		if($this->changeKey['level'] || $this->changeKey['tec'])//会影响战力
@@ -401,6 +402,8 @@ class GameUser{
 			array_push($arr,addKey('diamond',$this->diamond,true));
 		if($this->changeKey['friends'])
 			array_push($arr,addKey('friends',$this->friends,true));
+		if($this->changeKey['active'])
+			array_push($arr,addKey('active',$this->active,true));
 			
 			
 			
@@ -408,8 +411,8 @@ class GameUser{
 			return true;
 			
 			
-		$sql = "update user_data set ".join(",",$arr)." where gameid='".$msg->gameid."'";
-		// debug($sql);
+		$sql = "update ".$sql_table."user_data set ".join(",",$arr)." where gameid='".$msg->gameid."'";
+		 debug($sql);
 		if(!$conne->uidRst($sql))//写用户数据失败
 		{
 			$sendData->error = 4;

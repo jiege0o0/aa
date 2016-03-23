@@ -27,7 +27,7 @@
 		//---------------------更新战斗池---------------
 		if($userData->server_game_equal->pk == 0 && ($result || $changeFightDataValue->cost < 20))//用了80的才正常
 		{
-			$enemyAdd = 5;
+			$enemyAdd = 3;
 			$team1Data->fight += $enemyAdd;//知道了对方的卡牌，要增加对方实力才能平衡
 			$tableName = $sql_table.$pkType."_".$pkLevel;
 			unset($team1Data->teamID);
@@ -41,6 +41,8 @@
 			$saveData->userinfo->force = $userData->tec_force + $userData->award_force;
 			$saveData->userinfo->win = $userData->server_game_equal->win;
 			$saveData->userinfo->total = $userData->server_game_equal->total;
+			$saveData->userinfo->exp = $userData->server_game_equal->exp;
+			$saveData->userinfo->gameid = $userData->gameid;
 			
 	
 			//更新战斗表

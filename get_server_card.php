@@ -36,7 +36,6 @@
 			//取对手---------------------------------
 			require_once($filePath."pk_action/pk_tool.php");
 			//创键对应表（如果不存在）
-			$pkType = 'server_game';
 			$pkLevel = getPKTableLevel($userData->server_game->exp);
 			if(!testPKTable($pkType,$pkLevel))
 			{
@@ -69,8 +68,6 @@
 			$team2Data = json_decode($result['game_data']);
 			$team2Data->id = $result['id'];
 			$team2Data->last_time = $result['last_time'];
-			
-			
 			
 			
 			$userData->{$pkType}->choose = $choose;
