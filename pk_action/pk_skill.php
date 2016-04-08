@@ -12,6 +12,7 @@
 			
 			
 	);
+	$skillPool = array();
 
 	function pk_skillType($type,$v){
 		global $Skill_SAT;
@@ -41,8 +42,20 @@
 		$arr = split('#',$skillClass);
 		if(!class_exists($arr[0]))
 			return null;
-		$refl = new ReflectionClass($arr[0]);
-		$vo = $refl->newInstance();
+		global $skillPool; 
+		if($skillPool[$skillClass] && count($skillPool[$skillClass])>0)
+		{
+			$vo = array_pop($skillPool[$skillClass]);
+			$vo->reInit();
+			// trace('use--'.$skillClass);
+		}
+		else
+		{
+			$refl = new ReflectionClass($arr[0]);
+			$vo = $refl->newInstance();
+			// trace('new--'.$skillClass);
+		}
+		
 		if($arr[1])
 		{
 			$vo->tData = (int)$arr[1];
@@ -54,6 +67,26 @@
 	function pk_requireSkill($monsterID){
 		global $filePath;
 		require_once($filePath."pk_action/skill/ms".$monsterID.".php");
+	}
+	
+	//把技能放回去，已备重用
+	function pk_freeSkill($skill){
+		if(!$skill)
+			return;
+		$name = $skill->name;
+		if(!$name)
+			return;
+		global $skillPool; 
+		if(!$skillPool[$name])
+			$skillPool[$name] = array();
+		// trace($name.'--'.count($skillPool[$name]));
+		if(in_array($skill, $skillPool[$name],true))
+		{
+			throw new Exception("xxxxxx!".$skill->owner->id);
+			return;
+		}
+			
+		array_push($skillPool[$name],$skill);
 	}
 	
 	

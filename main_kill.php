@@ -12,7 +12,7 @@
 			break;
 		}
 		
-		if(in_array($killIndex,$userData->main_game->kill))//已杀死
+		if(in_array($killIndex,$userData->main_game->kill,true))//已杀死
 		{
 			$returnData->fail = 2;
 			$returnData->sync_main_game = new stdClass();

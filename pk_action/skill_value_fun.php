@@ -34,7 +34,7 @@
 		//出战的怪物性格
 		function KIND($v){
 			if($v)
-				return in_array($v,$this->self->monsterData['kind']);
+				return in_array($v,$this->self->monsterData['kind'],true);
 			return $this->self->monsterData['kind'];
 		}
 		
@@ -145,7 +145,7 @@
 		//出战的怪物性格
 		function EKIND($v){
 			if($v)
-				return in_array($v,$this->enemy->monsterData['kind']);
+				return in_array($v,$this->enemy->monsterData['kind'],true);
 			return $this->enemy->monsterData['kind'];
 		}
 		

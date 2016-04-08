@@ -147,11 +147,11 @@ class PKData{//主要记录一些PK中的数据
 		$addEnemy = false;
 		foreach($user->monsterData['effect_kind'] as $value)
 		{
-			if(!$addSelf && in_array($value,$self->monsterData['kind']))
+			if(!$addSelf && in_array($value,$self->monsterData['kind'],true))
 			{
 				$addSelf = true;
 			}
-			if(!$addEnemy && in_array($value,$enemy->monsterData['kind']))
+			if(!$addEnemy && in_array($value,$enemy->monsterData['kind'],true))
 			{
 				$addEnemy = true;
 			}
@@ -163,6 +163,7 @@ class PKData{//主要记录一些PK中的数据
 			$temp->addEnemy = $addEnemy;
 			$temp->index = 53;
 			$temp->owner = $user;
+			array_push($user->skillArrCD0,$temp);
 			array_push($this->tArray,$temp);
 		}
 	}
@@ -206,6 +207,10 @@ class PKData{//主要记录一些PK中的数据
 				$result->w = $player1->teamID;
 				$result->hp = min($player1->hp,$player1->base_hp + $player1->add_hp);
 			}
+			if($player1->hp == 0)
+				$player1->freeSkill();
+			if($player2->hp == 0)
+				$player2->freeSkill();
 			return $result;
 		}
 		return false;

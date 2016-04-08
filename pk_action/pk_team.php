@@ -77,9 +77,17 @@ class Team{
 					if($temp && $temp->leader)
 					{
 						if($temp->once && $skill[$player->monsterID.'_'.$j])//只能有一个生效的技能
+						{
+							pk_freeSkill($temp);
 							continue;
+						}
+							
 						array_push($this->totalPKAction,$temp);
 						$skill[$player->monsterID.'_'.$j] = true;
+					}
+					else
+					{
+						pk_freeSkill($temp);
 					}
 				}	
 				
@@ -143,16 +151,23 @@ class Team{
 	
 		//填充nextPKAction;
 		$newArray = array();//新的totalPKAction
+		
+		foreach($this->nextPKAction as $key=>$value)
+		{
+			if (in_array($value, $this->totalPKAction,true))
+				continue;
+			pk_freeSkill($value);
+		}
 		$this->nextPKAction = array();
 		
 		foreach($this->totalPKAction as $key=>$value)
 		{
 			$value->lRound --;
+			array_push($this->nextPKAction,$value);
 			if($value->lRound > 0)
 			{
 				array_push($newArray,$value);
 			}
-			array_push($this->nextPKAction,$value);
 		}		
 		$this->totalPKAction = $newArray;
 	}
@@ -198,9 +213,11 @@ class Team{
 				$skill->index = $skillIndex;
 				$skill->ringLevel = $level;
 				
+				
 				if($skill->cd == 0)
 				{
 					array_push($pkData->tArray,$skill);
+					array_push($this->teamPlayer->skillArrCD0,$skill);
 				}
 				else 
 				{
@@ -251,7 +268,7 @@ class Team{
 		$arr = array();
 		for($i=0;$i<$len;$i++)
 		{
-			array_push($arr,get_class($this->nextPKAction[$i]));
+			array_push($arr,$this->nextPKAction[$i]->name);
 		}
 		$oo->ac = $arr;
 		// $oo->ti = $this->teamInfo;

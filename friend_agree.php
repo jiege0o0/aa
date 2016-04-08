@@ -101,7 +101,7 @@
 			$info->{$addid} = $otherInfo; 	
 				
 			//写用户数据
-			if(!in_array($addid,$friends))//没加过
+			if(!in_array($addid,$friends,true))//没加过
 			{
 				array_push($friends,$addid);
 				$sql = "update ".$sql_table."user_friend set friends='".join(',',$friends)."',friends_info='".json_encode($info)."' where gameid='".$gameid."'";

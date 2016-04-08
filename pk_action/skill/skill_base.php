@@ -23,9 +23,8 @@
 		public $tData;//特性触发时传入的值
 		
 		function __construct(){
+			$this->name = get_class($this);
 			$this->reInit();
-			if($this->type)
-				$this->actionCount = 0;
 		}
 		
 		//技能是否能使用
@@ -36,6 +35,10 @@
 		//重新赋值
 		function reInit(){
 			$this->actionCount = $this->cd - 1;//比如CD为1的话，一来就可以用了
+			$this->disabled = false;
+			$this->tData = null;
+			if($this->type)
+				$this->actionCount = 0;
 		}
 		
 		//作用技能效果

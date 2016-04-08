@@ -10,12 +10,12 @@
 		$wood = 1;
 		$repeatNum = array();
 		
-		if(!in_array($data->ring,$fromList->ring))
+		if(!in_array($data->ring,$fromList->ring,true))
 			return 101;//没这个令牌
 		foreach($data->list as $key=>$value)
 		{
 		
-			if(!in_array($value,$fromList->list))
+			if(!in_array($value,$fromList->list,true))
 			{
 				return 106;//没这个宠物
 			}
@@ -50,6 +50,8 @@
 	function getTecAdd($type,$level=0){
 		if(!$level)
 			return 0;
+		if($type == 'speed')
+			return ceil($level/3);
 		if($type == 'main')
 			return $level;
 		if($type == 'monster')
@@ -130,11 +132,11 @@
 			$outData->tec = new stdClass();
 				
 			//开始计算基础加成
-			//通用   13攻击，14血量，15速度，1-12对应属性加强（12个，攻血速同加）
-			$comment = array('hp'=>$force,'atk'=>$force,'spd'=>$force);
-			$comment['atk'] += getTecAdd($userData->tec->main->{'13'});
-			$comment['hp'] += getTecAdd($userData->tec->main->{'14'});
-			$comment['spd'] += getTecAdd($userData->tec->main->{'15'});
+			//通用   13攻击，14血量，15速度，1-12对应属性加强（12个，攻血同加）
+			$comment = array('hp'=>$force,'atk'=>$force,'spd'=>0);
+			$comment['atk'] += getTecAdd('main',$userData->tec->main->{'13'});
+			$comment['hp'] += getTecAdd('main',$userData->tec->main->{'14'});
+			$comment['spd'] += getTecAdd('main',$userData->tec->main->{'15'});
 				
 			
 			for($i=0;$i<$len;$i++)
@@ -148,7 +150,7 @@
 					$typeAdd = getTecAdd('main',$userData->tec->main->{$vo['type']});
 					$outData->tec->{$monsterID}->hp = $comment['hp'] + $add + $typeAdd;
 					$outData->tec->{$monsterID}->atk = $comment['atk'] + $add + $typeAdd;
-					$outData->tec->{$monsterID}->spd = $comment['spd'] + $add + $typeAdd;
+					$outData->tec->{$monsterID}->spd = $comment['spd']// + $addSpeed + $typeAddSpeed; 不加成速度了
 				}
 			}
 		}
@@ -165,7 +167,13 @@
 			$offset=array_search($monsterID,$data->list);
 			// $outData->index->{$monsterID} = $offset;
 			if($userData->getCollectLevel($monsterID) == 4)
-				$outData->fight += 2;
+			{
+				if($monster_base[$monsterID]['wood'])
+					$outData->fight += 5;
+				else
+					$outData->fight += 2;
+			}
+				
 		}
 		if(count($monsterNum)*2 > $len)
 			$outData->fight -= 8;

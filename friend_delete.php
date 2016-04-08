@@ -32,7 +32,7 @@
 				return true;
 	
 			//写用户数据
-			if(in_array($addid,$friends))//加过
+			if(in_array($addid,$friends,true))//加过
 			{
 				if($myFriendData['friends_info'])
 					$info = json_decode($myFriendData['friends_info']);

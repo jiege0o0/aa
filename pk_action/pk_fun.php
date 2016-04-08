@@ -11,7 +11,7 @@
 		global $monster_kind;
 		$type1 = $a->monsterData['type'];
 		$type2 = $b->monsterData['type'];
-		return in_array($type2,$monster_kind[$type1]['restrain']);
+		return in_array($type2,$monster_kind[$type1]['restrain'],true);
 	}
 	
 	

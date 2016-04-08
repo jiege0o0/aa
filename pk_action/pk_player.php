@@ -38,6 +38,7 @@ class player{
 	public $actionCount = 0;//出手次数，满60次必胜
 	public $statCountArr = array();//状态回合计算
 	public $skillArr = array();//可选择的技能
+	public $skillArrCD0 = array();//开始就用了的技能
 
 	//
 	public $stat1 = 0;//魔免
@@ -94,7 +95,7 @@ class player{
 			$add = new stdClass();
 			$add->hp = 300;
 			$add->atk = 300;
-			$add->spd = 300;
+			$add->spd = 0;
 		}
 		else if(!$add)
 		{
@@ -125,7 +126,7 @@ class player{
 		{
 			$this->base_hp = round($this->base_hp * (1+$fight/100));
 			$this->base_atk = round($this->base_atk * (1+$fight/100));
-			$this->base_speed = round($this->base_speed * (1+$fight/100));
+			// $this->base_speed = round($this->base_speed * (1+$fight/100));
 		}
 		
 		$this->add_hp = 0;
@@ -229,23 +230,42 @@ class player{
 		
 		$this->haveSetCDCount = false;
 		
+		$this->freeSkill();
 		
 		$this->lastStatKey = '';
+		$this->skill = null;
 		$this->skillArr = array();
+		$this->skillArrCD0 = array();
 		$this->tag = array();
 	}
+	
+	//清除Skill的引用
+	function freeSkill(){
+		pk_freeSkill($this->skill);
+		foreach($this->skillArr as $key=>$value)
+		{
+			pk_freeSkill($value);
+		}
+		foreach($this->skillArrCD0 as $key=>$value)
+		{
+			pk_freeSkill($value);
+		}
+	}
+	
 	
 	//进入PK前的最后处理
 	function beforePK(){
 		$this->setTecEffect($this->team->tecLevel);
 
-		$this->skill = pk_monsterSkill($this->monsterID,'0');
-		$this->skill->owner = $this;
-		$this->skill->index = 0;
-		$this->skill->isMain = true;
+
 		
 		if($this->isPKing)
 		{
+			$this->skill = pk_monsterSkill($this->monsterID,'0');
+			$this->skill->owner = $this;
+			$this->skill->index = 0;
+			$this->skill->isMain = true;
+			
 			$this->addSkill(1,'1');
 			$this->addSkill(2,'2');
 			$this->addSkill(3,'3');
@@ -275,6 +295,7 @@ class player{
 			if($temp->cd == 0)//PK前执行
 			{
 				array_push($pkData->tArray,$temp);
+				array_push($this->skillArrCD0,$temp);
 			}
 			else 
 			{
@@ -308,7 +329,7 @@ class player{
 				if($skillData->owner->action4 != 0 || $skillData->owner->action5 != 0)
 					continue;
 					
-				if(!in_array($skillData,$pkData->tArray))//一回合只能触发一次特性，相同的会被合并(数值上)	
+				if(!in_array($skillData,$pkData->tArray,true))//一回合只能触发一次特性，相同的会被合并(数值上)	
 				{
 					$skillData->tData = $data;
 					array_push($pkData->tArray,$skillData);
