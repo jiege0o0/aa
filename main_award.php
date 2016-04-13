@@ -1,11 +1,11 @@
 <?php 
 	require_once($filePath."pk_action/pk_tool.php");
 	do{
-		if(isSameDate($userData->main_game->award))
+		if(isSameDate($userData->main_game->awardtime))
 		{	
 			$returnData->fail = 1;
 			$returnData->sync_main_game = new stdClass();
-			$returnData->sync_main_game->award = $userData->main_game->award;
+			$returnData->sync_main_game->awardtime = $userData->main_game->awardtime;
 			break;
 		}
 		
@@ -47,9 +47,9 @@
 		}
 		$userData->addCoin($award->coin);
 		$userData->addExp($award->exp);
-		$userData->main_game->award = time();
+		$userData->main_game->awardtime = time();
 		$returnData->sync_main_game = new stdClass();
-		$returnData->sync_main_game->award = $userData->main_game->award;
+		$returnData->sync_main_game->awardtime = $userData->main_game->awardtime;
 		$userData->setChangeKey('main_game');
 		$userData->write2DB();		
 

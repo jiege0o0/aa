@@ -19,7 +19,7 @@
 		}
 		if($returnData->fail)
 			break;
-		
+		$returnData->num = $count*3;
 		$userData->addProp(22,$count*3);
 		$userData->write2DB();	
 	}while(false);

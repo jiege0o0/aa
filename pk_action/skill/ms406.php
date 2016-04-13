@@ -18,11 +18,14 @@
 	}
 	
 	//ÌØ£ºHP<50%Ê±£¬¹¥»÷+30%
-	class sm_406_1 extends SkillBase{
+	class sm_406_2 extends SkillBase{
 		public $type = 'HP';
 		public $once = true;
+		function canUse($user,$self=null,$enemy=null){
+			return $self->getHpRate() < 0.5;
+		}
 		function action($user,$self,$enemy){
-			$this->decAtk($user,$self,$self->base_atk*0.3);
+			$this->addAtk($user,$self,$self->base_atk*0.3);
 		}
 	}
 	

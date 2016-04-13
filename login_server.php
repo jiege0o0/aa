@@ -14,8 +14,8 @@
 		$userData = new GameUser($userData);
 		
 		//简化用户数据
-		unset($userData->collect->num);
-		$userData->collect->isred = $userData->collectIsRed();//初始红点
+		// unset($userData->collect->num);
+		// $userData->collect->isred = $userData->collectIsRed();//初始红点
 		
 		
 		$userData->honor = new stdClass();

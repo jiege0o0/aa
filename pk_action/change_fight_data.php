@@ -57,7 +57,7 @@
 		if($type == 'monster')
 		{
 			$count = 0;
-			for($i=1;$i<=$level;$level ++)
+			for($i=1;$i<=$level;$i ++)
 			{
 				$count += ceil(($i + 1)/10); 
 			}
@@ -150,7 +150,7 @@
 					$typeAdd = getTecAdd('main',$userData->tec->main->{$vo['type']});
 					$outData->tec->{$monsterID}->hp = $comment['hp'] + $add + $typeAdd;
 					$outData->tec->{$monsterID}->atk = $comment['atk'] + $add + $typeAdd;
-					$outData->tec->{$monsterID}->spd = $comment['spd']// + $addSpeed + $typeAddSpeed; 不加成速度了
+					$outData->tec->{$monsterID}->spd = $comment['spd'];// + $addSpeed + $typeAddSpeed; 不加成速度了
 				}
 			}
 		}

@@ -38,6 +38,7 @@ class GameUser{
 		$this->server_game = $this->decode($data['server_game'],'{"choose":null,"exp":0,"win":0,"total":0,"last":0,"time":0,"pkdata":null,"enemy":null,"pk":0}');
 		$this->server_game_equal = $this->decode($data['server_game_equal'],'{"choose":null,"exp":0,"win":0,"total":0,"last":0,"max":0,"time":0,"pkdata":null,"enemy":null,"pk":0}');
 		$this->main_game = $this->decode($data['main_game'],'{"choose":null,"level":1,"kill":[],"awardtime":0,"time":0,"pkdata":null}');
+		$this->pk_common = $this->decode($data['pk_common'],'{"history":[]}');
 
 		
 		if($isOther)
@@ -45,7 +46,7 @@ class GameUser{
 		$this->next_exp = $this->getNextExp();
 		$this->land_key = $data['land_key'];	
 		$this->tec = $this->decode($data['tec'],'{"main":{},"ring":{},"monster":{}}');
-		$this->collect = $this->decode($data['collect'],'{"level":{},"num":{}}');//碎片合成等级	
+		$this->collect = $this->decode($data['collect'],'{"level":{},"num":{},"lock":[]}');//碎片合成等级	
 		$this->day_game = $this->decode($data['day_game'],'{"level":0,"lasttime":0,"times":0,"pkdata":null}');
 		$this->honor = $this->decode($data['honor'],'{"monster":{},"ring":{}}');
 		$this->prop = $this->decode($data['prop']);
@@ -311,6 +312,9 @@ class GameUser{
 			$returnData->sync_collect_num = new stdClass();
 		}
 		$returnData->sync_collect_num->{$id} = $this->collect->num->{$id};
+		
+		if(!$this->collect->num->{$id})
+			unset($this->collect->num->{$id});
 	}
 	
 	//取怪物星星等级
@@ -350,6 +354,15 @@ class GameUser{
 			$count += $value;
 		}
 		return $count;
+	}
+	
+	//记录最近一次PK数据
+	function addHistory($list){
+		array_unshift($this->pk_common->history,join(",",$list));
+		while(count($this->pk_common->history) > 20)
+		{
+			array_pop($this->pk_common->history);
+		}
 	}
 	
 	
@@ -403,7 +416,9 @@ class GameUser{
 		if($this->changeKey['friends'])
 			array_push($arr,addKey('friends',$this->friends,true));
 		if($this->changeKey['active'])
-			array_push($arr,addKey('active',$this->active,true));
+			array_push($arr,addKey('active',$this->active,true));	
+		if($this->changeKey['pk_common'])
+			array_push($arr,addKey('pk_common',$this->pk_common,true));
 			
 			
 			

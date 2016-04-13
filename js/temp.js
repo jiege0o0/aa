@@ -40,8 +40,10 @@ http://qxu1606510485.my3w.com/game/_create_db.php?serverid=1
 http://qxu1606510485.my3w.com/user/_create_db.php?serverid=1
 http://172.17.196.195:90/test.php
 
+http://172.17.196.195:90/test.php
+
 http://172.17.196.195:90/new_index.php
-http://qxu1606510485.my3w.com/new_index.php
+http://hangegame.com/new_index.php
 
 {"isagain":false,"landid":1458716565,"gameid":"1_10011"}
 

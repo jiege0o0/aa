@@ -10,7 +10,7 @@
 		}
 	}
 	
-	//小技：120%，CD2
+	//小技：120%，CD3
 	class sm_303_1 extends SkillBase{
 		public $cd = 3;
 		function action($user,$self,$enemy){

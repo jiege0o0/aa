@@ -4,6 +4,8 @@ $connect=mysql_connect($sql_url,$sql_user,$sql_password)or die('message=F,Could 
 mysql_select_db($sql_db,$connect)or die('Could not select database'); 
 mysql_query("set names utf8");
 
+//ALTER TABLE `no1_user_data` ADD `pk_common` TEXT
+
 
 mysql_query("
 Create TABLE ".$sql_table."user_data(
@@ -28,6 +30,7 @@ main_game Text,
 day_game Text,
 honor Text,
 active Text,
+pk_common Text,
 land_key varchar(63),
 last_land INT UNSIGNED
 )",$connect)or die("message=F,Invalid query: " . mysql_error()); 
