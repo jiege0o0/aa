@@ -137,5 +137,6 @@
 		{
 			unset($arr[$key]['value2']);
 		}
+		array_unshift($arr,array('time'=>time(),'info'=>true));
 	}
 ?> 

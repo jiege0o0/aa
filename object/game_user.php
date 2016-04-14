@@ -89,12 +89,15 @@ class GameUser{
 		$this->resetEnergy();
 		return $this->energy->v + $this->energy->rmb;
 	}
-	function addEnergy($v){
+	function addEnergy($v,$isRmb=false ){
 		global $returnData;
 		if($v)
 		{
 			$this->resetEnergy();
-			$this->energy->v += $v;
+			if($isRmb)
+				$this->energy->rmb += $v;
+			else	
+				$this->energy->v += $v;
 			if($this->energy->v < 0)
 			{
 				$this->energy->rmb += $this->energy->v;

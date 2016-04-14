@@ -114,6 +114,7 @@
 				
 			$userData->server_game->choose = null;
 			$userData->server_game->enemy = null;
+			$userData->server_game->time = time();
 		}
 		else
 		{
