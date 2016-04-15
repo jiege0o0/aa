@@ -110,7 +110,8 @@ class GameUser{
 	function resetEnergy(){//不是同一天，能量回复为最大值
 		if(!isSameDate($this->energy->t))
 		{
-			$this->energy->v = min(50,$this->energy->v + 30);
+			$add = $this->energy->vip?30:20;
+			$this->energy->v = min(50,$this->energy->v + $add);
 			$this->energy->t = time();
 		}
 	}
@@ -154,7 +155,9 @@ class GameUser{
 		}
 	}
 	//==============================================   end
-	function getDiamond(){
+	function getDiamond($rbm = false){
+		if($rbm)
+			return $this->diamond->rmb;
 		return $this->diamond->free + $this->diamond->rmb;
 	}
 	function addDiamond($v,$rmb = false){

@@ -78,7 +78,7 @@
 			$userData->write2DB();
 			
 			$returnData->choose = $choose;
-			$returnData->enemy = $team2Data->base;
+			$returnData->enemy = $team2Data;
 			$returnData->enemyinfo = $team2Data->userinfo;
 		
 		}
@@ -86,9 +86,10 @@
 		{
 			$returnData->fail = 3;
 			$returnData->choose = $choose;
-			$returnData->enemy = $userData->{$pkType}->enemy->base;
+			$returnData->enemy = $userData->{$pkType}->enemy;
 			$returnData->enemyinfo = $userData->{$pkType}->enemy->userinfo;
 		}
+		unset($returnData->enemy->pkdata);
 	}while(false);
 		
 ?> 

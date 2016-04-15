@@ -44,6 +44,7 @@ http://172.17.196.195:90/test.php
 
 http://172.17.196.195:90/new_index.php
 http://hangegame.com/new_index.php
+http://hangegame.com/game/_create_db.php?serverid=1
 
 {"isagain":false,"landid":1458716565,"gameid":"1_10011"}
 

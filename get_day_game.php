@@ -29,6 +29,14 @@
 				$returnData->fail = 2;
 				break;
 			}
+			$len = count($result);
+			for($i=0;$i<$len;$i++)
+			{
+				$temp = $result[$i]['game_data'];
+				$temp = json_decode($temp);
+				$result[$i] = $temp->pkdata;
+			}
+			
 			require_once($filePath."pk_action/get_pk_card.php");
 			$choose = getPKCard(50);
 			$content = new stdClass();

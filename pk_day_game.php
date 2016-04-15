@@ -50,7 +50,9 @@
 			break;
 		}
 		
-		$team2Data = json_decode($content->levels[$level-1]->game_data);
+		$team2Data = $content->levels[$level-1];
+		if(!$team2Data->fight)
+			$team2Data->fight = 0;
 		$team2Data->fight += ($level-1)*9;
 		$equalPK = true;
 		require_once($filePath."pk_action/pk.php");
