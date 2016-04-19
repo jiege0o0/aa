@@ -36,6 +36,8 @@
 			$returnData->fail = 2;
 			break;
 		}
+		
+		$userData->addFriendTalk(-1);
 		$returnData->data = 'ok';
 	}
 	while(false);

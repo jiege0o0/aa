@@ -6,7 +6,7 @@
 	class sm_205_0 extends SkillBase{
 		function action($user,$self,$enemy){
 			$v = $this->addcdhp($user,$enemy,-0.1*$enemy->maxHp);
-			$enemy->setState($user,array('cdhp'=>$v),3);
+			$enemy->addState($user,array('cdhp'=>$v),3);
 		}
 	}
 	
@@ -23,7 +23,7 @@
 		public $cd=0;
 		function action($user,$self,$enemy){
 			$enemy->action4++;
-			$enemy->setState($user,array('action4'=>1),10);
+			$enemy->addState($user,array('action4'=>1),10);
 			$this->setSkillEffect($enemy);
 		}
 	}

@@ -150,7 +150,7 @@ class GameUser{
 		if(!isSameDate($this->friends->t))
 		{
 			$this->friends->v = max(10,$this->friends->v);
-			$this->friends->tk = max(30,$this->friends->tk);
+			$this->friends->tk = max(50,$this->friends->tk);
 			$this->friends->t = time();
 		}
 	}

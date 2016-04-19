@@ -7,7 +7,7 @@
 		function action($user,$self,$enemy){
 			$this->decHp($user,$enemy,$user->atk*1.5);
 			$enemy->action3 ++;
-			$enemy->setState($user,array('action3'=>1),3);
+			$enemy->addState($user,array('action3'=>1),3);
 		}
 	}
 	
@@ -25,7 +25,7 @@
 		public $cd = 0;
 		function action($user,$self,$enemy){
 			$self->stat1 ++;
-			$self->setState($user,array('stat1'=>1),5);
+			$self->addState($user,array('stat1'=>1),5);
 		}
 	}
 	
@@ -34,7 +34,7 @@
 		public $cd = 5;
 		function action($user,$self,$enemy){
 			$enemy->action3 ++;
-			$enemy->setState($user,array('action3'=>1),3);
+			$enemy->addState($user,array('action3'=>1),3);
 		}
 	}	
 	

@@ -113,11 +113,11 @@ class PKData{//主要记录一些PK中的数据
 		for($i=0;$i<$len;$i++)
 		{
 			$playArr1[$i]->beforePK();
-			//加入种类加成
-			if($i>0)
-			{
-				$this->testKindAdd($playArr1[$i],$playArr1[0],$playArr2[0]);
-			}
+			// 加入种类加成
+			// if($i>0)
+			// {
+				// $this->testKindAdd($playArr1[$i],$playArr1[0],$playArr2[0]);
+			// }
 		}
 		
 		$len = count($playArr2);
@@ -125,10 +125,10 @@ class PKData{//主要记录一些PK中的数据
 		{
 			$playArr2[$i]->beforePK();
 			//加入种类加成
-			if($i>0)
-			{
-				$this->testKindAdd($playArr2[$i],$playArr2[0],$playArr1[0]);
-			}
+			// if($i>0)
+			// {
+				// $this->testKindAdd($playArr2[$i],$playArr2[0],$playArr1[0]);
+			// }
 		}
 		
 		$this->team1->beforePK();
