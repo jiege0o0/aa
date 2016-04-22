@@ -87,7 +87,8 @@ for($i=1;$i<=100;$i++)
 mysql_query("
 Create TABLE ".$sql_table."user_friend(
 gameid varchar(16) PRIMARY KEY,
-friends varchar(8138)
+friends varchar(8138),
+friends_info Text
 )",$connect)or die("message=F,Invalid query: " . mysql_error()); 
 
 mysql_query("

@@ -8,7 +8,7 @@
 			$returnData->fail = 3;
 			break;
 		}
-		$sql = "select nick from user_data where gameid='".$otherid."'";
+		$sql = "select nick from ".$sql_table."user_data where gameid='".$otherid."'";
 		$result = $conne->getRowsRst($sql);
 		if(!$result)//对方不存在	
 		{
@@ -42,13 +42,15 @@
 		$oo = new stdClass();
 		$oo->head = $userData->head;
 		$oo->nick = $userData->nick;
+		$oo->level = $userData->level;
+		$oo->force = $userData->tec_force + $userData->award_force;
 		$oo = json_encode($oo);
 		
 		$time = time();
-		$sql = "update friend_log set time=".$time.",content='".$oo."' where from_gameid='".$userData->gameid."' and to_gameid='".$otherid."' and type=1";
+		$sql = "update ".$sql_table."friend_log set time=".$time.",content='".$oo."' where from_gameid='".$userData->gameid."' and to_gameid='".$otherid."' and type=1";
 		if(!$conne->uidRst($sql))
 		{
-			$sql = "insert into friend_log(from_gameid,to_gameid,type,content,time) values('".$userData->gameid."','".$otherid."',1,'".$oo."',".$time.")";
+			$sql = "insert into ".$sql_table."friend_log(from_gameid,to_gameid,type,content,time) values('".$userData->gameid."','".$otherid."',1,'".$oo."',".$time.")";
 			if(!$conne->uidRst($sql))
 			{
 				$returnData->fail = 2;

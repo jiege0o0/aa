@@ -15,8 +15,9 @@
 		$returnUser = new stdClass();
 		$returnUser->gameid = $otherUser->gameid;
 		$returnUser->nick = $otherUser->nick;
+		$returnUser->head = $otherUser->head;
 		$returnUser->level = $otherUser->level;
-		$returnUser->force = $otherUser->tec_force + award_force;
+		$returnUser->force = $otherUser->tec_force + $otherUser->award_force;
 		$returnUser->server_game = array('exp'=>$otherUser->server_game->exp,'win'=>$otherUser->server_game->win,'total'=>$otherUser->server_game->total);
 		$returnUser->server_game_equal = array('exp'=>$otherUser->server_game_equal->exp,'win'=>$otherUser->server_game_equal->win,'total'=>$otherUser->server_game_equal->total,'max'=>$otherUser->server_game_equal->max);
 		$returnUser->main_game = array('level'=>$otherUser->main_game->level);

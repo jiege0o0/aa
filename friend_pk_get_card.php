@@ -27,17 +27,18 @@
 			
 			if(!$result)//没数据库
 			{
-				$sql = "insert into friend_together(friend_key,".$chooseKey.") values('".$friendKey."','".json_encode($choose)."')";
+				$sql = "insert into ".$sql_table."friend_together(friend_key,".$chooseKey.") values('".$friendKey."','".json_encode($choose)."')";
 			}
 			else
 			{
-				$sql = "update friend_together set ".$chooseKey."='".json_encode($choose)."' where friend_key = '".$friendKey."'";
+				$sql = "update ".$sql_table."friend_together set ".$chooseKey."='".json_encode($choose)."' where friend_key = '".$friendKey."'";
 			}
 			
 			
 			
 			if(!$conne->uidRst($sql))//写数据库失败
 			{
+				debug($sql);
 				$returnData->fail =2;
 				break;
 			}

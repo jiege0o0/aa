@@ -7,7 +7,6 @@
 		if(!$result)	
 		{
 			$returnData->fail = 1;
-			debug($sql);
 			break;
 		}
 		$returnData->data = 'ok';

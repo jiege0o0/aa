@@ -38,12 +38,12 @@
 			$result2 = $conne->getRowsArray($sql);
 			foreach($result2 as $key=>$value)
 			{
-				$friendInfo[$key] = new stdClass();
-				$friendInfo[$key]->nick = $value['nick'];
-				$friendInfo[$key]->head = $value['head'];
-				$friendInfo[$key]->level = $value['level'];
-				$friendInfo[$key]->force = $value['tec_force'] + $value['award_force'];
-				$friendInfo[$key]->time = $time;
+				$friendInfo->{$key} = new stdClass();
+				$friendInfo->{$key}->nick = $value['nick'];
+				$friendInfo->{$key}->head = $value['head'];
+				$friendInfo->{$key}->level = $value['level'];
+				$friendInfo->{$key}->force = $value['tec_force'] + $value['award_force'];
+				$friendInfo->{$key}->time = $time;
 			}
 			$sql = "update ".$sql_table."user_friend set friends_info='".json_encode($friendInfo)."' where gameid='".$gameid."'";
 			$conne->uidRst($sql);

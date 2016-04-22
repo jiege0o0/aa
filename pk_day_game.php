@@ -115,6 +115,8 @@
 		$userData->addExp($award->exp);
 		$userData->addEnergy(-1);
 		$userData->day_game->pkdata = array("team1"=>$team1Data,"team2"=>$team2Data,"isequal"=>$equalPK);
+		
+		$userData->addHistory($team1Data->list);
 		$userData->setChangeKey('day_game');
 		$userData->write2DB();		
 		

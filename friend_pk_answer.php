@@ -56,7 +56,7 @@
 		
 		//写日志
 		$time = time();
-		$sql = "update friend_log set content='".$content."',time=".$time." where id=".$logid;
+		$sql = "update ".$sql_table."friend_log set content='".$content."',time=".$time." where id=".$logid;
 		if(!$conne->uidRst($sql))
 		{
 			$returnData->fail = 5;
@@ -70,11 +70,11 @@
 			$friendKey = $otherid.$userData->gameid;
 			if($result == 1)
 			{
-				$sql = "update friend_together set win2=win2+1,last_winner='".$userData->gameid."',last_time=".$time." where friend_key = '".$friendKey."'";
+				$sql = "update ".$sql_table."friend_together set win2=win2+1,last_winner='".$userData->gameid."',last_time=".$time." where friend_key = '".$friendKey."'";
 			}
 			else
 			{
-				$sql = "update friend_together set win1=win1+1,last_winner='".$otherid."',last_time=".$time." where friend_key = '".$friendKey."'";
+				$sql = "update ".$sql_table."friend_together set win1=win1+1,last_winner='".$otherid."',last_time=".$time." where friend_key = '".$friendKey."'";
 			}			
 		}
 		else
@@ -82,11 +82,11 @@
 			$friendKey = $userData->gameid.$otherid;
 			if($result == 1)
 			{
-				$sql = "update friend_together set win1=win1+1,last_winner='".$userData->gameid."',last_time=".$time." where friend_key = '".$friendKey."'";
+				$sql = "update ".$sql_table."friend_together set win1=win1+1,last_winner='".$userData->gameid."',last_time=".$time." where friend_key = '".$friendKey."'";
 			}
 			else
 			{
-				$sql = "update friend_together set win2=win2+1,last_winner='".$otherid."',last_time=".$time." where friend_key = '".$friendKey."'";
+				$sql = "update ".$sql_table."friend_together set win2=win2+1,last_winner='".$otherid."',last_time=".$time." where friend_key = '".$friendKey."'";
 			}		
 		}
 		
@@ -95,6 +95,9 @@
 			$returnData->fail = 6;
 			break;
 		}
+		
+		$userData->addHistory($team1Data->list);
+		$userData->write2DB();
 		
 	}
 	while(false);

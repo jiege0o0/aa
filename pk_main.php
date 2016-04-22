@@ -60,6 +60,8 @@
 		$userData->main_game->choose = null;
 		$userData->main_game->pkdata = array("team1"=>$team1Data,"team2"=>$team2Data,"isequal"=>$equalPK);
 		$returnData->sync_main_game->choose = null;
+		
+		$userData->addHistory($team1Data->list);
 		$userData->setChangeKey('main_game');
 		$userData->write2DB();		
 

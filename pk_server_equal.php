@@ -177,7 +177,7 @@
 			$returnData->sync_server_game_equal->enemy = $userData->sync_server_game_equal->enemy;
 		}
 		
-		
+		$userData->addHistory($team1Data->list);
 		$userData->setChangeKey('server_game_equal');
 		$userData->write2DB();				
 		

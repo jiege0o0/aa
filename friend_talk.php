@@ -27,18 +27,21 @@
 		$oo->head = $userData->head;
 		$oo->nick = $userData->nick;
 		$oo->talk = $talk;
+		
 		$oo = json_encode($oo);
 		
 		$time = time();
-		$sql = "insert into friend_log(from_gameid,to_gameid,type,content,time) values('".$userData->gameid."','".$otherid."',3,'".$oo."',".$time.")";
+		$sql = "insert into ".$sql_table."friend_log(from_gameid,to_gameid,type,content,time) values('".$userData->gameid."','".$otherid."',3,'".$oo."',".$time.")";
 		if(!$conne->uidRst($sql))
 		{
 			$returnData->fail = 2;
+			debug($sql);
 			break;
 		}
 		
 		$userData->addFriendTalk(-1);
 		$returnData->data = 'ok';
+		$userData->write2DB();
 	}
 	while(false);
 	

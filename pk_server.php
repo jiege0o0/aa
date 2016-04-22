@@ -145,6 +145,7 @@
 			$returnData->sync_server_game->enemy = $userData->server_game->enemy;
 		}
 		
+		$userData->addHistory($team1Data->list);
 		$userData->setChangeKey('server_game');
 		$userData->write2DB();
 

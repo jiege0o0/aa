@@ -4,6 +4,7 @@
 	require_once($filePath."pk_action/pk_tool.php");
 	do{
 		$otherid = $msg->otherid;
+		$toNick = $msg->othernick;
 		$isEqual = $msg->isequal;
 		if($otherid > $userData->gameid)
 		{
@@ -49,11 +50,13 @@
 		$contentOrg->from_list = $fromList;
 		$contentOrg->ask_choose = $team1Data;
 		$contentOrg->isequal = $isEqual;
+		$contentOrg->fromnick = $userData->nick;
+		$contentOrg->tonick = $toNick;
 		$content = json_encode($contentOrg);
 		
 		//写日志
 		$time = time();
-		$sql = "insert into friend_log(from_gameid,to_gameid,type,content,time) values('".$userData->gameid."','".$otherid."',2,'".$content."',".$time.")";
+		$sql = "insert into ".$sql_table."friend_log(from_gameid,to_gameid,type,content,time) values('".$userData->gameid."','".$otherid."',2,'".$content."',".$time.")";
 		if(!$conne->uidRst($sql))
 		{
 			$returnData->fail = 2;
@@ -70,7 +73,7 @@
 		$data->time = $time;
 		
 		//清数据
-		$sql = "update friend_together set ".$chooseKey."='' where friend_key = '".$friendKey."'";
+		$sql = "update ".$sql_table."friend_together set ".$chooseKey."='' where friend_key = '".$friendKey."'";
 		if(!$conne->uidRst($sql))
 		{
 			$returnData->fail = 3;
@@ -78,6 +81,7 @@
 		}
 		
 			
+		$userData->addHistory($team1Data->list);
 		$userData->addFriendPKTimes(-1);
 		$userData->write2DB();
 		

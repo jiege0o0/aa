@@ -84,7 +84,7 @@
 	
 	//为gameid添加好友
 	function addFriend($gameid,$addid,$otherInfo){
-		global $conne;
+		global $conne,$sql_table;
 		$sql = "select * from ".$sql_table."user_friend where gameid='".$gameid."'";
 		$myFriendData = $conne->getRowsRst($sql);
 		if($myFriendData)
@@ -111,6 +111,8 @@
 		}
 		else
 		{
+			$info = new stdClass();
+			$info->{$addid} = $otherInfo; 	
 			$sql = "insert into ".$sql_table."user_friend(gameid,friends,friends_info) values('".$gameid."','".$addid."','".json_encode($info)."')";
 			return $conne->uidRst($sql);
 		}
