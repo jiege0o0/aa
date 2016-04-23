@@ -39,6 +39,7 @@
 	
 	//根据技能ID实例化技能
 	function pk_decodeSkill($skillClass){
+		// trace($skillClass);
 		$arr = split('#',$skillClass);
 		if(!class_exists($arr[0]))
 			return null;

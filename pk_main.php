@@ -3,9 +3,10 @@
 	require_once($filePath."pk_action/pk_tool.php");
 
 	$myChoose = $msg->choose;
+	debug($myChoose);
 	$team1Data = changePKData($myChoose,'main_game');
 	do{
-		if($team1Data->fail)//玩家牌的数据不对
+		if(property_exists($team1Data,'fail'))//玩家牌的数据不对
 		{
 			$returnData -> fail = $team1Data->fail;
 			break;

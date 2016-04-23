@@ -328,7 +328,7 @@ class GameUser{
 		global $monster_base;
 		$monster = $monster_base[$monsterID];
 		$cLevel = $monster['collect'];
-		if($this->collect->level->{$monsterID})
+		if(isset($this->collect->level->{$monsterID}))
 			$cLevel = max($cLevel,$this->collect->level->{$monsterID});
 		return $cLevel;
 	}

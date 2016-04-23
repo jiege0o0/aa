@@ -1,6 +1,11 @@
 <?php
 	header('Access-Control-Allow-Origin:*');
-	// set_error_handler("customError");
+
+	error_reporting(1|2|4);
+	ini_set('display_errors', '1');
+
+
+	//set_error_handler("customError");
 	// $filePath = dirname(__FILE__).'/game/';
 	require_once($filePath."_config.php");
 	require_once($filePath."tool/tool.php");
@@ -9,13 +14,19 @@
 	
 	function  customError($errno, $errstr, $errfile, $errline)
 	{ 
-		global $_POST,$sendData,$debugC;
+		if($errno == 8192)
+			return;
+		if($errno == 8)
+			return;
+		global $_POST,$sendData,$debugC,$debugArr;
 		errorLog("#".$_POST['head'].$_POST['msg'].$errstr."=>code:".$errstr."=>code:".$errno.'=>file:'.$errfile."=>line:".$errline);//.$errstr."=>code:".$errno'=>file:'.$errfile."=>line:".$errline
 		$sendData->error = 3;
+		$sendData->debug = $debugArr;
 		if($debugC)
 			echo $errstr."=>code:".$errno.'=>file:'.$errfile."=>line:".$errline; 	
+	
 		sendToClient($sendData);			
-		die();
+		// die();
 	}
 
 	$head = $_POST['head'];
@@ -35,7 +46,7 @@
 			}
 			
 			//测试登陆状态,并设定用户数据
-			if($msg->landid && $msg->gameid)
+			if(isset($msg->landid) && isset($msg->gameid))
 			{
 				require_once($filePath."tool/conn.php");
 				require_once($filePath."object/game_user.php");
@@ -122,8 +133,7 @@
 					}				
 					break;
 				}
-			}
-			
+			}		
 			if($debugC){
 				$sendData->runtime = microtime(true) - $startT;
 				$sendData->debug = $debugArr;
@@ -141,7 +151,6 @@
 	{
 		errorLog("#".$_POST['head'].$_POST['msg'].json_encode($returnData));
 		unset($returnData->failDebug);
-	}
-	
+	}	
 	sendToClient($sendData);
 ?>

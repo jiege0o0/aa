@@ -19,7 +19,7 @@
 			{
 				return 106;//没这个宠物
 			}
-			if(!$repeatNum[$value])
+			if(!isset($repeatNum[$value]))
 				$repeatNum[$value] = 0;
 			$repeatNum[$value] ++;
 			if($repeatNum[$value] > 3)//数量过了3个
@@ -84,7 +84,9 @@
 				return $outData;
 			}
 		}
-		
+		if(!property_exists($data,'index'))
+			$data->index = 0;
+
 		if($data->index)
 			$chooseList = $chooseList[$data->index];
 		else 
@@ -116,14 +118,17 @@
 		
 		if(!$isEqual)//计算科技影响
 		{
-			$outData->ring->level = $userData->tec->ring->{$data->ring};
-			if(!$outData->ring->level)
-				$outData->ring->level = 0;
+			$outData->ring->level = 0;
+			if(isset($userData->tec->ring->{$data->ring}))
+				$outData->ring->level = $userData->tec->ring->{$data->ring};
+				
 			// 16伤害增强，17防御增强，18回复增强，19克制加强，20克制压制
 			$outData->stec = new stdClass();//特殊科技（16-20）
 			for($i=16;$i<=20;$i++)
 			{
-				$v = $userData->tec->main->{$i};
+				$v = 0;
+				if(isset($userData->tec->main->{$i}))
+					$v = $userData->tec->main->{$i};
 				if($v)
 					$outData->stec->{'t'.$i} = $v;	
 			}
@@ -134,20 +139,27 @@
 			//开始计算基础加成
 			//通用   13攻击，14血量，15速度，1-12对应属性加强（12个，攻血同加）
 			$comment = array('hp'=>$force,'atk'=>$force,'spd'=>0);
-			$comment['atk'] += getTecAdd('main',$userData->tec->main->{'13'});
-			$comment['hp'] += getTecAdd('main',$userData->tec->main->{'14'});
-			$comment['spd'] += getTecAdd('main',$userData->tec->main->{'15'});
+			if(isset($userData->tec->main->{'13'}))
+				$comment['atk'] += getTecAdd('main',$userData->tec->main->{'13'});
+			if(isset($userData->tec->main->{'14'}))
+				$comment['hp'] += getTecAdd('main',$userData->tec->main->{'14'});
+			if(isset($userData->tec->main->{'15'}))
+				$comment['spd'] += getTecAdd('main',$userData->tec->main->{'15'});
 				
 			
 			for($i=0;$i<$len;$i++)
 			{
 				$monsterID = $data->list[$i];
 				$vo = $monster_base[$monsterID];
-				if(!$outData->tec->{$monsterID})
+				if(!isset($outData->tec->{$monsterID}))
 				{
 					$outData->tec->{$monsterID} = new stdClass();
-					$add = getTecAdd('monster',$userData->tec->monster->{$monsterID});
-					$typeAdd = getTecAdd('main',$userData->tec->main->{$vo['type']});
+					$add = 0;
+					if(isset($userData->tec->monster->{$monsterID}))
+						$add = getTecAdd('monster',$userData->tec->monster->{$monsterID});
+					$typeAdd = 0;
+					if(isset($userData->tec->main->{$vo['type']}))
+						$typeAdd = getTecAdd('main',$userData->tec->main->{$vo['type']});
 					$outData->tec->{$monsterID}->hp = $comment['hp'] + $add + $typeAdd;
 					$outData->tec->{$monsterID}->atk = $comment['atk'] + $add + $typeAdd;
 					$outData->tec->{$monsterID}->spd = $comment['spd'];// + $addSpeed + $typeAddSpeed; 不加成速度了
@@ -161,7 +173,7 @@
 		for($i=0;$i<$len;$i++)
 		{
 			$monsterID = $data->list[$i];
-			if($monsterNum[$monsterID])
+			if(isset($monsterNum[$monsterID]))
 				continue;
 			$monsterNum[$monsterID] = 1;
 			$offset=array_search($monsterID,$data->list);
