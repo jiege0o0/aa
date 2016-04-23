@@ -1,5 +1,5 @@
 <?php 
-	//1战力榜，2等级榜，3过关榜，4server，5server_equal
+	//1战力榜，2等级榜，3过关榜，4server，5server_equal 
 	$file1  = $filePath.'day_rank/rank'.date('Ymd', time()).'_1.txt';//今天的排行榜数据
 	do{
 		if(is_file($file1))//文件已生成,这个罗辑已被其它人触发了
