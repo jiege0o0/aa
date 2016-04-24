@@ -43,7 +43,7 @@
 	}	
 	
 	//¸¨£ºÉËº¦ -5%;
-	class sm_501_f1 extends SkillBase{
+	class sm_501_f2 extends SkillBase{
 		public $cd = 0;
 		function action($user,$self,$enemy){
 			$this->addDef($user,$self,5);

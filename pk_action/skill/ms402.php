@@ -16,7 +16,7 @@
 			$this->decHp($user,$self,$self->hp*0.15,false,false,true);
 			$this->decHp($user,$enemy,$user->atk*1.1);
 			$v = $this->addDef($user,$self,30);
-			$self-addState($user,array('def',$v),2);
+			$self->addState($user,array('def',$v),2);
 		}
 	}
 	

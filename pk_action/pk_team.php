@@ -204,7 +204,7 @@ class Team{
 				$level = min($level,$otherLevel + 1);
 			}
 			
-			if($level > 0)
+			if($level > 0 && $this->ring != 14 && $this->ring != 13)
 			{
 				// $skillDes = $ringData['skill'];
 				// $skillDes = str_replace("VALUE",$level,$skillDes);

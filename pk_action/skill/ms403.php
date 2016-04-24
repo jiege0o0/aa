@@ -39,7 +39,7 @@
 		}
 	}	
 	//¸¨£º40%ÉËº¦£¬CD3
-	class sm_403_f1 extends SkillBase{
+	class sm_403_f2 extends SkillBase{
 		public $cd = 3;
 		function action($user,$self,$enemy){
 			$this->decHp($user,$enemy,$user->atk*0.4);

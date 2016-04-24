@@ -9,9 +9,9 @@
 			{
 				$player = $user->team->currentMonster[$i];
 				$len2 = count($player->skillArr);
-				for($j=0;$j<$len2;$j++)
+				foreach($player->skillArr as $key=>$value)
 				{
-					$player->skillArr[$j]->actionCount = 0;
+					$player->skillArr[$key]->actionCount = 0;
 				}
 			}
 		}

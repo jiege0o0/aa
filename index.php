@@ -1,11 +1,12 @@
 <?php
 	header('Access-Control-Allow-Origin:*');
 
-	error_reporting(1|2|4);
+	// error_reporting(1|2|4|E_COMPILE_ERROR);
+	error_reporting(E_ALL^(E_NOTICE|8192));
 	ini_set('display_errors', '1');
 
 
-	//set_error_handler("customError");
+	// set_error_handler("customError");
 	// $filePath = dirname(__FILE__).'/game/';
 	require_once($filePath."_config.php");
 	require_once($filePath."tool/tool.php");

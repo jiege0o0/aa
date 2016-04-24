@@ -4,7 +4,7 @@
 	//¼¼£º¼Ó¶Ü£¬50%£¬round3
 	class sm_505_0 extends SkillBase{
 		function action($user,$self,$enemy){
-			$v = $this->decDef($user,$self,50);
+			$v = $this->addDef($user,$self,50);
 			$self->addState($user,array('def'=>$v),3);
 		}
 	}
