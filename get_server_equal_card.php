@@ -22,14 +22,21 @@
 				$returnData->fail = 5;
 				break;
 			}
-			else if($userData->{$pkType}->pk = 0)//没打过
+			else if($userData->{$pkType}->pk == 0)//没打过
 			{
 				$returnData->fail = 6;
 				break;
 			}
+			
 			$returnData->choose = $choose;
-			$returnData->enemy = $userData->{$pkType}->enemy->base;
+			$returnData->enemy = $userData->{$pkType}->enemy;
 			$returnData->enemyinfo = $userData->{$pkType}->enemy->userinfo;
+			
+			$userData->{$pkType}->pk = 0;
+			$userData->setChangeKey($pkType);
+			$userData->addEnergy(-$energyCost);
+			$userData->addProp(21,-$propCost);
+			$userData->write2DB();
 		}
 		else if($userData->{$pkType}->pk > 0 || (!$choose || count($choose) == 0))//没有拿过牌
 		{

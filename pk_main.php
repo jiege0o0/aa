@@ -26,7 +26,7 @@
 		{
 			$team2Data->list[$value] = 0;
 		}
-		
+		trace($main_game);
 		require_once($filePath."pk_action/pk.php");
 		addMonsterUse($myChoose,$result);
 		$returnData->sync_main_game = new stdClass();
