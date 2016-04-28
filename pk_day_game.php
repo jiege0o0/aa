@@ -1,5 +1,5 @@
 <?php 
-	$file  = $filePath.'day_game/game'.date('Ymd', time()).'.txt';
+	$file  = $filePath.'day_game/server'.$serverID.'/game'.date('Ymd', time()).'.txt';
 	do{
 		$level = $msg->level;
 		if(!is_file($file))//文件未生成

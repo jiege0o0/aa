@@ -21,8 +21,9 @@
 		
 	//删除好友
 	function deleteFriend($gameid,$addid){
-		global $conne;
+		global $conne,$sql_table;
 		$sql = "select * from ".$sql_table."user_friend where gameid='".$gameid."'";
+		debug($sql);
 		$myFriendData = $conne->getRowsRst($sql);
 		if($myFriendData)
 		{
@@ -43,6 +44,7 @@
 				$index = array_search($addid,$friends);//这里取数组下标
 				array_splice($friends,$index,1);
 				$sql = "update ".$sql_table."user_friend set friends='".join(',',$friends)."',friends_info='".json_encode($info)."' where gameid='".$gameid."'";
+				debug($sql);
 				return $conne->uidRst($sql);
 			}
 			return true;

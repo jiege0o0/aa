@@ -1,6 +1,6 @@
 <?php 
 	//1战力榜，2等级榜，3过关榜，4server，5server_equal 
-	$file1  = $filePath.'day_rank/rank'.date('Ymd', time()).'_1.txt';//今天的排行榜数据
+	$file1  = $filePath.'day_rank/server'.$serverID.'/rank'.date('Ymd', time()).'_1.txt';//今天的排行榜数据
 	do{
 		if(is_file($file1))//文件已生成,这个罗辑已被其它人触发了
 		{
@@ -11,10 +11,10 @@
 		require_once($filePath."tool/conn.php");
 		require_once($filePath."object/game_user.php");
 		
-		$file2  = $filePath.'day_rank/rank'.date('Ymd', time()).'_2.txt';
-		$file3  = $filePath.'day_rank/rank'.date('Ymd', time()).'_3.txt';
-		$file4  = $filePath.'day_rank/rank'.date('Ymd', time()).'_4.txt';
-		$file5  = $filePath.'day_rank/rank'.date('Ymd', time()).'_5.txt';
+		$file2  = $filePath.'day_rank/server'.$serverID.'/rank'.date('Ymd', time()).'_2.txt';
+		$file3  = $filePath.'day_rank/server'.$serverID.'/rank'.date('Ymd', time()).'_3.txt';
+		$file4  = $filePath.'day_rank/server'.$serverID.'/rank'.date('Ymd', time()).'_4.txt';
+		$file5  = $filePath.'day_rank/server'.$serverID.'/rank'.date('Ymd', time()).'_5.txt';
 		file_put_contents($file1,'',LOCK_EX);
 		file_put_contents($file2,'',LOCK_EX);
 		file_put_contents($file3,'',LOCK_EX);
@@ -34,7 +34,6 @@
 		{
 			$sql = "select * from ".$sql_table."user_data where uid>=".$index." and uid<".($index + $step)."";
 			$result = $conne->getRowsArray($sql);
-			$conne->close_rst();
 			if(!$result || count($result)==0)//已处理完
 			{
 				$returnData->data = 'ok';	
@@ -70,6 +69,7 @@
 				usleep($des*1000);
 				$t = microtime(true);
 			}
+			$conne->close_rst();
 		}
 		
 		deleteValue2($arr1);
