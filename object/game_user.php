@@ -234,6 +234,7 @@ class GameUser{
 						$this->active->task->award = 1 + ceil($this->level/10);
 						$this->setChangeKey('task');
 						$returnData->sync_active_task = $this->active->task;
+						$returnData->new_task = true;
 					}
 				}
 			}
@@ -369,6 +370,7 @@ class GameUser{
 		{
 			array_pop($this->pk_common->history);
 		}
+		$this->setChangeKey('pk_common');
 	}
 	
 	

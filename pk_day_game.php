@@ -55,6 +55,10 @@
 			$team2Data->fight = 0;
 		$team2Data->fight += ($level-1)*9;
 		$equalPK = true;
+		
+		$pkUserInfo = new stdClass();
+		$pkUserInfo->level = $level;
+		
 		require_once($filePath."pk_action/pk.php");
 		addMonsterUse($myChoose,$result);
 		$returnData->sync_day_game = new stdClass();
@@ -93,10 +97,10 @@
 				$propNum -- ;
 			}
 			
-			if($userData->day_game->level >= 5 && $userData->day_game->level%2 == 1)
-			{
-				tempAddProp(21);
-			}
+			// if($userData->day_game->level >= 5 && $userData->day_game->level%2 == 1)
+			// {
+				// tempAddProp(21);
+			// }
 			
 			if($userData->day_game->level == 10)
 				$userData->day_game->times ++;
@@ -114,7 +118,7 @@
 		$userData->addCoin($award->coin);
 		$userData->addExp($award->exp);
 		$userData->addEnergy(-1);
-		$userData->day_game->pkdata = array("team1"=>$team1Data,"team2"=>$team2Data,"isequal"=>$equalPK);
+		$userData->day_game->pkdata = array("team1"=>$team1Data,"team2"=>$team2Data,"isequal"=>$equalPK,"info"=>$pkUserInfo);
 		
 		$userData->addHistory($team1Data->list);
 		$userData->setChangeKey('day_game');

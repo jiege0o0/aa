@@ -21,14 +21,25 @@
 		
 		$team2Data = $userData->server_game_equal->enemy->pkdata;
 		
+		$pkUserInfo = new stdClass();
+		if($userData->server_game_equal->enemy->userinfo)
+		{
+			$pkUserInfo->nick = $userData->server_game_equal->enemy->userinfo->nick;
+			$pkUserInfo->head = $userData->server_game_equal->enemy->userinfo->head;
+			$pkUserInfo->gameid = $userData->server_game_equal->enemy->userinfo->gameid;
+		}
+		
 		$equalPK = true;
+		
+		$enemyAdd = $userData->server_game_equal->last;
+		$team1Data->fight += $enemyAdd;//知道了对方的卡牌，要增加对方实力才能平衡
 		require_once($filePath."pk_action/pk.php");
+		$team1Data->fight -= $enemyAdd;//知道了对方的卡牌，要增加对方实力才能平衡
 		
 		//---------------------更新战斗池---------------
-		if($userData->server_game_equal->pk == 0 && ($result || $changeFightDataValue->cost < 20))//用了80的才正常
+		if($userData->server_game_equal->pk == 0 && ($result || $changeFightDataValue->cost < 20))//用了80以上的才正常
 		{
-			$enemyAdd = 3;
-			$team1Data->fight += $enemyAdd;//知道了对方的卡牌，要增加对方实力才能平衡
+			
 			$tableName = $sql_table.$pkType."_".$pkLevel;
 			unset($team1Data->teamID);
 			$saveData = new stdClass();
@@ -66,7 +77,7 @@
 				}
 			}
 			
-			$team1Data->fight -= $enemyAdd;//知道了对方的卡牌，要增加对方实力才能平衡
+			
 		}
 		
 		
@@ -168,7 +179,7 @@
 		$userData->server_game_equal->exp += $award->g_exp;
 		$userData->server_game_equal->pk += 1;
 		
-		$userData->server_game_equal->pkdata = array("team1"=>$team1Data,"team2"=>$team2Data,"isequal"=>$equalPK);
+		$userData->server_game_equal->pkdata = array("team1"=>$team1Data,"team2"=>$team2Data,"isequal"=>$equalPK,"info"=>$pkUserInfo);
 		$returnData->sync_server_game_equal->exp = $userData->server_game_equal->exp;
 		
 		if(!$userData->sync_server_game_equal->choose)

@@ -1,7 +1,8 @@
 <?php
 	require_once($filePath."pk_action/skill_value_fun.php");
 	require_once($filePath."pk_action/skill_action_fun.php");
-	//特性类型 SKILL1(普攻),SKILL2（小技）,SKILL3（大技）,SKILL4（所有）,BEATK,DIE,BEHEAL,HEAL,SHEAL(双方有治疗产生)HP,BEFORE,AFTER,STAT
+	//特性类型 SKILL1(普攻),SKILL2（小技）,SKILL3（大技）,SKILL4（所有）,DIE,BEHEAL,HEAL,SHEAL(双方有治疗产生)HP,BEFORE,AFTER,STAT,
+	//ATK(对对方造成伤害)，BEATK(被对方造成伤害),
 	$Skill_SAT = array(	//技能缩写
 			"HP"=>'1',
 			"SPD"=>'2',
@@ -115,7 +116,7 @@
 			$pkData->addSkillMV($user,$user,pk_skillType('MP',$PKConfig->skillMP));
 		}	
 		
-		$b = $skillData->action($user,$self,$enemy);	
+		$b = $skillData->actionSkill($user,$self,$enemy);	
 		
 
 		$pkData->endSkillMV($skillData->index);		
@@ -163,6 +164,9 @@
 		
 		if($play2->hp > 0)
 			$play2->testTSkill('BEATK',$hp);
+		if($play1->isPKing)
+			$play1->testTSkill('ATK',$hp);
+			
 			
 		$play1->testStat2(-$hp);
 		

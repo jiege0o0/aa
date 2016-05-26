@@ -5,6 +5,7 @@
 	do{
 		$otherid = $msg->otherid;
 		$toNick = $msg->othernick;
+		$toHead = $msg->otherhead;
 		$isEqual = $msg->isequal;
 		if($otherid > $userData->gameid)
 		{
@@ -52,6 +53,8 @@
 		$contentOrg->isequal = $isEqual;
 		$contentOrg->fromnick = $userData->nick;
 		$contentOrg->tonick = $toNick;
+		$contentOrg->fromhead = $userData->head;
+		$contentOrg->tohead = $toHead;
 		$content = json_encode($contentOrg);
 		
 		//写日志

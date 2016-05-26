@@ -3,6 +3,7 @@
 		public $owner;//技能所有者
 		public $index=0;//技能ID
 		public $isMain = false;//是否能量技能
+		public $isAtk = false;//攻击型技能，被打者会加MP
 		public $actionCount = 0;//大于0表示CD中
 		public $disabled = false;//技能有没有效
 	
@@ -30,6 +31,16 @@
 		//技能是否能使用
 		function canUse($user,$self=null,$enemy=null){
 			return true;
+		}
+		
+		function actionSkill($user,$self,$enemy){
+			global $pkData,$PKConfig;
+			$this->action($user,$self,$enemy);
+			if($this->isAtk)
+			{
+				$enemy->addMp($PKConfig->defMP);
+				$pkData->addSkillMV(null,$enemy,pk_skillType('MP',$PKConfig->defMP));	
+			}
 		}
 		
 		//重新赋值
@@ -75,9 +86,12 @@
 			$target->addHp($value);
 			$this->setSkillEffect($target,pk_skillType('HP',$value));
 			
-			if($user->teamID != $target->teamID)
+			if(!$this->type && $user->teamID != $target->teamID)
 			{
-				$target->testTSkill('BEATK',$value);
+				if($target->hp > 0)
+					$target->testTSkill('BEATK',$value);
+				if($user->isPKing)
+					$user->testTSkill('ATK',$value);
 			}
 			
 			return $value;

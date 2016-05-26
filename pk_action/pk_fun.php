@@ -2,9 +2,9 @@
 	$PKConfig = new stdClass();
 	$PKConfig->skillMP = 100;
 	$PKConfig->maxMP = 150;
-	$PKConfig->actionRound = 30;
-	$PKConfig->atkMP = 15;
-	$PKConfig->defMP = 10;
+	$PKConfig->actionRound = 20;
+	$PKConfig->atkMP = 10;
+	$PKConfig->defMP = 6;
 	
 	//A是否克制B
 	function isRestrain($a,$b){
@@ -176,6 +176,13 @@
 		{
 			pk_kill($user,$enemy);
 		}
+		
+		//真正死
+		if($self->hp <= 0)
+			$self->testTSkill('REALDIE');
+		if($enemy->hp <= 0)
+			$enemy->testTSkill('REALDIE');
+		$pkData->dealTArray();//特性生效
 		
 		$user->setRoundEffect();
 		if($haveSkill || $haveAction || $user->isPKing)

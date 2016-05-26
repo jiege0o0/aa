@@ -46,6 +46,15 @@
 		}
 		
 		$equalPK = $isEqual;
+		$pkUserInfo = new stdClass();
+		$pkUserInfo->fromnick = $content->fromnick;
+		$pkUserInfo->fromhead = $content->fromhead;
+		$pkUserInfo->fromgameid = $logResult['from_gameid'];
+		$pkUserInfo->tonick = $content->tonick;
+		$pkUserInfo->tohead = $content->tohead;
+		$pkUserInfo->togameid = $logResult['to_gameid'];
+
+		
 		require_once($filePath."pk_action/pk.php");
 		
 		$content->answer_choose = $team1Data;

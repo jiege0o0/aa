@@ -2,7 +2,7 @@
 	require_once($filePath."cache/monster.php");
 	$changeFightDataValue = new stdClass();
 	//合法性检测
-	function isMonsterDataError($data,$fromList){
+	function isMonsterDataError($data,$fromList,$isEqual){
 		//$data：{list:[],ring:1}
 		//$fromList{"list":[102,302,501,203,105,107,307,104,502,101],"ring":[1,16]}
 		global $monster_base,$userData,$changeFightDataValue;
@@ -26,7 +26,10 @@
 				return 102;
 			$monster = $monster_base[$value];
 			//收集的宠物
-			$cLevel = $userData->getCollectLevel($value);
+			if($isEqual)
+				$cLevel = max(1,$monster['collect']);
+			else
+				$cLevel = $userData->getCollectLevel($value);
 			if($repeatNum[$value] > $cLevel)//超过可出战的碎片宠物
 			{
 				return 103;
@@ -100,7 +103,7 @@
 		
 		
 		
-		$error = isMonsterDataError($data,$chooseList);
+		$error = isMonsterDataError($data,$chooseList,$isEqual);
 		if($error)
 		{
 			$outData->fail = $error;

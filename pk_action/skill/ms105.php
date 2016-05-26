@@ -20,10 +20,10 @@
 	class sm_105_2 extends SkillBase{
 		public $type = 'DIE';
 		function action($user,$self,$enemy){
-			$this->addLeaderSkill($user,'sm_105_d1');
+			$this->addLeaderSkill($user,'sm_105_ds1');
 		}
 	}
-	class sm_105_d1 extends SkillBase{
+	class sm_105_ds1 extends SkillBase{
 		public $cd = 0;
 		function action($user,$self,$enemy){
 			$this->addSpeed($user,$self,$self->base_speed*0.3,true);

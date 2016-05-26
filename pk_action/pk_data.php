@@ -281,7 +281,7 @@ class PKData{//主要记录一些PK中的数据
 					$this->out_changeTo($this->skillRecord[$i][1]);//转换被攻击者
 				if($this->skillRecord[$i][2])
 				{
-					if($this->skillRecord[$i][2] == '61')
+					if($this->skillRecord[$i][2] == '61')//MV（6）改变值为1
 					{
 						$addMV = true;
 					}

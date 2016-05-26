@@ -32,10 +32,10 @@
 	class sm_402_3 extends SkillBase{
 		public $type='DIE';
 		function action($user,$self,$enemy){
-			$this->addLeaderSkill($user,'sm_402_d3');
+			$this->addLeaderSkill($user,'sm_402_ds3');
 		}
 	}
-	class sm_402_d3 extends SkillBase{
+	class sm_402_ds3 extends SkillBase{
 		public $cd = 0;
 		function action($user,$self,$enemy){
 			$this->addAtk($user,$self,$self->base_atk*0.3);

@@ -15,6 +15,9 @@
 		$level = $userData->main_game->level;
 		require_once($filePath."cache/main_game".ceil($level/100).".php");
 		
+		$pkUserInfo = new stdClass();
+		$pkUserInfo->level = $level;
+		
 		
 		$team2Data = new stdClass();
 		$team2Data->list = $main_game[$level]['list'];
@@ -58,7 +61,7 @@
 		$userData->addCoin($award->coin);
 		$userData->addExp($award->exp);
 		$userData->main_game->choose = null;
-		$userData->main_game->pkdata = array("team1"=>$team1Data,"team2"=>$team2Data,"isequal"=>$equalPK);
+		$userData->main_game->pkdata = array("team1"=>$team1Data,"team2"=>$team2Data,"isequal"=>$equalPK,"info"=>$pkUserInfo);
 		$returnData->sync_main_game->choose = null;
 		
 		$userData->addHistory($team1Data->list);

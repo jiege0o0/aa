@@ -15,12 +15,12 @@
 			return false;
 		if($monster['collect'] == 0 && $recordData['c'] >=2)
 			return false;
-		if($monster['cost'] >= 40)
+		if($monster['cost'] >= 20)
 		{
 			if($recordData['p3'] >=4)
 				return false;
 		}
-		else if($monster['cost'] >= 20)
+		else if($monster['cost'] >= 10)
 		{
 			if($recordData['p2'] >=4)
 				return false;
@@ -40,9 +40,9 @@
 			$recordData['w'] ++;
 		if($monster['collect'] == 0)
 			$recordData['c'] ++;
-		if($monster['cost'] >= 40)
+		if($monster['cost'] >= 20)
 			$recordData['p3'] ++;
-		else if($monster['cost'] >= 20)
+		else if($monster['cost'] >= 10)
 			$recordData['p2'] ++;
 		else
 			$recordData['p1'] ++;

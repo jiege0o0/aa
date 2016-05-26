@@ -101,6 +101,7 @@
 				$userData->active->task->doing = false;
 			}
 			$returnData->sync_active_task = $userData->active->task;
+			$returnData->finish_task = true;
 			$userData->setChangeKey('active');
 		}
 	}

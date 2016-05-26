@@ -20,10 +20,10 @@
 	class sm_507_2 extends SkillBase{
 		public $type = 'DIE';
 		function action($user,$self,$enemy){
-			$this->addLeaderSkill($user,'sm_507_d2#'.(round($user->maxHp*0.2)));
+			$this->addLeaderSkill($user,'sm_507_ds2#'.(round($user->maxHp*0.2)));
 		}
 	}
-	class sm_507_d2 extends SkillBase{
+	class sm_507_ds2 extends SkillBase{
 		public $cd = 0;
 		function action($user,$self,$enemy){
 			$this->addHp($user,$self,$this->tData,true);

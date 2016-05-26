@@ -42,7 +42,7 @@ class player{
 
 	//
 	public $stat1 = 0;//魔免
-	public $stat2 = 0;//吸血量
+	public $stat2 = 0;//吸血百分比
 	public $stat3 = 0;//比对方血少伤害加强
 	public $stat4 = 0;//比对方血多伤害加强
 	public $stat5 = 0;//破盾，无视对方防御
@@ -68,8 +68,8 @@ class player{
 	public $joinRound = 0;//加入战斗时的回合
 	public $pos = 0;//在队伍中的位置
 	public $lastStatKey;
-	public $statKey = array('atk','speed','maxHp','action1','action2','action3','action4','action5','hurt','def','cdhp','healAdd',
-	'stat1','stat2','stat3','stat4','stat5','stat6','stat7','stat8','stat9','stat10');
+	public $statKey = array('stat1','stat2','stat3','stat4','stat5','stat6','stat7','stat8','stat9','stat10',
+	'atk','speed','maxHp','action1','action2','action3','action4','action5','hurt','def','cdhp','healAdd');
 	
 		
 	//初始化类
@@ -403,14 +403,14 @@ class player{
 		
 		$statObj['cd'] = $round;
 		$statObj['userTeamID'] = $user->teamID; 
-		if($statObj['tag'])
+		if($statObj['tag'])//主动加的标记
 		{
 			if(!$this->tag[$statObj['tag']])
 				$this->tag[$statObj['tag']] = 0;
 			$this->tag[$statObj['tag']] ++;
 		}
 		
-		if(!$statObj['stopTag'])
+		if(!$statObj['stopTag'])//停止自动标记
 		{
 			$this->setStateTag($statObj);
 		}
@@ -506,10 +506,23 @@ class player{
 					$this->tag[$this->statCountArr[$i]['tag']] --;
 				}
 				
+				//效果结束时执行的逻辑
+				if($this->statCountArr[$i]['ac_end'])
+				{
+					$this->statCountArr[$i]['skillObj']->onEnd($this->statCountArr[$i]['skillValue']);
+				}
+				
 				array_splice($this->statCountArr,$i,1);	
 				$i--;
 				$len--;	
 				$b = true;
+			}
+			else //效果中执行的逻辑
+			{
+				if($this->statCountArr[$i]['ac_round'])
+				{
+					$this->statCountArr[$i]['skillObj']->onRound($this->statCountArr[$i]['skillValue']);
+				}
 			}
 		}
 		return $b;
@@ -524,14 +537,20 @@ class player{
 		if(!$pkData->outDetail)
 			return;
 
-		$statKey = '';
+		$statKey = '';//自动状态
+		$statKey2 = '';//手动状态
 		foreach($this->tag as $key=>$value)
 		{
 			if($value)
 			{
-				$statKey .= numToStr($key);
+				if($key < 100)
+					$statKey .= numToStr($key);
+				else
+					$statKey2 .= numToStr($key - 100);
 			}
 		}
+		if($statKey2)
+			$statKey .= '|'.$statKey2;
 		
 		if($this->lastStatKey == $statKey)//状态有改变
 			return;
