@@ -12,6 +12,8 @@
 		
 		if(!in_array($data->ring,$fromList->ring,true))
 			return 101;//没这个令牌
+		if(count($data->list) > 8)
+			return 107;//总数量不对
 		foreach($data->list as $key=>$value)
 		{
 		

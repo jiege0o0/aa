@@ -7,27 +7,27 @@
 	
 	//这个怪物是否合格
 	function get_card_isMonsterRight($monster,&$recordData){
-		if($recordData['num'] == 8 && $recordData['w'] == 0 && !$monster['wood'])
+		if($recordData['num'] == 6 && $recordData['w'] == 0 && !$monster['wood'])
 			return false;
-		if($recordData['num'] == 9 && $recordData['w'] == 1 && !$monster['wood'])
+		if($recordData['num'] == 7 && $recordData['w'] == 1 && !$monster['wood'])
 			return false;
-		if($monster['wood'] && $recordData['w'] >=3)
+		if($monster['wood'] && $recordData['w'] >=2)
 			return false;
-		if($monster['collect'] == 0 && $recordData['c'] >=2)
+		if($monster['collect'] == 0 && $recordData['c'] >=1)
 			return false;
 		if($monster['cost'] >= 20)
 		{
-			if($recordData['p3'] >=4)
+			if($recordData['p3'] >=3)
 				return false;
 		}
 		else if($monster['cost'] >= 10)
 		{
-			if($recordData['p2'] >=4)
+			if($recordData['p2'] >=3)
 				return false;
 		}
 		else
 		{
-			if($recordData['p1'] >=4)
+			if($recordData['p1'] >=3)
 				return false;
 		}
 		return true;
@@ -86,14 +86,14 @@
 		}
 		
 		//合并所有数据
-		$len = min(5,count($levelArr));
+		$len = min(3,count($levelArr));
 		for($i=1;$i<$len;$i++)
 		{
 			$monsterList = array_merge($monsterList,$monster_kind[$levelArr[$i]]['list']);
 		}
 		//返回剩下的
 		usort($monsterList,randomSortFun);
-		while(count($returnMonsterArr) < 10 && count($monsterList) > 0)
+		while(count($returnMonsterArr) < 8 && count($monsterList) > 0)
 		{
 			$monster = $monster_base[array_pop($monsterList)];
 			if(get_card_isMonsterRight($monster,$recordData))
