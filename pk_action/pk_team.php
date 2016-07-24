@@ -185,7 +185,7 @@ class Team{
 		$this->teamPlayer->speed = $player->speed;
 		
 		//令牌相关		
-		if($this->ring && !$this->stopRing)
+		/*if($this->ring && !$this->stopRing)
 		{
 			$ringData = $ring_base[$this->ring];
 			$level = $ringData['begin'] + ($this->ringLevel + $this->ringLevelAdd)*$ringData['step'];
@@ -232,7 +232,7 @@ class Team{
 				}
 			}
 			
-		}
+		}*/
 		$skillIndex++;
 		
 		//遗留技能相关

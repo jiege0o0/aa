@@ -16,6 +16,7 @@ class PKData{//主要记录一些PK中的数据
 	
 	public $skillRecord = array();
 	public $skillUser = null;
+	public $skillRecordCountDec = 0;//无效的列表个数
 	
 	
 	public $roundNeedArray;
@@ -29,6 +30,9 @@ class PKData{//主要记录一些PK中的数据
 	public $outDetail = false;//是否输出PK细节
 	public $outResult = true;//是否输出PK结果
 	public $isVedio = false;//是回录像回放
+	
+	public $step = 0;//在回合中的步数
+	
 
 		
 	//初始化类
@@ -257,6 +261,20 @@ class PKData{//主要记录一些PK中的数据
 			return;
 		$this->skillRecord = array();
 		$this->skillUser = $user;
+		$this->skillRecordCountDec = 0;
+	}
+	
+	function startSkillEffect(){//技能效果开始
+		if(!$this->outDetail)
+			return;
+		array_push($this->skillRecord,array(null,null,'effectStart'));
+		$this->skillRecordCountDec ++;
+	}
+	function endSkillEffect(){//技能效果结束
+		if(!$this->outDetail)
+			return;
+		array_push($this->skillRecord,array(null,null,'effectEnd'));
+		$this->skillRecordCountDec ++;
 	}
 	function addSkillMV($player,$target,$skillAction){
 		if(!$this->outDetail)
@@ -269,7 +287,7 @@ class PKData{//主要记录一些PK中的数据
 		$len = count($this->skillRecord);
 		$addMV = false;
 		$out8 = false;
-		if($len > 0)
+		if($len - $this->skillRecordCountDec > 0)
 		{
 			$this->out_changeFrom($this->skillUser);//转换攻击者
 			$this->out_str('7'.numToStr($skillID)); //技能开始
@@ -284,6 +302,10 @@ class PKData{//主要记录一些PK中的数据
 					if($this->skillRecord[$i][2] == '61')//MV（6）改变值为1
 					{
 						$addMV = true;
+					}
+					else if($this->skillRecord[$i][2] == 'effectStart')//技能效果开始
+					{
+						$this->out_str('3');
 					}
 					else
 					{
@@ -336,15 +358,15 @@ class PKData{//主要记录一些PK中的数据
 		}
 	}
 	
-	//播放技能
-	function out_skill($skillID,$value){
-		if(!$this->outDetail)
-			return;
-		$str = '3'.numToStr($skillID); 
-		if($value)
-			$str .= $value;
-		$this->out_str($str);
-	}
+	//播放技能   变成技能效果开始
+	// function out_skill($skillID,$value){
+		// if(!$this->outDetail)
+			// return;
+		// $str = '3'.numToStr($skillID); 
+		// if($value)
+			// $str .= $value;
+		// $this->out_str($str);
+	// }
 	
 	//状态改变 (stateKey是一个当前点亮状态的序列)
 	function out_stat($target,$stateKey){
@@ -365,12 +387,14 @@ class PKData{//主要记录一些PK中的数据
 	}
 	
 	//单个玩家回合结束
-	function out_end($target){
+	function out_end($target=null){
+		$this->step ++;
 		if(!$this->outDetail)
 			return;		
-			
-		$this->out_changeFrom($target);//转换攻击者
+		if($target)	
+			$this->out_changeFrom($target);//转换攻击者
 		$this->out_str('6');	
+		// $this->out_str('6'.($this->step);	
 	}
 	
 	//***************************************************************************** end

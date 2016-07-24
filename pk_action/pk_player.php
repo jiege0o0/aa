@@ -6,23 +6,21 @@ class player{
 	public $speed;			
 	public $atk;		
 	public $mp;	
+	public $maxMp = 100;
 	
-	public $action1 = 0;//可以攻击(当不可以攻击时，小技也不能用)
-	public $action2 = 0;//可以小技
-	public $action3 = 0;//可以大技
-	public $action4 = 0;//特性技能
-	public $action5 = 0;//全禁
+	//基础数据
+	public $base_hp;	
+	public $base_atk;	
+	public $base_speed;	
+	public $add_hp;	
+	public $atk_add;	
+	public $speed_add;	
+
+	
+
 	public $def = 0;//被伤害加成
 	public $hurt = 0;//伤害加成
-	public $tag = array();//状态标记，不会参与主程序逻辑
-	
-	public $healAdd = 0;//治疗加成
-	public $restrain = 0;//克制加成
-	public $unRestrain = 0;//被克制加成
-	
-	
-	
-	public $cdhp = 0;//定时血量改变
+
 	
 	
 	public $monsterData;	//原始的怪物数据		
@@ -36,28 +34,14 @@ class player{
 	public $mpAction = 0;//可以能量出手
 	private $__cdCount = 0;//实际出手的时间
 	public $actionCount = 0;//出手次数，满60次必胜
-	public $statCountArr = array();//状态回合计算
+	public $buffArr = array();//状态回合计算
 	public $skillArr = array();//可选择的技能
 	public $skillArrCD0 = array();//开始就用了的技能
 
-	//
-	public $stat1 = 0;//魔免
-	public $stat2 = 0;//吸血百分比
-	public $stat3 = 0;//比对方血少伤害加强
-	public $stat4 = 0;//比对方血多伤害加强
-	public $stat5 = 0;//破盾，无视对方防御
-	public $stat6 = 0;//unUse
-	public $stat7 = 0;//unUse
-	public $stat8 = 0;//unUse
-	public $stat9 = 0;//unUse
-	public $stat10 = 0;//unUse
 	
 	public $temp = 0;
 	
-	// public $atkhp = 0;//就是这次攻击造成的伤害，在双方身上
-	// public $temp1 = 0;//人身上的临时变量
-	// public $temp2 = 0;//人身上的临时变量
-	// public $temp3 = 0;//人身上的临时变量
+	public $atkhp = 0;//就是这次攻击造成的伤害，在双方身上
 	
 	public $pkRound = 0;//参与PK的回合计数
 	public $haveSetCDCount = false;//已经计算过回合行动数据
@@ -68,8 +52,17 @@ class player{
 	public $joinRound = 0;//加入战斗时的回合
 	public $pos = 0;//在队伍中的位置
 	public $lastStatKey;
-	public $statKey = array('stat1','stat2','stat3','stat4','stat5','stat6','stat7','stat8','stat9','stat10',
-	'atk','speed','maxHp','action1','action2','action3','action4','action5','hurt','def','cdhp','healAdd');
+	// public $statKey = array('stat1','stat2','stat3','stat4','stat5','stat6','stat7','stat8','stat9','stat10',
+	// 'atk','speed','maxHp','action1','action2','action3','action4','action5','hurt','def','cdhp','healAdd');
+	public $stat = array();//特殊状态标记
+	//1：攻，2：速，3：防，4：伤     --+10变成减值
+	//21：禁普攻，22：禁技能，23：禁特性，24：晕
+	//31:魔免
+	//41：中毒，42：燃烧，43：治聊
+	
+	
+	public $missTimes = 0;//可闪避的次数
+	public $dieMissTimes = 0;//可闪避的死亡次数
 	
 		
 	//初始化类
@@ -199,32 +192,34 @@ class player{
 		$this->atk = $this->base_atk + $this->add_atk;
 		$this->__cdCount = 0;
 		$this->actionCount = 0;
-		$this->statCountArr = array();
+		// $this->buffArr = array();
 		$this->mp = 0;
 		$this->hurt = 0;
 		$this->def = 0;
+		$this->missTimes = 0;
+		$this->dieMissTimes = 0;
 		
-		$this->action1 = 0;
-		$this->action2 = 0;
-		$this->action3 = 0;
-		$this->action4 = 0;
-		$this->action5 = 0;	
-		$this->stat1 = 0;
-		$this->stat2 = 0;
-		$this->stat3 = 0;
-		$this->stat4 = 0;
-		$this->stat5 = 0;
-		$this->stat6 = 0;
-		$this->stat7 = 0;
-		$this->stat8 = 0;
-		$this->stat9 = 0;
-		$this->stat10 = 0;
+		// $this->action1 = 0;
+		// $this->action2 = 0;
+		// $this->action3 = 0;
+		// $this->action4 = 0;
+		// $this->action5 = 0;	
+		// $this->stat1 = 0;
+		// $this->stat2 = 0;
+		// $this->stat3 = 0;
+		// $this->stat4 = 0;
+		// $this->stat5 = 0;
+		// $this->stat6 = 0;
+		// $this->stat7 = 0;
+		// $this->stat8 = 0;
+		// $this->stat9 = 0;
+		// $this->stat10 = 0;
 		
 		
-		$this->healAdd = 0;
-		$this->restrain = 0;
-		$this->unRestrain = 0;
-		$this->cdhp = 0;
+		// $this->healAdd = 0;
+		// $this->restrain = 0;
+		// $this->unRestrain = 0;
+		// $this->cdhp = 0;
 		// $this->temp1 = 0;
 		// $this->temp2 = 0;
 		
@@ -237,11 +232,14 @@ class player{
 		$this->skillArr = array();
 		$this->skillArrCD0 = array();
 		$this->tag = array();
+		$this->buffArr = array();
+		$this->stat = array();
 	}
 	
 	//清除Skill的引用
 	function freeSkill(){
 		pk_freeSkill($this->skill);
+		pk_freeSkill($this->atkAction);
 		foreach($this->skillArr as $key=>$value)
 		{
 			pk_freeSkill($value);
@@ -265,6 +263,10 @@ class player{
 			$this->skill->owner = $this;
 			$this->skill->index = 0;
 			$this->skill->isMain = true;
+			
+			$this->atkAction = pk_decodeSkill('NormalAtk');
+			$this->atkAction->owner = $this;
+			$this->atkAction->index = 50;
 			
 			$this->addSkill(1,'1');
 			$this->addSkill(2,'2');
@@ -326,7 +328,7 @@ class player{
 			{
 				if($skillData->actionCount > 0)//CD中
 					continue;	
-				if($skillData->owner->action4 != 0 || $skillData->owner->action5 != 0)
+				if($skillData->owner->stat[23])
 					continue;
 					
 				if(!in_array($skillData,$pkData->tArray,true))//一回合只能触发一次特性，相同的会被合并(数值上)	
@@ -355,12 +357,12 @@ class player{
 	
 	//设计时器,用于出手排序
 	function setCDCount(){
-		if($this->haveSetCDCount)
-			return;
+		// if($this->haveSetCDCount)
+			// return;
 		global $PKConfig;
 		$this->cdCount = $this->__cdCount + $this->getCD();
 		
-		if($this->mp >= $PKConfig->skillMP && $action3 <= 0 && $action5 <= 0)
+		if($this->mp >= $this->maxMp && !$this->stat[22] && !$this->stat[24])
 			$this->mpAction = $this->mp;
 		else
 			$this->mpAction = 0;
@@ -374,13 +376,7 @@ class player{
 		{
 			if(!$value->type && $value->actionCount <= 0)//可使用
 			{
-				// trace($value->actionCount);
-				if($this->action2 <= 0 && $this->action5 <= 0 && $this->action1 <= 0)
-				{
-					array_push($arr,$value);
-				}
-				else//错过了就不能使用了
-					$this->setSkillUse($value->index);
+				array_push($arr,$value);
 			}
 		}
 		return $arr;
@@ -393,58 +389,66 @@ class player{
 		{
 			$skillItem->actionCount = $skillItem->cd;
 		}
-	}	
-	//加入技能状态
-	function addState($user,$statObj,$round){
-		if($this->stat1 > 0 && $user->teamID != $this->teamID)//魔免状态下，会清除所有异常
-		{
-			$round = 0;
-		}
-		
-		$statObj['cd'] = $round;
-		$statObj['userTeamID'] = $user->teamID; 
-		if($statObj['tag'])//主动加的标记
-		{
-			if(!$this->tag[$statObj['tag']])
-				$this->tag[$statObj['tag']] = 0;
-			$this->tag[$statObj['tag']] ++;
-		}
-		
-		if(!$statObj['stopTag'])//停止自动标记
-		{
-			$this->setStateTag($statObj);
-		}
-		
-		array_push($this->statCountArr,$statObj);
-		if($round == 0)
-			$this->testStateCD(0);
-		$this->testOutStat();
 	}
 	
-	//通过节点改变Tag
-	function setStateTag($statObj,$num = 1)
-	{
-		$len=count($this->statKey);	
-		for($i=0;$i<$len;$i++)
-		{
-			$key = $this->statKey[$i];
-			if($statObj[$key])
-			{
-				if($statObj[$key] > 0)
-				{
-					if(!$this->tag[$i])
-						$this->tag[$i] = 0;
-					$this->tag[$i] += $num;
-				}
-				else
-				{
-					if(!$this->tag[$i + 30])
-						$this->tag[$i + 30] = 0;
-					$this->tag[$i + 30] += $num;
-				}
-			}
-		}
+	function addBuff($buff){
+		if($buff->isDebuff && $this->stat[31])
+			return false;
+		array_push($this->buffArr,$buff);
+		return true;
 	}
+	
+	//加入技能状态
+	// function addState($user,$statObj,$round){
+		// if($this->stat1 > 0 && $user->teamID != $this->teamID)//魔免状态下，会清除所有异常
+		// {
+			// $round = 0;
+		// }
+		
+		// $statObj['cd'] = $round;
+		// $statObj['userTeamID'] = $user->teamID; 
+		// if($statObj['tag'])//主动加的标记
+		// {
+			// if(!$this->tag[$statObj['tag']])
+				// $this->tag[$statObj['tag']] = 0;
+			// $this->tag[$statObj['tag']] ++;
+		// }
+		
+		// if(!$statObj['stopTag'])//停止自动标记
+		// {
+			// $this->setStateTag($statObj);
+		// }
+		
+		// array_push($this->buffArr,$statObj);
+		// if($round == 0)
+			// $this->testStateCD(0);
+		// $this->testOutStat();
+	// }
+	
+	//通过节点改变Tag
+	// function setStateTag($statObj,$num = 1)
+	// {
+		// $len=count($this->statKey);	
+		// for($i=0;$i<$len;$i++)
+		// {
+			// $key = $this->statKey[$i];
+			// if($statObj[$key])
+			// {
+				// if($statObj[$key] > 0)
+				// {
+					// if(!$this->tag[$i])
+						// $this->tag[$i] = 0;
+					// $this->tag[$i] += $num;
+				// }
+				// else
+				// {
+					// if(!$this->tag[$i + 30])
+						// $this->tag[$i + 30] = 0;
+					// $this->tag[$i + 30] += $num;
+				// }
+			// }
+		// }
+	// }
 	
 	//玩家已经行动过了
 	function setHaveAction($haveAction){
@@ -459,6 +463,10 @@ class player{
 		}
 		
 		//技能状态
+		$pkData->startSkillMV($this);
+		$this->buffAction('after');
+		$pkData->endSkillMV(52);	
+		
 		$b = $this->testStateCD(1);
 		if($b)
 			$this->testOutStat();
@@ -474,55 +482,35 @@ class player{
 		return $this->actionCount >= $PKConfig->actionRound;
 	}
 	
-	//测试是否有要清的技能
-	function testStateCD($decNum = 0){
-		$len=count($this->statCountArr);	
+	//buff中途作用效果
+	function buffAction($key){
+		$len=count($this->buffArr);	
 		$b = false;
 		for($i=0;$i<$len;$i++)
 		{
-			if($decNum)
-				$this->statCountArr[$i]['cd'] -= $decNum; 
-			if($this->statCountArr[$i]['cd'] <= 0)//状态到期
+			if($this->buffArr[$i]->actionTime == $key)
 			{
-				foreach($this->statKey as $value)
-				{
-					if($this->statCountArr[$i][$value])
-					{
-						$this->{$value} -= $this->statCountArr[$i][$value];
-						if($value == 'maxHp')
-						{
-							if($this->hp > $this->maxHp)
-								$this->hp = $this->maxHp;
-						}
-					}
-				}
-				//设标签
-				if(!$this->statCountArr[$i]['stopTag'])
-				{
-					$this->setStateTag($this->statCountArr[$i],-1);
-				}
-				if($this->statCountArr[$i]['tag'])
-				{
-					$this->tag[$this->statCountArr[$i]['tag']] --;
-				}
-				
-				//效果结束时执行的逻辑
-				if($this->statCountArr[$i]['ac_end'])
-				{
-					$this->statCountArr[$i]['skillObj']->onEnd($this->statCountArr[$i]['skillValue']);
-				}
-				
-				array_splice($this->statCountArr,$i,1);	
+				if($this->buffArr[$i]->onAction())
+					$b = true;
+			}	
+		}
+		return $b;
+	}
+	
+	//测试是否有要清的技能，$decNum减去的CD,返回是否有技能被清
+	function testStateCD($decNum = 0){
+		$len=count($this->buffArr);	
+		$b = false;
+		for($i=0;$i<$len;$i++)
+		{
+			
+			$temp = $this->buffArr[$i]->cdRun($decNum); 
+			if($temp)//状态到期
+			{
+				array_splice($this->buffArr,$i,1);	
 				$i--;
 				$len--;	
 				$b = true;
-			}
-			else //效果中执行的逻辑
-			{
-				if($this->statCountArr[$i]['ac_round'])
-				{
-					$this->statCountArr[$i]['skillObj']->onRound($this->statCountArr[$i]['skillValue']);
-				}
 			}
 		}
 		return $b;
@@ -560,38 +548,14 @@ class player{
 		$pkData->out_stat($this,$statKey);
 	}
 	
-	//根据伤害加成改变扣血量
-	function changeByHurt($v,$enemy){
-		$temp = $this->hurt;
-		if(isRestrain($this,$enemy))//相克
-		{
-			$temp += max(0,8 + $this->restrain - $enemy->unRestrain);
-		}
-		if($this->stat3 > 0 && ($this->hp/$this->maxHp) < ($enemy->hp/$enemy->maxHp))
-		{
-			$temp += $this->stat3;
-		}
-		if($this->stat4 > 0 && ($this->hp/$this->maxHp) > ($enemy->hp/$enemy->maxHp))
-		{
-			$temp += $this->stat4;
-		}
-		if($temp != 0)
-			return max(1,round(($temp/100+1)*$v));
-		return $v;
-	}
-	//根据减伤改变扣血量
-	function changeByDef($v,$enemy){
-		if($enemy->stat5 <= 0 && $this->def != 0)
-			return max(1,round((1-$this->def/100)*$v));
-		return $v;
-	}
 	
-	//测试是否吸血
-	function testStat2($v){
-		if($this->stat2 > 0 && $v >0)
-		{
-			$this->addHp(round(($this->stat2/100)*$v));
-		}
+	
+	//取对玩家的最终伤害
+	function getHurt($v,$enemy){
+		$hurt = $this->hurt;
+		$def = $enemy->def;
+		return round($v * (1+($hurt - $def)/100));
+		
 	}
 	
 	function addHp($v){
@@ -614,13 +578,33 @@ class player{
 	}
 		
 	function addMp($v){
-		global $PKConfig;
 		$this->mp += $v;
-		if($this->mp > $PKConfig->maxMP)
-			$this->mp = $PKConfig->maxMP;
+		if($this->mp > $this->maxMp)
+			$this->mp = $this->maxMp;
+		else if($this->mp < 0)
+			$this->mp = 0;	
+		
 	}
 	
+	//可以闪避攻击
+	function isMiss(){
+		if($this->missTimes > 0)
+		{
+			$this->missTimes --;
+			return true;
+		}
+		return false;
+	}
 	
+	//可以闪避死亡
+	function isDieMiss(){
+		if($this->dieMissTimes > 0)
+		{
+			$this->dieMissTimes --;
+			return true;
+		}
+		return false;
+	}
 	
 }
 

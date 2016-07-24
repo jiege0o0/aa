@@ -1,4 +1,5 @@
 <?php 
+	require_once($filePath."pk_action/pk_buff.php");
 	class SkillBase{
 		public $owner;//技能所有者
 		public $index=0;//技能ID
@@ -6,6 +7,8 @@
 		public $isAtk = false;//攻击型技能，被打者会加MP
 		public $actionCount = 0;//大于0表示CD中
 		public $disabled = false;//技能有没有效
+		public $isSendAtOnce = false;//必发技能，不会参与互斥逻辑
+		public $order = 0;//优先级，互斥时越大的越起作用
 	
 	
 	
@@ -28,20 +31,43 @@
 			$this->reInit();
 		}
 		
+		function localReInit(){
+
+		}
+		
 		//技能是否能使用
 		function canUse($user,$self=null,$enemy=null){
 			return true;
 		}
 		
+		//放技能前执行的动作
+		function actionBefore($user,$self=null,$enemy=null){
+			
+		}
+		
 		function actionSkill($user,$self,$enemy){
 			global $pkData,$PKConfig;
-			$this->action($user,$self,$enemy);
+			
+			$this->actionBefore($user,$self,$enemy);
 			if($this->isAtk)
 			{
-				$enemy->addMp($PKConfig->defMP);
-				$pkData->addSkillMV(null,$enemy,pk_skillType('MP',$PKConfig->defMP));	
+				if($enemy->isMiss())
+				{
+					$pkData->addSkillMV(null,$enemy,pk_skillType('MISS',1));	
+				}
+				else
+				{
+					$this->action($user,$self,$enemy);
+					$enemy->addMp($PKConfig->defMP);
+					$pkData->addSkillMV(null,$enemy,pk_skillType('MP',$PKConfig->defMP));	
+				}
+			}
+			else
+			{
+				$this->action($user,$self,$enemy);
 			}
 		}
+		
 		
 		//重新赋值
 		function reInit(){
@@ -50,10 +76,12 @@
 			$this->tData = null;
 			if($this->type)
 				$this->actionCount = 0;
+				
+			$this->localReInit();
 		}
 		
 		//作用技能效果
-		function setSkillEffect($target,$mv=false){
+		function setSkillEffect($target,$mv=null){
 			global $pkData;
 			$target->setRoundEffect();
 			if(!$mv)
@@ -70,28 +98,38 @@
 		function decHp($user,$target,$value,$isMax=false,$forever=false,$realHurt=false){
 			$value = round(max(1,$value));
 			if(!$realHurt && $user->teamID != $target->teamID)
-				$value = -pk_atkHP($user,$target,$value);
-			else
-				$value = -$value;
+				$value = $user->getHurt($value,$target);
 				
 				
-			if($isMax)
+			if($target->hp <= $value && $target->isDieMiss())
 			{
-				$target->maxHp += $value;
-				if($forever)
-					$target->add_hp += $value;
-				$this->setSkillEffect($target,pk_skillType('MHP',$value));
+				global $pkData;
+				$value = 0;
+				$pkData->addSkillMV(null,$target,pk_skillType('NOHURT',0));	
+				$target->testTSkill('DMISS');
 			}
-			
-			$target->addHp($value);
-			$this->setSkillEffect($target,pk_skillType('HP',$value));
+			else
+			{
+				$value = -$value;
+				if($isMax)
+				{
+					$target->maxHp += $value;
+					if($forever)
+						$target->add_hp += $value;
+					$this->setSkillEffect($target,pk_skillType('MHP',$value));
+				}
+
+				$target->addHp($value);
+				$this->setSkillEffect($target,pk_skillType('HP',$value));				
+			}
+
 			
 			if(!$this->type && $user->teamID != $target->teamID)
 			{
 				if($target->hp > 0)
 					$target->testTSkill('BEATK',$value);
 				if($user->isPKing)
-					$user->testTSkill('ATK',$value);
+					$user->testTSkill('HURT',$value);
 			}
 			
 			return $value;
@@ -101,7 +139,6 @@
 		function addHp($user,$target,$value,$isMax=false,$forever=false){
 			global $pkData;
 			$value = round(max(1,$value));
-			$value = pk_healHP($user,$target,$value);
 			if($isMax)
 			{
 				$target->maxHp += $value;
@@ -118,13 +155,20 @@
 				$user->testTSkill('HEAL',$value);
 				$target->testTSkill('BEHEAL',$value);
 				//有治疗情况发生
-				$pkData->playArr1[0]->testTSkill('SHEAL',$value);
-				$pkData->playArr2[0]->testTSkill('SHEAL',$value);
+				// $pkData->playArr1[0]->testTSkill('SHEAL',$value);
+				// $pkData->playArr2[0]->testTSkill('SHEAL',$value);
 			}
 			
 			return $value;
 		}
 		
+		//加魔
+		function addMp($user,$target,$value){
+			$target->mp += $value;
+			$this->setSkillEffect($target,pk_skillType('MP',$value));
+			return $value;
+		}
+		/*
 		//速度改变
 		function addSpeed($user,$target,$value,$forever=false){
 			if($value > 0)
@@ -158,12 +202,7 @@
 			return $value;
 		}
 		
-		//加魔
-		function addMp($user,$target,$value){
-			$target->mp += $value;
-			$this->setSkillEffect($target,pk_skillType('MP',$value));
-			return $value;
-		}
+
 		
 		//加盾
 		function addDef($user,$target,$value){
@@ -197,29 +236,30 @@
 				}
 			}
 			return false;	
-		}
+		}*/
 		
-		//清除状态(谁加的，清多少)
-		function cleanStat($target,$teamID,$num){
-			$len = count($this->skillAction->target->statCountArr);
+		//清除状态(谁加的，清多少)$isDebuff==-1为任意buff
+		function cleanStat($target,$isDebuff,$num){
+			$len = count($target->buffArr);
 			$b = false;
 			for($i=0;$i<$len && $num > 0;$i++)
 			{
-				if($this->skillAction->target->statCountArr[$i]['userTeamID'] == teamID)
+				if($isDebuff == -1 || $target->buffArr[$i]->isDebuff == $isDebuff)
 				{
-					$this->skillAction->target->statCountArr[$i]['cd'] = 0;
+					$target->buffArr[$i]->cd = 0;
 					$num --;
 					$b = true;
 				}
 			}
-			if($target->testStateCD())
+			//trace($target->id.'-'.$len.'-'.$num);
+			if($b && $target->testStateCD())
 			{
-				$this->self->testOutStat();
+				$target->testOutStat();
 				$target->setRoundEffect();
+				
 			}
+			
 			return $b;	
 		}
-		
-		
 	}
 ?> 

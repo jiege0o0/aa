@@ -1,10 +1,8 @@
 <?php
 	$PKConfig = new stdClass();
-	$PKConfig->skillMP = 100;
-	$PKConfig->maxMP = 150;
 	$PKConfig->actionRound = 20;
 	$PKConfig->atkMP = 10;
-	$PKConfig->defMP = 6;
+	$PKConfig->defMP = 5;
 	
 	//A是否克制B
 	function isRestrain($a,$b){
@@ -22,9 +20,11 @@
 		array_push($list,$pkData->team1->teamPlayer);
 		array_push($list,$pkData->team2->teamPlayer);
 		
+		$pkData->step = 1;
 		$pkData->roundStart($playArr1,$playArr2);
 		$pkData->dealTArray();
 		$result = $pkData->testRoundFinish();
+		$pkData->out_end();
 
 		while(!$result){
 			$result = pkOnePlayer($list);
@@ -77,7 +77,7 @@
 			// {
 				// trace($player->id.'->'.$player->base_speed.'->'.$player->add_speed);
 			// }
-			
+	
 			
 			if(!$user || cdCountSortFun($user,$player) == 1)
 				$user = $player;
@@ -91,7 +91,8 @@
 
 		$haveAction = false;//是否有行动
 		$haveSkill = false;//是否有大招，由于是插播，不算行动回合
-
+		
+		$user->buffAction('before');
 		if($user->isPKing)//场上的单位
 		{
 			//战前特性生效
@@ -102,13 +103,15 @@
 				{
 					$skillOK = pk_action_skill($user->skill,$user,$self,$enemy);
 					$haveSkill = true;
-					$user->testTSkill('SKILL3');
-					$user->testTSkill('SKILL4');
-					$enemy->testTSkill('ESKILL3');
-					$enemy->testTSkill('ESKILL4');
+					$user->testTSkill('SKILL');
+					$user->testTSkill('ACTION');
 					$pkData->dealTArray();//特性生效
 					break;
 				}
+				
+				if($user->stat[21] || $user->stat[24])//不可普攻
+					break;
+					
 				
 				$arr = $user->getSkill();//可以使用的小技
 				$user->addMP = true;
@@ -121,32 +124,24 @@
 						if(pk_action_skill($value,$user,$self,$enemy))
 						{
 							$skillOK = true;
-							$user->testTSkill('SKILL2');
-							$user->testTSkill('SKILL4');
-							$enemy->testTSkill('ESKILL2');
-							$enemy->testTSkill('ESKILL4');
 							$pkData->dealTArray();//特性生效
 						}
 					}
 					if($skillOK)
 					{
+						$user->testTSkill('ACTION');
 						$haveAction = true;
 						break;
 					}
 				}
 				
 				
-				if($user->action1 <= 0 && $user->action5 <= 0)//普攻
-				{
-					pk_atk($user,$enemy);
-					$haveAction = true;
-					$user->testTSkill('SKILL1');
-					$user->testTSkill('SKILL4');
-					$enemy->testTSkill('ESKILL1');
-					$enemy->testTSkill('ESKILL4');
-					$pkData->dealTArray();//特性生效
-					break;
-				}
+				pk_action_skill($user->atkAction,$user,$self,$enemy);
+				$haveAction = true;
+				$user->testTSkill('ACTION');
+				$pkData->dealTArray();//特性生效
+				break;
+
 			}while(false);
 			if(!$haveSkill && $user->cdhp)//当时影响血
 			{
@@ -157,19 +152,24 @@
 		}
 		else
 		{
-			$arr = $user->getSkill();//可以使用的小技
-			$len = count($arr);
-			if($len > 0)
+			if(!($user->stat[21] || $user->stat[24]))//不可普攻
 			{
-				for($i=0;$i<$len;$i++){
-					$value = $arr[$i];
-					if(pk_action_skill($value,$user,$self,$enemy))
-					{
-						$haveAction = true;
-						$pkData->dealTArray();//特性生效
+				$arr = $user->getSkill();//可以使用的小技
+				$len = count($arr);
+				if($len > 0)
+				{
+					for($i=0;$i<$len;$i++){
+						$value = $arr[$i];
+						if(pk_action_skill($value,$user,$self,$enemy))
+						{
+							$haveAction = true;
+							$pkData->dealTArray();//特性生效
+						}
 					}
 				}
 			}
+				
+			
 		}
 		
 		if(!$haveSkill && $user->setHaveAction($haveAction))
@@ -185,7 +185,7 @@
 		$pkData->dealTArray();//特性生效
 		
 		$user->setRoundEffect();
-		if($haveSkill || $haveAction || $user->isPKing)
+		// if($haveSkill || $haveAction || $user->isPKing)
 			$pkData->out_end($user);
 			
 

@@ -1,6 +1,7 @@
 <?php
 	require_once($filePath."pk_action/skill_value_fun.php");
 	require_once($filePath."pk_action/skill_action_fun.php");
+	require_once($filePath."pk_action/skill/common_skill.php");
 	//特性类型 SKILL1(普攻),SKILL2（小技）,SKILL3（大技）,SKILL4（所有）,DIE,BEHEAL,HEAL,SHEAL(双方有治疗产生)HP,BEFORE,AFTER,STAT,
 	//ATK(对对方造成伤害)，BEATK(被对方造成伤害),
 	$Skill_SAT = array(	//技能缩写
@@ -9,7 +10,9 @@
 			"ATK"=>'3',
 			"MHP"=>'4',
 			"MP"=>'5',
-			"MV"=>'6'//这个只是通知播动画
+			"MV"=>'6',//这个只是通知播动画
+			"MISS"=>'7',//目标闪开
+			"NOHURT"=>'8'//目标免伤
 			
 			
 	);
@@ -106,16 +109,18 @@
 		
 		if($skillData->isMain)//使用大绝扣能量
 		{
-			$user->addMp(-$PKConfig->skillMP);
-			$pkData->addSkillMV($user,$user,pk_skillType('MP',-$PKConfig->skillMP));
+			$mp = $user->mp;
+			$user->addMp(-$mp);
+			$pkData->addSkillMV($user,$user,pk_skillType('MP',-$mp));
 		}
 		else if(!$skillData->type && $user->isPKing && $skillData->cd > 0 && $user->addMP)//使用小技只是自己加能量
 		{
 			$user->addMP = false;//本轮只会加一次能量
 			$user->addMp($PKConfig->atkMP);
-			$pkData->addSkillMV($user,$user,pk_skillType('MP',$PKConfig->skillMP));
+			$pkData->addSkillMV($user,$user,pk_skillType('MP',$PKConfig->atkMP));
 		}	
 		
+		$pkData->startSkillEffect();
 		$b = $skillData->actionSkill($user,$self,$enemy);	
 		
 
@@ -129,50 +134,7 @@
 			
 		return true;	
 	}
-	
-	//最终攻击数值的调整
-	function pk_atkHP($play1,$play2,$hp){
-		$hp = $play1->changeByHurt($hp,$play2);
-		$hp = $play2->changeByDef($hp,$play1);
-		//特性影响
-		return max(1,$hp);
-	}
-	
-	//最终治疗数值的调整
-	function pk_healHP($play1,$play2,$hp){
-		if($play2->healAdd)
-			return max(1,round($hp*(1+$play2->healAdd/100)));
-		return max(1,$hp);
-	}
-			
-	//普通攻击
-	function pk_atk($play1,$play2)
-	{
-		global $pkData,$PKConfig;
-		$hp = $play1->atk;
-		$hp = -pk_atkHP($play1,$play2,$hp);
-		$play2->addHp($hp);
-		$play1->addMp($PKConfig->atkMP);
-		$play2->addMp($PKConfig->defMP);
-		
-		$pkData->startSkillMV($play1);
-		$pkData->addSkillMV($play1,$play2,pk_skillType('HP',$hp));	
-		$pkData->addSkillMV(null,$play2,pk_skillType('MP',$PKConfig->defMP));	
-		$pkData->addSkillMV(null,$play1,pk_skillType('MP',$PKConfig->atkMP));	
-		$pkData->endSkillMV(50);		
-		
-		
-		if($play2->hp > 0)
-			$play2->testTSkill('BEATK',$hp);
-		if($play1->isPKing)
-			$play1->testTSkill('ATK',$hp);
-			
-			
-		$play1->testStat2(-$hp);
-		
-		$play1->setRoundEffect();
-		$play2->setRoundEffect();
-	}
+
 	
 	//秒杀技
 	function pk_kill($play1,$play2)
@@ -187,19 +149,5 @@
 				
 		$play1->setRoundEffect();
 		$play2->setRoundEffect();
-	}
-	
-	//回合结束血的影响
-	function pk_cdhp($play1)
-	{
-		global $pkData;
-		$hp = $play1->cdhp;
-		$play1->hp += $hp;
-		
-		$pkData->startSkillMV(null);
-		$pkData->addSkillMV(null,$play1,pk_skillType('HP',$hp));	
-		$pkData->endSkillMV(52);	
-		
-		$play1->setRoundEffect();
 	}
 ?> 
