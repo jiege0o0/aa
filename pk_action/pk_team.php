@@ -64,12 +64,18 @@ class Team{
 			for($i=0;$i<$len;$i++)
 			{
 				if(!$list[$i])
+				{
 					continue;
+				}
+					
 				$player = new Player($list[$i]);
 				$player->teamID = $this->teamID;
 				$player->team = $this;
 				$player->id = 10 + ($this->teamID-1)*20 + $i;
-				$this->monsterBase->{''.$player->monsterID} = $player->initData($tec->{$player->monsterID},$this->fight);
+				if($this->monsterBase->{''.$player->monsterID})
+					$this->monsterBase->{''.$player->monsterID}->num++;
+				else
+					$this->monsterBase->{''.$player->monsterID} = $player->initData($tec->{$player->monsterID},$this->fight);
 
 				for($j=1;$j<=5;$j++)//PKÇ°ÖÃ¼¼ÄÜ
 				{
@@ -112,7 +118,7 @@ class Team{
 		$this->tArr = array();
 		$this->stopRing = false;
 		
-		$this->teamInfo = array('num'=>array(),'tnum'=>array());
+		$this->teamInfo = array('num'=>array());
 		$this->teamInfo['atks'] = 0;
 		$this->teamInfo['mhps'] = 0;
 		$this->teamInfo['spds'] = 0;
@@ -135,11 +141,6 @@ class Team{
 				$this->teamInfo['num'][$monsterID] = 1;
 			else
 				$this->teamInfo['num'][$monsterID] ++;
-				
-			if(!$this->teamInfo['tnum'][$monsterData['type']])
-				$this->teamInfo['tnum'][$monsterData['type']] = 1;
-			else
-				$this->teamInfo['tnum'][$monsterData['type']] ++;
 		}
 	
 		if($pkData->isVedio)
@@ -294,6 +295,7 @@ class Team{
 		// $this->fight = $baseoo->f;
 		$this->tecLevel = $baseoo->tl;
 		$this->list = $baseoo->list;
+		$this->monsterBase = $baseoo->mb;
 		
 		$len = count($oo->ac);
 		$arr = array();

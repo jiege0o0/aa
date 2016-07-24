@@ -26,6 +26,10 @@
 		
 		public $tData;//特性触发时传入的值
 		
+		public $temp1;
+		public $temp2;
+		public $temp3;
+		
 		function __construct(){
 			$this->name = get_class($this);
 			$this->reInit();
@@ -74,6 +78,9 @@
 			$this->actionCount = $this->cd - 1;//比如CD为1的话，一来就可以用了
 			$this->disabled = false;
 			$this->tData = null;
+			$this->temp1 = 0;
+			$this->temp2 = 0;
+			$this->temp3 = 0;
 			if($this->type)
 				$this->actionCount = 0;
 				

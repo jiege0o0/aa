@@ -1,76 +1,67 @@
 <?php 
 	require_once($filePath."pk_action/skill/skill_base.php");
 	
-	//技：心灵控制(技)：所有单位禁固一回合
+	//技：撕裂（技）：伤害200%
 	class sm_5_0 extends SkillBase{
 		function action($user,$self,$enemy){
-			$len = count($enemy->team->currentMonster);
-			for($i=0;$i<$len;$i++)
-			{
-				$player = $enemy->team->currentMonster[$i];
-				
-				$buff = new StatBuff(24,2);
-				$buff->isDebuff = true;
-				$buff->addToTarget($player);
-				$this->setSkillEffect($player);
-			}
+			$this->decHp($user,$enemy,$user->atk*2);
 		}
 	}
 	
-	//每3次攻击，为自己回复10MP
+	//重生：死后复活并回复20%血量，1次
 	class sm_5_1 extends SkillBase{
-		public $cd = 3;
-		public $isSendAtOnce = true;
+		public $type = 'DIE';
+		public $once = true;//技能只执行一次
 		function action($user,$self,$enemy){
-			$this->addMp($user,$self,10);
+			$user->reborn(0.2);
 		}
 	}
 	
-	//每次攻击，可净化对方一个BUFF（无论好坏）
+	//带毒：每次攻击，-10%速度，1回合
 	class sm_5_2 extends SkillBase{
 		public $cd = 1;
 		function action($user,$self,$enemy){
 			$this->decHp($user,$enemy,$user->atk);
-			$this->cleanStat($enemy,-1,1);
+			
+			$buff = new ValueBuff(array('speed'=>-round($enemy->base_speed * 0.1)),1);
+			$buff->isDebuff = true;
+			$buff->addToTarget($enemy);
 		}
 	}
 	
-	//增加辅助5%攻击
+	//合作，每有一个人鱼出战，伤害+10%
 	class sm_5_3 extends SkillBase{
 		public $cd = 0;
 		function action($user,$self,$enemy){
-			$len = count($self->team->currentMonster);
-			for($i=1;$i<$len;$i++)
-			{
-				$player = $self->team->currentMonster[$i];
-				$player->atk += round($player->base_atk * 0.05);
-				$this->setSkillEffect($player);
-			}
+			$num = $user->team->monsterBase->{$user->monsterID}->num;	
+			$user->atk += round($user->base_atk*0.1*$num);
 		}
 	}
 	
-	//辅：--心灵控制：所有单位禁固一回合，5CD
+	//辅：--50%伤害，-10%速度，1回合
 	class sm_5_f1 extends SkillBase{
 		public $cd = 5;
 		function action($user,$self,$enemy){
-			$len = count($enemy->team->currentMonster);
-			for($i=0;$i<$len;$i++)
-			{
-				$player = $enemy->team->currentMonster[$i];
-				
-				$buff = new StatBuff(24,1);
-				$buff->isDebuff = true;
-				$buff->addToTarget($player);
-				$this->setSkillEffect($player);
-			}
+			$this->decHp($user,$enemy,$user->atk*0.5);
+			
+			$buff = new ValueBuff(array('speed'=>-round($enemy->base_speed * 0.1)),1);
+			$buff->isDebuff = true;
+			$buff->addToTarget($enemy);
 		}
 	}	
-	//辅：--每次攻击50%，可净化对方一个BUFF（无论好坏）
+	//辅：档刀，当致死时,抵挡一次，自己晕2回合，触发一次
 	class sm_5_f2 extends SkillBase{
-		public $cd = 1;
+		public $cd = 0;
 		function action($user,$self,$enemy){
-			$$this->decHp($user,$enemy,$user->atk*0.5);
-			$this->cleanStat($enemy,-1,1);
+			$self->dieMissTimes ++;
+		}
+	}
+	class sm_5_f3 extends SkillBase{
+		public $type = 'DMISS';
+		function action($user,$self,$enemy){
+			$buff = new StatBuff(24,1);
+			$buff->isDebuff = true;
+			$buff->addToTarget($user);
 		}
 	}
 

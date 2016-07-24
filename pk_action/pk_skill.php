@@ -87,7 +87,7 @@
 		// trace($name.'--'.count($skillPool[$name]));
 		if(in_array($skill, $skillPool[$name],true))
 		{
-			throw new Exception("xxxxxx!".$skill->owner->id);
+			throw new Exception($name.$skill->owner->monsterID);
 			return;
 		}
 			

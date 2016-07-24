@@ -133,6 +133,7 @@ class player{
 		$data->hp = $this->base_hp;
 		$data->atk = $this->base_atk;
 		$data->speed = $this->base_speed;
+		$data->num = 1; 
 		return $data;
 	}
 	
@@ -584,6 +585,20 @@ class player{
 		else if($this->mp < 0)
 			$this->mp = 0;	
 		
+	}
+	
+	function reborn($v){
+		$len = count($this->buffArr);
+		for($i=0;$i<$len && $num > 0;$i++)
+		{
+			$this->buffArr[$i]->cd = 0;
+		}
+		$b = $this->testStateCD(0);
+		if($b)
+			$this->testOutStat();
+		$this->hp = round($this->maxHp*$v);	
+		global $pkData;
+		$pkData->addSkillMV(null,$this,pk_skillType('HP',$this->hp));	
 	}
 	
 	//©иртиа╠э╧╔╩В
