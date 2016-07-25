@@ -1,76 +1,59 @@
 <?php 
 	require_once($filePath."pk_action/skill/skill_base.php");
-	
-	//技：心灵控制(技)：所有单位禁固一回合
+
+	//技：能量吸取：-对方50%MP，自己增加对应值，并回复30%血量
 	class sm_7_0 extends SkillBase{
+		public $isAtk = true;
+		function action($user,$self,$enemy){
+			$v = $this->addMp($user,$enemy,-$enemy*0.5);
+			$this->addMp($user,$self,$v);
+			$this->addHp($user,$self,$self->maxHp*0.3);
+		}
+	}
+	
+	//净化：每3次攻击后扔出一个骷髅头，-10点MP，80%伤害
+	class sm_7_1 extends SkillBase{
+		public $isAtk = true;
+		public $cd = 3;
+		public $order = 1;//优先级，互斥时越大的越起作用
+		function action($user,$self,$enemy){
+			$this->decHp($user,$enemy,$user->atk*0.8);
+			$this->addMp($user,$enemy,-10);
+		}
+	}
+	
+	//平静：当自己生命少于30%后，-对方全体15%攻，15%速，触发一次
+	class sm_7_2 extends SkillBase{
+		public $type = 'HP';
+		public $once = true;//技能只执行一次
+		function canUse($user,$self=null,$enemy=null){
+			return $user->getHpRate() <= 0.3;
+		}
 		function action($user,$self,$enemy){
 			$len = count($enemy->team->currentMonster);
 			for($i=0;$i<$len;$i++)
 			{
 				$player = $enemy->team->currentMonster[$i];
-				
-				$buff = new StatBuff(24,2);
-				$buff->isDebuff = true;
-				$buff->addToTarget($player);
+				$player->atk -= round($player->base_atk * 0.15);
+				$player->speed -= round($player->base_speed * 0.15);
 				$this->setSkillEffect($player);
 			}
 		}
 	}
-	
-	//每3次攻击，为自己回复10MP
-	class sm_7_1 extends SkillBase{
-		public $cd = 3;
-		public $isSendAtOnce = true;
-		function action($user,$self,$enemy){
-			$this->addMp($user,$self,10);
-		}
-	}
-	
-	//每次攻击，可净化对方一个BUFF（无论好坏）
-	class sm_7_2 extends SkillBase{
+
+	//辅：--回复攻击*0.6的血量
+	class sm_7_f1 extends SkillBase{
 		public $cd = 1;
 		function action($user,$self,$enemy){
-			$this->decHp($user,$enemy,$user->atk);
-			$this->cleanStat($enemy,-1,1);
-		}
-	}
-	
-	//增加辅助5%攻击
-	class sm_7_3 extends SkillBase{
-		public $cd = 0;
-		function action($user,$self,$enemy){
-			$len = count($self->team->currentMonster);
-			for($i=1;$i<$len;$i++)
-			{
-				$player = $self->team->currentMonster[$i];
-				$player->atk += round($player->base_atk * 0.05);
-				$this->setSkillEffect($player);
-			}
-		}
-	}
-	
-	//辅：--心灵控制：所有单位禁固一回合，5CD
-	class sm_7_f1 extends SkillBase{
-		public $cd = 5;
-		function action($user,$self,$enemy){
-			$len = count($enemy->team->currentMonster);
-			for($i=0;$i<$len;$i++)
-			{
-				$player = $enemy->team->currentMonster[$i];
-				
-				$buff = new StatBuff(24,1);
-				$buff->isDebuff = true;
-				$buff->addToTarget($player);
-				$this->setSkillEffect($player);
-			}
+			$this->addHp($user,$self,$user->atk*0.6);
 		}
 	}	
-	//辅：--每次攻击50%，可净化对方一个BUFF（无论好坏）
+	//辅：--减对方10MP，cd3
 	class sm_7_f2 extends SkillBase{
-		public $cd = 1;
+		public $cd = 3;
+		public $order = 1;//优先级，互斥时越大的越起作用
 		function action($user,$self,$enemy){
-			$this->decHp($user,$enemy,$user->atk*0.5);
-			$this->cleanStat($enemy,-1,1);
+			$this->addMp($user,$enemy,-10);
 		}
 	}
 

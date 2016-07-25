@@ -3,13 +3,14 @@
 	
 	//技：心灵控制(技)：所有单位禁固一回合
 	class sm_3_0 extends SkillBase{
+		public $isAtk = true;
 		function action($user,$self,$enemy){
 			$len = count($enemy->team->currentMonster);
 			for($i=0;$i<$len;$i++)
 			{
 				$player = $enemy->team->currentMonster[$i];
 				
-				$buff = new StatBuff(24,2);
+				$buff = new StatBuff(24,1);
 				$buff->isDebuff = true;
 				$buff->addToTarget($player);
 				$this->setSkillEffect($player);
@@ -29,6 +30,7 @@
 	//每次攻击，可净化对方一个BUFF（无论好坏）
 	class sm_3_2 extends SkillBase{
 		public $cd = 1;
+		public $isAtk = true;
 		function action($user,$self,$enemy){
 			$this->decHp($user,$enemy,$user->atk);
 			$this->cleanStat($enemy,-1,1);
@@ -52,6 +54,7 @@
 	//辅：--心灵控制：所有单位禁固一回合，5CD
 	class sm_3_f1 extends SkillBase{
 		public $cd = 5;
+		public $isAtk = true;
 		function action($user,$self,$enemy){
 			$len = count($enemy->team->currentMonster);
 			for($i=0;$i<$len;$i++)
@@ -68,6 +71,7 @@
 	//辅：--每次攻击50%，可净化对方一个BUFF（无论好坏）
 	class sm_3_f2 extends SkillBase{
 		public $cd = 1;
+		public $isAtk = true;
 		function action($user,$self,$enemy){
 			$this->decHp($user,$enemy,$user->atk*0.5);
 			$this->cleanStat($enemy,-1,1);

@@ -63,6 +63,14 @@
 			return 1;
 	}
 	
+	function teamTestTSkill($team,$type){
+		$len = count($team->currentMonster);
+		for($i=0;$i<$len;$i++)
+		{
+			$team->currentMonster[$i]->testTSkill($type);
+		}
+	}
+	
 	//其中一个单位出手
 	function pkOnePlayer($list){
 		global $pkData,$PKConfig;
@@ -147,7 +155,12 @@
 			{
 				pk_cdhp($user);
 			}
-			$user->testTSkill('AFTER');
+			if($haveSkill || $haveAction)
+			{
+				$user->testTSkill('AFTER');
+				$enemy->testTSkill('EAFTER');
+			}
+				
 			$pkData->dealTArray();//特性生效
 		}
 		else
@@ -174,7 +187,8 @@
 		
 		if(!$haveSkill && $user->setHaveAction($haveAction))
 		{
-			pk_kill($user,$enemy);
+			if($user->isPKing)
+				pk_kill($user,$enemy);
 		}
 		
 		//真正死

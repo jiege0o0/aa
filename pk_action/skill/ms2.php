@@ -3,6 +3,7 @@
 
 	//技：电之魂(技)：速成200%伤害，并增加自己速度15%，2round
 	class sm_2_0 extends SkillBase{
+		public $isAtk = true;
 		function action($user,$self,$enemy){
 			$this->decHp($user,$enemy,$user->atk*2);
 			
@@ -13,17 +14,12 @@
 	
 	// 电眼：看穿别人的攻击，避开别人的一次伤害，5次闪一次
 	class sm_2_1 extends SkillBase{
-		public $type = 'BEATK';
-		public $count = 0;
-		
-		function localReInit(){
-			$this->count = 0;
-		}
+		public $type = 'BEATK';		
 		function action($user,$self,$enemy){
-			$this->count ++;
-			if($this->count >=4)
+			$this->temp1 ++;
+			if($this->temp1 >=4)
 			{
-				$this->count = 0;
+				$this->temp1 = 0;
 				$self->missTimes ++;
 			}
 		}
@@ -32,6 +28,7 @@
 	//麻痹：4次会造成麻痹，-10%速2回合
 	class sm_2_2 extends SkillBase{
 		public $cd = 4;
+		public $isAtk = true;
 		function action($user,$self,$enemy){
 			$this->decHp($user,$enemy,$user->atk*2);
 			
@@ -68,6 +65,7 @@
 	//辅：--60%伤害
 	class sm_2_f2 extends SkillBase{
 		public $cd = 1;
+		public $isAtk = true;
 		function action($user,$self,$enemy){
 			$this->decHp($user,$enemy,$user->atk*0.6);
 		}

@@ -62,7 +62,7 @@ class player{
 	
 	
 	public $missTimes = 0;//可闪避的次数
-	public $dieMissTimes = 0;//可闪避的死亡次数
+	public $dieMissTimes = array();//可闪避的死亡次数
 	
 		
 	//初始化类
@@ -198,7 +198,7 @@ class player{
 		$this->hurt = 0;
 		$this->def = 0;
 		$this->missTimes = 0;
-		$this->dieMissTimes = 0;
+		$this->dieMissTimes = array();
 		
 		// $this->action1 = 0;
 		// $this->action2 = 0;
@@ -363,7 +363,7 @@ class player{
 		global $PKConfig;
 		$this->cdCount = $this->__cdCount + $this->getCD();
 		
-		if($this->mp >= $this->maxMp && !$this->stat[22] && !$this->stat[24])
+		if($this->mp >= $this->maxMp && !$this->stat[22] && !$this->stat[24] && !$this->skill->disabled && $this->skill->canUse($this))
 			$this->mpAction = $this->mp;
 		else
 			$this->mpAction = 0;
@@ -373,13 +373,21 @@ class player{
 	//取技能行为
 	function getSkill(){
 		$arr = array();
+		$skill;
 		foreach($this->skillArr as $key=>$value)
 		{
 			if(!$value->type && $value->actionCount <= 0)//可使用
 			{
-				array_push($arr,$value);
+				if($value->isSendAtOnce)
+					array_push($arr,$value);
+				else if(!$skill)
+					$skill = $value;
+				else if($value->order > $skill->order)
+					$skill = $value;
 			}
 		}
+		if($skill)
+			array_push($arr,$skill);
 		return $arr;
 	}
 	
@@ -465,7 +473,7 @@ class player{
 		
 		//技能状态
 		$pkData->startSkillMV($this);
-		$this->buffAction('after');
+		$this->buffAction('AFTER');
 		$pkData->endSkillMV(52);	
 		
 		$b = $this->testStateCD(1);
@@ -613,10 +621,9 @@ class player{
 	
 	//可以闪避死亡
 	function isDieMiss(){
-		if($this->dieMissTimes > 0)
+		if(count($this->dieMissTimes) > 0)
 		{
-			$this->dieMissTimes --;
-			return true;
+			return array_shift($this->dieMissTimes);
 		}
 		return false;
 	}

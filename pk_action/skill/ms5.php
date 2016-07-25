@@ -3,6 +3,7 @@
 	
 	//技：撕裂（技）：伤害200%
 	class sm_5_0 extends SkillBase{
+		public $isAtk = true;
 		function action($user,$self,$enemy){
 			$this->decHp($user,$enemy,$user->atk*2);
 		}
@@ -20,6 +21,7 @@
 	//带毒：每次攻击，-10%速度，1回合
 	class sm_5_2 extends SkillBase{
 		public $cd = 1;
+		public $isAtk = true;
 		function action($user,$self,$enemy){
 			$this->decHp($user,$enemy,$user->atk);
 			
@@ -41,6 +43,7 @@
 	//辅：--50%伤害，-10%速度，1回合
 	class sm_5_f1 extends SkillBase{
 		public $cd = 5;
+		public $isAtk = true;
 		function action($user,$self,$enemy){
 			$this->decHp($user,$enemy,$user->atk*0.5);
 			
@@ -53,11 +56,14 @@
 	class sm_5_f2 extends SkillBase{
 		public $cd = 0;
 		function action($user,$self,$enemy){
-			$self->dieMissTimes ++;
+			array_push($self->dieMissTimes,$user->id);
 		}
 	}
 	class sm_5_f3 extends SkillBase{
 		public $type = 'DMISS';
+		function canUse($user,$self=null,$enemy=null){
+			return $this->tData == $user->id;
+		}
 		function action($user,$self,$enemy){
 			$buff = new StatBuff(24,1);
 			$buff->isDebuff = true;

@@ -6,6 +6,7 @@
 		public $isAtk = true;
 		function action($user,$self,$enemy){
 			$buff = new HPBuff(-$user->atk,2);
+			$buff->isDebuff = true;
 			$buff->addToTarget($enemy);
 			
 			$buff = new ValueBuff(array('speed'=>-round($enemy->base_speed * 0.3)),2);
@@ -46,7 +47,7 @@
 	class sm_1_3 extends SkillBase{
 		public $cd = 0;
 		function action($user,$self,$enemy){
-			$user->dieMissTimes ++;
+			array_push($user->dieMissTimes,$user->id);
 		}
 	}
 
@@ -64,6 +65,7 @@
 		public $cd = 0;
 		function action($user,$self,$enemy){
 			$buff = new HPBuff(-round($user->atk*0.3),2);
+			$buff->isDebuff = true;
 			$buff->addToTarget($enemy);
 			
 			$buff = new ValueBuff(array('speed'=>-round($enemy->base_speed * 0.1)),2);

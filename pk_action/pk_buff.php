@@ -83,8 +83,8 @@
 	class HPBuff extends BuffBase{
 		public $value;
 		function __construct($value,$cd){
-			$this->actionTime = 'after';
-			$this->value = $value;
+			$this->actionTime = 'AFTER';
+			$this->value = round($value);
 			$this->cd = $cd;
 			if($value > 0)
 				$this->isDebuff = false;
@@ -95,10 +95,10 @@
 		//清除buff效果时调用
 		function onAction(){
 			global $pkData;
-			if($this->value<0 && $this->target->hp <= -$value && $this->target->isDieMiss())
+			if($this->value<0 && $this->target->hp <= -$value && ($temp = $this->target->isDieMiss()))
 			{
 				$pkData->addSkillMV(null,$target,pk_skillType('NOHURT',0));
-				$this->target->testTSkill('DMISS');
+				$this->target->testTSkill('DMISS',$temp);
 				return false;
 			}
 			$this->target->addHp($this->value);

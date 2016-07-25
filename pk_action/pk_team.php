@@ -73,7 +73,10 @@ class Team{
 				$player->team = $this;
 				$player->id = 10 + ($this->teamID-1)*20 + $i;
 				if($this->monsterBase->{''.$player->monsterID})
+				{
+					$player->initData($tec->{$player->monsterID},$this->fight);
 					$this->monsterBase->{''.$player->monsterID}->num++;
+				}
 				else
 					$this->monsterBase->{''.$player->monsterID} = $player->initData($tec->{$player->monsterID},$this->fight);
 

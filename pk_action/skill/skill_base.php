@@ -108,12 +108,12 @@
 				$value = $user->getHurt($value,$target);
 				
 				
-			if($target->hp <= $value && $target->isDieMiss())
+			if($target->hp <= $value && ($temp = $target->isDieMiss()))
 			{
 				global $pkData;
 				$value = 0;
 				$pkData->addSkillMV(null,$target,pk_skillType('NOHURT',0));	
-				$target->testTSkill('DMISS');
+				$target->testTSkill('DMISS',$temp);
 			}
 			else
 			{
@@ -171,6 +171,7 @@
 		
 		//¼ÓÄ§
 		function addMp($user,$target,$value){
+			$value = round($value);
 			$target->mp += $value;
 			$this->setSkillEffect($target,pk_skillType('MP',$value));
 			return $value;

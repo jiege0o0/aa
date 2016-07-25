@@ -3,6 +3,7 @@
 
 	//¼¼£º»Ó»÷£¨¼¼£©£º+200%ÉËº¦£¬Îü30%Ñª
 	class sm_6_0 extends SkillBase{
+		public $isAtk = true;
 		function action($user,$self,$enemy){
 			$v = $this->decHp($user,$enemy,$user->atk*2);
 			$this->addHp($user,$user,-$v*0.3);
@@ -25,6 +26,7 @@
 	//ÎüÑª£ºÃ¿´ÎÆÕ¹¥Îü¶Ô·½Ê§ÑªµÄ20%
 	class sm_6_2 extends SkillBase{
 		public $cd = 1;
+		public $isAtk = true;
 		function action($user,$self,$enemy){
 			$v = $this->decHp($user,$enemy,$user->atk);
 			$this->addHp($user,$user,-$v*0.2);
@@ -35,6 +37,7 @@
 	//¸¨£º--60%ÉËº¦
 	class sm_6_f1 extends SkillBase{
 		public $cd = 1;
+		public $isAtk = true;
 		function action($user,$self,$enemy){
 			$this->decHp($user,$enemy,$user->atk*0.6);
 		}
