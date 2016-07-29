@@ -1,10 +1,11 @@
 <?php 
 	require_once($filePath."pk_action/skill/skill_base.php");
 
-	//技：缠绕：无法普攻2回合，并持续-血 (ATK*0.6)
+	//技：缠绕：无法普攻2回合，并持续-血 (ATK*0.5)
 	class sm_13_0 extends SkillBase{
+		public $isAtk = true;
 		function action($user,$self,$enemy){
-			$buff = new HPBuff(-round($user->atk*0.6),2);
+			$buff = new HPBuff(-round($user->atk*0.5),2);
 			$buff->isDebuff = true;
 			$buff->addToTarget($enemy);
 			
@@ -35,27 +36,28 @@
 	}
 	
 	
-	//辅：-- 回复：6%生命
+	//辅：-- 回复：8%生命
 	class sm_13_f1 extends SkillBase{
-		public $cd = 1;
+		public $cd = 2;
 		function action($user,$self,$enemy){
-			$this->addHp($user,$self,$self->maxHp*0.06);
+			$this->addHp($user,$self,$self->maxHp*0.08);
 		}
 	}	
-	//辅：-- +10%免伤
+	//辅：-- +8%免伤
 	class sm_13_f2 extends SkillBase{
 		public $cd = 0;
 		function action($user,$self,$enemy){
-			$user->def += 10;
+			$user->def += 8;
 		}
 	}
 
-	//辅：-- 缠绕：普攻1回合,60%伤害，cd5
+	//辅：-- 缠绕：普攻1回合,50%伤害，cd6
 	class sm_13_f3 extends SkillBase{
-		public $cd = 5;
+		public $isAtk = true;
+		public $cd = 6;
 		public $order = 1;//优先级，互斥时越大的越起作用
 		function action($user,$self,$enemy){
-			$buff = new HPBuff(-round($user->atk*0.6),1);
+			$buff = new HPBuff(-round($user->atk*0.5),1);
 			$buff->isDebuff = true;
 			$buff->addToTarget($enemy);
 			

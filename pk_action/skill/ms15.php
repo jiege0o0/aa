@@ -1,7 +1,7 @@
 <?php 
 	require_once($filePath."pk_action/skill/skill_base.php");
 
-	//技：放蛇：150%伤害，中毒液（-速-血），round2（变身后不能用）     -15%速，ATK*0.5
+	//技：放蛇：130%伤害，中毒液（-速-血），round2（变身后不能用）     -15%速，ATK*0.5
 	class sm_15_0 extends SkillBase{
 		public $isAtk = true;
 		function action($user,$self,$enemy){
@@ -13,7 +13,7 @@
 			$buff->isDebuff = true;
 			$buff->addToTarget($enemy);
 			
-			$this->decHp($user,$enemy,$user->atk*1.5);
+			$this->decHp($user,$enemy,$user->atk*1.3);
 		}
 	}
 	
@@ -34,12 +34,12 @@
 		}
 	}
 	
-	//变身：进入时，当生命少于30%，与蛇合体，生命上限+100%，攻击+20%，回满血
+	//变身：进入时，当生命少于10%，与蛇合体，生命上限+100%，攻击+20%，回满血
 	class sm_15_3 extends SkillBase{
 		public $type = 'BEFORE';
 		public $once = true;
 		function canUse($user,$self=null,$enemy=null){
-			return $user->getHpRate() <= 0.3;
+			return $user->getHpRate() <= 0.1;
 		}
 		
 		function action($user,$self,$enemy){

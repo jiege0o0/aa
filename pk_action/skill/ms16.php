@@ -1,77 +1,59 @@
 <?php 
 	require_once($filePath."pk_action/skill/skill_base.php");
-	
-	//技：心灵控制(技)：所有单位禁固一回合
+
+	//技：吞吃（技）：-15%对方生命上限，增加自己15%生命上限
 	class sm_16_0 extends SkillBase{
+		public $isAtk = true;
 		function action($user,$self,$enemy){
-			$len = count($enemy->team->currentMonster);
-			for($i=0;$i<$len;$i++)
-			{
-				$player = $enemy->team->currentMonster[$i];
-				
-				$buff = new StatBuff(24,2);
-				$buff->isDebuff = true;
-				$buff->addToTarget($player);
-				$this->setSkillEffect($player);
-			}
+			$this->decHp($user,$enemy,$enemy->maxHp*0.15,true);
+			$v = $this->addHp($user,$self,$self->maxHp*0.15,true);
+			
 		}
 	}
 	
-	//每3次攻击，为自己回复10MP
+	//积肉:增加5%生命上限并回血，cd3
 	class sm_16_1 extends SkillBase{
 		public $cd = 3;
-		public $isSendAtOnce = true;
 		function action($user,$self,$enemy){
-			$this->addMp($user,$self,10);
+			$this->addHp($user,$self,$self->maxHp*0.05,true);
 		}
 	}
 	
-	//每次攻击，可净化对方一个BUFF（无论好坏）
+	//厚血：防 = 增加的生命上限/100，上限为30%
 	class sm_16_2 extends SkillBase{
-		public $cd = 1;
+		public $type = 'MHP';
+		
 		function action($user,$self,$enemy){
-			$this->decHp($user,$enemy,$user->atk);
-			$this->cleanStat($enemy,-1,1);
+			$this->temp1 += $this->tData;
+			$def = min(30,round($this->temp1/100));
+			$add = $def - $this->temp2;
+			$this->temp2 = $def;
+			$self->def += $add;
 		}
 	}
 	
-	//增加辅助5%攻击
+	//亡语：永久加血上限=当前上限*0.2
 	class sm_16_3 extends SkillBase{
+		public $type = 'DIE';
+		function action($user,$self,$enemy){
+			$this->addLeaderSkill($user,'sm_16_ds3#'.round($user->maxHp*0.2));
+		}
+	}
+	class sm_16_ds3 extends SkillBase{
 		public $cd = 0;
 		function action($user,$self,$enemy){
-			$len = count($self->team->currentMonster);
-			for($i=1;$i<$len;$i++)
-			{
-				$player = $self->team->currentMonster[$i];
-				$player->atk += round($player->base_atk * 0.05);
-				$this->setSkillEffect($player);
-			}
+			$v = $this->addHp($user,$self,$this->tData,true,true);
 		}
 	}
 	
-	//辅：--心灵控制：所有单位禁固一回合，5CD
+	
+	//辅：--80%伤害
 	class sm_16_f1 extends SkillBase{
-		public $cd = 5;
+		public $cd = 1;
+		public $isAtk = true;
 		function action($user,$self,$enemy){
-			$len = count($enemy->team->currentMonster);
-			for($i=0;$i<$len;$i++)
-			{
-				$player = $enemy->team->currentMonster[$i];
-				
-				$buff = new StatBuff(24,1);
-				$buff->isDebuff = true;
-				$buff->addToTarget($player);
-				$this->setSkillEffect($player);
-			}
+			$this->decHp($user,$enemy,$user->atk*0.8);
 		}
 	}	
-	//辅：--每次攻击50%，可净化对方一个BUFF（无论好坏）
-	class sm_16_f2 extends SkillBase{
-		public $cd = 1;
-		function action($user,$self,$enemy){
-			$this->decHp($user,$enemy,$user->atk*0.5);
-			$this->cleanStat($enemy,-1,1);
-		}
-	}
 
 ?> 

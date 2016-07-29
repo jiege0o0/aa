@@ -31,18 +31,18 @@
 		}
 	}
 	
-	//合作，每有一个人鱼出战，伤害+10%
+	//合作，每有一个人鱼出战，伤害+15%
 	class sm_5_3 extends SkillBase{
 		public $cd = 0;
 		function action($user,$self,$enemy){
 			$num = $user->team->monsterBase->{$user->monsterID}->num;	
-			$user->atk += round($user->base_atk*0.1*$num);
+			$user->atk += round($user->base_atk*0.15*$num);
 		}
 	}
 	
 	//辅：--50%伤害，-10%速度，1回合
 	class sm_5_f1 extends SkillBase{
-		public $cd = 5;
+		public $cd = 1;
 		public $isAtk = true;
 		function action($user,$self,$enemy){
 			$this->decHp($user,$enemy,$user->atk*0.5);
@@ -56,13 +56,13 @@
 	class sm_5_f2 extends SkillBase{
 		public $cd = 0;
 		function action($user,$self,$enemy){
-			array_push($self->dieMissTimes,$user->id);
+			array_push($self->dieMissTimes,array("id"=>$user->id,"type"=>'atk'));
 		}
 	}
 	class sm_5_f3 extends SkillBase{
 		public $type = 'DMISS';
 		function canUse($user,$self=null,$enemy=null){
-			return $this->tData == $user->id;
+			return $this->tData['id'] == $user->id;
 		}
 		function action($user,$self,$enemy){
 			$buff = new StatBuff(24,1);

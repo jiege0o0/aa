@@ -11,13 +11,13 @@
 		}
 	}
 	
-	//净化：每3次攻击后扔出一个骷髅头，-10点MP，80%伤害
+	//净化：每3次攻击后扔出一个骷髅头，-10点MP，60%伤害
 	class sm_7_1 extends SkillBase{
 		public $isAtk = true;
 		public $cd = 3;
 		public $order = 1;//优先级，互斥时越大的越起作用
 		function action($user,$self,$enemy){
-			$this->decHp($user,$enemy,$user->atk*0.8);
+			$this->decHp($user,$enemy,$user->atk*0.6);
 			$this->addMp($user,$enemy,-10);
 		}
 	}

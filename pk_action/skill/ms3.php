@@ -1,7 +1,7 @@
 <?php 
 	require_once($filePath."pk_action/skill/skill_base.php");
 	
-	//技：心灵控制(技)：所有单位禁固一回合
+	//技：心灵控制(技)：所有单位禁固1回合
 	class sm_3_0 extends SkillBase{
 		public $isAtk = true;
 		function action($user,$self,$enemy){
@@ -27,17 +27,17 @@
 		}
 	}
 	
-	//每次攻击，可净化对方一个BUFF（无论好坏）
+	//每次攻击，可净化对方一个BUFF
 	class sm_3_2 extends SkillBase{
 		public $cd = 1;
 		public $isAtk = true;
 		function action($user,$self,$enemy){
 			$this->decHp($user,$enemy,$user->atk);
-			$this->cleanStat($enemy,-1,1);
+			$this->cleanStat($enemy,false,1);
 		}
 	}
 	
-	//增加辅助5%攻击
+	//增加辅助8%攻击
 	class sm_3_3 extends SkillBase{
 		public $cd = 0;
 		function action($user,$self,$enemy){
@@ -45,7 +45,7 @@
 			for($i=1;$i<$len;$i++)
 			{
 				$player = $self->team->currentMonster[$i];
-				$player->atk += round($player->base_atk * 0.05);
+				$player->atk += round($player->base_atk * 0.08);
 				$this->setSkillEffect($player);
 			}
 		}
@@ -53,8 +53,9 @@
 	
 	//辅：--心灵控制：所有单位禁固一回合，5CD
 	class sm_3_f1 extends SkillBase{
-		public $cd = 5;
+		public $cd = 4;
 		public $isAtk = true;
+		public $order = 1;//优先级，互斥时越大的越起作用
 		function action($user,$self,$enemy){
 			$len = count($enemy->team->currentMonster);
 			for($i=0;$i<$len;$i++)
@@ -68,13 +69,13 @@
 			}
 		}
 	}	
-	//辅：--每次攻击50%，可净化对方一个BUFF（无论好坏）
+	//辅：--每次攻击50%，可净化对方一个BUFF
 	class sm_3_f2 extends SkillBase{
 		public $cd = 1;
 		public $isAtk = true;
 		function action($user,$self,$enemy){
 			$this->decHp($user,$enemy,$user->atk*0.5);
-			$this->cleanStat($enemy,-1,1);
+			$this->cleanStat($enemy,false,1);
 		}
 	}
 

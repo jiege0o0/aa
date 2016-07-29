@@ -47,7 +47,7 @@
 	class sm_1_3 extends SkillBase{
 		public $cd = 0;
 		function action($user,$self,$enemy){
-			array_push($user->dieMissTimes,$user->id);
+			array_push($user->dieMissTimes,array("id"=>$user->id));
 		}
 	}
 

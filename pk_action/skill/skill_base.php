@@ -55,7 +55,7 @@
 			$this->actionBefore($user,$self,$enemy);
 			if($this->isAtk)
 			{
-				if($enemy->isMiss())
+				if(!$user->mustHit() && $enemy->isMiss())
 				{
 					$pkData->addSkillMV(null,$enemy,pk_skillType('MISS',1));	
 				}
@@ -108,7 +108,7 @@
 				$value = $user->getHurt($value,$target);
 				
 				
-			if($target->hp <= $value && ($temp = $target->isDieMiss()))
+			if($target->hp <= $value && ($temp = $target->isDieMiss('atk')))
 			{
 				global $pkData;
 				$value = 0;
@@ -147,11 +147,13 @@
 			global $pkData;
 			$value = round(max(1,$value));
 			if($isMax)
-			{
+			{	
+			
 				$target->maxHp += $value;
 				if($forever)
 					$target->add_hp += $value;
 				$this->setSkillEffect($target,pk_skillType('MHP',$value));
+				$user->testTSkill('MHP',$value);
 			}
 			
 			$target->addHp($value);
@@ -268,6 +270,15 @@
 			}
 			
 			return $b;	
+		}
+		
+		function setStat31($target)
+		{
+			if($target->stat[31])
+				$target->stat[31] ++;
+			else
+				$target->stat[31] = 1;
+			$this->cleanStat($target,true,999);
 		}
 	}
 ?> 

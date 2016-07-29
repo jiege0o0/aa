@@ -1,19 +1,19 @@
 <?php 
 	require_once($filePath."pk_action/skill/skill_base.php");
 
-	//技：升空（技）：无视接下来的3次攻击，并增加20%速度，3round
+	//技：升空（技）：无视接下来的5次攻击，并增加20%速度，3round
 	class sm_9_0 extends SkillBase{
 		function action($user,$self,$enemy){
 			$buff = new ValueBuff(array('speed'=>round($self->base_speed * 0.2)),3);
 			$buff->addToTarget($self);
 			
-			$self->missTimes += 3;
+			$self->missTimes += 5;
 			
 			$this->setSkillEffect($self);
 		}
 	}
 	
-	//龙吼：cd5,减全体速10%，2round
+	//龙吼：cd5,减全体速15%，2round
 	class sm_9_1 extends SkillBase{
 		public $cd = 5;
 		public $isAtk = true;
@@ -22,7 +22,7 @@
 			for($i=0;$i<$len;$i++)
 			{
 				$player = $enemy->team->currentMonster[$i];
-				$buff = new ValueBuff(array('speed'=>-round($player->base_speed * 0.1)),2);
+				$buff = new ValueBuff(array('speed'=>-round($player->base_speed * 0.15)),2);
 				$buff->isDebuff = true;
 				$buff->addToTarget($player);
 				$this->setSkillEffect($player);
@@ -60,7 +60,7 @@
 	class sm_9_f1 extends SkillBase{
 		public $cd = 0;
 		function action($user,$self,$enemy){
-			$this->decHp($user,$self,$self->hp*0.1);
+			$this->decHp($user,$self,$self->hp*0.08);
 			$self->atk += round($self->base_atk * 0.05);
 		}
 	}	
