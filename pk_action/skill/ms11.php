@@ -49,9 +49,9 @@
 	
 	//¸¨£º--+10%¹¥
 	class sm_11_f1 extends SkillBase{
-		public $cd = 5;
+		public $cd = 0;
 		function action($user,$self,$enemy){
-			$self->atk += round($player->base_atk * 0.1);
+			$self->atk += round($self->base_atk * 0.1);
 			$this->setSkillEffect($self);
 		}
 	}	

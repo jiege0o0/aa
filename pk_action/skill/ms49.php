@@ -1,76 +1,45 @@
 <?php 
 	require_once($filePath."pk_action/skill/skill_base.php");
 	
-	//技：心灵控制(技)：所有单位禁固一回合
+	//技：猛击（技）：100%伤害，晕一回合
 	class sm_49_0 extends SkillBase{
-		function action($user,$self,$enemy){
-			$len = count($enemy->team->currentMonster);
-			for($i=0;$i<$len;$i++)
-			{
-				$player = $enemy->team->currentMonster[$i];
-				
-				$buff = new StatBuff(24,2);
-				$buff->isDebuff = true;
-				$buff->addToTarget($player);
-				$this->setSkillEffect($player);
-			}
-		}
-	}
-	
-	//每3次攻击，为自己回复10MP
-	class sm_49_1 extends SkillBase{
-		public $cd = 3;
-		public $isSendAtOnce = true;
-		function action($user,$self,$enemy){
-			$this->addMp($user,$self,10);
-		}
-	}
-	
-	//每次攻击，可净化对方一个BUFF（无论好坏）
-	class sm_49_2 extends SkillBase{
-		public $cd = 1;
+		public $isAtk = true;
 		function action($user,$self,$enemy){
 			$this->decHp($user,$enemy,$user->atk);
-			$this->cleanStat($enemy,-1,1);
+		
+			$buff = new StatBuff(24,1);
+			$buff->isDebuff = true;
+			$buff->addToTarget($enemy);
 		}
 	}
 	
-	//增加辅助5%攻击
-	class sm_49_3 extends SkillBase{
-		public $cd = 0;
+	//不屈：当生命少于30%时，触发每次行动后回10%血
+	class sm_49_1 extends SkillBase{
+		public $type = 'AFTER';
+		function canUse($user,$self=null,$enemy=null){
+			return $user->getHpRate()<=0.3;
+		}
 		function action($user,$self,$enemy){
-			$len = count($self->team->currentMonster);
-			for($i=1;$i<$len;$i++)
-			{
-				$player = $self->team->currentMonster[$i];
-				$player->atk += round($player->base_atk * 0.05);
-				$this->setSkillEffect($player);
-			}
+			$this->addHp($user,$self,$self->maxHp*0.1);
 		}
 	}
 	
-	//辅：--心灵控制：所有单位禁固一回合，5CD
+	
+	//辅：-- 50%伤害
 	class sm_49_f1 extends SkillBase{
-		public $cd = 5;
-		function action($user,$self,$enemy){
-			$len = count($enemy->team->currentMonster);
-			for($i=0;$i<$len;$i++)
-			{
-				$player = $enemy->team->currentMonster[$i];
-				
-				$buff = new StatBuff(24,1);
-				$buff->isDebuff = true;
-				$buff->addToTarget($player);
-				$this->setSkillEffect($player);
-			}
-		}
-	}	
-	//辅：--每次攻击50%，可净化对方一个BUFF（无论好坏）
-	class sm_49_f2 extends SkillBase{
 		public $cd = 1;
+		public $isAtk = true;
 		function action($user,$self,$enemy){
 			$this->decHp($user,$enemy,$user->atk*0.5);
-			$this->cleanStat($enemy,-1,1);
+		}
+	}	
+	//辅：--猛击：100%伤害，cd4
+	class sm_49_f2 extends SkillBase{
+		public $cd = 4;
+		public $isAtk = true;
+		public $order = 1;
+		function action($user,$self,$enemy){
+			$this->decHp($user,$enemy,$user->atk);
 		}
 	}
 

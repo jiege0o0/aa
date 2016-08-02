@@ -46,12 +46,12 @@
 		}
 	}
 	
-	//辅：-- 50%伤，如果对方生命低于30%，100%伤
+	//辅：-- 50%伤，如果对方生命低于50%，100%伤
 	class sm_22_f1 extends SkillBase{
 		public $cd = 1;
 		public $isAtk = true;
 		function action($user,$self,$enemy){
-			if($enemy->getHpRate() <= 0.3)
+			if($enemy->getHpRate() <= 0.5)
 				$this->decHp($user,$enemy,$user->atk);
 			else
 				$this->decHp($user,$enemy,$user->atk*0.5);

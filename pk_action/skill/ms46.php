@@ -1,15 +1,28 @@
 <?php 
 	require_once($filePath."pk_action/skill/skill_base.php");
-	
-	//技：心灵控制(技)：所有单位禁固一回合
+
+	//技：暴风锤：120%伤害，晕2回合
 	class sm_46_0 extends SkillBase{
+		public $isAtk = true;
+		function action($user,$self,$enemy){
+			$this->decHp($user,$enemy,$user->atk*1.2);
+			
+			$buff = new StatBuff(24,2);
+			$buff->isDebuff = true;
+			$buff->addToTarget($enemy);
+		}
+	}
+	
+	//地震：全体-速20%，round2,cd5
+	class sm_46_1 extends SkillBase{
+		public $cd = 5;
+		public $isAtk = true;
 		function action($user,$self,$enemy){
 			$len = count($enemy->team->currentMonster);
 			for($i=0;$i<$len;$i++)
 			{
 				$player = $enemy->team->currentMonster[$i];
-				
-				$buff = new StatBuff(24,2);
+				$buff = new ValueBuff(array('speed'=>-round($player->base_speed * 0.2)),2);
 				$buff->isDebuff = true;
 				$buff->addToTarget($player);
 				$this->setSkillEffect($player);
@@ -17,60 +30,44 @@
 		}
 	}
 	
-	//每3次攻击，为自己回复10MP
-	class sm_46_1 extends SkillBase{
-		public $cd = 3;
-		public $isSendAtOnce = true;
-		function action($user,$self,$enemy){
-			$this->addMp($user,$self,10);
-		}
-	}
-	
-	//每次攻击，可净化对方一个BUFF（无论好坏）
+	//天神下凡：10次行动后，防+20%，攻+50%
 	class sm_46_2 extends SkillBase{
-		public $cd = 1;
+		public $type='AFTER';
+		public $once = true;
+		function canUse($user,$self=null,$enemy=null){
+			$this->temp1 ++;
+			return $this->temp1 >= 10;
+		}
 		function action($user,$self,$enemy){
-			$this->decHp($user,$enemy,$user->atk);
-			$this->cleanStat($enemy,-1,1);
+			$user->atk += round($user->base_atk*0.5);
+			$user->def += 20;
+			$this->setSkillEffect($user);
+			debug($this->temp1);
 		}
 	}
 	
-	//增加辅助5%攻击
+	//+20%防
 	class sm_46_3 extends SkillBase{
 		public $cd = 0;
 		function action($user,$self,$enemy){
-			$len = count($self->team->currentMonster);
-			for($i=1;$i<$len;$i++)
-			{
-				$player = $self->team->currentMonster[$i];
-				$player->atk += round($player->base_atk * 0.05);
-				$this->setSkillEffect($player);
-			}
+			$user->def += 20;
 		}
 	}
 	
-	//辅：--心灵控制：所有单位禁固一回合，5CD
+	//辅：--50%伤害
 	class sm_46_f1 extends SkillBase{
-		public $cd = 5;
-		function action($user,$self,$enemy){
-			$len = count($enemy->team->currentMonster);
-			for($i=0;$i<$len;$i++)
-			{
-				$player = $enemy->team->currentMonster[$i];
-				
-				$buff = new StatBuff(24,1);
-				$buff->isDebuff = true;
-				$buff->addToTarget($player);
-				$this->setSkillEffect($player);
-			}
-		}
-	}	
-	//辅：--每次攻击50%，可净化对方一个BUFF（无论好坏）
-	class sm_46_f2 extends SkillBase{
 		public $cd = 1;
+		public $isAtk = true;
 		function action($user,$self,$enemy){
 			$this->decHp($user,$enemy,$user->atk*0.5);
-			$this->cleanStat($enemy,-1,1);
+		}
+	}	
+	
+	//辅：--+10%防
+	class sm_46_f2 extends SkillBase{
+		public $cd = 0;
+		function action($user,$self,$enemy){
+			$self->def += 10;
 		}
 	}
 

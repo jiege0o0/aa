@@ -1,13 +1,13 @@
 <?php 
 	require_once($filePath."pk_action/skill/skill_base.php");
 
-	//技：能量吸取：-对方50%MP，自己增加对应值，并回复30%血量
+	//技：能量吸取：-对方50%MP，自己增加对应值，并回复20%血量
 	class sm_7_0 extends SkillBase{
 		public $isAtk = true;
 		function action($user,$self,$enemy){
 			$v = $this->addMp($user,$enemy,-$enemy*0.5);
-			$this->addMp($user,$self,$v);
-			$this->addHp($user,$self,$self->maxHp*0.3);
+			$this->addMp($user,$self,-$v);
+			$this->addHp($user,$self,$self->maxHp*0.2);
 		}
 	}
 	
@@ -22,7 +22,7 @@
 		}
 	}
 	
-	//平静：当自己生命少于30%后，-对方全体15%攻，15%速，触发一次
+	//平静：当自己生命少于30%后，-对方全体10%攻，10%速，触发一次
 	class sm_7_2 extends SkillBase{
 		public $type = 'HP';
 		public $once = true;//技能只执行一次
@@ -34,8 +34,8 @@
 			for($i=0;$i<$len;$i++)
 			{
 				$player = $enemy->team->currentMonster[$i];
-				$player->atk -= round($player->base_atk * 0.15);
-				$player->speed -= round($player->base_speed * 0.15);
+				$player->atk -= round($player->base_atk * 0.1);
+				$player->speed -= round($player->base_speed * 0.1);
 				$this->setSkillEffect($player);
 			}
 		}

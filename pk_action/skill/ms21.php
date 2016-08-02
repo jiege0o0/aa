@@ -13,15 +13,15 @@
 	class sm_21_1 extends SkillBase{
 		public $cd = 0;
 		function action($user,$self,$enemy){
-			$buff = new ValueBuff(array('speed'=>round($self->base_speed * 0.5),'atk'=>round($self->base_speed * 0.3)),3);
+			$buff = new ValueBuff(array('speed'=>round($self->base_speed * 0.5),'atk'=>round($self->base_atk * 0.3)),3);
 			$buff->addToTarget($self);
 			$this->setSkillEffect($self);
 		}
 	}
 	
-	//ÖØ»÷£º+20%£¬cd3;
+	//ÖØ»÷£º+20%£¬cd2;
 	class sm_21_2 extends SkillBase{
-		public $cd = 3;
+		public $cd = 2;
 		public $isAtk = true;
 		function action($user,$self,$enemy){
 			$this->decHp($user,$enemy,$user->atk*1.2);
@@ -36,7 +36,7 @@
 			for($i=1;$i<$len;$i++)
 			{
 				$player = $self->team->currentMonster[$i];
-				$buff = new ValueBuff(array('speed'=>round($player->base_speed * 0.3),'atk'=>round($player->base_speed * 0.2)),3);
+				$buff = new ValueBuff(array('speed'=>round($player->base_speed * 0.3),'atk'=>round($player->base_atk * 0.2)),3);
 				$buff->addToTarget($player);
 				$this->setSkillEffect($player);
 			}
@@ -47,7 +47,7 @@
 	class sm_21_f1 extends SkillBase{
 		public $cd = 0;
 		function action($user,$self,$enemy){
-			$buff = new ValueBuff(array('speed'=>round($self->base_speed * 0.2),'atk'=>round($self->base_speed * 0.1)),3);
+			$buff = new ValueBuff(array('speed'=>round($self->base_speed * 0.2),'atk'=>round($self->base_atk * 0.1)),3);
 			$buff->addToTarget($self);
 			$this->setSkillEffect($self);
 		}

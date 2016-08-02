@@ -141,7 +141,10 @@
 			if(!$this->type && $user->teamID != $target->teamID)
 			{
 				if($target->hp > 0)
+				{
 					$target->testTSkill('BEATK',array($user,$value));
+				}
+					
 				if($user->isPKing)
 					$user->testTSkill('HURT',$value);
 			}

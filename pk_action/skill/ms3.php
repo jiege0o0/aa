@@ -69,12 +69,12 @@
 			}
 		}
 	}	
-	//辅：--每次攻击50%，可净化对方一个BUFF
+	//辅：--每次攻击60%，可净化对方一个BUFF
 	class sm_3_f2 extends SkillBase{
 		public $cd = 1;
 		public $isAtk = true;
 		function action($user,$self,$enemy){
-			$this->decHp($user,$enemy,$user->atk*0.5);
+			$this->decHp($user,$enemy,$user->atk*0.6);
 			$this->cleanStat($enemy,false,1);
 		}
 	}

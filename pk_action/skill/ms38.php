@@ -23,7 +23,7 @@
 		}
 	}
 	
-	//增幅：+辅助单位15%攻和10%速
+	//增幅：+辅助单位10%攻和10%速
 	class sm_38_2 extends SkillBase{
 		public $cd = 0;
 		function action($user,$self,$enemy){
@@ -31,7 +31,7 @@
 			for($i=1;$i<$len;$i++)
 			{
 				$player = $user->team->currentMonster[$i];
-				$player->atk += round($player->base_atk*0.15);
+				$player->atk += round($player->base_atk*0.1);
 				$player->speed += round($player->base_speed*0.1);
 				$this->setSkillEffect($player);
 			}
@@ -40,13 +40,13 @@
 	
 	
 	
-	//辅：--增幅：场上单位10%攻/速/最大生命
+	//辅：--增幅：场上单位5%攻/速/最大生命
 	class sm_38_f1 extends SkillBase{
 		public $cd = 0;
 		function action($user,$self,$enemy){
-			$self->atk += round($self->base_atk*0.1);
-			$self->speed += round($self->base_speed*0.1);
-			$this->addHp($user,$self,$self->base_hp*0.1,true);
+			$self->atk += round($self->base_atk*0.05);
+			$self->speed += round($self->base_speed*0.05);
+			$this->addHp($user,$self,$self->base_hp*0.05,true);
 		}
 	}	
 	//辅：--50%伤害

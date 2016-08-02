@@ -13,14 +13,14 @@
 		}
 	}
 	
-	//连击：100%伤害，速度+50% ，cd3
+	//连击：100%伤害，速度+30% ，cd3
 	class sm_18_1 extends SkillBase{
 		public $cd = 3;
 		public $isAtk = true;
 		function action($user,$self,$enemy){
 			$this->decHp($user,$enemy,$user->atk);
 			
-			$buff = new ValueBuff(array('speed'=>round($self->base_speed * 0.5)),2);
+			$buff = new ValueBuff(array('speed'=>round($self->base_speed * 0.3)),2);
 			$buff->addToTarget($self);
 		}
 	}
@@ -42,7 +42,7 @@
 			$this->decHp($user,$enemy,$user->atk);
 		}
 	}	
-	//辅：--专注，所有辅助+20%攻击
+	//辅：--专注，所有辅助+10%攻击
 	class sm_18_f2 extends SkillBase{
 		public $cd = 0;
 		function action($user,$self,$enemy){
@@ -50,7 +50,7 @@
 			for($i=1;$i<$len;$i++)
 			{
 				$player = $self->team->currentMonster[$i];
-				$player->atk += round($player->base_atk * 0.2);
+				$player->atk += round($player->base_atk * 0.1);
 				$this->setSkillEffect($player);
 			}
 		}

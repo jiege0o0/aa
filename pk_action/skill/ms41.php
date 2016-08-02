@@ -1,76 +1,57 @@
 <?php 
 	require_once($filePath."pk_action/skill/skill_base.php");
-	
-	//技：心灵控制(技)：所有单位禁固一回合
+
+	//技：降临未日：1000%伤害
 	class sm_41_0 extends SkillBase{
+		public $isAtk = true;
 		function action($user,$self,$enemy){
-			$len = count($enemy->team->currentMonster);
-			for($i=0;$i<$len;$i++)
-			{
-				$player = $enemy->team->currentMonster[$i];
-				
-				$buff = new StatBuff(24,2);
-				$buff->isDebuff = true;
-				$buff->addToTarget($player);
-				$this->setSkillEffect($player);
-			}
+			$this->decHp($user,$enemy,$user->atk*10);
 		}
 	}
 	
-	//每3次攻击，为自己回复10MP
+	//同归：死亡后造成100%伤害
 	class sm_41_1 extends SkillBase{
-		public $cd = 3;
-		public $isSendAtOnce = true;
-		function action($user,$self,$enemy){
-			$this->addMp($user,$self,10);
-		}
-	}
-	
-	//每次攻击，可净化对方一个BUFF（无论好坏）
-	class sm_41_2 extends SkillBase{
-		public $cd = 1;
+		public $type='DIE';
 		function action($user,$self,$enemy){
 			$this->decHp($user,$enemy,$user->atk);
-			$this->cleanStat($enemy,-1,1);
 		}
 	}
 	
-	//增加辅助5%攻击
+	//折射：对方受到自己伤害的20%
+	class sm_41_2 extends SkillBase{
+		public $type='BEATK';
+		function action($user,$self,$enemy){
+			$this->decHp($user,$enemy,-$this->tData[1]*0.2);
+		}
+	}
+	
+	//封印：特性无效
 	class sm_41_3 extends SkillBase{
 		public $cd = 0;
 		function action($user,$self,$enemy){
-			$len = count($self->team->currentMonster);
-			for($i=1;$i<$len;$i++)
-			{
-				$player = $self->team->currentMonster[$i];
-				$player->atk += round($player->base_atk * 0.05);
-				$this->setSkillEffect($player);
-			}
+			if(!$enemy->stat[23])
+				$enemy->stat[23] = 1;
+			else
+				$enemy->stat[23] ++;
 		}
 	}
 	
-	//辅：--心灵控制：所有单位禁固一回合，5CD
+	//辅：--封印：特性无效
 	class sm_41_f1 extends SkillBase{
-		public $cd = 5;
+		public $cd = 0;
 		function action($user,$self,$enemy){
-			$len = count($enemy->team->currentMonster);
-			for($i=0;$i<$len;$i++)
-			{
-				$player = $enemy->team->currentMonster[$i];
-				
-				$buff = new StatBuff(24,1);
-				$buff->isDebuff = true;
-				$buff->addToTarget($player);
-				$this->setSkillEffect($player);
-			}
+			if(!$enemy->stat[23])
+				$enemy->stat[23] = 1;
+			else
+				$enemy->stat[23] ++;
 		}
 	}	
-	//辅：--每次攻击50%，可净化对方一个BUFF（无论好坏）
+	//辅：--50%伤害
 	class sm_41_f2 extends SkillBase{
-		public $cd = 1;
+		public $cd = 2;
+		public $isAtk = true;
 		function action($user,$self,$enemy){
 			$this->decHp($user,$enemy,$user->atk*0.5);
-			$this->cleanStat($enemy,-1,1);
 		}
 	}
 

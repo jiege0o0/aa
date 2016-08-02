@@ -15,7 +15,7 @@
 		public $cd = 1;
 		public $isAtk = true;
 		function action($user,$self,$enemy){		
-			$buff = new HPBuff(-$user->atk*0.5,1);
+			$buff = new HPBuff(-$user->atk*0.4,1);
 			$buff->isDebuff = true;
 			$buff->addToTarget($enemy);
 		}
@@ -29,7 +29,7 @@
 		function action($user,$self,$enemy){
 			$this->decHp($user,$enemy,$user->atk*1.3);
 			
-			$buff = new HPBuff(-$user->atk*0.5,1);
+			$buff = new HPBuff(-$user->atk*0.4,1);
 			$buff->isDebuff = true;
 			$buff->addToTarget($enemy);
 		}
@@ -43,14 +43,14 @@
 		}
 	}
 	
-	//¸¨£º--Ý±¶¾£º60%ÉËº¦,Ê¹¶Ô·½ÖÐ¶¾£¬¼õÑª£¬round1,cd1  ATK*0.5
+	//¸¨£º--Ý±¶¾£º60%ÉËº¦,Ê¹¶Ô·½ÖÐ¶¾£¬¼õÑª£¬round1,cd1  ATK*0.4
 	class sm_35_f1 extends SkillBase{
 		public $cd = 1;
 		public $isAtk = true;
 		function action($user,$self,$enemy){
 			$this->decHp($user,$enemy,$user->atk*0.6);
 			
-			$buff = new HPBuff(-$user->atk*0.5,1);
+			$buff = new HPBuff(-$user->atk*0.4,1);
 			$buff->isDebuff = true;
 			$buff->addToTarget($enemy);
 		}

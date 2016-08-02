@@ -21,6 +21,7 @@ class player{
 	public $def = 0;//被伤害加成
 	public $hurt = 0;//伤害加成
 	public $manaHp = 0;//魔法盾
+	public $maxHurt = 999;//最大伤害系数
 
 	
 	
@@ -60,6 +61,7 @@ class player{
 	//21：禁普攻，22：禁技能，23：禁特性，24：晕,25:魅惑
 	//31:魔免
 	//41：中毒，42：燃烧，43：治聊
+	//101:吸血增加(mid:45)
 	
 	
 	public $missTimes = 0;//可闪避的次数
@@ -203,6 +205,7 @@ class player{
 		$this->hurt = 0;
 		$this->def = 0;
 		$this->manaHp = 0;
+		$this->maxHurt = 999;
 		$this->missTimes = 0;
 		$this->hitTimes = 0;
 		$this->dieMissTimes = array();
@@ -325,6 +328,7 @@ class player{
 	//测试特性技能是否触发
 	function testTSkill($type,$data=null){
 		global $pkData;
+		
 		if(!$this->team->tArr[$type])
 			return;
 		$len = count($this->team->tArr[$type]);
@@ -340,15 +344,16 @@ class player{
 				if($skillData->owner->stat[23])
 					continue;
 					
-				if(!in_array($skillData,$pkData->tArray,true))//一回合只能触发一次特性，相同的会被合并(数值上)	
-				{
+				// if(!in_array($skillData,$pkData->tArray,true))//一回合只能触发一次特性，相同的会被合并(数值上)	
+				// {
 					$skillData->tData = $data;
 					array_push($pkData->tArray,$skillData);
-				}
-				else if($data)
-				{
-					$skillData->tData += $data;
-				}
+					
+				// }
+				// else if($data)
+				// {
+					// $skillData->tData += $data;
+				// }
 				
 			}
 		}
@@ -535,7 +540,7 @@ class player{
 	
 	
 	//测试要不要输出状态数据
-	function testOutStat()
+	function testOutStat()//100以上的不会输出
 	{
 		$this->testTSkill('STAT');
 		global $pkData;
@@ -544,24 +549,21 @@ class player{
 
 		$statKey = '';//自动状态
 		$statKey2 = '';//手动状态
-		foreach($this->tag as $key=>$value)
+		foreach($this->stat as $key=>$value)
 		{
 			if($value)
 			{
 				if($key < 100)
 					$statKey .= numToStr($key);
-				else
-					$statKey2 .= numToStr($key - 100);
 			}
 		}
-		if($statKey2)
-			$statKey .= '|'.$statKey2;
 		
 		if($this->lastStatKey == $statKey)//状态有改变
 			return;
 			
 		
 		$this->lastStatKey = $statKey;
+		//debug($statKey);
 		$pkData->out_stat($this,$statKey);
 	}
 	
@@ -576,6 +578,8 @@ class player{
 	}
 	
 	function addHp($v){
+		if($v < 0 && -$v > $this->maxHurt*$this->maxHp)
+			$v = -round($this->maxHurt*$this->maxHp);
 		if($v < 0 && $this->manaHp > 0)
 		{
 			$this->manaHp += $v;

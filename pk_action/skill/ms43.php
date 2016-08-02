@@ -1,77 +1,69 @@
 <?php 
 	require_once($filePath."pk_action/skill/skill_base.php");
+
+	function sm_43_resetHurt($self,$v){
+		return round((2-$self->getHpRate())*$v);
+	}
 	
-	//技：心灵控制(技)：所有单位禁固一回合
+	
+	//技：血的代价：自己生命-20%，造成200%伤害
 	class sm_43_0 extends SkillBase{
+		public $isAtk = true;
 		function action($user,$self,$enemy){
-			$len = count($enemy->team->currentMonster);
-			for($i=0;$i<$len;$i++)
-			{
-				$player = $enemy->team->currentMonster[$i];
-				
-				$buff = new StatBuff(24,2);
-				$buff->isDebuff = true;
-				$buff->addToTarget($player);
-				$this->setSkillEffect($player);
-			}
+			$this->decHp($user,$self,$self->maxHp*0.2);
+			$this->decHp($user,$enemy,sm_43_resetHurt($user,$user->atk*2));
+			
 		}
 	}
 	
-	//每3次攻击，为自己回复10MP
+	//冲锋：进场时+30%盾，round3，-自己10%血，对对方造成60%伤害;
 	class sm_43_1 extends SkillBase{
-		public $cd = 3;
-		public $isSendAtOnce = true;
+		public $cd = 0;
+		public $isAtk = true;
+		public $order = -10;
 		function action($user,$self,$enemy){
-			$this->addMp($user,$self,10);
+			$this->setSkillEffect($enemy);
+			$this->decHp($user,$self,$self->maxHp*0.1);
+			$this->decHp($user,$enemy,sm_43_resetHurt($user,$user->atk*0.6));
+			
+			$buff = new ValueBuff(array('def'=>30),4);
+			$buff->addToTarget($self);
 		}
 	}
 	
-	//每次攻击，可净化对方一个BUFF（无论好坏）
+	//血的味道：自己生命越少，伤害越大
 	class sm_43_2 extends SkillBase{
 		public $cd = 1;
+		public $isAtk = true;
 		function action($user,$self,$enemy){
-			$this->decHp($user,$enemy,$user->atk);
-			$this->cleanStat($enemy,-1,1);
+			$this->decHp($user,$enemy,sm_43_resetHurt($user,$user->atk));
 		}
 	}
 	
-	//增加辅助5%攻击
-	class sm_43_3 extends SkillBase{
+	
+	//辅：--+10%速
+	class sm_43_f1 extends SkillBase{
 		public $cd = 0;
 		function action($user,$self,$enemy){
-			$len = count($self->team->currentMonster);
-			for($i=1;$i<$len;$i++)
-			{
-				$player = $self->team->currentMonster[$i];
-				$player->atk += round($player->base_atk * 0.05);
-				$this->setSkillEffect($player);
-			}
-		}
-	}
-	
-	//辅：--心灵控制：所有单位禁固一回合，5CD
-	class sm_43_f1 extends SkillBase{
-		public $cd = 5;
-		function action($user,$self,$enemy){
-			$len = count($enemy->team->currentMonster);
-			for($i=0;$i<$len;$i++)
-			{
-				$player = $enemy->team->currentMonster[$i];
-				
-				$buff = new StatBuff(24,1);
-				$buff->isDebuff = true;
-				$buff->addToTarget($player);
-				$this->setSkillEffect($player);
-			}
+			$self->speed += round($self->base_speed*0.1);
+			$this->setSkillEffect($self);
 		}
 	}	
-	//辅：--每次攻击50%，可净化对方一个BUFF（无论好坏）
+	//辅：--50%伤害
 	class sm_43_f2 extends SkillBase{
 		public $cd = 1;
+		public $isAtk = true;
 		function action($user,$self,$enemy){
-			$this->decHp($user,$enemy,$user->atk*0.5);
-			$this->cleanStat($enemy,-1,1);
+			$this->decHp($user,$enemy,sm_43_resetHurt($self,$user->atk*0.5));
 		}
 	}
+	//辅：--血的味道：自己场上单位生命越少，伤害越大
+	// class sm_43_f2 extends SkillBase{
+		// public $cd = 1;
+		// function action($user,$self,$enemy){
+			// $this->decHp($user,$enemy,$user->atk*0.5);
+			// $this->cleanStat($enemy,-1,1);
+		// }
+	// }
 
 ?> 

@@ -48,9 +48,9 @@
 	}
 
 	
-	//辅：--寒潮：全体-30%速度，round1,cd4
+	//辅：--寒潮：全体-30%速度，round1,cd3
 	class sm_28_f1 extends SkillBase{
-		public $cd = 4;
+		public $cd = 3;
 		public $isAtk = true;
 		public $order = 1;
 		function action($user,$self,$enemy){
