@@ -1,77 +1,80 @@
 <?php 
 	require_once($filePath."pk_action/skill/skill_base.php");
-	
-	//技：心灵控制(技)：所有单位禁固一回合
+
+	//技：炸弹礼物：回复对方10%生命，对方回合结束时，300%伤害，round1
 	class sm_39_0 extends SkillBase{
+		public $isAtk = true;
 		function action($user,$self,$enemy){
-			$len = count($enemy->team->currentMonster);
-			for($i=0;$i<$len;$i++)
-			{
-				$player = $enemy->team->currentMonster[$i];
-				
-				$buff = new StatBuff(24,2);
-				$buff->isDebuff = true;
-				$buff->addToTarget($player);
-				$this->setSkillEffect($player);
-			}
+			$this->addHp($user,$enemy,$enemy->maxHp*0.1);
+			$buff = new HPBuff(-$user->atk*3,1);
+			$buff->isDebuff = true;
+			$buff->addToTarget($enemy);
+			
+			if(!$user->temp['sendGift'])
+				$user->temp['sendGift'] = 0;
+			$user->temp['sendGift'] ++;
 		}
 	}
 	
-	//每3次攻击，为自己回复10MP
+	//糖果：回复对方10%生命，-10%速度，cd3
 	class sm_39_1 extends SkillBase{
 		public $cd = 3;
-		public $isSendAtOnce = true;
+		public $isAtk = true;
 		function action($user,$self,$enemy){
-			$this->addMp($user,$self,10);
+			$this->addHp($user,$enemy,$enemy->maxHp*0.1);
+			$enemy->speed -= round($enemy->base_speed*0.1);
+			
+			if(!$user->temp['sendGift'])
+				$user->temp['sendGift'] = 0;
+			$user->temp['sendGift'] ++;
 		}
 	}
 	
-	//每次攻击，可净化对方一个BUFF（无论好坏）
+	//同乐：当对方回复生命时，自己回复其回复值50%生命
 	class sm_39_2 extends SkillBase{
-		public $cd = 1;
+		public $type='EBEHEAL';
 		function action($user,$self,$enemy){
-			$this->decHp($user,$enemy,$user->atk);
-			$this->cleanStat($enemy,-1,1);
+			$this->addHp($user,$self,$this->tData*0.5);
 		}
 	}
 	
-	//增加辅助5%攻击
+	//无礼物了：当为对方送的礼物>5次时，每送一次礼物增加自己10%攻击力
 	class sm_39_3 extends SkillBase{
-		public $cd = 0;
+		public $type = 'AFTER';
 		function action($user,$self,$enemy){
-			$len = count($self->team->currentMonster);
-			for($i=1;$i<$len;$i++)
+			if($user->temp['sendGift'] != $this->temp)
 			{
-				$player = $self->team->currentMonster[$i];
-				$player->atk += round($player->base_atk * 0.05);
-				$this->setSkillEffect($player);
+				$this->temp = $user->temp['sendGift'];
+				if($this->temp > 2)
+				{
+					$user->atk += round($user->base_atk*0.1);
+					$this->setSkillEffect($user);
+				}
 			}
 		}
 	}
 	
-	//辅：--心灵控制：所有单位禁固一回合，5CD
+	//辅：--回复攻击力100%血量，5次后变成80%伤害
 	class sm_39_f1 extends SkillBase{
-		public $cd = 5;
+		public $cd = 1;
+		function canUse($user,$self=null,$enemy=null){
+			if($this->temp1 <5)
+				$this->isAtk = true;
+			else
+				$this->isAtk = false;
+			return true;
+		}
 		function action($user,$self,$enemy){
-			$len = count($enemy->team->currentMonster);
-			for($i=0;$i<$len;$i++)
+			if($this->temp1 <5)
 			{
-				$player = $enemy->team->currentMonster[$i];
-				
-				$buff = new StatBuff(24,1);
-				$buff->isDebuff = true;
-				$buff->addToTarget($player);
-				$this->setSkillEffect($player);
+				$this->addHp($user,$self,$user->atk);
 			}
+			else
+			{
+				$this->decHp($user,$enemy,$user->atk*0.8);
+			}
+			$this->temp1 ++;
 		}
 	}	
-	//辅：--每次攻击50%，可净化对方一个BUFF（无论好坏）
-	class sm_39_f2 extends SkillBase{
-		public $cd = 1;
-		function action($user,$self,$enemy){
-			$this->decHp($user,$enemy,$user->atk*0.5);
-			$this->cleanStat($enemy,-1,1);
-		}
-	}
 
 ?> 

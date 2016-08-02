@@ -1,77 +1,61 @@
 <?php 
 	require_once($filePath."pk_action/skill/skill_base.php");
-	
-	//技：心灵控制(技)：所有单位禁固一回合
+
+	//技：斩杀（技）：+（对方损伤百分比*5）%伤
 	class sm_22_0 extends SkillBase{
+		public $isAtk = true;
 		function action($user,$self,$enemy){
-			$len = count($enemy->team->currentMonster);
-			for($i=0;$i<$len;$i++)
-			{
-				$player = $enemy->team->currentMonster[$i];
-				
-				$buff = new StatBuff(24,2);
-				$buff->isDebuff = true;
-				$buff->addToTarget($player);
-				$this->setSkillEffect($player);
-			}
+			$this->decHp($user,$enemy,$user->atk*(0 + (1-$enemy->getHpRate())*5));
 		}
 	}
 	
-	//每3次攻击，为自己回复10MP
+	//重击：+50%，cd3;
 	class sm_22_1 extends SkillBase{
 		public $cd = 3;
-		public $isSendAtOnce = true;
+		public $isAtk = true;
+		public $order = 1;//优先级，互斥时越大的越起作用
 		function action($user,$self,$enemy){
-			$this->addMp($user,$self,10);
+			$this->decHp($user,$enemy,$user->atk*1.5);
+			$enemy->def -= 2;
 		}
 	}
 	
-	//每次攻击，可净化对方一个BUFF（无论好坏）
+	//焯烧伤口：每次攻击-2%防
 	class sm_22_2 extends SkillBase{
 		public $cd = 1;
+		public $isAtk = true;
 		function action($user,$self,$enemy){
 			$this->decHp($user,$enemy,$user->atk);
-			$this->cleanStat($enemy,-1,1);
+			$enemy->def -= 2;
 		}
 	}
 	
-	//增加辅助5%攻击
+	//战吼：进场对方所有-20%速，-10%攻，round3
 	class sm_22_3 extends SkillBase{
 		public $cd = 0;
 		function action($user,$self,$enemy){
-			$len = count($self->team->currentMonster);
-			for($i=1;$i<$len;$i++)
-			{
-				$player = $self->team->currentMonster[$i];
-				$player->atk += round($player->base_atk * 0.05);
-				$this->setSkillEffect($player);
-			}
-		}
-	}
-	
-	//辅：--心灵控制：所有单位禁固一回合，5CD
-	class sm_22_f1 extends SkillBase{
-		public $cd = 5;
-		function action($user,$self,$enemy){
-			$len = count($enemy->team->currentMonster);
+			$len = count($self->enemy->currentMonster);
 			for($i=0;$i<$len;$i++)
 			{
-				$player = $enemy->team->currentMonster[$i];
-				
-				$buff = new StatBuff(24,1);
+				$player = $self->enemy->currentMonster[$i];
+				$buff = new ValueBuff(array('speed'=>-round($player->base_speed * 0.2),'atk'=>-round($player->base_speed * 0.1)),3);
 				$buff->isDebuff = true;
 				$buff->addToTarget($player);
 				$this->setSkillEffect($player);
 			}
 		}
-	}	
-	//辅：--每次攻击50%，可净化对方一个BUFF（无论好坏）
-	class sm_22_f2 extends SkillBase{
-		public $cd = 1;
-		function action($user,$self,$enemy){
-			$this->decHp($user,$enemy,$user->atk*0.5);
-			$this->cleanStat($enemy,-1,1);
-		}
 	}
+	
+	//辅：-- 50%伤，如果对方生命低于30%，100%伤
+	class sm_22_f1 extends SkillBase{
+		public $cd = 1;
+		public $isAtk = true;
+		function action($user,$self,$enemy){
+			if($enemy->getHpRate() <= 0.3)
+				$this->decHp($user,$enemy,$user->atk);
+			else
+				$this->decHp($user,$enemy,$user->atk*0.5);
+		}
+	}	
 
 ?> 

@@ -36,18 +36,18 @@
 	}
 	
 	
-	//¸¨£º-- »Ø¸´£º8%ÉúÃü
+	//¸¨£º-- »Ø¸´£º7%ÉúÃü
 	class sm_13_f1 extends SkillBase{
 		public $cd = 2;
 		function action($user,$self,$enemy){
-			$this->addHp($user,$self,$self->maxHp*0.08);
+			$this->addHp($user,$self,$self->maxHp*0.07);
 		}
 	}	
-	//¸¨£º-- +8%ÃâÉË
+	//¸¨£º-- +5%ÃâÉË
 	class sm_13_f2 extends SkillBase{
 		public $cd = 0;
 		function action($user,$self,$enemy){
-			$user->def += 8;
+			$self->def += 5;
 		}
 	}
 

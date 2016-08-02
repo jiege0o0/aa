@@ -1,77 +1,54 @@
 <?php 
 	require_once($filePath."pk_action/skill/skill_base.php");
-	
-	//技：心灵控制(技)：所有单位禁固一回合
+
+	//技：连击(技)：220%伤害
 	class sm_33_0 extends SkillBase{
+		public $isAtk = true;
 		function action($user,$self,$enemy){
-			$len = count($enemy->team->currentMonster);
-			for($i=0;$i<$len;$i++)
-			{
-				$player = $enemy->team->currentMonster[$i];
-				
-				$buff = new StatBuff(24,2);
-				$buff->isDebuff = true;
-				$buff->addToTarget($player);
-				$this->setSkillEffect($player);
-			}
+			$this->decHp($user,$enemy,$user->atk*2.2);
+			
+			$buff = new ValueBuff(array('def'=>-3),3);
+			$buff->isDebuff = true;
+			$buff->addToTarget($enemy);
 		}
 	}
 	
-	//每3次攻击，为自己回复10MP
+	//反击：被攻击时对对方造成100%伤害，cd3
 	class sm_33_1 extends SkillBase{
 		public $cd = 3;
-		public $isSendAtOnce = true;
-		function action($user,$self,$enemy){
-			$this->addMp($user,$self,10);
+		public $type = 'BEATK';
+		function canUse($user,$self=null,$enemy=null){
+			return $this->tData[0]->isPKing;
 		}
-	}
-	
-	//每次攻击，可净化对方一个BUFF（无论好坏）
-	class sm_33_2 extends SkillBase{
-		public $cd = 1;
 		function action($user,$self,$enemy){
 			$this->decHp($user,$enemy,$user->atk);
-			$this->cleanStat($enemy,-1,1);
 		}
 	}
 	
-	//增加辅助5%攻击
-	class sm_33_3 extends SkillBase{
-		public $cd = 0;
+	//腐蚀：每次攻击-3%防，round3,可叠加
+	class sm_33_2 extends SkillBase{
+		public $cd = 1;
+		public $isAtk = true;
 		function action($user,$self,$enemy){
-			$len = count($self->team->currentMonster);
-			for($i=1;$i<$len;$i++)
-			{
-				$player = $self->team->currentMonster[$i];
-				$player->atk += round($player->base_atk * 0.05);
-				$this->setSkillEffect($player);
-			}
+			$this->decHp($user,$enemy,$user->atk);
+			
+			$buff = new ValueBuff(array('def'=>-3),3);
+			$buff->isDebuff = true;
+			$buff->addToTarget($enemy);
 		}
 	}
 	
-	//辅：--心灵控制：所有单位禁固一回合，5CD
+	//辅：--腐蚀：40%伤害，每次攻击-3%防，round3,可叠加
 	class sm_33_f1 extends SkillBase{
-		public $cd = 5;
+		public $cd = 1;
+		public $isAtk = true;
 		function action($user,$self,$enemy){
-			$len = count($enemy->team->currentMonster);
-			for($i=0;$i<$len;$i++)
-			{
-				$player = $enemy->team->currentMonster[$i];
-				
-				$buff = new StatBuff(24,1);
-				$buff->isDebuff = true;
-				$buff->addToTarget($player);
-				$this->setSkillEffect($player);
-			}
+			$this->decHp($user,$enemy,$user->atk*0.4);
+			
+			$buff = new ValueBuff(array('def'=>-3),3);
+			$buff->isDebuff = true;
+			$buff->addToTarget($enemy);
 		}
 	}	
-	//辅：--每次攻击50%，可净化对方一个BUFF（无论好坏）
-	class sm_33_f2 extends SkillBase{
-		public $cd = 1;
-		function action($user,$self,$enemy){
-			$this->decHp($user,$enemy,$user->atk*0.5);
-			$this->cleanStat($enemy,-1,1);
-		}
-	}
 
 ?> 

@@ -42,18 +42,24 @@
 	class sm_8_f1 extends SkillBase{
 		public $cd = 1;
 		public $isAtk = true;
+		
+		function canUse($user,$self=null,$enemy=null){
+			if($this->temp1 == 0)
+				$this->isAtk = true;
+			else
+				$this->isAtk = false;
+			return true;
+		}
 		function action($user,$self,$enemy){
 			if($this->temp1 == 0)
 			{
 				$this->temp1 = 1;
 				$this->decHp($user,$enemy,$user->atk*0.6);
-				$this->isAtk = false;
 			}
 			else
 			{
 				$this->temp1 = 0;
 				$this->addHp($user,$self,$user->atk*0.5);
-				$this->isAtk = true;
 			}
 		}
 	}	

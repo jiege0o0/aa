@@ -42,10 +42,11 @@
 	}
 	
 	//根据技能ID实例化技能
-	function pk_decodeSkill($skillClass){
+	function pk_decodeSkill($skillClassIn){
 		// trace($skillClass);
-		$arr = split('#',$skillClass);
-		if(!class_exists($arr[0]))
+		$arr = split('#',$skillClassIn);
+		$skillClass = $arr[0];
+		if(!class_exists($skillClass))
 			return null;
 		global $skillPool; 
 		if($skillPool[$skillClass] && count($skillPool[$skillClass])>0)
@@ -64,7 +65,10 @@
 		if($arr[1])
 		{
 			$vo->tData = (int)$arr[1];
+			debug($vo->tData);
 		}
+		
+		$vo->name = $skillClassIn;
 		return $vo;
 	}
 	
@@ -128,6 +132,8 @@
 			
 		if(!$skillData->type)
 			$user->setSkillUse($skillData->index);
+		else
+			$skillData->actionCount = $skillData->cd;
 			
 		if($skillData->once)
 			$skillData->disabled = true;

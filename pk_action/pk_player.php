@@ -20,6 +20,7 @@ class player{
 
 	public $def = 0;//被伤害加成
 	public $hurt = 0;//伤害加成
+	public $manaHp = 0;//魔法盾
 
 	
 	
@@ -39,7 +40,7 @@ class player{
 	public $skillArrCD0 = array();//开始就用了的技能
 
 	
-	public $temp = 0;
+	public $temp = array();
 	
 	public $atkhp = 0;//就是这次攻击造成的伤害，在双方身上
 	
@@ -56,12 +57,13 @@ class player{
 	// 'atk','speed','maxHp','action1','action2','action3','action4','action5','hurt','def','cdhp','healAdd');
 	public $stat = array();//特殊状态标记
 	//1：攻，2：速，3：防，4：伤     --+10变成减值
-	//21：禁普攻，22：禁技能，23：禁特性，24：晕
+	//21：禁普攻，22：禁技能，23：禁特性，24：晕,25:魅惑
 	//31:魔免
 	//41：中毒，42：燃烧，43：治聊
 	
 	
 	public $missTimes = 0;//可闪避的次数
+	public $hitTimes = 0;//必中的次数
 	public $dieMissTimes = array();//可闪避的死亡次数
 	
 		
@@ -195,9 +197,14 @@ class player{
 		$this->actionCount = 0;
 		// $this->buffArr = array();
 		$this->mp = 0;
+		$this->maxMp = $this->monsterData['mp'];
+		if(!$this->maxMp)
+			$this->maxMp = 999;
 		$this->hurt = 0;
 		$this->def = 0;
+		$this->manaHp = 0;
 		$this->missTimes = 0;
+		$this->hitTimes = 0;
 		$this->dieMissTimes = array();
 		
 		// $this->action1 = 0;
@@ -223,6 +230,7 @@ class player{
 		// $this->cdhp = 0;
 		// $this->temp1 = 0;
 		// $this->temp2 = 0;
+		$this->temp = array();
 		
 		$this->haveSetCDCount = false;
 		
@@ -348,7 +356,7 @@ class player{
 		
 	//取回合用时，cd越小，出手越快
 	function getCD(){
-		return 2310 / max(1,$this->speed);
+		return 2310 / max(10,$this->speed);
 	}
 	
 	//这个回合有受到影响
@@ -568,6 +576,17 @@ class player{
 	}
 	
 	function addHp($v){
+		if($v < 0 && $this->manaHp > 0)
+		{
+			$this->manaHp += $v;
+			if($this->manaHp < 0)
+			{
+				$v = $this->manaHp;
+				$this->manaHp = 0;
+			}
+			else
+				$v = 0;
+		}
 		$this->hp += $v;
 		if($this->hp > $this->maxHp)
 			$this->hp = $this->maxHp;
@@ -580,6 +599,7 @@ class player{
 		{
 			$this->testTSkill('DIE');
 		}
+		return $v;
 	}
 	
 	function getHpRate(){
@@ -609,6 +629,16 @@ class player{
 		$pkData->addSkillMV(null,$this,pk_skillType('HP',$this->hp));	
 	}
 	
+	//必中，不可闪
+	function mustHit(){
+		if($this->hitTimes > 0)
+		{
+			$this->hitTimes --;
+			return true;
+		}
+		return false;
+	}
+	
 	//可以闪避攻击
 	function isMiss(){
 		if($this->missTimes > 0)
@@ -620,12 +650,21 @@ class player{
 	}
 	
 	//可以闪避死亡
-	function isDieMiss(){
-		if(count($this->dieMissTimes) > 0)
+	function isDieMiss($type){
+		$len = count($this->dieMissTimes);
+		if($len > 0)
 		{
-			return array_shift($this->dieMissTimes);
+			for($i=0;$i<$len;$i++)
+			{
+				if(!$this->dieMissTimes[$i]['type'] || $this->dieMissTimes[$i]['type'] == $type)
+				{
+					$temp = $this->dieMissTimes[$i];
+					array_splice($this->dieMissTimes,$i,1);
+					return $temp;
+				}
+			}
 		}
-		return false;
+		return null;
 	}
 	
 }

@@ -1,76 +1,68 @@
 <?php 
 	require_once($filePath."pk_action/skill/skill_base.php");
-	
-	//技：心灵控制(技)：所有单位禁固一回合
+
+	//技：龙斩：+200%伤害
 	class sm_27_0 extends SkillBase{
+		public $isAtk = true;
 		function action($user,$self,$enemy){
-			$len = count($enemy->team->currentMonster);
-			for($i=0;$i<$len;$i++)
-			{
-				$player = $enemy->team->currentMonster[$i];
-				
-				$buff = new StatBuff(24,2);
-				$buff->isDebuff = true;
-				$buff->addToTarget($player);
-				$this->setSkillEffect($player);
-			}
+			$this->decHp($user,$enemy,$user->atk*2);
 		}
 	}
 	
-	//每3次攻击，为自己回复10MP
+	//疾风斩：+50%伤害，cd3
 	class sm_27_1 extends SkillBase{
 		public $cd = 3;
-		public $isSendAtOnce = true;
+		public $isAtk = true;
 		function action($user,$self,$enemy){
-			$this->addMp($user,$self,10);
+			$this->decHp($user,$enemy,$user->atk*1.5);
 		}
 	}
 	
-	//每次攻击，可净化对方一个BUFF（无论好坏）
+	//力量封印：攻击-50%
 	class sm_27_2 extends SkillBase{
-		public $cd = 1;
-		function action($user,$self,$enemy){
-			$this->decHp($user,$enemy,$user->atk);
-			$this->cleanStat($enemy,-1,1);
-		}
-	}
-	
-	//增加辅助5%攻击
-	class sm_27_3 extends SkillBase{
 		public $cd = 0;
 		function action($user,$self,$enemy){
-			$len = count($self->team->currentMonster);
-			for($i=1;$i<$len;$i++)
-			{
-				$player = $self->team->currentMonster[$i];
-				$player->atk += round($player->base_atk * 0.05);
-				$this->setSkillEffect($player);
-			}
+			$user->atk -= round($user->base_atk*0.5);
 		}
 	}
 	
-	//辅：--心灵控制：所有单位禁固一回合，5CD
-	class sm_27_f1 extends SkillBase{
-		public $cd = 5;
-		function action($user,$self,$enemy){
-			$len = count($enemy->team->currentMonster);
-			for($i=0;$i<$len;$i++)
-			{
-				$player = $enemy->team->currentMonster[$i];
-				
-				$buff = new StatBuff(24,1);
-				$buff->isDebuff = true;
-				$buff->addToTarget($player);
-				$this->setSkillEffect($player);
-			}
+	//封印解除：当生命少于40%时，封印解除
+	class sm_27_3 extends SkillBase{
+		public $type = 'BEFORE';
+		public $once = true;//技能只执行一次
+		function canUse($user,$self=null,$enemy=null){
+			return $user->getHpRate()<=0.4;
 		}
-	}	
-	//辅：--每次攻击50%，可净化对方一个BUFF（无论好坏）
-	class sm_27_f2 extends SkillBase{
+		function action($user,$self,$enemy){
+			$user->atk += round($user->base_atk*0.5);
+		}
+	}
+	
+	//辅：--50%伤害
+	class sm_27_f1 extends SkillBase{
 		public $cd = 1;
+		public $isAtk = true;
 		function action($user,$self,$enemy){
 			$this->decHp($user,$enemy,$user->atk*0.5);
-			$this->cleanStat($enemy,-1,1);
+		}
+	}	
+	//辅：--力量封印：攻击-50%
+	class sm_27_f2 extends SkillBase{
+		public $cd = 0;
+		function action($user,$self,$enemy){
+			$user->atk -= round($user->base_atk*0.5);
+		}
+	}
+	
+	//辅：封印解除：当场上生命少于30%时，自己封印解除
+	class sm_27_f3 extends SkillBase{
+		public $type = 'BEFORE';
+		public $once = true;//技能只执行一次
+		function canUse($user,$self=null,$enemy=null){
+			return $self->getHpRate()<=0.3;
+		}
+		function action($user,$self,$enemy){
+			$user->atk += round($user->base_atk*0.5);
 		}
 	}
 

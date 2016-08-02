@@ -66,7 +66,7 @@
 		function onClean(){
 			foreach($this->value as $key=>$value)
 			{
-				$this->target->{$key} -= $value;
+				$this->target->{$key} -= round($value);
 			}
 		}
 		
@@ -74,7 +74,7 @@
 		function onBuffAdd(){
 			foreach($this->value as $key=>$value)
 			{
-				$this->target->{$key} += $value;
+				$this->target->{$key} += round($value);
 			}
 		}
 	}
@@ -91,11 +91,11 @@
 			else
 				$this->isDebuff = true;
 		}
-		
-		//清除buff效果时调用
+
 		function onAction(){
 			global $pkData;
-			if($this->value<0 && $this->target->hp <= -$value && ($temp = $this->target->isDieMiss()))
+			
+			if($this->value<0 && $this->target->hp <= -$this->value && ($temp = $this->target->isDieMiss('buff')))
 			{
 				$pkData->addSkillMV(null,$target,pk_skillType('NOHURT',0));
 				$this->target->testTSkill('DMISS',$temp);

@@ -1,76 +1,74 @@
 <?php 
 	require_once($filePath."pk_action/skill/skill_base.php");
 	
-	//技：心灵控制(技)：所有单位禁固一回合
+
+	//技：冲锋（技）：+20%速度，造成200%伤害，round2
 	class sm_30_0 extends SkillBase{
+		public $isAtk = true;
 		function action($user,$self,$enemy){
-			$len = count($enemy->team->currentMonster);
-			for($i=0;$i<$len;$i++)
-			{
-				$player = $enemy->team->currentMonster[$i];
-				
-				$buff = new StatBuff(24,2);
-				$buff->isDebuff = true;
-				$buff->addToTarget($player);
-				$this->setSkillEffect($player);
-			}
+			$buff = new ValueBuff(array('speed'=>round($self->base_speed * 0.2)),3);
+			$buff->addToTarget($self);
+			
+			$this->decHp($user,$enemy,$user->atk*2);
 		}
 	}
 	
-	//每3次攻击，为自己回复10MP
+	//猛击：+50%伤害
 	class sm_30_1 extends SkillBase{
 		public $cd = 3;
-		public $isSendAtOnce = true;
+		public $isAtk = true;
 		function action($user,$self,$enemy){
-			$this->addMp($user,$self,10);
+			$this->decHp($user,$enemy,$user->atk*1.5);
 		}
 	}
 	
-	//每次攻击，可净化对方一个BUFF（无论好坏）
+	//兴奋剂：进场时+50%攻，每次行动后攻-10%
 	class sm_30_2 extends SkillBase{
-		public $cd = 1;
-		function action($user,$self,$enemy){
-			$this->decHp($user,$enemy,$user->atk);
-			$this->cleanStat($enemy,-1,1);
-		}
-	}
-	
-	//增加辅助5%攻击
-	class sm_30_3 extends SkillBase{
 		public $cd = 0;
 		function action($user,$self,$enemy){
-			$len = count($self->team->currentMonster);
-			for($i=1;$i<$len;$i++)
-			{
-				$player = $self->team->currentMonster[$i];
-				$player->atk += round($player->base_atk * 0.05);
-				$this->setSkillEffect($player);
-			}
+			$self->atk += round($self->base_atk*0.5);
+		}
+	}	
+	class sm_30_5 extends SkillBase{
+		public $type='AFTER';
+		function action($user,$self,$enemy){
+			$self->atk -= round($self->base_atk*0.1);
 		}
 	}
 	
-	//辅：--心灵控制：所有单位禁固一回合，5CD
-	class sm_30_f1 extends SkillBase{
-		public $cd = 5;
+	//不屈：死后增加下一单位20%最大血量(永久)
+	class sm_30_3 extends SkillBase{
+		public $type='DIE';
 		function action($user,$self,$enemy){
-			$len = count($enemy->team->currentMonster);
-			for($i=0;$i<$len;$i++)
-			{
-				$player = $enemy->team->currentMonster[$i];
-				
-				$buff = new StatBuff(24,1);
-				$buff->isDebuff = true;
-				$buff->addToTarget($player);
-				$this->setSkillEffect($player);
-			}
+			$this->addLeaderSkill($user,'sm_30_ds3');
+		}
+	}
+	class sm_30_ds3 extends SkillBase{
+		public $cd = 0;
+		function action($user,$self,$enemy){
+			$this->addHp($user,$self,$self->base_hp * 0.2,true,true);
+		}
+	}
+	
+	
+	
+	//辅：--好战：处于2号位时，攻击+20%
+	class sm_30_f1 extends SkillBase{
+		public $cd = 0;
+		function canUse($user,$self=null,$enemy=null){
+			return $user->pos == 1;
+		}
+		
+		function action($user,$self,$enemy){
+			$user->atk += round($user->base_atk*0.2);
 		}
 	}	
-	//辅：--每次攻击50%，可净化对方一个BUFF（无论好坏）
+	//辅：--60%伤害
 	class sm_30_f2 extends SkillBase{
 		public $cd = 1;
+		public $isAtk = true;
 		function action($user,$self,$enemy){
-			$this->decHp($user,$enemy,$user->atk*0.5);
-			$this->cleanStat($enemy,-1,1);
+			$this->decHp($user,$enemy,$user->atk*0.6);;
 		}
 	}
 

@@ -58,6 +58,25 @@
 			$playArr1 = $pkData->team1->getFightArr();
 		if($playArr2[0]->pkRound >= 3)
 			$playArr2 = $pkData->team2->getFightArr();
+			
+		if(count($playArr1) == 0 && count($playArr2) == 0)
+		{
+			//平局(平局算进攻方输)
+			$result = 0;
+			break;
+		}
+		else if(count($playArr1) == 0)
+		{
+			//2P胜
+			$result = 0;
+			break;
+		}
+		else if(count($playArr2) == 0)
+		{
+			//1P胜
+			$result = 1;
+			break;
+		}
 	}
 	
 	

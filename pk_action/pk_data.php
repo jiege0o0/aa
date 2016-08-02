@@ -1,6 +1,26 @@
 <?php
 require_once($filePath."pk_action/skill/leader_skill.php");
 require_once($filePath."pk_action/skill/ring_skill.php");
+
+//技能执行顺序排序
+function tArraySortFun($a,$b){
+	if($a->order > $b->order)
+		return -1;
+	if($a->order < $b->order)
+		return 1;
+	if($a->owner->joinRound > $b->owner->joinRound)
+		return -1;
+	if($a->owner->joinRound < $b->owner->joinRound)
+		return 1;	
+	if($a->owner->id < $b->owner->id)
+		return -1;
+	if($a->owner->id > $b->owner->id)
+		return 1;	
+	if($a->index < $b->index)
+		return -1;
+	return 1;
+}
+
 class PKData{//主要记录一些PK中的数据
 	public $team1;
 	public $team2;	
@@ -175,6 +195,7 @@ class PKData{//主要记录一些PK中的数据
 	//异步技能处理
 	function dealTArray(){
 		$len = count($this->tArray);
+		usort($this->tArray,tArraySortFun);
 		if($len)
 		{
 			for($i=0;$i<$len;$i++) {
@@ -189,11 +210,13 @@ class PKData{//主要记录一些PK中的数据
 		}
 	}
 	
+	
+	
 	//测试PK是否已经结束
 	function testRoundFinish(){
 		$player1 = $this->playArr1[0];
 		$player2 = $this->playArr2[0];
-		// trace($player1->hp.'=='.$player2->hp);
+		// trace($this->round.'=='.$this->step);
 		if($player1->hp == 0 || $player2->hp == 0)
 		{
 			$result = new stdClass();
@@ -212,7 +235,12 @@ class PKData{//主要记录一些PK中的数据
 				$result->hp = min($player1->hp,$player1->base_hp + $player1->add_hp);
 			}
 			if($player1->hp == 0)
+			{
+				// trace(count($this->playArr1));
 				$player1->freeSkill();
+			}
+			
+				
 			if($player2->hp == 0)
 				$player2->freeSkill();
 			return $result;

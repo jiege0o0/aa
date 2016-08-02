@@ -52,6 +52,13 @@
 		function actionSkill($user,$self,$enemy){
 			global $pkData,$PKConfig;
 			
+			if($user->stat[25])
+			{
+				$temp = $self;
+				$self = $enemy;
+				$enemy = $temp;
+			}
+			
 			$this->actionBefore($user,$self,$enemy);
 			if($this->isAtk)
 			{
@@ -126,15 +133,15 @@
 					$this->setSkillEffect($target,pk_skillType('MHP',$value));
 				}
 
-				$target->addHp($value);
-				$this->setSkillEffect($target,pk_skillType('HP',$value));				
+				$v = $target->addHp($value);
+				$this->setSkillEffect($target,pk_skillType('HP',$v));				
 			}
 
 			
 			if(!$this->type && $user->teamID != $target->teamID)
 			{
 				if($target->hp > 0)
-					$target->testTSkill('BEATK',$value);
+					$target->testTSkill('BEATK',array($user,$value));
 				if($user->isPKing)
 					$user->testTSkill('HURT',$value);
 			}
@@ -163,6 +170,7 @@
 			{			
 				$user->testTSkill('HEAL',$value);
 				$target->testTSkill('BEHEAL',$value);
+				$target->team->enemy->currentMonster[0]->testTSkill('EBEHEAL',$value);
 				//有治疗情况发生
 				// $pkData->playArr1[0]->testTSkill('SHEAL',$value);
 				// $pkData->playArr2[0]->testTSkill('SHEAL',$value);

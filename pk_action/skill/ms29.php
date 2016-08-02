@@ -1,76 +1,53 @@
 <?php 
 	require_once($filePath."pk_action/skill/skill_base.php");
-	
-	//技：心灵控制(技)：所有单位禁固一回合
+
+	//技：龙斩：-50%伤害，持续伤害，2round        5%生命
 	class sm_29_0 extends SkillBase{
+		public $isAtk = true;
 		function action($user,$self,$enemy){
-			$len = count($enemy->team->currentMonster);
-			for($i=0;$i<$len;$i++)
-			{
-				$player = $enemy->team->currentMonster[$i];
-				
-				$buff = new StatBuff(24,2);
-				$buff->isDebuff = true;
-				$buff->addToTarget($player);
-				$this->setSkillEffect($player);
-			}
+			$this->decHp($user,$enemy,$user->atk*1);
+			
+			$buff = new HPBuff(-$enemy->maxHp*0.05,2);
+			$buff->isDebuff = true;
+			$buff->addToTarget($enemy);
 		}
 	}
 	
-	//每3次攻击，为自己回复10MP
+	//暴击：+40%伤害
 	class sm_29_1 extends SkillBase{
-		public $cd = 3;
-		public $isSendAtOnce = true;
+		public $cd = 4;
+		public $isAtk = true;
 		function action($user,$self,$enemy){
-			$this->addMp($user,$self,10);
+			$this->decHp($user,$enemy,$user->atk*1.4);
 		}
 	}
 	
-	//每次攻击，可净化对方一个BUFF（无论好坏）
+	//修罗场：对方行动后，-2%生命
 	class sm_29_2 extends SkillBase{
-		public $cd = 1;
+		public $type = 'EAFTER';
 		function action($user,$self,$enemy){
-			$this->decHp($user,$enemy,$user->atk);
-			$this->cleanStat($enemy,-1,1);
+			$this->decHp($user,$enemy,$enemy->maxHp*0.02);
 		}
 	}
 	
-	//增加辅助5%攻击
-	class sm_29_3 extends SkillBase{
-		public $cd = 0;
-		function action($user,$self,$enemy){
-			$len = count($self->team->currentMonster);
-			for($i=1;$i<$len;$i++)
-			{
-				$player = $self->team->currentMonster[$i];
-				$player->atk += round($player->base_atk * 0.05);
-				$this->setSkillEffect($player);
-			}
-		}
-	}
-	
-	//辅：--心灵控制：所有单位禁固一回合，5CD
+	//辅：--50%伤
 	class sm_29_f1 extends SkillBase{
-		public $cd = 5;
-		function action($user,$self,$enemy){
-			$len = count($enemy->team->currentMonster);
-			for($i=0;$i<$len;$i++)
-			{
-				$player = $enemy->team->currentMonster[$i];
-				
-				$buff = new StatBuff(24,1);
-				$buff->isDebuff = true;
-				$buff->addToTarget($player);
-				$this->setSkillEffect($player);
-			}
-		}
-	}	
-	//辅：--每次攻击50%，可净化对方一个BUFF（无论好坏）
-	class sm_29_f2 extends SkillBase{
 		public $cd = 1;
+		public $isAtk = true;
 		function action($user,$self,$enemy){
 			$this->decHp($user,$enemy,$user->atk*0.5);
-			$this->cleanStat($enemy,-1,1);
+		}
+	}	
+	//辅：--龙炎，伤害并持续扣血，round2,cd4    3%生命
+	class sm_29_f2 extends SkillBase{
+		public $cd = 5;
+		public $isAtk = true;
+		function action($user,$self,$enemy){
+			$buff = new HPBuff(-$enemy->maxHp*0.03,2);
+			$buff->isDebuff = true;
+			$buff->addToTarget($enemy);
+			
+			$this->decHp($user,$enemy,$user->atk*0.5);
 		}
 	}
 

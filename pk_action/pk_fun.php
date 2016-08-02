@@ -89,8 +89,10 @@
 			
 			if(!$user || cdCountSortFun($user,$player) == 1)
 				$user = $player;
+				
+				// debug($player->id.'-'.$player->cdCount);
 		}
-		
+		// debug('***'.$user->id);
 		
 		//得到要行动的单位
 		
