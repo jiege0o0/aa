@@ -19,19 +19,19 @@
 		}
 	}
 	
-	//回复：每3回合回自己15%血
+	//回复：每3回合回自己10%血
 	class sm_13_1 extends SkillBase{
 		public $cd = 3;
 		function action($user,$self,$enemy){
-			$this->addHp($user,$self,$self->maxHp*0.15);
+			$this->addHp($user,$self,$self->maxHp*0.1);
 		}
 	}
 	
-	//木甲：天生-15%伤害
+	//木甲：天生-10%伤害
 	class sm_13_2 extends SkillBase{
 		public $cd = 0;
 		function action($user,$self,$enemy){
-			$user->def += 15;
+			$user->def += 10;
 		}
 	}
 	

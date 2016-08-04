@@ -6,7 +6,7 @@
 		public $isAtk = true;
 		function action($user,$self,$enemy){
 			$v = -$this->decHp($user,$enemy,$user->atk);
-			$this->addHp($user,$self,$v*($user->stat[100]?2:0.3));
+			$this->addHp($user,$self,$v*($user->stat[101]?2:0.3));
 		}
 	}
 	
@@ -18,7 +18,8 @@
 			return $user->getHpRate() <= 0.3;
 		}
 		function action($user,$self,$enemy){
-			$buff = new StatBuff(100,2);
+			$buff = new StatBuff(101,2);
+			$buff->noClean = true;
 			$buff->addToTarget($self);
 		}
 	}
@@ -29,7 +30,7 @@
 		public $isAtk = true;
 		function action($user,$self,$enemy){
 			$v = -$this->decHp($user,$enemy,$user->atk);
-			$this->addHp($user,$self,$v*($user->stat[100]?2:0.3));
+			$this->addHp($user,$self,$v*($user->stat[101]?2:0.3));
 		}
 	}
 	

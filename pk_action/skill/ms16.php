@@ -11,11 +11,11 @@
 		}
 	}
 	
-	//积肉:增加5%生命上限并回血，cd3
+	//积肉:增加6%生命上限并回血，cd3
 	class sm_16_1 extends SkillBase{
 		public $cd = 3;
 		function action($user,$self,$enemy){
-			$this->addHp($user,$self,$self->maxHp*0.05,true);
+			$this->addHp($user,$self,$self->maxHp*0.06,true);
 		}
 	}
 	

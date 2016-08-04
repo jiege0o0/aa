@@ -1,76 +1,51 @@
 <?php 
 	require_once($filePath."pk_action/skill/skill_base.php");
-	
-	//技：心灵控制(技)：所有单位禁固一回合
+
+	//技：召唤人偶替身(技)：替身可叠加，每个替身增加自己20%攻击力
 	class sm_52_0 extends SkillBase{
 		function action($user,$self,$enemy){
-			$len = count($enemy->team->currentMonster);
-			for($i=0;$i<$len;$i++)
-			{
-				$player = $enemy->team->currentMonster[$i];
-				
-				$buff = new StatBuff(24,2);
-				$buff->isDebuff = true;
-				$buff->addToTarget($player);
-				$this->setSkillEffect($player);
-			}
+			$user->atk += round($user->base_atk*0.2);
+			array_push($user->dieMissTimes,array("id"=>$user->id));
 		}
 	}
 	
-	//每3次攻击，为自己回复10MP
+	//精神控制：80%伤害，-10MP，cd3
 	class sm_52_1 extends SkillBase{
 		public $cd = 3;
-		public $isSendAtOnce = true;
+		public $isAtk = true;
 		function action($user,$self,$enemy){
-			$this->addMp($user,$self,10);
+			$this->addMp($user,$enemy,-10);
+			$this->decHp($user,$enemy,$user->atk*0.8);
 		}
 	}
 	
-	//每次攻击，可净化对方一个BUFF（无论好坏）
+	//转移：当伤害会致死时，替身挡一次并少一个
 	class sm_52_2 extends SkillBase{
-		public $cd = 1;
+		public $type = 'DMISS';
+		function canUse($user,$self=null,$enemy=null){
+			return $this->tData['id'] == $user->id;
+		}
 		function action($user,$self,$enemy){
-			$this->decHp($user,$enemy,$user->atk);
-			$this->cleanStat($enemy,-1,1);
+			$user->atk -= round($user->base_atk*0.2);
 		}
 	}
 	
-	//增加辅助5%攻击
-	class sm_52_3 extends SkillBase{
-		public $cd = 0;
-		function action($user,$self,$enemy){
-			$len = count($self->team->currentMonster);
-			for($i=1;$i<$len;$i++)
-			{
-				$player = $self->team->currentMonster[$i];
-				$player->atk += round($player->base_atk * 0.05);
-				$this->setSkillEffect($player);
-			}
-		}
-	}
 	
-	//辅：--心灵控制：所有单位禁固一回合，5CD
+	//辅：--神行：已方最大MP值下降20点
 	class sm_52_f1 extends SkillBase{
-		public $cd = 5;
+		public $cd = 0;
+		public $order = 10;
 		function action($user,$self,$enemy){
-			$len = count($enemy->team->currentMonster);
-			for($i=0;$i<$len;$i++)
-			{
-				$player = $enemy->team->currentMonster[$i];
-				
-				$buff = new StatBuff(24,1);
-				$buff->isDebuff = true;
-				$buff->addToTarget($player);
-				$this->setSkillEffect($player);
-			}
+			$self->maxMp -= 20;
 		}
 	}	
-	//辅：--每次攻击50%，可净化对方一个BUFF（无论好坏）
+	
+	//辅：--60%伤害
 	class sm_52_f2 extends SkillBase{
 		public $cd = 1;
+		public $isAtk = true;
 		function action($user,$self,$enemy){
-			$this->decHp($user,$enemy,$user->atk*0.5);
-			$this->cleanStat($enemy,-1,1);
+			$this->decHp($user,$enemy,$user->atk*0.6);
 		}
 	}
 

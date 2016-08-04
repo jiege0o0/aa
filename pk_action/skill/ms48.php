@@ -37,7 +37,7 @@
 	
 	//反震：对方同样受到伤害的20%（只对主角）
 	class sm_48_1 extends SkillBase{
-		public $type="BEATK";
+		public $type="BEHURT";
 		function canUse($user,$self=null,$enemy=null){
 			return $this->tData[0]->isPKing;
 		}
@@ -46,12 +46,12 @@
 		}
 	}
 	
-	//重击：30%伤害,cd3
+	//重击：20%伤害,cd3
 	class sm_48_2 extends SkillBase{
 		public $cd = 3;
 		public $isAtk = true;
 		function action($user,$self,$enemy){
-			$this->decHp($user,$enemy,$user->atk*1.3);
+			$this->decHp($user,$enemy,$user->atk*1.2);
 		}
 	}
 	

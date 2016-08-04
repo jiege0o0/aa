@@ -1,11 +1,11 @@
 <?php 
 	require_once($filePath."pk_action/skill/skill_base.php");
 
-	//技：降临未日：1000%伤害
+	//技：降临未日：800%伤害
 	class sm_41_0 extends SkillBase{
 		public $isAtk = true;
 		function action($user,$self,$enemy){
-			$this->decHp($user,$enemy,$user->atk*10);
+			$this->decHp($user,$enemy,$user->atk*8);
 		}
 	}
 	
@@ -17,11 +17,11 @@
 		}
 	}
 	
-	//折射：对方受到自己伤害的20%
+	//折射：对方受到自己伤害的10%
 	class sm_41_2 extends SkillBase{
-		public $type='BEATK';
+		public $type='BEHURT';
 		function action($user,$self,$enemy){
-			$this->decHp($user,$enemy,-$this->tData[1]*0.2);
+			$this->decHp($user,$enemy,-$this->tData[1]*0.1);
 		}
 	}
 	

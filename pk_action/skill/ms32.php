@@ -38,7 +38,7 @@
 		}
 		function action($user,$self,$enemy){
 			$user->speed += round($user->base_speed*0.2);
-			$this->addHp($user,$user,$user->maxHp*0.4);
+			$this->addHp($user,$user,$user->maxHp*0.5);
 		}
 	}
 	
@@ -46,6 +46,7 @@
 	class sm_32_f1 extends SkillBase{
 		public $cd = 3;
 		public $isAtk = true;
+		public $order = 1;
 		function action($user,$self,$enemy){
 			$buff = new ValueBuff(array('def'=>-30),2);
 			$buff->isDebuff = true;

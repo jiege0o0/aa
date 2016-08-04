@@ -9,12 +9,12 @@
 		}
 	}
 	
-	//交换：增加对方15%攻击，-10%最大血量，cd3
+	//交换：增加对方20%攻击，-10%最大血量，cd3
 	class sm_37_1 extends SkillBase{
 		public $cd = 3;
 		public $isAtk = true;
 		function action($user,$self,$enemy){
-			$enemy->atk += round($enemy->base_atk*0.15);
+			$enemy->atk += round($enemy->base_atk*0.2);
 			$this->decHp($user,$enemy,$enemy->maxHp*0.1,true);
 		}
 	}

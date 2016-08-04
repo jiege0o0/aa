@@ -30,7 +30,7 @@
 	}
 
 	
-	//辅：当HP》50%，50%伤害 否则50%回血
+	//辅：当HP》50%，60%伤害 否则60%回血
 	class sm_17_f1 extends SkillBase{
 		public $cd = 1;
 		function canUse($user,$self=null,$enemy=null){
@@ -42,9 +42,9 @@
 		}
 		function action($user,$self,$enemy){
 			if($this->isAtk)
-				$this->decHp($user,$enemy,$user->atk*0.5);	
+				$this->decHp($user,$enemy,$user->atk*0.6);	
 			else
-				$this->addHp($user,$self,$user->atk*0.5);	
+				$this->addHp($user,$self,$user->atk*0.6);	
 		}
 	}	
 	//辅：--对方-10%攻

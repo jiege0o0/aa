@@ -13,15 +13,18 @@
 		}
 	}
 	
-	//反击：被攻击时对对方造成100%伤害，cd3
+	//反击：被攻击时对对方造成50%伤害
 	class sm_33_1 extends SkillBase{
-		public $cd = 3;
 		public $type = 'BEATK';
 		function canUse($user,$self=null,$enemy=null){
 			return $this->tData[0]->isPKing;
 		}
 		function action($user,$self,$enemy){
-			$this->decHp($user,$enemy,$user->atk);
+			$this->decHp($user,$enemy,$user->atk*0.5);
+			
+			$buff = new ValueBuff(array('def'=>-3),3);
+			$buff->isDebuff = true;
+			$buff->addToTarget($enemy);
 		}
 	}
 	

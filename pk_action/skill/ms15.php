@@ -34,12 +34,12 @@
 		}
 	}
 	
-	//变身：进入时，当生命少于10%，与蛇合体，生命上限+100%，攻击+20%，回满血
+	//变身：进入时，当生命少于15%，与蛇合体，生命上限+100%，攻击+20%，回满血
 	class sm_15_3 extends SkillBase{
 		public $type = 'BEFORE';
 		public $once = true;
 		function canUse($user,$self=null,$enemy=null){
-			return $user->getHpRate() <= 0.1;
+			return $user->getHpRate() <= 0.15;
 		}
 		
 		function action($user,$self,$enemy){

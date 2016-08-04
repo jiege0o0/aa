@@ -15,7 +15,7 @@
 		public $cd = 1;
 		public $isAtk = true;
 		function action($user,$self,$enemy){		
-			$buff = new HPBuff(-$user->atk*0.4,1);
+			$buff = new HPBuff(-$user->atk*0.5,1);
 			$buff->isDebuff = true;
 			$buff->addToTarget($enemy);
 		}
@@ -29,17 +29,17 @@
 		function action($user,$self,$enemy){
 			$this->decHp($user,$enemy,$user->atk*1.3);
 			
-			$buff = new HPBuff(-$user->atk*0.4,1);
+			$buff = new HPBuff(-$user->atk*0.5,1);
 			$buff->isDebuff = true;
 			$buff->addToTarget($enemy);
 		}
 	}
 	
-	//疗伤：进入时回30%血
+	//疗伤：进入时回50%血
 	class sm_35_3 extends SkillBase{
 		public $cd = 0;
 		function action($user,$self,$enemy){
-			$this->addHp($user,$self,$self->maxHp*0.3);
+			$this->addHp($user,$self,$self->maxHp*0.5);
 		}
 	}
 	

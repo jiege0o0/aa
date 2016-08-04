@@ -22,7 +22,7 @@
 		}
 	}
 	
-	//平静：当自己生命少于30%后，-对方全体10%攻，10%速，触发一次
+	//平静：当自己生命少于30%后，-对方全体15%攻，15%速，触发一次
 	class sm_7_2 extends SkillBase{
 		public $type = 'HP';
 		public $once = true;//技能只执行一次
@@ -34,8 +34,8 @@
 			for($i=0;$i<$len;$i++)
 			{
 				$player = $enemy->team->currentMonster[$i];
-				$player->atk -= round($player->base_atk * 0.1);
-				$player->speed -= round($player->base_speed * 0.1);
+				$player->atk -= round($player->base_atk * 0.15);
+				$player->speed -= round($player->base_speed * 0.15);
 				$this->setSkillEffect($player);
 			}
 		}

@@ -22,11 +22,11 @@
 		public $isAtk = true;
 		public $cd = 3;
 		function action($user,$self,$enemy){
-			$this->decHp($user,$enemy,$user->atk*1.3);
+			$this->decHp($user,$enemy,$user->atk*1.6);
 		}
 	}
 
-	//太臭：增加辅助单位10%的速，-5%攻
+	//太臭：增加辅助单位15%的速，-8%攻
 	class sm_1_2 extends SkillBase{
 		public $cd = 0;
 		function action($user,$self,$enemy){
@@ -35,8 +35,8 @@
 			for($i=1;$i<$len;$i++)
 			{
 				$player = $self->team->currentMonster[$i];
-				$player->atk -= round($player->base_atk * 0.05);
-				$player->speed -= round($player->base_speed * 0.1);
+				$player->atk -= round($player->base_atk * 0.08);
+				$player->speed -= round($player->base_speed * 0.15);
 				$this->setSkillEffect($player);
 			}
 			
@@ -51,12 +51,12 @@
 		}
 	}
 
-	//--每回合造成50%伤害
+	//--每回合造成60%伤害
 	class sm_1_f1 extends SkillBase{
 		public $cd = 1;
 		public $isAtk = true;
 		function action($user,$self,$enemy){
-			$this->decHp($user,$enemy,$user->atk*0.5);
+			$this->decHp($user,$enemy,$user->atk*0.6);
 		}
 	}
 

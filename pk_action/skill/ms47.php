@@ -37,12 +37,12 @@
 			$this->decHp($user,$enemy,$user->atk*0.6);
 		}
 	}	
-	//¸¨£º--¼òµ¥°üÔú£º»ØatkÑª£¬cd3
+	//¸¨£º--¼òµ¥°üÔú£º»Øatk*0.7Ñª£¬cd3
 	class sm_47_f2 extends SkillBase{
 		public $cd = 3;
 		public $order = 1;
 		function action($user,$self,$enemy){
-			$this->addHp($user,$self,$user->atk);
+			$this->addHp($user,$self,$user->atk*0.7);
 		}
 	}
 

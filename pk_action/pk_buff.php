@@ -6,6 +6,7 @@
 		public $target = 0;//Buff依附的目标
 		public $actionTime;//起作用的时机,0为不会中途起作用
 		public $icon = 0;//0为没有图标，其它为图标ID
+		public $noClean = false;//BUFF不会被清
 		
 		
 		function __construct(){
@@ -101,8 +102,8 @@
 				$this->target->testTSkill('DMISS',$temp);
 				return false;
 			}
-			$this->target->addHp($this->value);
-			$pkData->addSkillMV(null,$this->target,pk_skillType('HP',$this->value));
+			$v = $this->target->addHp($this->value);
+			$pkData->addSkillMV(null,$this->target,pk_skillType('HP',$v));
 			//trace($this->target->id.'**'.$this->target->hp);			
 			return true;
 		}

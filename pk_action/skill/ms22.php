@@ -30,7 +30,7 @@
 		}
 	}
 	
-	//战吼：进场对方所有-20%速，-10%攻，round3
+	//战吼：进场对方所有-20%速，-15%攻，round3
 	class sm_22_3 extends SkillBase{
 		public $cd = 0;
 		function action($user,$self,$enemy){
@@ -38,7 +38,7 @@
 			for($i=0;$i<$len;$i++)
 			{
 				$player = $self->enemy->currentMonster[$i];
-				$buff = new ValueBuff(array('speed'=>-round($player->base_speed * 0.2),'atk'=>-round($player->base_speed * 0.1)),3);
+				$buff = new ValueBuff(array('speed'=>-round($player->base_speed * 0.2),'atk'=>-round($player->base_speed * 0.15)),3);
 				$buff->isDebuff = true;
 				$buff->addToTarget($player);
 				$this->setSkillEffect($player);

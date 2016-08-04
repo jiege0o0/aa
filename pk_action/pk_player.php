@@ -61,7 +61,7 @@ class player{
 	//21：禁普攻，22：禁技能，23：禁特性，24：晕,25:魅惑
 	//31:魔免
 	//41：中毒，42：燃烧，43：治聊
-	//101:吸血增加(mid:45)
+	//101:吸血增加(mid:45)，102：结界（mid:51）
 	
 	
 	public $missTimes = 0;//可闪避的次数
@@ -486,6 +486,7 @@ class player{
 		
 		//技能状态
 		$pkData->startSkillMV($this);
+		$pkData->startSkillEffect();
 		$this->buffAction('AFTER');
 		$pkData->endSkillMV(52);	
 		
@@ -602,7 +603,15 @@ class player{
 		else
 		{
 			$this->testTSkill('DIE');
+			$this->team->enemy->currentMonster[0]->testTSkill('EDIE');
 		}
+		
+		if($this->id == 10)
+		{
+			global $pkData;
+			debug($pkData->step.'-'.$this->hp.'_'.$v);
+		}
+			
 		return $v;
 	}
 	

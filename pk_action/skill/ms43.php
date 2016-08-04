@@ -16,17 +16,17 @@
 		}
 	}
 	
-	//冲锋：进场时+30%盾，round3，-自己10%血，对对方造成60%伤害;
+	//冲锋：进场时+20%盾，round3，-自己20%血，对对方造成60%伤害;
 	class sm_43_1 extends SkillBase{
 		public $cd = 0;
 		public $isAtk = true;
 		public $order = -10;
 		function action($user,$self,$enemy){
 			$this->setSkillEffect($enemy);
-			$this->decHp($user,$self,$self->maxHp*0.1);
+			$this->decHp($user,$self,$self->maxHp*0.2);
 			$this->decHp($user,$enemy,sm_43_resetHurt($user,$user->atk*0.6));
 			
-			$buff = new ValueBuff(array('def'=>30),4);
+			$buff = new ValueBuff(array('def'=>20),4);
 			$buff->addToTarget($self);
 		}
 	}

@@ -9,11 +9,11 @@
 		}
 	}
 	
-	//Í»»÷£º½øÈëÊ±+50%ËÙ¶È£¬+30%¹¥»÷£¬round3
+	//Í»»÷£º½øÈëÊ±+50%ËÙ¶È£¬+50%¹¥»÷£¬round3
 	class sm_21_1 extends SkillBase{
 		public $cd = 0;
 		function action($user,$self,$enemy){
-			$buff = new ValueBuff(array('speed'=>round($self->base_speed * 0.5),'atk'=>round($self->base_atk * 0.3)),3);
+			$buff = new ValueBuff(array('speed'=>round($self->base_speed * 0.5),'atk'=>round($self->base_atk * 0.5)),3);
 			$buff->addToTarget($self);
 			$this->setSkillEffect($self);
 		}
@@ -52,12 +52,12 @@
 			$this->setSkillEffect($self);
 		}
 	}	
-	//¸¨£º-- 50%ÉË
+	//¸¨£º-- 60%ÉË
 	class sm_21_f2 extends SkillBase{
 		public $cd = 1;
 		public $isAtk = true;
 		function action($user,$self,$enemy){
-			$this->decHp($user,$enemy,$user->atk*0.5);
+			$this->decHp($user,$enemy,$user->atk*0.6);
 		}
 	}
 

@@ -69,6 +69,7 @@
 				else
 				{
 					$this->action($user,$self,$enemy);
+					$enemy->testTSkill('BEATK',array($user));
 					$enemy->addMp($PKConfig->defMP);
 					$pkData->addSkillMV(null,$enemy,pk_skillType('MP',$PKConfig->defMP));	
 				}
@@ -142,7 +143,7 @@
 			{
 				if($target->hp > 0)
 				{
-					$target->testTSkill('BEATK',array($user,$value));
+					$target->testTSkill('BEHURT',array($user,$value));
 				}
 					
 				if($user->isPKing)
@@ -265,6 +266,8 @@
 			$b = false;
 			for($i=0;$i<$len && $num > 0;$i++)
 			{
+				if($target->buffArr[$i]->noClean)
+					continue;
 				if($isDebuff == -1 || $target->buffArr[$i]->isDebuff == $isDebuff)
 				{
 					$target->buffArr[$i]->cd = 0;

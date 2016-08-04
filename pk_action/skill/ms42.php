@@ -22,9 +22,9 @@
 		}
 	}
 	
-	//回血：+自己100%*atk生命，cd2
+	//回血：+自己100%*atk生命，cd3
 	class sm_42_1 extends SkillBase{
-		public $cd = 2;
+		public $cd = 3;
 		function action($user,$self,$enemy){
 			$this->addHp($user,$self,$user->atk);
 		}
@@ -39,12 +39,12 @@
 	}
 	
 	
-	//辅：--70%回血+净化debuff
+	//辅：--60%回血+净化debuff
 	class sm_42_f1 extends SkillBase{
 		public $cd = 1;
 		function action($user,$self,$enemy){
-			$this->addHp($user,$self,$user->atk*0.7);
-			$this->cleanStat($self,true,1);
+			$this->addHp($user,$self,$user->atk);
+			$this->cleanStat($self,true,0.6);
 		}
 	}	
 	//辅：--进场时回己方20%最大生命

@@ -1,10 +1,10 @@
 <?php 
 	require_once($filePath."pk_action/skill/skill_base.php");
 
-	//技：升空（技）：无视接下来的5次攻击，并增加20%速度，3round
+	//技：升空（技）：无视接下来的5次攻击，并增加10%速度，3round
 	class sm_9_0 extends SkillBase{
 		function action($user,$self,$enemy){
-			$buff = new ValueBuff(array('speed'=>round($self->base_speed * 0.2)),3);
+			$buff = new ValueBuff(array('speed'=>round($self->base_speed * 0.1)),3);
 			$buff->addToTarget($self);
 			
 			$self->missTimes += 5;

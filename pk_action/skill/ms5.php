@@ -31,12 +31,12 @@
 		}
 	}
 	
-	//合作，每有一个人鱼出战，伤害+15%
+	//合作，每有一个人鱼出战，伤害+20%
 	class sm_5_3 extends SkillBase{
 		public $cd = 0;
 		function action($user,$self,$enemy){
 			$num = $user->team->monsterBase->{$user->monsterID}->num;	
-			$user->atk += round($user->base_atk*0.15*$num);
+			$user->atk += round($user->base_atk*0.2*$num);
 		}
 	}
 	
