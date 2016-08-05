@@ -18,12 +18,12 @@
 		}
 	}
 	
-	//每3次攻击，为自己回复10MP
+	//每3次攻击，为自己回复15MP
 	class sm_3_1 extends SkillBase{
 		public $cd = 3;
 		public $isSendAtOnce = true;
 		function action($user,$self,$enemy){
-			$this->addMp($user,$self,10);
+			$this->addMp($user,$self,15);
 		}
 	}
 	
@@ -51,7 +51,7 @@
 		}
 	}
 	
-	//辅：--心灵控制：所有单位禁固一回合，5CD
+	//辅：--心灵控制：所有单位禁固一回合，4CD
 	class sm_3_f1 extends SkillBase{
 		public $cd = 4;
 		public $isAtk = true;

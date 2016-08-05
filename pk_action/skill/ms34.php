@@ -1,11 +1,11 @@
 <?php 
 	require_once($filePath."pk_action/skill/skill_base.php");
 
-	//技：连击(技)：100%伤害 + 8%最大生命
+	//技：连击(技)：100%伤害 + 10%最大生命
 	class sm_34_0 extends SkillBase{
 		public $isAtk = true;
 		function action($user,$self,$enemy){
-			$this->decHp($user,$enemy,$user->atk + $enemy->maxHp*0.08,true);
+			$this->decHp($user,$enemy,$user->atk + $enemy->maxHp*0.1,true);
 		}
 	}
 	

@@ -51,7 +51,7 @@
 		public $cd = 3;
 		public $isAtk = true;
 		function action($user,$self,$enemy){
-			$this->decHp($user,$enemy,$user->atk*1.2);
+			$this->decHp($user,$enemy,$user->atk*1.4);
 		}
 	}
 	
@@ -69,12 +69,12 @@
 		}
 	}
 	
-	//╕иг║-- 50%╔╦║ж
+	//╕иг║-- 70%╔╦║ж
 	class sm_48_f1 extends SkillBase{
 		public $cd = 1;
 		public $isAtk = true;
 		function action($user,$self,$enemy){
-			$this->decHp($user,$enemy,$user->atk*0.5);
+			$this->decHp($user,$enemy,$user->atk*0.7);
 		}
 	}	
 	//╕иг║--╣─╬шг║+10%╣е
