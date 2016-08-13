@@ -107,7 +107,7 @@ class Team{
 	}
 	
 	function initTeamPlayer(){
-		$this->teamPlayer = new Player(101);
+		$this->teamPlayer = new Player(1);
 		$this->teamPlayer->teamID = $this->teamID;
 		$this->teamPlayer->id = $this->teamID;
 		$this->teamPlayer->team = $this;

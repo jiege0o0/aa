@@ -1,11 +1,11 @@
 <?php 
 	require_once($filePath."pk_action/skill/skill_base.php");
 
-	//¼¼£ºÁúÕ¶£º-50%ÉËº¦£¬³ÖĞøÉËº¦£¬2round        5%ÉúÃü
+	//¼¼£ºÁúÕ¶£º-120%ÉËº¦£¬³ÖĞøÉËº¦£¬2round        5%ÉúÃü
 	class sm_29_0 extends SkillBase{
 		public $isAtk = true;
 		function action($user,$self,$enemy){
-			$this->decHp($user,$enemy,$user->atk*1);
+			$this->decHp($user,$enemy,$user->atk*1.2);
 			
 			$buff = new HPBuff(-$enemy->maxHp*0.05,2);
 			$buff->isDebuff = true;
@@ -13,12 +13,12 @@
 		}
 	}
 	
-	//±©»÷£º+40%ÉËº¦
+	//±©»÷£º+60%ÉËº¦
 	class sm_29_1 extends SkillBase{
-		public $cd = 4;
+		public $cd = 3;
 		public $isAtk = true;
 		function action($user,$self,$enemy){
-			$this->decHp($user,$enemy,$user->atk*1.4);
+			$this->decHp($user,$enemy,$user->atk*1.6);
 		}
 	}
 	

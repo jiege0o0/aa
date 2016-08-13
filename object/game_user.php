@@ -45,10 +45,10 @@ class GameUser{
 			return;
 		$this->next_exp = $this->getNextExp();
 		$this->land_key = $data['land_key'];	
-		$this->tec = $this->decode($data['tec'],'{"main":{},"ring":{},"monster":{}}');
-		$this->collect = $this->decode($data['collect'],'{"level":{},"num":{},"lock":[]}');//碎片合成等级	
+		$this->tec = $this->decode($data['tec'],'{"main":{},"monster":{}}');
+		$this->collect = $this->decode($data['collect'],'{"num":{}}');//碎片合成等级	
 		$this->day_game = $this->decode($data['day_game'],'{"level":0,"lasttime":0,"times":0,"pkdata":null}');
-		$this->honor = $this->decode($data['honor'],'{"monster":{},"ring":{}}');
+		$this->honor = $this->decode($data['honor'],'{"monster":{}}');
 		$this->prop = $this->decode($data['prop']);
 		$this->energy = $this->decode($data['energy'],'{"v":0,"t":0,"rmb":0}');
 		$this->diamond = $this->decode($data['diamond'],'{"free":0,"rmb":0}');

@@ -42,12 +42,12 @@
 		}
 	}
 	
-	//¸¨£º--100%ÉËº¦
+	//¸¨£º--60%ÉËº¦
 	class sm_62_f1 extends SkillBase{
 		public $cd = 1;
 		public $isAtk = true;
 		function action($user,$self,$enemy){
-			$this->decHp($user,$enemy,$user->atk);
+			$this->decHp($user,$enemy,$user->atk*0.6);
 		}
 	}	
 

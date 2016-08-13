@@ -22,6 +22,7 @@
 	//转移：当伤害会致死时，替身挡一次并少一个
 	class sm_52_2 extends SkillBase{
 		public $type = 'DMISS';
+		public $isSendAtOnce = true;
 		function canUse($user,$self=null,$enemy=null){
 			return $this->tData['id'] == $user->id;
 		}

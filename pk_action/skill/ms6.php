@@ -1,11 +1,11 @@
 <?php 
 	require_once($filePath."pk_action/skill/skill_base.php");
 
-	//¼¼£º»Ó»÷£¨¼¼£©£º+200%ÉËº¦£¬Îü30%Ñª
+	//¼¼£º»Ó»÷£¨¼¼£©£º+220%ÉËº¦£¬Îü30%Ñª
 	class sm_6_0 extends SkillBase{
 		public $isAtk = true;
 		function action($user,$self,$enemy){
-			$v = $this->decHp($user,$enemy,$user->atk*2);
+			$v = $this->decHp($user,$enemy,$user->atk*2.2);
 			$this->addHp($user,$user,-$v*0.3);
 		}
 	}

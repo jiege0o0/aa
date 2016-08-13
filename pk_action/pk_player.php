@@ -606,11 +606,11 @@ class player{
 			$this->team->enemy->currentMonster[0]->testTSkill('EDIE');
 		}
 		
-		if($this->id == 10)
-		{
-			global $pkData;
-			debug($pkData->step.'-'.$this->hp.'_'.$v);
-		}
+		// if($this->id == 10)
+		// {
+			// global $pkData;
+			// debug($pkData->step.'-'.$this->hp.'_'.$v);
+		// }
 			
 		return $v;
 	}

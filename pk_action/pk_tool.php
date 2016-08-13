@@ -42,22 +42,21 @@
 	//玩家使用怪物的胜率
 	function addMonsterUse($pkData,$result){
 		global $userData,$returnData;
-		if(!$returnData->sync_honor_ring)
-		{
-			$returnData->sync_honor_ring = new stdClass();
-		}
-		if(!$userData->honor->ring->{$pkData->ring})
-		{
-			$userData->honor->ring->{$pkData->ring} = new stdClass();
-			$userData->honor->ring->{$pkData->ring}->t = 0;
-			$userData->honor->ring->{$pkData->ring}->w = 0;
-			// $userData->honor->ring->{$pkData->ring}->a = 0;
-		}
+		// if(!$returnData->sync_honor_ring)
+		// {
+			// $returnData->sync_honor_ring = new stdClass();
+		// }
+		// if(!$userData->honor->ring->{$pkData->ring})
+		// {
+			// $userData->honor->ring->{$pkData->ring} = new stdClass();
+			// $userData->honor->ring->{$pkData->ring}->t = 0;
+			// $userData->honor->ring->{$pkData->ring}->w = 0;
+		// }
 
-		$userData->honor->ring->{$pkData->ring}->t ++;
-		if($result)
-			$userData->honor->ring->{$pkData->ring}->w ++;
-		$returnData->sync_honor_ring->{$pkData->ring} = $userData->honor->ring->{$pkData->ring};
+		// $userData->honor->ring->{$pkData->ring}->t ++;
+		// if($result)
+			// $userData->honor->ring->{$pkData->ring}->w ++;
+		// $returnData->sync_honor_ring->{$pkData->ring} = $userData->honor->ring->{$pkData->ring};
 			
 			
 		if(!$returnData->sync_honor_monster)

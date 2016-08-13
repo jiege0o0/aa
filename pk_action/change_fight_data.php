@@ -6,13 +6,11 @@
 		//$data：{list:[],ring:1}
 		//$fromList{"list":[102,302,501,203,105,107,307,104,502,101],"ring":[1,16]}
 		global $monster_base,$userData,$changeFightDataValue;
-		$cost = 100;
-		$wood = 1;
+		$cost = 0;
 		$repeatNum = array();
 		
-		if(!in_array($data->ring,$fromList->ring,true))
-			return 101;//没这个令牌
-		if(count($data->list) > 8)
+
+		if(count($data->list) > 6)
 			return 107;//总数量不对
 		foreach($data->list as $key=>$value)
 		{
@@ -21,31 +19,15 @@
 			{
 				return 106;//没这个宠物
 			}
-			if(!isset($repeatNum[$value]))
-				$repeatNum[$value] = 0;
-			$repeatNum[$value] ++;
-			if($repeatNum[$value] > 3)//数量过了3个
-				return 102;
 			$monster = $monster_base[$value];
-			//收集的宠物
-			if($isEqual)
-				$cLevel = max(1,$monster['collect']);
-			else
-				$cLevel = $userData->getCollectLevel($value);
-			if($repeatNum[$value] > $cLevel)//超过可出战的碎片宠物
-			{
-				return 103;
-			}
-				
-			
-			//价格不对
-			$cost -= $monster['cost'];
-			$wood -= $monster['wood'];
-			if($cost < 0)
-				return 104;
-			if($wood < 0)
-				return 105;
+			$needCost = $repeatNum[$value];
+			if(!$needCost)
+				$needCost = $monster['cost'];
+			$cost += $needCost;
+			$repeatNum[$value] = ceil($needCost*1.1);
 		}
+		if($cost > 88)
+			return 104;
 		$changeFightDataValue->cost = $cost;
 		$changeFightDataValue->chooseList = $fromList;
 		return 0;

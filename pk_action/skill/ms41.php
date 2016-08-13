@@ -1,11 +1,11 @@
 <?php 
 	require_once($filePath."pk_action/skill/skill_base.php");
 
-	//¼¼£º½µÁÙÎ´ÈÕ£º800%ÉËº¦
+	//¼¼£º½µÁÙÎ´ÈÕ£º1000%ÉËº¦
 	class sm_41_0 extends SkillBase{
 		public $isAtk = true;
 		function action($user,$self,$enemy){
-			$this->decHp($user,$enemy,$user->atk*8);
+			$this->decHp($user,$enemy,$user->atk*10);
 		}
 	}
 	
@@ -17,11 +17,11 @@
 		}
 	}
 	
-	//ÕÛÉä£º¶Ô·½ÊÜµ½×Ô¼ºÉËº¦µÄ10%
+	//ÕÛÉä£º¶Ô·½ÊÜµ½×Ô¼ºÉËº¦µÄ20%
 	class sm_41_2 extends SkillBase{
 		public $type='BEHURT';
 		function action($user,$self,$enemy){
-			$this->decHp($user,$enemy,-$this->tData[1]*0.1);
+			$this->decHp($user,$enemy,-$this->tData[1]*0.2);
 		}
 	}
 	
@@ -46,12 +46,12 @@
 				$enemy->stat[23] ++;
 		}
 	}	
-	//¸¨£º--50%ÉËº¦
+	//¸¨£º--60%ÉËº¦
 	class sm_41_f2 extends SkillBase{
 		public $cd = 2;
 		public $isAtk = true;
 		function action($user,$self,$enemy){
-			$this->decHp($user,$enemy,$user->atk*0.5);
+			$this->decHp($user,$enemy,$user->atk*0.6);
 		}
 	}
 

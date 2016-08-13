@@ -61,6 +61,7 @@
 	}
 	class sm_5_f3 extends SkillBase{
 		public $type = 'DMISS';
+		public $isSendAtOnce = true;
 		function canUse($user,$self=null,$enemy=null){
 			return $this->tData['id'] == $user->id;
 		}

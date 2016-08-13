@@ -7,13 +7,13 @@
 		public $isAtk = false;//攻击型技能，被打者会加MP
 		public $actionCount = 0;//大于0表示CD中
 		public $disabled = false;//技能有没有效
-		public $isSendAtOnce = false;//必发技能，不会参与互斥逻辑
+		public $isSendAtOnce = false;//必发技能，不会参与互斥逻辑(特性情况下不会被23状态限制)
 		public $order = 0;//优先级，互斥时越大的越起作用
 	
 	
 	
 		public $cd = 1;//每CD个回合出一次手，3即为隔2个回合，第3个回合出手，0为回合前出手
-		public $stopout = false;//这个技能动画不会输出到客户端
+		// public $stopout = false;//这个技能动画不会输出到客户端
 		// public round = 0;//持续回合
 		public $type = '';//特性技能
 		public $leader = false;//总PK前执行
