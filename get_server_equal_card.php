@@ -33,6 +33,7 @@
 			$returnData->enemyinfo = $userData->{$pkType}->enemy->userinfo;
 			
 			$userData->{$pkType}->pk = 0;
+			$userData->{$pkType}->pktime = ++;
 			$userData->setChangeKey($pkType);
 			$userData->addEnergy(-$energyCost);
 			$userData->addProp(21,-$propCost);
@@ -47,7 +48,7 @@
 			//取对手---------------------------------
 			require_once($filePath."pk_action/pk_tool.php");
 			//创键对应表（如果不存在）
-			$pkLevel = getPKTableLevel($userData->server_game_equal->exp);
+			$pkLevel = getPKTableLevel($userData->server_game_equal->exp,100);
 			if(!testPKTable($pkType,$pkLevel))
 			{
 				$returnData->fail = 20;
@@ -85,6 +86,8 @@
 			
 			$userData->{$pkType}->choose = $choose;
 			$userData->{$pkType}->enemy = $team2Data;
+			$userData->{$pkType}->pk = 0;
+			$userData->{$pkType}->pktime = 0;
 			$userData->setChangeKey($pkType);
 			$userData->addProp(21,-$propCost);
 			$userData->write2DB();

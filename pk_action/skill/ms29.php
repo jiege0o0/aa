@@ -13,29 +13,29 @@
 		}
 	}
 	
-	//暴击：+60%伤害
+	//暴击：+70%伤害
 	class sm_29_1 extends SkillBase{
 		public $cd = 3;
 		public $isAtk = true;
 		function action($user,$self,$enemy){
-			$this->decHp($user,$enemy,$user->atk*1.6);
+			$this->decHp($user,$enemy,$user->atk*1.7);
 		}
 	}
 	
-	//修罗场：对方行动后，-2%生命
+	//修罗场：对方行动后，-3%生命
 	class sm_29_2 extends SkillBase{
 		public $type = 'EAFTER';
 		function action($user,$self,$enemy){
-			$this->decHp($user,$enemy,$enemy->maxHp*0.02);
+			$this->decHp($user,$enemy,$enemy->maxHp*0.03);
 		}
 	}
 	
-	//辅：--50%伤
+	//辅：--70%伤
 	class sm_29_f1 extends SkillBase{
 		public $cd = 1;
 		public $isAtk = true;
 		function action($user,$self,$enemy){
-			$this->decHp($user,$enemy,$user->atk*0.5);
+			$this->decHp($user,$enemy,$user->atk*0.7);
 		}
 	}	
 	//辅：--龙炎，伤害并持续扣血，round2,cd4    3%生命

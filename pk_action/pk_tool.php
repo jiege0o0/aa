@@ -27,11 +27,11 @@
 	}
 	
 	//根据经验，返回所在等级
-	function getPKTableLevel($exp){
+	function getPKTableLevel($exp,$step){
 		$level = 1;
-		for($i=0;$i<=20;$i++)
+		for($i=0;$i<=50;$i++)
 		{
-			if($exp >= pow(2,$i)*100)
+			if($exp > pow(1.2,$i)*$step - $step)
 				$level ++;
 			else
 				break;

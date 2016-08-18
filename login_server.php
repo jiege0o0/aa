@@ -30,10 +30,10 @@
 		if($userData->server_game_equal->pkdata)
 			$userData->server_game_equal->pkdata = 1;
 			
-		if($userData->server_game->enemy && $userData->server_game->enemy->pkdata)
+		if($userData->server_game->enemy && $userData->server_game->enemy->pkdata && !$userData->server_game->pktime)
 			unset($userData->server_game->enemy->pkdata);
 			
-		if($userData->server_game_equal->enemy && $userData->server_game_equal->enemy->pkdata)
+		if($userData->server_game_equal->enemy && $userData->server_game_equal->enemy->pkdata && !$userData->server_game_equal->pktime)
 			unset($userData->server_game_equal->enemy->pkdata);
 
 		$returnData->data = $userData;

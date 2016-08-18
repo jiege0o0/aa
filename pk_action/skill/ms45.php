@@ -6,7 +6,7 @@
 		public $isAtk = true;
 		function action($user,$self,$enemy){
 			$v = -$this->decHp($user,$enemy,$user->atk);
-			$this->addHp($user,$self,$v*($user->stat[101]?2:0.3));
+			$this->addHp($user,$self,$v*($user->stat[101]?2:0.5));
 		}
 	}
 	
@@ -24,23 +24,23 @@
 		}
 	}
 	
-	//ÎüÑª£ºÃ¿´Î¹¥»÷ÎüÑª30%
+	//ÎüÑª£ºÃ¿´Î¹¥»÷ÎüÑª50%
 	class sm_45_2 extends SkillBase{
 		public $cd = 1;
 		public $isAtk = true;
 		function action($user,$self,$enemy){
 			$v = -$this->decHp($user,$enemy,$user->atk);
-			$this->addHp($user,$self,$v*($user->stat[101]?2:0.3));
+			$this->addHp($user,$self,$v*($user->stat[101]?2:0.5));
 		}
 	}
 	
 	
-	//¸¨£º--50%ÉËº¦
+	//¸¨£º--40%ÉËº¦
 	class sm_45_f1 extends SkillBase{
 		public $cd = 1;
 		public $isAtk = true;
 		function action($user,$self,$enemy){
-			$this->decHp($user,$enemy,$user->atk*0.5);
+			$this->decHp($user,$enemy,$user->atk*0.4);
 		}
 	}	
 	//¸¨£º--+10%¹¥

@@ -35,8 +35,8 @@ class GameUser{
 		$this->coin = (int)$data['coin'];
 		
 
-		$this->server_game = $this->decode($data['server_game'],'{"choose":null,"exp":0,"win":0,"total":0,"last":0,"time":0,"pkdata":null,"enemy":null,"pk":0}');
-		$this->server_game_equal = $this->decode($data['server_game_equal'],'{"choose":null,"exp":0,"win":0,"total":0,"last":0,"max":0,"time":0,"pkdata":null,"enemy":null,"pk":0}');
+		$this->server_game = $this->decode($data['server_game'],'{"choose":null,"exp":0,"win":0,"total":0,"last":0,"time":0,"pkdata":null,"enemy":null,"pk":0,"pktime":0}');
+		$this->server_game_equal = $this->decode($data['server_game_equal'],'{"choose":null,"exp":0,"win":0,"total":0,"last":0,"max":0,"time":0,"pkdata":null,"enemy":null,"pk":0,"pktime":0}');
 		$this->main_game = $this->decode($data['main_game'],'{"choose":null,"level":1,"kill":[],"awardtime":0,"time":0,"pkdata":null}');
 		$this->pk_common = $this->decode($data['pk_common'],'{"history":[]}');
 
@@ -432,7 +432,7 @@ class GameUser{
 			
 		if(count($arr) == 0)
 			return true;
-			
+		array_push($arr,addKey('last_land',time());	
 			
 		$sql = "update ".$sql_table."user_data set ".join(",",$arr)." where gameid='".$msg->gameid."'";
 		 debug($sql);

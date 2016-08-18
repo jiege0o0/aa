@@ -84,40 +84,26 @@ class player{
 	}
 	
 
-	//初始化为宠物战斗数值
+	//初始化为宠物战斗数值 $add宠物战力加成 $fight总体战力加成
 	function initData($add,$fight){
 		global $equalPK;
 		if($equalPK)
 		{
-			$add = new stdClass();
-			$add->hp = 300;
-			$add->atk = 300;
-			$add->spd = 0;
+			$add = 300;
 		}
-		else if(!$add)
+		if(!$fight)
 		{
-			$add = new stdClass();
-			$add->hp = 0;
-			$add->atk = 0;
-			$add->spd = 0;
-		}
-		else
-		{	
-			if(!$add->hp)
-				$add->hp = 0;
-			if(!$add->atk)
-				$add->atk = 0;
-			if(!$add->spd)
-				$add->spd = 0;
+			$fight = 0;
 		}
 		
-
+		
+		$fight += $add;
 		
 			
 			
-		$this->base_hp = round($this->monsterData['hp'] * (1+$add->hp/100));
-		$this->base_atk = round($this->monsterData['atk'] * (1+$add->atk/100));
-		$this->base_speed = round($this->monsterData['speed'] * (1+$add->spd/100));
+		$this->base_hp = round($this->monsterData['hp'] * 1);
+		$this->base_atk = round($this->monsterData['atk'] * 1);
+		$this->base_speed = round($this->monsterData['speed'] * 1);
 		
 		if($fight)
 		{

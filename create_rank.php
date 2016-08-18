@@ -30,6 +30,7 @@
 		$index = 1;
 		$step = 100;
 		$t = microtime(true);
+		$time = time() - 3600*24*3;//3天前
 		while(true)
 		{
 			$sql = "select * from ".$sql_table."user_data where uid>=".$index." and uid<".($index + $step)."";
@@ -47,6 +48,8 @@
 			
 			foreach($result as $key=>$value)
 			{
+				if($time > $value['last_land'])
+					continue;
 				$gu = new GameUser($value,true);
 				//1战力榜，2等级榜，3过关榜，4server，5server_equal
 				addToArr($arr1,array("head"=>$gu->head,"gameid"=>$gu->gameid,"nick"=>$gu->nick,"value"=>$gu->tec_force + $gu->award_force,"value2"=>0));
@@ -89,14 +92,15 @@
 	
 	//把合适的数据加到数组中
 	function addToArr(&$arr,$data){
-		if(count($arr)<100)
+		$len = count($arr);
+		if($len<100)
 		{	
 			array_unshift($arr,$data);
 			return true;
 		}
 		else
 		{
-			if($data["value"] > $arr[99]["value"])
+			if($data["value"] >= $arr[$len-1]["value"])
 			{
 				array_unshift($arr,$data);
 				return true;

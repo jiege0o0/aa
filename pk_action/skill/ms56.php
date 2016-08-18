@@ -25,12 +25,12 @@
 		}
 	}
 	
-	//Áéµ¯£º+80%ÉËº¦,cd3
+	//Áéµ¯£º+70%ÉËº¦,cd3
 	class sm_56_2 extends SkillBase{
 		public $cd = 3;
 		public $isAtk = true;
 		function action($user,$self,$enemy){
-			$this->decHp($user,$enemy,$user->atk*1.8);
+			$this->decHp($user,$enemy,$user->atk*1.7);
 		}
 	}
 

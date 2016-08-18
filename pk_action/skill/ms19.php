@@ -37,7 +37,7 @@
 		}
 	}
 	
-	//辅：--龙威：对方全体-4%攻-4%防-4%速
+	//辅：--龙威：对方全体-5%攻-5%防-5%速
 	class sm_19_f1 extends SkillBase{
 		public $cd = 0;
 		function action($user,$self,$enemy){
@@ -45,9 +45,9 @@
 			for($i=0;$i<$len;$i++)
 			{
 				$player = $enemy->team->currentMonster[$i];
-				$player->atk -= round($player->base_atk*0.04);
-				$player->speed -= round($player->base_speed*0.04);
-				$player->def -= 4;
+				$player->atk -= round($player->base_atk*0.05);
+				$player->speed -= round($player->base_speed*0.05);
+				$player->def -= 5;
 			}
 		}
 	}	

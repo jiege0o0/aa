@@ -10,6 +10,7 @@
 		}
 		
 		$level = $userData->main_game->level;
+		$rate = 1;
 		
 		require_once($filePath."main_award_fun.php");
 		

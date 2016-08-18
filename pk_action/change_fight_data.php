@@ -105,9 +105,9 @@
 		
 		if(!$isEqual)//计算科技影响
 		{
-			$outData->ring->level = 0;
-			if(isset($userData->tec->ring->{$data->ring}))
-				$outData->ring->level = $userData->tec->ring->{$data->ring};
+			// $outData->ring->level = 0;
+			// if(isset($userData->tec->ring->{$data->ring}))
+				// $outData->ring->level = $userData->tec->ring->{$data->ring};
 				
 			// 16伤害增强，17防御增强，18回复增强，19克制加强，20克制压制
 			$outData->stec = new stdClass();//特殊科技（16-20）
@@ -140,42 +140,42 @@
 				$vo = $monster_base[$monsterID];
 				if(!isset($outData->tec->{$monsterID}))
 				{
-					$outData->tec->{$monsterID} = new stdClass();
-					$add = 0;
-					if(isset($userData->tec->monster->{$monsterID}))
-						$add = getTecAdd('monster',$userData->tec->monster->{$monsterID});
-					$typeAdd = 0;
-					if(isset($userData->tec->main->{$vo['type']}))
-						$typeAdd = getTecAdd('main',$userData->tec->main->{$vo['type']});
-					$outData->tec->{$monsterID}->hp = $comment['hp'] + $add + $typeAdd;
-					$outData->tec->{$monsterID}->atk = $comment['atk'] + $add + $typeAdd;
-					$outData->tec->{$monsterID}->spd = $comment['spd'];// + $addSpeed + $typeAddSpeed; 不加成速度了
+					$outData->tec->{$monsterID} = getTecAdd('monster',$userData->tec->monster->{$monsterID});;
+					// $add = 0;
+					// if(isset($userData->tec->monster->{$monsterID}))
+						// $add = getTecAdd('monster',$userData->tec->monster->{$monsterID});
+					// $typeAdd = 0;
+					// if(isset($userData->tec->main->{$vo['type']}))
+						// $typeAdd = getTecAdd('main',$userData->tec->main->{$vo['type']});
+					// $outData->tec->{$monsterID}->hp = $comment['hp'] + $add + $typeAdd;
+					// $outData->tec->{$monsterID}->atk = $comment['atk'] + $add + $typeAdd;
+					// $outData->tec->{$monsterID}->spd = $comment['spd'];// + $addSpeed + $typeAddSpeed; 不加成速度了
 				}
 			}
 		}
 		
 		//计算过载，位置
 		// $outData->index = new stdClass();
-		$monsterNum = array();
-		for($i=0;$i<$len;$i++)
-		{
-			$monsterID = $data->list[$i];
-			if(isset($monsterNum[$monsterID]))
-				continue;
-			$monsterNum[$monsterID] = 1;
-			$offset=array_search($monsterID,$data->list);
+		// $monsterNum = array();
+		// for($i=0;$i<$len;$i++)
+		// {
+			// $monsterID = $data->list[$i];
+			// if(isset($monsterNum[$monsterID]))
+				// continue;
+			// $monsterNum[$monsterID] = 1;
+			// $offset=array_search($monsterID,$data->list);
 			// $outData->index->{$monsterID} = $offset;
-			if($userData->getCollectLevel($monsterID) == 4)
-			{
-				if($monster_base[$monsterID]['wood'])
-					$outData->fight += 5;
-				else
-					$outData->fight += 2;
-			}
+			// if($userData->getCollectLevel($monsterID) == 4)
+			// {
+				// if($monster_base[$monsterID]['wood'])
+					// $outData->fight += 5;
+				// else
+					// $outData->fight += 2;
+			// }
 				
-		}
-		if(count($monsterNum)*2 > $len)
-			$outData->fight -= 8;
+		// }
+		// if(count($monsterNum)*2 > $len)
+			// $outData->fight -= 8;
 		
 		return $outData;	
 			

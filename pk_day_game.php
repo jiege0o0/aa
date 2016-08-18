@@ -53,7 +53,7 @@
 		$team2Data = $content->levels[$level-1];
 		if(!$team2Data->fight)
 			$team2Data->fight = 0;
-		$team2Data->fight += ($level-1)*9;
+		$team2Data->fight += ($level-1)*20;//修正打时基础是300，10级时+180，差不多是1.6倍
 		$equalPK = true;
 		
 		$pkUserInfo = new stdClass();
@@ -68,46 +68,26 @@
 		$award->prop = new stdClass();
 		if($result)
 		{
+			$userLevel = $userData->main_game->level;
 			$userData->day_game->level ++;
 			$returnData->sync_day_game->level = $userData->day_game->level;
-			$award->exp = $userData->day_game->level*30;
-			$award->coin = $userData->day_game->level*100;
+			$award->exp = 30;
+			$award->coin = floor(pow(1.3 + $userLevel/100,$userData->day_game->level)*50);
 			
-			$propNum = ceil(($userData->day_game->level - 3)/2);
-			while($propNum > 0)
+			$propNum = floor(pow(1.25 + $userLevel/100,$userData->day_game->level));
+			$award->collect = addMonsterCollect($collectNum,2);
+			
+			if($userData->day_game->level >= 8)
 			{
-				if(lcg_value()>0.33)
-					tempAddProp(1);
-				else if(lcg_value()>0.5)
-					tempAddProp(2);
-				else
-					tempAddProp(3);
-				$propNum -- ;
+				tempAddProp(21);
 			}
-			
-			$propNum = ($userData->day_game->level - 8);
-			while($propNum > 0)
-			{
-				if(lcg_value()>0.33)
-					tempAddProp(11);
-				else if(lcg_value()>0.5)
-					tempAddProp(12);
-				else
-					tempAddProp(13);
-				$propNum -- ;
-			}
-			
-			// if($userData->day_game->level >= 5 && $userData->day_game->level%2 == 1)
-			// {
-				// tempAddProp(21);
-			// }
 			
 			if($userData->day_game->level == 10)
 				$userData->day_game->times ++;
 		}
 		else
 		{				
-			$award->exp = 25;
+			$award->exp = 15;
 			$award->coin = 0;
 		}
 		

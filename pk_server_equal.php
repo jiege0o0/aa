@@ -1,6 +1,7 @@
 <?php 
 	require_once($filePath."pk_action/change_fight_data.php");
 	require_once($filePath."pk_action/pk_tool.php");
+	require_once($filePath."get_monster_collect.php");
 
 	$myChoose = $msg->choose;
 	$team1Data = changePKData($myChoose,'server_game_equal',true);
@@ -16,7 +17,7 @@
 			break;
 		}
 		$pkType = 'server_game_equal';
-		$pkLevel = getPKTableLevel($userData->server_game_equal->exp);
+		$pkLevel = getPKTableLevel($userData->server_game_equal->exp,100);
 		
 		
 		$team2Data = $userData->server_game_equal->enemy->pkdata;
@@ -135,39 +136,12 @@
 			$award->g_exp = -2;
 		}
 
-		$winTime = min(10,$userData->server_game_equal->last + 1);//10次以上的奖励不会增加
+		$winTime = min(9,$userData->server_game_equal->last + 1);//9次以上的奖励不会增加
 		$award->exp = round(30*(1+$pkLevel/10)*$winTime);
-		$award->coin = round(100*(1+$pkLevel/10)*$winTime);
-		if($winTime > 5)//赢5场以上，每次可得一个无科技场门券，每次可增加一个高级道具
-		{
-			// tempAddProp(21);
-			
-			$propNum = ceil(($winTime - 5)/2);
-			while($propNum > 0)
-			{
-				if(lcg_value()>0.5)
-					tempAddProp(11);
-				else if(lcg_value()>0.5)
-					tempAddProp(12);
-				else
-					tempAddProp(13);
-				$propNum --;
-			}
-		}
-		if($winTime > 2)//赢2场以上，每次可增加一个普通道具
-		{
-			$propNum = ceil(($winTime - 2)/2);
-			while($propNum > 0)
-			{
-				if(lcg_value()>0.5)
-					tempAddProp(1);
-				else if(lcg_value()>0.5)
-					tempAddProp(2);
-				else
-					tempAddProp(3);
-				$propNum--;
-			}
-		}
+		$award->coin = round(30*(1+$pkLevel/10)*$winTime);
+		$collectNum = ceil($winTime/3*$pkLevel);
+		$award->collect = addMonsterCollect($collectNum,2);
+		
 
 		
 		foreach($award->prop as $key=>$value)
