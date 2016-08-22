@@ -13,7 +13,7 @@
 		}
 	}
 	
-	//不屈：当生命少于30%时，触发每次行动后回10%血
+	//不屈：当行动后生命少于30%时，回10%血
 	class sm_49_1 extends SkillBase{
 		public $type = 'AFTER';
 		function canUse($user,$self=null,$enemy=null){

@@ -1,7 +1,7 @@
 <?php 
 	require_once($filePath."pk_action/skill/skill_base.php");
 
-	//¼¼£ºº®³±£º100%ÉËº¦£¬È«Ìå-50%ËÙ¶È£¬round2
+	//¼¼£ºº®³±£º120%ÉËº¦£¬È«Ìå-50%ËÙ¶È£¬round2
 	class sm_28_0 extends SkillBase{
 		public $isAtk = true;
 		function action($user,$self,$enemy){
@@ -16,11 +16,11 @@
 				$this->setSkillEffect($player);
 			}
 			
-			$this->decHp($user,$enemy,$user->atk);
+			$this->decHp($user,$enemy,$user->atk*1.2);
 		}
 	}
 	
-	//ÃÍ»÷£ºÉËº¦+60%
+	//ÃÍ»÷£ºÉËº¦+60%,cd3
 	class sm_28_1 extends SkillBase{
 		public $cd = 3;
 		public $isAtk = true;
@@ -66,12 +66,12 @@
 			}
 		}
 	}	
-	//¸¨£º--60%ÉËº¦
+	//¸¨£º--70%ÉËº¦
 	class sm_28_f2 extends SkillBase{
 		public $cd = 1;
 		public $isAtk = true;
 		function action($user,$self,$enemy){
-			$this->decHp($user,$enemy,$user->atk*0.6);
+			$this->decHp($user,$enemy,$user->atk*0.7);
 		}
 	}
 

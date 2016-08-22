@@ -115,6 +115,44 @@
 		
 	}
 	
+	//服务器统计怪物使用情况
+	function monsterUseLog($table,$list,$use,$isWin){
+		$arr = array();
+		$list = $list->list;
+		$use = $use->list;
+		foreach($list as $key=>$value)
+		{
+			$arr[$value] = 0;
+		}
+		foreach($use as $key=>$value)
+		{
+			$arr[$value] ++;
+		}
+		foreach($arr as $key=>$value)
+		{
+			debug($key.':'.$value);
+			monsterUseLogOne($table,$key,$value,$isWin);
+		}
+	}
+	function monsterUseLogOne($table,$id,$useNum,$isWin){
+		global $conne;
+		$arr = array();
+		array_push($arr,addMonsterLogKey('display',1));
+		if($useNum)
+		{
+			array_push($arr,addMonsterLogKey('use_time',1));
+			array_push($arr,addMonsterLogKey('use_num',$useNum));
+			if($isWin)
+				array_push($arr,addMonsterLogKey('win',1));
+		}
+		$sql = "update ".$table." set ".join(",",$arr)." where id='".$id."'";
+		$conne->uidRst($sql);
+	}
+	
+	function addMonsterLogKey($key,$value){
+		return $key."=".$key.'+'.$value;
+	}
+	
 	
 	
 	

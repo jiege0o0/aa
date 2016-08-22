@@ -56,6 +56,7 @@
 	//辅：--自己生命20%的魔盾
 	class sm_40_f2 extends SkillBase{
 		public $cd = 0;
+		public $order = 9;
 		function action($user,$self,$enemy){
 			$self->manaHp += round($user->base_hp*0.2);
 			$this->setSkillEffect($self);

@@ -25,7 +25,7 @@
 		}
 	}
 	
-	//麻痹：4次会造成麻痹，-10%速2回合
+	//麻痹：5次会造成麻痹，-10%速2回合
 	class sm_2_2 extends SkillBase{
 		public $cd = 5;
 		public $isAtk = true;

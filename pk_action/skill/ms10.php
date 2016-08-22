@@ -1,7 +1,7 @@
 <?php 
 	require_once($filePath."pk_action/skill/skill_base.php");
 
-	//技：石化（技）：停2回合
+	//技：石化（技）：对手停2回合
 	class sm_10_0 extends SkillBase{
 		public $isAtk = true;
 		function action($user,$self,$enemy){
@@ -54,6 +54,7 @@
 	//辅：--进入时回复20%生命
 	class sm_10_f3 extends SkillBase{
 		public $cd = 0;
+		public $order = 1;
 		function action($user,$self,$enemy){
 			$this->addHp($user,$self,$self->maxHp*0.2);
 		}

@@ -96,6 +96,14 @@
 						$returnData->fail = 1;
 					break;
 				}
+				
+				case 'get_test_monster':
+				{
+					require_once($filePath."tool/conn.php");
+					$sql = "select * from test_monster";
+					$returnData->data = $conne->getRowsArray($sql);
+					break;
+				}
 				case 'test':
 				{
 				
@@ -104,6 +112,15 @@
 					$team1Data = $msg->team1;
 					$team2Data = $msg->team2;
 					require_once($filePath."pk_action/pk.php");
+					
+					if($msg->need_server)
+					{
+						require_once($filePath."tool/conn.php");
+						require_once($filePath."pk_action/pk_tool.php");
+						monsterUseLog('test_monster',$msg->team1,$msg->team1,$result);		
+						monsterUseLog('test_monster',$msg->team2,$msg->team2,!$result);		
+					}
+					
 					//sendToClient($returnData);
 				// [{"list":[102,302,501,203,105,107,307,104,502,101],"ring":[1,16]}],
 				

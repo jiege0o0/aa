@@ -21,7 +21,7 @@
 		}
 	}
 	
-	//±©»÷£º+30%ÉËº¦
+	//±©»÷£º+30%ÉËº¦,cd2
 	class sm_35_2 extends SkillBase{
 		public $cd = 2;
 		public $isAtk = true;

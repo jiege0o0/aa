@@ -12,7 +12,7 @@
 		}
 	}
 	
-	//衰弱:减对方辅助15%攻击力
+	//衰弱:减对方辅助20%攻击力
 	class sm_56_1 extends SkillBase{
 		public $cd = 0;
 		function action($user,$self,$enemy){
@@ -20,7 +20,7 @@
 			for($i=1;$i<$len;$i++)
 			{
 				$player = $enemy->team->currentMonster[$i];
-				$player->atk -= round($player->base_atk * 0.15);
+				$player->atk -= round($player->base_atk * 0.2);
 			}
 		}
 	}
@@ -47,9 +47,10 @@
 			$this->setSkillEffect($enemy);
 		}
 	}	
-	//辅：--响应：当已方使用绝招时，追加一次100%的输出
+	//辅：--响应：当已方使用绝招时，追加一次130%的输出
 	class sm_56_f2 extends SkillBase{
 		public $type = 'SKILL';
+		public $isAtk = true;
 		function action($user,$self,$enemy){
 			$this->decHp($user,$enemy,$user->atk*1.3);
 		}

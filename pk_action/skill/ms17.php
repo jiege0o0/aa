@@ -1,10 +1,10 @@
 <?php 
 	require_once($filePath."pk_action/skill/skill_base.php");
 
-	//技：圣光（技）：加50%攻击力，回20%血，3round
+	//技：圣光（技）：加30%攻击力，回20%血，3round
 	class sm_17_0 extends SkillBase{
 		function action($user,$self,$enemy){
-			$buff = new ValueBuff(array('atk'=>round($self->base_speed * 0.5)),3);
+			$buff = new ValueBuff(array('atk'=>round($self->base_atk * 0.3)),3);
 			$buff->addToTarget($self);
 			
 			$this->addHp($user,$self,$self->maxHp*0.2);

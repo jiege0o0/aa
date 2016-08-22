@@ -33,9 +33,9 @@
 		$equalPK = true;
 		
 		$enemyAdd = $userData->server_game_equal->last;
-		$team1Data->fight += $enemyAdd;//知道了对方的卡牌，要增加对方实力才能平衡
+		$team2Data->fight += $enemyAdd;//知道了对方的卡牌，要增加对方实力才能平衡
 		require_once($filePath."pk_action/pk.php");
-		$team1Data->fight -= $enemyAdd;//知道了对方的卡牌，要增加对方实力才能平衡
+		// $team2Data->fight -= $enemyAdd;//知道了对方的卡牌，要增加对方实力才能平衡
 		
 		//---------------------更新战斗池---------------
 		if($userData->server_game_equal->pk == 0 && ($result || $changeFightDataValue->cost < 20))//用了80以上的才正常
@@ -164,7 +164,9 @@
 		
 		$userData->addHistory($team1Data->list);
 		$userData->setChangeKey('server_game_equal');
-		$userData->write2DB();				
+		$userData->write2DB();	
+		if($userData->level >= 10)
+			monsterUseLog('server_equal_monster_'.$userData->level,$changeFightDataValue->chooseList,$myChoose,$result);		
 		
 	}while(false);
 	

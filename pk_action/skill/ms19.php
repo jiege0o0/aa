@@ -9,12 +9,12 @@
 		}
 	}
 	
-	//ìÌÉÕ£º60%ÉËº¦£¬»ð¶¾£¬2round,cd4 5%ÑªÁ¿
+	//ìÌÉÕ£º80%ÉËº¦£¬»ð¶¾£¬2round,cd5 5%ÑªÁ¿
 	class sm_19_1 extends SkillBase{
 		public $cd = 5;
 		public $isAtk = true;
 		function action($user,$self,$enemy){
-			$this->decHp($user,$enemy,$user->atk*0.6);
+			$this->decHp($user,$enemy,$user->atk*0.8);
 			
 			$buff = new HPBuff(-$enemy->maxHp*0.05,2);
 			$buff->isDebuff = true;

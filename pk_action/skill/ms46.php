@@ -42,7 +42,6 @@
 			$user->atk += round($user->base_atk*0.5);
 			$user->def += 20;
 			$this->setSkillEffect($user);
-			debug($this->temp1);
 		}
 	}
 	

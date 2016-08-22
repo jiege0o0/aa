@@ -25,7 +25,7 @@
 		}
 	}
 	
-	//光明：进场时回复20%血
+	//光明：进场时回复30%血
 	class sm_25_3 extends SkillBase{
 		public $cd = 0;
 		function action($user,$self,$enemy){

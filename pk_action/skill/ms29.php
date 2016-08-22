@@ -13,7 +13,7 @@
 		}
 	}
 	
-	//暴击：+70%伤害
+	//暴击：+70%伤害,cd3
 	class sm_29_1 extends SkillBase{
 		public $cd = 3;
 		public $isAtk = true;
@@ -38,7 +38,7 @@
 			$this->decHp($user,$enemy,$user->atk*0.7);
 		}
 	}	
-	//辅：--龙炎，伤害并持续扣血，round2,cd4    3%生命
+	//辅：--龙炎，50%伤害并持续扣血，round2,cd5    3%生命
 	class sm_29_f2 extends SkillBase{
 		public $cd = 5;
 		public $isAtk = true;

@@ -10,14 +10,14 @@
 		}
 	}
 	
-	//µç»÷£º+30%ÉË£¬-20%¹¥£¬round1,cd3
+	//µç»÷£º130%ÉËº¦£¬-20%¹¥£¬round1,cd3
 	class sm_23_1 extends SkillBase{
 		public $cd = 3;
 		public $isAtk = true;
 		public $order = 1;
 		function action($user,$self,$enemy){
 			$this->decHp($user,$enemy,$user->atk*1.3);
-			$self->speed += round($self->base_speed*0.05);
+			$self->speed += 5;//round($self->base_speed*0.05);
 			
 			$buff = new ValueBuff(array('atk'=>-round($enemy->base_atk * 0.2)),1);
 			$buff->isDebuff = true;
@@ -31,7 +31,7 @@
 		public $isAtk = true;
 		function action($user,$self,$enemy){
 			$this->decHp($user,$enemy,$user->atk);
-			$self->speed += round($self->base_speed*0.05);
+			$self->speed += 5;//round($self->base_speed*0.05);
 		}
 	}
 	

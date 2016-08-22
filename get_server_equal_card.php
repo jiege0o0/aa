@@ -33,7 +33,7 @@
 			$returnData->enemyinfo = $userData->{$pkType}->enemy->userinfo;
 			
 			$userData->{$pkType}->pk = 0;
-			$userData->{$pkType}->pktime = ++;
+			$userData->{$pkType}->pktime ++;
 			$userData->setChangeKey($pkType);
 			$userData->addEnergy(-$energyCost);
 			$userData->addProp(21,-$propCost);

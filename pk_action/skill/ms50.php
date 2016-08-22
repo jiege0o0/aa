@@ -20,7 +20,7 @@
 	//Ä§Ãâ
 	class sm_50_2 extends SkillBase{
 		public $cd = 0;
-		public $order = 10;
+		public $order = 20;
 		function action($user,$self,$enemy){
 			$this->setStat31($user);
 		}

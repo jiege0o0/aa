@@ -17,7 +17,7 @@
 		}
 	}
 
-	//身压：每两次攻击后，会以身压人，伤害+30%
+	//身压：每两次攻击后，会以身压人，伤害+60%
 	class sm_1_1 extends SkillBase{
 		public $isAtk = true;
 		public $cd = 3;

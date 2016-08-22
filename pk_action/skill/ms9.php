@@ -56,12 +56,12 @@
 		}
 	}
 	
-	//辅：--鞭笞：-10%血量，增加15%攻击力
+	//辅：--鞭笞：-8%当前血量，增加15%攻击力
 	class sm_9_f1 extends SkillBase{
 		public $cd = 0;
 		function action($user,$self,$enemy){
 			$this->decHp($user,$self,$self->hp*0.08);
-			$self->atk += round($self->base_atk * 0.05);
+			$self->atk += round($self->base_atk * 0.15);
 		}
 	}	
 	//辅：--50%伤害

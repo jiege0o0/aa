@@ -46,7 +46,7 @@
 				$enemy->stat[23] ++;
 		}
 	}	
-	//∏®£∫--60%…À∫¶
+	//∏®£∫--60%…À∫¶,cd2
 	class sm_41_f2 extends SkillBase{
 		public $cd = 2;
 		public $isAtk = true;

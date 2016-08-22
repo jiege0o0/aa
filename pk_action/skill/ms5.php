@@ -13,6 +13,9 @@
 	class sm_5_1 extends SkillBase{
 		public $type = 'DIE';
 		public $once = true;//技能只执行一次
+		function canUse($user,$self=null,$enemy=null){
+			return $user->hp<=0;
+		}
 		function action($user,$self,$enemy){
 			$user->reborn(0.2);
 		}
@@ -66,7 +69,7 @@
 			return $this->tData['id'] == $user->id;
 		}
 		function action($user,$self,$enemy){
-			$buff = new StatBuff(24,1);
+			$buff = new StatBuff(24,2);
 			$buff->isDebuff = true;
 			$buff->addToTarget($user);
 		}

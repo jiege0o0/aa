@@ -29,7 +29,7 @@
 			$returnData->enemyinfo = $userData->{$pkType}->enemy->userinfo;
 			
 			$userData->{$pkType}->pk = 0;
-			$userData->{$pkType}->pktime = ++;
+			$userData->{$pkType}->pktime ++;
 			$userData->setChangeKey($pkType);
 			$userData->addEnergy(-$energyCost);
 			$userData->write2DB();
@@ -76,6 +76,10 @@
 			$team2Data->id = $result['id'];
 			$team2Data->last_time = $result['last_time'];
 			
+			$enemyForce = $team2Data->force;
+			$userForce = $userData->tec_force + $userData->award_force;
+			if($enemyForce/$userForce > 1.5)//修正一下，最高只能打1.5倍战力
+				$team2Data->force = floor($userForce*1.5);
 			
 			$userData->{$pkType}->choose = $choose;
 			$userData->{$pkType}->enemy = $team2Data;

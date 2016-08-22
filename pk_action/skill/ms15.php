@@ -17,24 +17,25 @@
 		}
 	}
 	
-	//暗箭：+30%伤害（变身后不能用）
+	//暗箭：+40%伤害（变身后不能用）
 	class sm_15_1 extends SkillBase{
 		public $cd = 3;
 		public $isAtk = true;
 		function action($user,$self,$enemy){
-			$this->decHp($user,$enemy,$user->atk*1.3);
+			$this->decHp($user,$enemy,$user->atk*1.4);
 		}
 	}
 	
-	//隐身：在出手前，不会受到任何伤害和技能影响
+	//先机：对对手造成100%伤害
 	class sm_15_2 extends SkillBase{
 		public $cd = 0;
+		public $isAtk = true;
 		function action($user,$self,$enemy){
 			$this->decHp($user,$enemy,$user->atk);
 		}
 	}
 	
-	//变身：进入时，当生命少于15%，与蛇合体，生命上限+80%，攻击+20%，回满血
+	//变身：进入时，当生命少于15%，与蛇合体，生命上限+60%，攻击+20%，回满血
 	class sm_15_3 extends SkillBase{
 		public $type = 'BEFORE';
 		public $once = true;
@@ -43,7 +44,7 @@
 		}
 		
 		function action($user,$self,$enemy){
-			$this->addHp($user,$self,$self->base_hp*0.8,true);
+			$this->addHp($user,$self,$self->base_hp*0.6,true);
 			$this->addHp($user,$self,$self->maxHp - $self->hp);
 			$self->atk += round($self->base_atk*0.2);
 			$self->skill->disabled = true;
@@ -59,13 +60,13 @@
 			$this->decHp($user,$enemy,$user->atk*0.6);
 		}
 	}	
-	//辅：--喷毒，5cd,round3   -10%速，ATK*0.5
+	//辅：--喷毒，5cd,round3   -10%速，ATK*0.3
 	class sm_15_f2 extends SkillBase{
 		public $cd = 5;
 		public $isAtk = true;
 		public $order = 1;
 		function action($user,$self,$enemy){
-			$buff = new HPBuff(-$user->atk*0.5,3);
+			$buff = new HPBuff(-$user->atk*0.3,3);
 			$buff->isDebuff = true;
 			$buff->addToTarget($enemy);
 			

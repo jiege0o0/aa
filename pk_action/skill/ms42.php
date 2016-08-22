@@ -39,12 +39,12 @@
 	}
 	
 	
-	//辅：--60%回血+净化debuff
+	//辅：--80%回血+净化debuff
 	class sm_42_f1 extends SkillBase{
 		public $cd = 1;
 		function action($user,$self,$enemy){
-			$this->addHp($user,$self,$user->atk);
-			$this->cleanStat($self,true,0.6);
+			$this->addHp($user,$self,$user->atk*0.8);
+			$this->cleanStat($self,true,1);
 		}
 	}	
 	//辅：--进场时回己方20%最大生命

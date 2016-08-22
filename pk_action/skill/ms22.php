@@ -34,10 +34,10 @@
 	class sm_22_3 extends SkillBase{
 		public $cd = 0;
 		function action($user,$self,$enemy){
-			$len = count($self->enemy->currentMonster);
+			$len = count($enemy->team->currentMonster);
 			for($i=0;$i<$len;$i++)
 			{
-				$player = $self->enemy->currentMonster[$i];
+				$player = $enemy->team->currentMonster[$i];
 				$buff = new ValueBuff(array('speed'=>-round($player->base_speed * 0.2),'atk'=>-round($player->base_speed * 0.15)),3);
 				$buff->isDebuff = true;
 				$buff->addToTarget($player);

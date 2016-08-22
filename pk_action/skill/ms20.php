@@ -1,10 +1,10 @@
 <?php 
 	require_once($filePath."pk_action/skill/skill_base.php");
 
-	//¼¼£º¾ªÐÑ£¨¼¼£©£º-30%¹¥£¬+50%Ñª
+	//¼¼£º¾ªÐÑ£¨¼¼£©£º-25%¹¥£¬+50%Ñª
 	class sm_20_0 extends SkillBase{
 		function action($user,$self,$enemy){
-			$self->atk -= round($self->base_atk*0.3);
+			$self->atk -= round($self->base_atk*0.25);
 			$this->addHp($user,$self,$self->maxHp*0.5);
 		}
 	}

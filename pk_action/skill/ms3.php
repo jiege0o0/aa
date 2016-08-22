@@ -18,7 +18,7 @@
 		}
 	}
 	
-	//每3次攻击，为自己回复15MP
+	//第3次攻击同时为自己回复15MP
 	class sm_3_1 extends SkillBase{
 		public $cd = 3;
 		public $isSendAtOnce = true;

@@ -34,7 +34,7 @@
 	class sm_31_2 extends SkillBase{
 		public $type = 'AFTER';
 		function action($user,$self,$enemy){
-			$user->speed += round($user->base_speed*0.02);
+			$user->speed += 2;//round($user->base_speed*0.02);
 		}
 	}
 	
@@ -48,6 +48,7 @@
 			$buff = new ValueBuff(array('atk'=>-round($enemy->base_atk * 0.1)),2);
 			$buff->isDebuff = true;
 			$buff->addToTarget($enemy);
+			$this->setSkillEffect($enemy);
 			
 			
 			$buff = new ValueBuff(array('atk'=>round($self->base_atk * 0.1)),2);

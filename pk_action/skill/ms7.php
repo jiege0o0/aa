@@ -5,7 +5,7 @@
 	class sm_7_0 extends SkillBase{
 		public $isAtk = true;
 		function action($user,$self,$enemy){
-			$v = $this->addMp($user,$enemy,-$enemy*0.5);
+			$v = $this->addMp($user,$enemy,-$enemy->mp*0.5);
 			$this->addMp($user,$self,-$v);
 			$this->addHp($user,$self,$self->maxHp*0.2);
 		}

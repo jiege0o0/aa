@@ -6,7 +6,7 @@
 		function action($user,$self,$enemy){
 			$this->decHp($user,$enemy,$user->atk*10);
 			$self->dieMissTimes = array();
-			$this->decHp($user,$self,999999);
+			$this->decHp($user,$self,999999,false,true);
 		}
 	}
 	
@@ -29,12 +29,12 @@
 	}
 	
 	
-	//¸¨£º--80%ÉËº¦
+	//¸¨£º--60%ÉËº¦
 	class sm_59_f1 extends SkillBase{
 		public $cd = 1;
 		public $isAtk = true;
 		function action($user,$self,$enemy){
-			$this->decHp($user,$enemy,$user->atk*0.8);
+			$this->decHp($user,$enemy,$user->atk*0.6);
 		}
 	}	
 

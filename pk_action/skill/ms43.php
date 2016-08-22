@@ -2,7 +2,7 @@
 	require_once($filePath."pk_action/skill/skill_base.php");
 
 	function sm_43_resetHurt($self,$v){
-		return round((2-$self->getHpRate())*$v);
+		return round((2-$self->getHpRate()*0.8)*$v);
 	}
 	
 	
@@ -23,10 +23,10 @@
 		public $order = -10;
 		function action($user,$self,$enemy){
 			$this->setSkillEffect($enemy);
-			$this->decHp($user,$self,$self->maxHp*0.2);
+			$this->decHp($user,$self,$self->maxHp*0.2,false,true);
 			$this->decHp($user,$enemy,sm_43_resetHurt($user,$user->atk*0.6));
 			
-			$buff = new ValueBuff(array('def'=>20),4);
+			$buff = new ValueBuff(array('def'=>20),3);
 			$buff->addToTarget($self);
 		}
 	}

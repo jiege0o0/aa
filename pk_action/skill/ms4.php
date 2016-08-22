@@ -27,7 +27,7 @@
 		}
 	}
 	
-	//狂暴：当生命少于50%时，攻击+30% ，3回合后，攻击-50%，10回合
+	//狂暴：当生命少于50%时，攻击+35% ，3回合后，攻击-50%，10回合
 	class sm_4_2 extends SkillBase{
 		public $type = 'BEFORE';
 		public $once = true;//技能只执行一次
@@ -35,7 +35,7 @@
 			return $user->getHpRate()<=0.5;
 		}
 		function action($user,$self,$enemy){
-			$buff = new sm_4_2_buff(array('atk'=>round($self->base_atk * 0.3)),3);
+			$buff = new sm_4_2_buff(array('atk'=>round($self->base_atk * 0.35)),3);
 			$buff->addToTarget($self);
 		}
 	}

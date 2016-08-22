@@ -1,12 +1,12 @@
 <?php 
 	require_once($filePath."pk_action/skill/skill_base.php");
 
-	//技：炸弹礼物：回复对方10%生命，对方回合结束时，300%伤害，round1
+	//技：炸弹礼物：回复对方10%生命，对方回合结束时，回复值*250%伤害，round1
 	class sm_39_0 extends SkillBase{
 		public $isAtk = true;
 		function action($user,$self,$enemy){
-			$this->addHp($user,$enemy,$enemy->maxHp*0.1);
-			$buff = new HPBuff(-$user->atk*3,1);
+			$v = $this->addHp($user,$enemy,$enemy->maxHp*0.1);
+			$buff = new HPBuff(-$v*2.5,1);
 			$buff->isDebuff = true;
 			$buff->addToTarget($enemy);
 			
@@ -45,7 +45,7 @@
 			if($user->temp['sendGift'] != $this->temp)
 			{
 				$this->temp = $user->temp['sendGift'];
-				if($this->temp > 2)
+				if($this->temp > 5)
 				{
 					$user->atk += round($user->base_atk*0.1);
 					$this->setSkillEffect($user);
@@ -59,19 +59,19 @@
 		public $cd = 1;
 		function canUse($user,$self=null,$enemy=null){
 			if($this->temp1 <5)
-				$this->isAtk = true;
-			else
 				$this->isAtk = false;
+			else
+				$this->isAtk = true;
 			return true;
 		}
 		function action($user,$self,$enemy){
-			if($this->temp1 <5)
+			if($this->isAtk)
 			{
-				$this->addHp($user,$self,$user->atk);
+				$this->decHp($user,$enemy,$user->atk*0.8);
 			}
 			else
 			{
-				$this->decHp($user,$enemy,$user->atk*0.8);
+				$this->addHp($user,$self,$user->atk);
 			}
 			$this->temp1 ++;
 		}

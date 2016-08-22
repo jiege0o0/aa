@@ -432,7 +432,7 @@ class GameUser{
 			
 		if(count($arr) == 0)
 			return true;
-		array_push($arr,addKey('last_land',time());	
+		array_push($arr,addKey('last_land',time()));	
 			
 		$sql = "update ".$sql_table."user_data set ".join(",",$arr)." where gameid='".$msg->gameid."'";
 		 debug($sql);
