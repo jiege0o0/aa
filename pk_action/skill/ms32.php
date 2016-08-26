@@ -1,5 +1,5 @@
 <?php 
-	require_once($filePath."pk_action/skill/skill_base.php");
+	
 
 	//技：吹风：速度-50%，持续百分比受伤10%，round3
 	class sm_32_0 extends SkillBase{

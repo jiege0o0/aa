@@ -1,5 +1,5 @@
 <?php 
-	require_once($filePath."pk_action/skill/skill_base.php");
+	
 
 	//技：放蛇：130%伤害，中毒液（-速-血），round2（变身后不能用）     -15%速，ATK*0.5
 	class sm_15_0 extends SkillBase{

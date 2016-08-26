@@ -3,7 +3,7 @@
 	$isagain = $msg->isagain;
 	$pkType='server_game_equal';
 	$choose = $userData->{$pkType}->choose;
-	$propCost = $isagain?2:1;
+	$propCost = $isagain?1:1;
 	do{
 		if($userData->getPropNum(21) < $propCost)
 		{

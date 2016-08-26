@@ -1,5 +1,5 @@
 <?php 
-	require_once($filePath."pk_action/skill/skill_base.php");
+	
 
 	//技：电之魂(技)：速成200%伤害，并增加自己速度15%，2round
 	class sm_2_0 extends SkillBase{
@@ -25,14 +25,14 @@
 		}
 	}
 	
-	//麻痹：5次会造成麻痹，-10%速2回合
+	//麻痹：5次会造成麻痹，-15%速2回合
 	class sm_2_2 extends SkillBase{
 		public $cd = 5;
 		public $isAtk = true;
 		function action($user,$self,$enemy){
-			$this->decHp($user,$enemy,$user->atk*2);
+			$this->decHp($user,$enemy,$user->atk*1.6);
 			
-			$buff = new ValueBuff(array('speed'=>-round($enemy->base_speed * 0.1)),2);
+			$buff = new ValueBuff(array('speed'=>-round($enemy->base_speed * 0.15)),2);
 			$buff->isDebuff = true;
 			$buff->addToTarget($enemy);
 		}

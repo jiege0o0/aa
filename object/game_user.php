@@ -107,12 +107,14 @@ class GameUser{
 			$returnData->sync_energy = $this->energy;
 		}
 	}
-	function resetEnergy(){//不是同一天，能量回复为最大值
-		if(!isSameDate($this->energy->t))
+	function resetEnergy(){//每一段时间回复一定量
+		$cd = $this->energy->vip?24:30; 
+		$time = time();
+		$add = floor(($time - $this->energy->t)/$cd);
+		if($add > 0)
 		{
-			$add = $this->energy->vip?30:20;
-			$this->energy->v = min(50,$this->energy->v + $add);
-			$this->energy->t = time();
+			$this->energy->v = min(60,$this->energy->v + $add);
+			$this->energy->t = $this->energy->t + $add*$cd;
 		}
 	}
 	//==============================================   end

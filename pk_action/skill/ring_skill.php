@@ -1,5 +1,5 @@
 <?php 
-	require_once($filePath."pk_action/skill/skill_base.php");
+	
 	
 	//类似加成技能
 	class KindSkill extends SkillBase{

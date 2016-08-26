@@ -1,5 +1,5 @@
 <?php 
-	require_once($filePath."pk_action/skill/skill_base.php");
+	
 	
 	//技：心灵控制(技)：所有单位禁固1回合
 	class sm_3_0 extends SkillBase{

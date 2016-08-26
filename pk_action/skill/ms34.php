@@ -1,5 +1,5 @@
 <?php 
-	require_once($filePath."pk_action/skill/skill_base.php");
+	
 
 	//技：连击(技)：100%伤害 + 10%最大生命
 	class sm_34_0 extends SkillBase{

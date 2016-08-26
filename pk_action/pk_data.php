@@ -1,6 +1,4 @@
 <?php
-require_once($filePath."pk_action/skill/leader_skill.php");
-require_once($filePath."pk_action/skill/ring_skill.php");
 
 //技能执行顺序排序
 function tArraySortFun($a,$b){
@@ -195,9 +193,9 @@ class PKData{//主要记录一些PK中的数据
 	//异步技能处理
 	function dealTArray(){
 		$len = count($this->tArray);
-		usort($this->tArray,tArraySortFun);
 		if($len)
 		{
+			usort($this->tArray,tArraySortFun);
 			for($i=0;$i<$len;$i++) {
 				$skillData = $this->tArray[$i];
 				$userX = $skillData->owner;

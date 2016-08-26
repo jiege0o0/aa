@@ -1,13 +1,13 @@
 <?php 
 	//进入前已验证完合法性
-	require_once($filePath."cache/monster.php");
-	require_once($filePath."tool/tool.php");
-	
-	require_once($filePath."pk_action/pk_player.php");
-	require_once($filePath."pk_action/pk_team.php");
-	require_once($filePath."pk_action/pk_fun.php");
-	require_once($filePath."pk_action/pk_skill.php");
-	require_once($filePath."pk_action/pk_data.php");
+	require($filePath."cache/monster.php");
+
+	require($filePath."pk_action/skill/skill_base.php");
+	require($filePath."pk_action/pk_player.php");
+	require($filePath."pk_action/pk_team.php");
+	require($filePath."pk_action/pk_fun.php");
+	require($filePath."pk_action/pk_skill.php");
+	require($filePath."pk_action/pk_data.php");
 	
 	//$dataIn = json_decode('{"team1":{"ac":[],"rl":10,"r":1,"jr":1},"team2":{"ac":[],"rl":10,"r":1,"jr":1},"player1":[{"hp":40000000,"mhp":4000000,"spd":5700,"atk":10000,"mid":107,"id":10},{"hp":4000000,"mhp":4000000,"spd":5700,"atk":10000,"mid":107,"id":11},{"hp":4000000,"mhp":4000000,"spd":5700,"atk":10000,"mid":107,"id":12}],"player2":[{"hp":40000000,"mhp":4000000,"spd":5700,"atk":10000,"mid":107,"id":20},{"hp":4000000,"mhp":4000000,"spd":5700,"atk":10000,"mid":107,"id":21},{"hp":4000000,"mhp":4000000,"spd":5700,"atk":10000,"mid":107,"id":22}],"result":{"w":1,"hp":262000}}');
 	

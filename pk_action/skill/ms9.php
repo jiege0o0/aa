@@ -1,5 +1,5 @@
 <?php 
-	require_once($filePath."pk_action/skill/skill_base.php");
+	
 
 	//技：升空（技）：无视接下来的5次攻击，并增加10%速度，3round
 	class sm_9_0 extends SkillBase{

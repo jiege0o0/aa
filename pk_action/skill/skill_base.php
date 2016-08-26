@@ -1,5 +1,5 @@
 <?php 
-	require_once($filePath."pk_action/pk_buff.php");
+	require($filePath."pk_action/pk_buff.php");
 	class SkillBase{
 		public $owner;//技能所有者
 		public $index=0;//技能ID

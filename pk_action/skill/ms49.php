@@ -1,5 +1,5 @@
 <?php 
-	require_once($filePath."pk_action/skill/skill_base.php");
+	
 	
 	//技：猛击（技）：100%伤害，晕一回合
 	class sm_49_0 extends SkillBase{

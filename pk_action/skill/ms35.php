@@ -1,5 +1,5 @@
 <?php 
-	require_once($filePath."pk_action/skill/skill_base.php");
+	
 	
 	//技：舍命一击：生命降到1，对对方造成损失血量*2的伤害
 	class sm_35_0 extends SkillBase{

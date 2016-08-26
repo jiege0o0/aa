@@ -1,5 +1,5 @@
 <?php 
-	require_once($filePath."pk_action/skill/skill_base.php");
+	
 
 	//技：暴风锤：120%伤害，晕2回合
 	class sm_46_0 extends SkillBase{

@@ -1,5 +1,5 @@
 <?php 
-	require_once($filePath."pk_action/skill/skill_base.php");
+	
 	
 	//技：魅惑：对方的辅助单位变成已方，2round
 	class sm_26_0 extends SkillBase{

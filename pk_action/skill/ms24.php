@@ -1,5 +1,5 @@
 <?php 
-	require_once($filePath."pk_action/skill/skill_base.php");
+	
 	//技：160%伤害，晕一回合;
 	class sm_24_0 extends SkillBase{
 		public $isAtk = true;

@@ -403,6 +403,7 @@ class player{
 		if($buff->isDebuff && $this->stat[31])
 			return false;
 		array_push($this->buffArr,$buff);
+		$this->setRoundEffect();
 		return true;
 	}
 	
@@ -565,7 +566,7 @@ class player{
 	}
 	
 	function addHp($v){
-		if($v < 0 && -$v > $this->maxHurt*$this->maxHp)
+		if($v < 0 && $this->maxHurt!= 999 && -$v > $this->maxHurt*$this->maxHp)
 			$v = -round($this->maxHurt*$this->maxHp);
 		if($v < 0 && $this->manaHp > 0)
 		{

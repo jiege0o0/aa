@@ -37,8 +37,8 @@
 		$award = new stdClass();
 		$returnData->award = $award;
 		$award->prop = new stdClass();
-		$award->exp = 30*ceil($level/10);
-		$award->coin = 100*ceil($level/10);
+		$award->exp = ceil(30*(1+$level/200));
+		$award->coin = ceil(50*(1+$level/200));
 		if($result)
 		{
 			$userData->main_game->level++;
@@ -49,8 +49,8 @@
 		}
 		else
 		{
-			$award->exp = 20;
-			$award->coin = 50;
+			$award->exp = 10;
+			$award->coin = 0;
 		}
 
 		

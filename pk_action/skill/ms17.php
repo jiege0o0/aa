@@ -1,5 +1,5 @@
 <?php 
-	require_once($filePath."pk_action/skill/skill_base.php");
+	
 
 	//技：圣光（技）：加30%攻击力，回20%血，3round
 	class sm_17_0 extends SkillBase{

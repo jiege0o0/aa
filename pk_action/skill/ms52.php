@@ -1,5 +1,5 @@
 <?php 
-	require_once($filePath."pk_action/skill/skill_base.php");
+	
 
 	//技：召唤人偶替身(技)：替身可叠加，每个替身增加自己20%攻击力
 	class sm_52_0 extends SkillBase{

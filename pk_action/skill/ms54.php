@@ -1,5 +1,5 @@
 <?php 
-	require_once($filePath."pk_action/skill/skill_base.php");
+	
 
 	//技：印记触发（技能）：触发所有火炎印记,存在越多，伤害越大（印记不消失）
 	class sm_54_0 extends SkillBase{

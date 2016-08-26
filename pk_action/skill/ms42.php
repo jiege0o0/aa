@@ -1,5 +1,5 @@
 <?php 
-	require_once($filePath."pk_action/skill/skill_base.php");
+	
 
 	//技：净化（技）:所有去敌方buff,已方debuff
 	class sm_42_0 extends SkillBase{

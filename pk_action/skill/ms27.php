@@ -1,5 +1,5 @@
 <?php 
-	require_once($filePath."pk_action/skill/skill_base.php");
+	
 
 	//¼¼£ºÁúÕ¶£º+200%ÉËº¦
 	class sm_27_0 extends SkillBase{

@@ -1,5 +1,5 @@
 <?php 
-	require_once($filePath."pk_action/skill/skill_base.php");
+	
 
 	//技：结界（技）：2round，建立一个结界，在回合结速前不会受到任何伤害
 	class sm_51_0 extends SkillBase{
@@ -38,14 +38,14 @@
 		}
 	}
 	
-	//冷炎：-10%甲，减10%速，round2,cd4
+	//冷炎：-10%甲，减20%速，round2,cd4
 	class sm_51_2 extends SkillBase{
 		public $cd = 4;
 		public $order = 1;
 		public $isAtk = true;
 		function action($user,$self,$enemy){
 			
-			$buff = new ValueBuff(array('speed'=>-round($enemy->base_speed * 0.1),'def'=>-10),2);
+			$buff = new ValueBuff(array('speed'=>-round($enemy->base_speed * 0.2),'def'=>-10),2);
 			$buff->isDebuff = true;
 			$buff->addToTarget($enemy);
 		}

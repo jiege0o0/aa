@@ -1,5 +1,5 @@
 <?php 
-	require_once($filePath."pk_action/skill/skill_base.php");
+	
 
 	//技：吸血(技)：-对方180%血，回复对应血量
 	class sm_23_0 extends SkillBase{

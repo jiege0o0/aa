@@ -1,5 +1,5 @@
 <?php 
-	require_once($filePath."pk_action/skill/skill_base.php");
+	
 
 	//技：撕裂（技）：伤害250%
 	class sm_4_0 extends SkillBase{
@@ -40,9 +40,10 @@
 		}
 	}
 	
-	//不屈， 死后增加下一单位15%攻，一次
+	//不屈， 死后增加下一单位15%攻
 	class sm_4_3 extends SkillBase{
 		public $type = 'DIE';
+		public $once = true;//技能只执行一次
 		function action($user,$self,$enemy){
 			$this->addLeaderSkill($user,'sm_4_ds3');
 		}

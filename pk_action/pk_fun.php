@@ -5,12 +5,12 @@
 	$PKConfig->defMP = 5;
 	
 	//A是否克制B
-	function isRestrain($a,$b){
-		global $monster_kind;
-		$type1 = $a->monsterData['type'];
-		$type2 = $b->monsterData['type'];
-		return in_array($type2,$monster_kind[$type1]['restrain'],true);
-	}
+	// function isRestrain($a,$b){
+		// global $monster_kind;
+		// $type1 = $a->monsterData['type'];
+		// $type2 = $b->monsterData['type'];
+		// return in_array($type2,$monster_kind[$type1]['restrain'],true);
+	// }
 	
 	
 	//PK一回合，直到有一单位死掉
@@ -153,10 +153,10 @@
 				break;
 
 			}while(false);
-			if(!$haveSkill && $user->cdhp)//当时影响血
-			{
-				pk_cdhp($user);
-			}
+			// if(!$haveSkill && $user->cdhp)//当时影响血
+			// {
+				// pk_cdhp($user);
+			// }
 			if($haveSkill || $haveAction)
 			{
 				$user->testTSkill('AFTER');

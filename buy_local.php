@@ -33,7 +33,7 @@
 		}
 		else if($id == 2)
 		{
-			$userData->addEnergy(30,true);
+			$userData->addEnergy(48,true);
 		}
 		else if($id >10 && $id < 20 )
 		{

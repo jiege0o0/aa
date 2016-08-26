@@ -1,5 +1,5 @@
 <?php 
-	require_once($filePath."pk_action/skill/skill_base.php");
+	
 
 	//技：寒潮：120%伤害，全体-50%速度，round2
 	class sm_28_0 extends SkillBase{

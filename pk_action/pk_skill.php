@@ -1,7 +1,5 @@
 <?php
-	require_once($filePath."pk_action/skill_value_fun.php");
-	require_once($filePath."pk_action/skill_action_fun.php");
-	require_once($filePath."pk_action/skill/common_skill.php");
+	require($filePath."pk_action/skill/common_skill.php");
 	//特性类型 SKILL1(普攻),SKILL2（小技）,SKILL3（大技）,SKILL4（所有）,DIE,BEHEAL,HEAL,SHEAL(双方有治疗产生)HP,BEFORE,AFTER,STAT,
 	//ATK(对对方造成伤害)，BEATK(被对方造成伤害),
 	$Skill_SAT = array(	//技能缩写
@@ -17,6 +15,7 @@
 			
 	);
 	$skillPool = array();
+	$skillLoad = array();
 
 	function pk_skillType($type,$v){
 		global $Skill_SAT;
@@ -74,8 +73,11 @@
 	
 	//加载技能数据
 	function pk_requireSkill($monsterID){
-		global $filePath;
-		require_once($filePath."pk_action/skill/ms".$monsterID.".php");
+		global $filePath,$skillLoad;
+		if($skillLoad[$monsterID])
+			return;
+		$skillLoad[$monsterID] = true;
+		require($filePath."pk_action/skill/ms".$monsterID.".php");
 	}
 	
 	//把技能放回去，已备重用

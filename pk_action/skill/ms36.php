@@ -1,5 +1,5 @@
 <?php 
-	require_once($filePath."pk_action/skill/skill_base.php");
+	
 	
 	function sm_36_addValue($self,$enemy,$rate){
 		$v1 = max(1,round($enemy->base_atk * $rate));

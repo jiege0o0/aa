@@ -1,5 +1,5 @@
 <?php 
-	require_once($filePath."pk_action/skill/skill_base.php");
+	
 
 	//技：自然之甲（技）：为自己抵挡3次伤害，回10%血
 	class sm_50_0 extends SkillBase{

@@ -1,5 +1,5 @@
 <?php 
-	require_once($filePath."pk_action/skill/skill_base.php");
+	
 	//技：水盾（技）：-20%伤害，每回合回10%血，round3
 	class sm_8_0 extends SkillBase{
 		function action($user,$self,$enemy){

@@ -111,7 +111,7 @@
 					// $team2Data = json_decode('{"list":[101,101,101,101,101,101,101,101,101,101],"ring":{"id":1,"level":1},"fight":3,"tec":{"107":{"hp":15,"atk":15,"spd":17}}}');
 					$team1Data = $msg->team1;
 					$team2Data = $msg->team2;
-					require_once($filePath."pk_action/pk.php");
+					require($filePath."pk_action/pk.php");
 					
 					if($msg->need_server)
 					{
@@ -142,7 +142,7 @@
 				{
 					if(is_file($filePath.$head.".php"))
 					{
-						require_once($filePath.$head.".php");
+						require($filePath.$head.".php");
 					}
 					else
 					{

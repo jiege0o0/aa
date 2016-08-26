@@ -1,5 +1,5 @@
 <?php 
-	require_once($filePath."pk_action/skill/skill_base.php");
+	
 
 	//技：沉默：对方无法使用绝招，round5
 	class sm_56_0 extends SkillBase{

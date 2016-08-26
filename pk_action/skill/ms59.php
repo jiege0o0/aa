@@ -1,5 +1,5 @@
 <?php 
-	require_once($filePath."pk_action/skill/skill_base.php");
+	
 	//技：自爆(技):造成1000%伤害
 	class sm_59_0 extends SkillBase{
 		public $isAtk = true;

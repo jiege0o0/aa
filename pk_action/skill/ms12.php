@@ -1,5 +1,5 @@
 <?php 
-	require_once($filePath."pk_action/skill/skill_base.php");
+	
 
 	//¼¼£ºÃÍ»÷£º+180%ÉËº¦£¬´ø¸¯Ê´-20%¼×£¬3round
 	class sm_12_0 extends SkillBase{

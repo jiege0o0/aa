@@ -1,5 +1,5 @@
 <?php 
-	require_once($filePath."pk_action/skill/skill_base.php");
+	
 
 	//技：大爆炸（技）：造成1000%伤害
 	class sm_53_0 extends SkillBase{
@@ -37,7 +37,7 @@
 			$this->decHp($user,$enemy,$user->atk*0.5);
 		}
 	}	
-	//辅：--复活，10%血，1次
+	//辅：--复活，20%血，1次
 	class sm_53_f2 extends SkillBase{
 		public $type='DIE';
 		public $once = true;
@@ -45,7 +45,7 @@
 			return $self->hp<=0;
 		}
 		function action($user,$self,$enemy){
-			$self->reborn(0.1);
+			$self->reborn(0.2);
 		}
 	}
 

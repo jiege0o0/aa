@@ -1,5 +1,5 @@
 <?php 
-	require_once($filePath."pk_action/skill/skill_base.php");
+	
 
 	function sm_43_resetHurt($self,$v){
 		return round((2-$self->getHpRate()*0.8)*$v);

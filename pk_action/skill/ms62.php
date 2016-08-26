@@ -1,15 +1,15 @@
 <?php 
-	require_once($filePath."pk_action/skill/skill_base.php");
+	
 	
 	function sm_62_king($user){
 		return $user->add_hp > $user->base_hp * 2;
 	}
 	
-	//¼¼£ºÃÍ¿³:180%ÉËº¦
+	//¼¼£ºÃÍ¿³:160%ÉËº¦
 	class sm_62_0 extends SkillBase{
 		public $isAtk = true;
 		function action($user,$self,$enemy){
-			$this->decHp($user,$enemy,$user->atk*1.8);
+			$this->decHp($user,$enemy,$user->atk*1.6);
 		}
 	}
 	

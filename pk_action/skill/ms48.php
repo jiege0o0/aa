@@ -1,5 +1,5 @@
 <?php 
-	require_once($filePath."pk_action/skill/skill_base.php");
+	
 
 	//技：单挑：双方辅助停止行动2回合，+30%攻 ,3round
 	class sm_48_0 extends SkillBase{
@@ -35,14 +35,14 @@
 		}
 	}
 	
-	//反震：对方同样受到伤害的20%（只对主角）
+	//反震：对方同样受到伤害的30%（只对主角）
 	class sm_48_1 extends SkillBase{
 		public $type="BEHURT";
 		function canUse($user,$self=null,$enemy=null){
 			return $this->tData[0]->isPKing;
 		}
 		function action($user,$self,$enemy){
-			$this->decHp($user,$enemy,-$this->tData[1]*0.2);
+			$this->decHp($user,$enemy,-$this->tData[1]*0.3);
 		}
 	}
 	

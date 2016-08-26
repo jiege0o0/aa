@@ -1,5 +1,5 @@
 <?php 
-	require_once($filePath."pk_action/skill/skill_base.php");
+	
 	
 
 	//技：冲锋（技）：+20%速度，造成200%伤害，round3

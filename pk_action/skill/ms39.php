@@ -1,5 +1,5 @@
 <?php 
-	require_once($filePath."pk_action/skill/skill_base.php");
+	
 
 	//技：炸弹礼物：回复对方10%生命，对方回合结束时，回复值*250%伤害，round1
 	class sm_39_0 extends SkillBase{

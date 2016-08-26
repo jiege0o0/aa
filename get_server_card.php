@@ -3,7 +3,7 @@
 	$isagain = $msg->isagain;
 	$pkType='server_game';
 	$choose = $userData->{$pkType}->choose;
-	$energyCost = $isagain?2:1;
+	$energyCost = $isagain?3:2;
 	do{
 		if($userData->getEnergy() < $energyCost)//体力不够
 		{

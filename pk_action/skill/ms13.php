@@ -1,5 +1,5 @@
 <?php 
-	require_once($filePath."pk_action/skill/skill_base.php");
+	
 
 	//技：缠绕：无法普攻2回合，并持续-血 (ATK*0.5)
 	class sm_13_0 extends SkillBase{

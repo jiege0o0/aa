@@ -1,5 +1,5 @@
 <?php 
-	require_once($filePath."pk_action/skill/skill_base.php");
+	
 	
 	//技：圣光（技）：回复自身30%血
 	class sm_25_0 extends SkillBase{

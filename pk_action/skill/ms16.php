@@ -1,5 +1,5 @@
 <?php 
-	require_once($filePath."pk_action/skill/skill_base.php");
+	
 
 	//技：吞吃（技）：-15%对方生命上限，增加自己15%生命上限
 	class sm_16_0 extends SkillBase{

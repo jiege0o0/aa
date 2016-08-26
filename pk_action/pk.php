@@ -1,13 +1,13 @@
 <?php 
 	//进入前已验证完合法性
-	require_once($filePath."cache/monster.php");
-	require_once($filePath."tool/tool.php");
-	
-	require_once($filePath."pk_action/pk_player.php");
-	require_once($filePath."pk_action/pk_team.php");
-	require_once($filePath."pk_action/pk_fun.php");
-	require_once($filePath."pk_action/pk_skill.php");
-	require_once($filePath."pk_action/pk_data.php");
+	require($filePath."cache/monster.php");
+
+	require($filePath."pk_action/skill/skill_base.php");
+	require($filePath."pk_action/pk_player.php");
+	require($filePath."pk_action/pk_team.php");
+	require($filePath."pk_action/pk_fun.php");
+	require($filePath."pk_action/pk_skill.php");
+	require($filePath."pk_action/pk_data.php");
 	
 	
 	// $team2Data = array('list'=>array(107,107,107,107,107,107,107,107,107,106),'ring'=>array('id'=>1,'level'=>10),'tec'=>array(107,107,107,107,107,107,107,107,107,107));

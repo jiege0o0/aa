@@ -1,5 +1,5 @@
 <?php 
-	require_once($filePath."pk_action/skill/skill_base.php");
+	
 
 	//¼¼£º»Ó»÷£¨¼¼£©£º+220%ÉËº¦£¬Îü30%Ñª
 	class sm_6_0 extends SkillBase{
@@ -14,7 +14,7 @@
 	class sm_6_1 extends SkillBase{
 		public $type='BEATK';
 		function action($user,$self,$enemy){
-			if($this->temp1<50)
+			if($this->temp1<30)
 			{
 				$self->def += 1;
 				$this->temp1 ++;

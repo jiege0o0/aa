@@ -80,25 +80,25 @@ class Team{
 				else
 					$this->monsterBase->{''.$player->monsterID} = $player->initData($tec->{$player->monsterID},$this->fight);
 
-				for($j=1;$j<=5;$j++)//PK前置技能
-				{
-					$temp = pk_monsterSkill($list[$i],'f'.$j);
-					if($temp && $temp->leader)
-					{
-						if($temp->once && $skill[$player->monsterID.'_'.$j])//只能有一个生效的技能
-						{
-							pk_freeSkill($temp);
-							continue;
-						}
+				// for($j=1;$j<=5;$j++)//PK前置技能
+				// {
+					// $temp = pk_monsterSkill($list[$i],'f'.$j);
+					// if($temp && $temp->leader)
+					// {
+						// if($temp->once && $skill[$player->monsterID.'_'.$j])//只能有一个生效的技能
+						// {
+							// pk_freeSkill($temp);
+							// continue;
+						// }
 							
-						array_push($this->totalPKAction,$temp);
-						$skill[$player->monsterID.'_'.$j] = true;
-					}
-					else
-					{
-						pk_freeSkill($temp);
-					}
-				}	
+						// array_push($this->totalPKAction,$temp);
+						// $skill[$player->monsterID.'_'.$j] = true;
+					// }
+					// else
+					// {
+						// pk_freeSkill($temp);
+					// }
+				// }	
 				
 				array_push($this->monsterList,$player);
 			}

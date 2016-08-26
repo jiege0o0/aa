@@ -1,5 +1,5 @@
 <?php 
-	require_once($filePath."pk_action/skill/skill_base.php");
+	
 
 	//技：能量吸取：-对方50%MP，自己增加对应值，并回复20%血量
 	class sm_7_0 extends SkillBase{

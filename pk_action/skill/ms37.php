@@ -1,5 +1,5 @@
 <?php 
-	require_once($filePath."pk_action/skill/skill_base.php");
+	
 
 	//技：衰弱：-15%最大生命和血量
 	class sm_37_0 extends SkillBase{
