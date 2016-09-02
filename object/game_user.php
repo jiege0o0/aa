@@ -348,7 +348,7 @@ class GameUser{
 		
 		
 		$this->tec_force += $this->_getTecAdd($this->tec->main);
-		$this->tec_force += $this->_getTecAdd($this->tec->ring);
+		// $this->tec_force += $this->_getTecAdd($this->tec->ring);
 		$this->tec_force += $this->_getTecAdd($this->tec->monster);
 
 		$returnData->sync_tec_force= $this->tec_force;
@@ -437,7 +437,7 @@ class GameUser{
 		array_push($arr,addKey('last_land',time()));	
 			
 		$sql = "update ".$sql_table."user_data set ".join(",",$arr)." where gameid='".$msg->gameid."'";
-		 debug($sql);
+		 // debug($sql);
 		if(!$conne->uidRst($sql))//写用户数据失败
 		{
 			$sendData->error = 4;

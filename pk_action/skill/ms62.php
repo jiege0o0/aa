@@ -26,7 +26,7 @@
 		}
 	}
 	
-	//杀成王：上场时敌人死亡，生命 + 400%，攻击+100%，回满血（只触发一次）
+	//杀成王：上场时敌人死亡，生命 + 300%，攻击+100%，回满血（只触发一次）
 	class sm_62_2 extends SkillBase{
 		public $type='EDIE';
 		public $once=true;

@@ -26,41 +26,41 @@
 		}
 	}
 	
-	//烈火考验：双方出手后，要-自身攻击*0.4生命
+	//烈火考验：双方出手后，要-自身攻击*0.5生命
 	class sm_14_2 extends SkillBase{
 		public $type = 'AFTER';
 		function action($user,$self,$enemy){
-			$this->decHp($user,$self,$user->atk*0.4);
+			$this->decHp($user,$self,$user->atk*0.5);
 		}
 	}
 	class sm_14_5 extends SkillBase{
 		public $type = 'EAFTER';
 		function action($user,$self,$enemy){
-			$this->decHp($user,$enemy,$enemy->atk*0.4);
+			$this->decHp($user,$enemy,$enemy->atk*0.5);
 		}
 	}
 	
 	
-	//辅：--烈火考验：双方出手后，要-自身攻击*0.4生命
+	//辅：--烈火考验：双方出手后，要-自身攻击*0.5生命
 	class sm_14_f1 extends SkillBase{
 		public $type = 'AFTER';
 		function action($user,$self,$enemy){
-			$this->decHp($user,$self,$user->atk*0.4);
+			$this->decHp($user,$self,$user->atk*0.5);
 		}
 	}
 	class sm_14_f5 extends SkillBase{
 		public $type = 'EAFTER';
 		function action($user,$self,$enemy){
-			$this->decHp($user,$enemy,$enemy->atk*0.4);
+			$this->decHp($user,$enemy,$enemy->atk*0.5);
 		}
 	}
 	
-	//辅：--70%伤害
+	//辅：--80%伤害
 	class sm_14_f2 extends SkillBase{
 		public $cd = 1;
 		public $isAtk = true;
 		function action($user,$self,$enemy){
-			$this->decHp($user,$enemy,$user->atk*0.7);
+			$this->decHp($user,$enemy,$user->atk*0.8);
 		}
 	}
 

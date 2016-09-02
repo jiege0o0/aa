@@ -57,12 +57,12 @@
 				$this->disabled = true;
 		}
 	}	
-	//¸¨£º-- 50%ÉË
+	//¸¨£º-- 60%ÉË
 	class sm_24_f2 extends SkillBase{
 		public $cd = 1;
 		public $isAtk = true;
 		function action($user,$self,$enemy){
-			$this->decHp($user,$enemy,$user->atk*0.5);
+			$this->decHp($user,$enemy,$user->atk*0.6);
 		}
 	}
 

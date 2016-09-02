@@ -59,7 +59,7 @@
 	class sm_5_f2 extends SkillBase{
 		public $cd = 0;
 		function action($user,$self,$enemy){
-			array_push($self->dieMissTimes,array("id"=>$user->id,"type"=>'atk'));
+			array_push($self->dieMissTimes,array("id"=>$user->id,'mid'=>$user->monsterID,"type"=>'atk'));
 		}
 	}
 	class sm_5_f3 extends SkillBase{

@@ -98,7 +98,7 @@
 			
 			if($this->value<0 && $this->target->hp <= -$this->value && ($temp = $this->target->isDieMiss('buff')))
 			{
-				$pkData->addSkillMV(null,$target,pk_skillType('NOHURT',0));
+				$pkData->addSkillMV(null,$target,pk_skillType('NOHURT',$temp['id']));
 				$this->target->testTSkill('DMISS',$temp);
 				return false;
 			}

@@ -29,7 +29,7 @@
 			break;
 		}
 		
-		$needNum = floor(pow(1.25,$level));
+		$needNum = floor(pow(1.25,$level)*$level);
 		$mNum = $userData->getCollectNum($id);
 		if($needNum > $mNum)//碎片不够
 		{

@@ -1,11 +1,11 @@
 <?php
     
 
-	//喷毒(技)：对对手每次行动后-血，并-速,round2             -30%速，ATK*1
+	//喷毒(技)：对对手每次行动后-血，并-速,round2             -30%速，ATK*1.3
 	class sm_1_0 extends SkillBase{
 		public $isAtk = true;
 		function action($user,$self,$enemy){
-			$buff = new HPBuff(-$user->atk*1.2,2);
+			$buff = new HPBuff(-$user->atk*1.3,2);
 			$buff->isDebuff = true;
 			$buff->addToTarget($enemy);
 			
@@ -47,7 +47,7 @@
 	class sm_1_3 extends SkillBase{
 		public $cd = 0;
 		function action($user,$self,$enemy){
-			array_push($user->dieMissTimes,array("id"=>$user->id));
+			array_push($user->dieMissTimes,array("id"=>$user->id,'mid'=>$user->monsterID));
 		}
 	}
 

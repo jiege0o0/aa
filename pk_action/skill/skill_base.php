@@ -120,7 +120,7 @@
 			{
 				global $pkData;
 				$value = 0;
-				$pkData->addSkillMV(null,$target,pk_skillType('NOHURT',0));	
+				$pkData->addSkillMV(null,$target,pk_skillType('NOHURT',$temp['id']));	
 				$target->testTSkill('DMISS',$temp);
 			}
 			else

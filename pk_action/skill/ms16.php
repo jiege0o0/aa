@@ -25,7 +25,7 @@
 		
 		function action($user,$self,$enemy){
 			$this->temp1 += $this->tData;
-			$def = min(30,round($this->temp1/100));
+			$def = min(30,round($this->temp1/$user->base_hp*20));
 			$add = $def - $this->temp2;
 			$this->temp2 = $def;
 			$self->def += $add;

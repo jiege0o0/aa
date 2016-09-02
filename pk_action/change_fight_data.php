@@ -99,12 +99,13 @@
 		$outData->list = $data->list;	
 		$outData->ring = new stdClass();
 		$outData->ring->id = $data->ring;	
-		$outData->fight = 0;
+		$outData->fight = 500;
 		$outData->force = $force;
 		$len = count($data->list);
 		
 		if(!$isEqual)//计算科技影响
 		{
+			$outData->fight = $force;
 			// $outData->ring->level = 0;
 			// if(isset($userData->tec->ring->{$data->ring}))
 				// $outData->ring->level = $userData->tec->ring->{$data->ring};
@@ -176,7 +177,6 @@
 		// }
 		// if(count($monsterNum)*2 > $len)
 			// $outData->fight -= 8;
-		
 		return $outData;	
 			
 			
