@@ -19,7 +19,7 @@
 	
 	//暗箭：+40%伤害（变身后不能用）
 	class sm_15_1 extends SkillBase{
-		public $cd = 3;
+		public $cd = 2;
 		public $isAtk = true;
 		function action($user,$self,$enemy){
 			$this->decHp($user,$enemy,$user->atk*1.4);

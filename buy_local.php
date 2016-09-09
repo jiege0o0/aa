@@ -1,4 +1,5 @@
 <?php 
+	require_once($filePath."get_monster_collect.php");
 	$id = $msg->id;
 	$arr = array(
 		'1'=>array('cost'=>60,'rmb'=>true),

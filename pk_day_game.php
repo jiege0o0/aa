@@ -1,4 +1,5 @@
 <?php 
+	require_once($filePath."get_monster_collect.php");
 	$file  = $filePath.'day_game/server'.$serverID.'/game'.date('Ymd', time()).'.txt';
 	do{
 		$level = $msg->level;

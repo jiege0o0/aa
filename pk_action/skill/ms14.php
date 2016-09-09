@@ -17,12 +17,12 @@
 		}
 	}
 	
-	//»ğÈ­£º+50%ÉËº¦£¬cd2
+	//»ğÈ­£º+60%ÉËº¦£¬cd2
 	class sm_14_1 extends SkillBase{
 		public $cd = 2;
 		public $isAtk = true;
 		function action($user,$self,$enemy){
-			$this->decHp($user,$enemy,$user->atk*1.5);
+			$this->decHp($user,$enemy,$user->atk*1.6);
 		}
 	}
 	
@@ -55,12 +55,12 @@
 		}
 	}
 	
-	//¸¨£º--80%ÉËº¦
+	//¸¨£º--85%ÉËº¦
 	class sm_14_f2 extends SkillBase{
 		public $cd = 1;
 		public $isAtk = true;
 		function action($user,$self,$enemy){
-			$this->decHp($user,$enemy,$user->atk*0.8);
+			$this->decHp($user,$enemy,$user->atk*0.85);
 		}
 	}
 

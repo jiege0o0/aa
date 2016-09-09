@@ -1,11 +1,11 @@
 <?php 
 	
 
-	//¼¼£ºÁúÕ¶£º-120%ÉËº¦£¬³ÖÐøÉËº¦£¬2round        5%ÉúÃü
+	//¼¼£ºÁúÕ¶£º-150%ÉËº¦£¬³ÖÐøÉËº¦£¬2round        5%ÉúÃü
 	class sm_29_0 extends SkillBase{
 		public $isAtk = true;
 		function action($user,$self,$enemy){
-			$this->decHp($user,$enemy,$user->atk*1.2);
+			$this->decHp($user,$enemy,$user->atk*1.5);
 			
 			$buff = new HPBuff(-$enemy->maxHp*0.05,2);
 			$buff->isDebuff = true;
