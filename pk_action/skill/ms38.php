@@ -8,7 +8,7 @@
 		}
 	}
 	
-	//号招：生命+辅助单位总和的20%
+	//号招：生命+辅助单位总和的30%
 	class sm_38_1 extends SkillBase{
 		public $cd = 0;
 		function action($user,$self,$enemy){
@@ -19,7 +19,7 @@
 				$player = $user->team->currentMonster[$i];
 				$hp += $player->maxHp;
 			}
-			$this->addHp($user,$self,$hp*0.2,true);
+			$this->addHp($user,$self,$hp*0.3,true);
 		}
 	}
 	

@@ -1,11 +1,11 @@
 <?php 
 	
 
-	//¼¼£ºÖØÅü£º200%ÉËº¦
+	//¼¼£ºÖØÅü£º220%ÉËº¦
 	class sm_45_0 extends SkillBase{
 		public $isAtk = true;
 		function action($user,$self,$enemy){
-			$v = -$this->decHp($user,$enemy,$user->atk);
+			$v = -$this->decHp($user,$enemy,$user->atk*2.2);
 			$this->addHp($user,$self,$v*($user->stat[101]?2:0.5));
 		}
 	}

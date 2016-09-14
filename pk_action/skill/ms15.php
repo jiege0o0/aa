@@ -17,12 +17,16 @@
 		}
 	}
 	
-	//暗箭：+40%伤害（变身后不能用）
+	//暗箭：+30%伤害（变身后不能用）-8%速度
 	class sm_15_1 extends SkillBase{
 		public $cd = 2;
 		public $isAtk = true;
 		function action($user,$self,$enemy){
-			$this->decHp($user,$enemy,$user->atk*1.4);
+			$this->decHp($user,$enemy,$user->atk*1.3);
+			
+			$buff = new ValueBuff(array('speed'=>-round($enemy->base_speed * 0.08)),1);
+			$buff->isDebuff = true;
+			$buff->addToTarget($enemy);
 		}
 	}
 	

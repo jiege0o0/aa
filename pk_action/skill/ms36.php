@@ -15,7 +15,7 @@
 		public $isAtk = true;
 		function action($user,$self,$enemy){
 			$this->decHp($user,$enemy,$user->atk*2.2);
-			sm_36_addValue($user,$enemy,0.02);
+			sm_36_addValue($user,$enemy,0.03);
 			
 		}
 	}
@@ -28,28 +28,28 @@
 			$this->decHp($user,$enemy,$user->atk*1.3);
 			
 			
-			sm_36_addValue($user,$enemy,0.02);
+			sm_36_addValue($user,$enemy,0.03);
 		}
 	}
 	
-	//摄取：每次减速减攻，加到自己身上 2%
+	//摄取：每次减速减攻，加到自己身上 3%
 	class sm_36_2 extends SkillBase{
 		public $cd = 1;
 		public $isAtk = true;
 		function action($user,$self,$enemy){
 			$this->decHp($user,$enemy,$user->atk);
-			sm_36_addValue($user,$enemy,0.02);
+			sm_36_addValue($user,$enemy,0.03);
 		}
 	}
 
 	
-	//辅：--摄取：每次减速减攻，加到自己身上  1%
+	//辅：--摄取：每次减速减攻，加到自己身上  2%
 	class sm_36_f1 extends SkillBase{
 		public $cd = 1;
 		public $isAtk = true;
 		function action($user,$self,$enemy){
 			$this->decHp($user,$enemy,$user->atk*0.5);
-			sm_36_addValue($user,$enemy,0.01);
+			sm_36_addValue($user,$enemy,0.02);
 		}
 	}	
 	//辅：--50%伤害

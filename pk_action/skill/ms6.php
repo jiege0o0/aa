@@ -1,12 +1,12 @@
 <?php 
 	
 
-	//¼¼£º»Ó»÷£¨¼¼£©£º+220%ÉËº¦£¬Îü30%Ñª
+	//¼¼£º»Ó»÷£¨¼¼£©£º+220%ÉËº¦£¬Îü40%Ñª
 	class sm_6_0 extends SkillBase{
 		public $isAtk = true;
 		function action($user,$self,$enemy){
 			$v = $this->decHp($user,$enemy,$user->atk*2.2);
-			$this->addHp($user,$user,-$v*0.3);
+			$this->addHp($user,$user,-$v*0.4);
 		}
 	}
 	
@@ -23,13 +23,13 @@
 		}
 	}
 	
-	//ÎüÑª£ºÃ¿´ÎÆÕ¹¥Îü¶Ô·½Ê§ÑªµÄ20%
+	//ÎüÑª£ºÃ¿´ÎÆÕ¹¥Îü¶Ô·½Ê§ÑªµÄ25%
 	class sm_6_2 extends SkillBase{
 		public $cd = 1;
 		public $isAtk = true;
 		function action($user,$self,$enemy){
 			$v = $this->decHp($user,$enemy,$user->atk);
-			$this->addHp($user,$user,-$v*0.2);
+			$this->addHp($user,$user,-$v*0.25);
 		}
 	}
 

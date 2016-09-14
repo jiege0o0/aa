@@ -1,12 +1,12 @@
 <?php 
 	
 
-	//技：吞吃（技）：-15%对方生命上限，增加自己15%生命上限
+	//技：吞吃（技）：-12%对方生命上限，增加自己对应生命上限
 	class sm_16_0 extends SkillBase{
 		public $isAtk = true;
 		function action($user,$self,$enemy){
-			$this->decHp($user,$enemy,$enemy->maxHp*0.15,true);
-			$v = $this->addHp($user,$self,$self->maxHp*0.15,true);
+			$v = $this->decHp($user,$enemy,$enemy->maxHp*0.1,true);
+			$this->addHp($user,$self,-$v,true);
 			
 		}
 	}

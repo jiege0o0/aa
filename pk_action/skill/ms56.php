@@ -12,7 +12,7 @@
 		}
 	}
 	
-	//Ë¥Èõ:¼õ¶Ô·½¸¨Öú20%¹¥»÷Á¦
+	//Ë¥Èõ:¼õ¶Ô·½¸¨Öú30%¹¥»÷Á¦
 	class sm_56_1 extends SkillBase{
 		public $cd = 0;
 		function action($user,$self,$enemy){
@@ -20,17 +20,17 @@
 			for($i=1;$i<$len;$i++)
 			{
 				$player = $enemy->team->currentMonster[$i];
-				$player->atk -= round($player->base_atk * 0.2);
+				$player->atk -= round($player->base_atk * 0.3);
 			}
 		}
 	}
 	
-	//Áéµ¯£º+70%ÉËº¦,cd3
+	//Áéµ¯£º+80%ÉËº¦,cd3
 	class sm_56_2 extends SkillBase{
 		public $cd = 3;
 		public $isAtk = true;
 		function action($user,$self,$enemy){
-			$this->decHp($user,$enemy,$user->atk*1.7);
+			$this->decHp($user,$enemy,$user->atk*1.8);
 		}
 	}
 
