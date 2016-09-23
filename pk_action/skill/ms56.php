@@ -47,12 +47,12 @@
 			$this->setSkillEffect($enemy);
 		}
 	}	
-	//辅：--响应：当已方使用绝招时，追加一次130%的输出
+	//辅：--响应：当已方使用绝招时，追加一次150%的输出
 	class sm_56_f2 extends SkillBase{
 		public $type = 'SKILL';
 		public $isAtk = true;
 		function action($user,$self,$enemy){
-			$this->decHp($user,$enemy,$user->atk*1.3);
+			$this->decHp($user,$enemy,$user->atk*1.5);
 		}
 	}
 	

@@ -35,6 +35,7 @@
 		public $cd = 0;
 		function action($user,$self,$enemy){
 			$enemy->maxMp += 20;
+			$this->setSkillEffect($enemy,pk_skillType('MMP',20));
 		}
 	}
 	

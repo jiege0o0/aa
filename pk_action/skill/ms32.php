@@ -54,12 +54,12 @@
 			$this->setSkillEffect($enemy);
 		}
 	}	
-	//¸¨£º--60%ÉËº¦
+	//¸¨£º--80%ÉËº¦
 	class sm_32_f2 extends SkillBase{
 		public $cd = 1;
 		public $isAtk = true;
 		function action($user,$self,$enemy){
-			$this->decHp($user,$enemy,$user->atk*0.6);
+			$this->decHp($user,$enemy,$user->atk*0.8);
 		}
 	}
 

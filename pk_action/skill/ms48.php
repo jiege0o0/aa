@@ -46,12 +46,12 @@
 		}
 	}
 	
-	//ÖØ»÷£º50%ÉËº¦,cd3
+	//ÖØ»÷£º60%ÉËº¦,cd3
 	class sm_48_2 extends SkillBase{
 		public $cd = 3;
 		public $isAtk = true;
 		function action($user,$self,$enemy){
-			$this->decHp($user,$enemy,$user->atk*1.5);
+			$this->decHp($user,$enemy,$user->atk*1.6);
 		}
 	}
 	
@@ -77,11 +77,11 @@
 			$this->decHp($user,$enemy,$user->atk*0.7);
 		}
 	}	
-	//¸¨£º--¹ÄÎè£º+10%¹¥
+	//¸¨£º--¹ÄÎè£º+15%¹¥
 	class sm_48_f2 extends SkillBase{
 		public $cd = 0;
 		function action($user,$self,$enemy){
-			$self->atk += round($self->base_atk * 0.1);
+			$self->atk += round($self->base_atk * 0.15);
 		}
 	}
 

@@ -11,13 +11,13 @@
 		}
 	}
 	
-	//血斩：。减少[5%]当前生命，造成[200%]伤害#CD|3
+	//血斩：减少[5%]当前生命，造成[230%]伤害#CD|3
 	class sm_17_1 extends SkillBase{
 		public $cd = 3;
 		public $isAtk = true;
 		function action($user,$self,$enemy){
 			$this->decHp($user,$self,$self->hp*0.05);
-			$this->decHp($user,$enemy,$user->atk*2);
+			$this->decHp($user,$enemy,$user->atk*2.3);
 		}
 	}
 	

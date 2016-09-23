@@ -10,7 +10,7 @@
 		}
 	}
 	
-	//格挡：被伤害时，增加1%防，上限不过50%
+	//格挡：被伤害时，增加1%防，上限不过30%
 	class sm_6_1 extends SkillBase{
 		public $type='BEATK';
 		function action($user,$self,$enemy){
