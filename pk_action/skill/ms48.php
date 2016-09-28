@@ -35,14 +35,14 @@
 		}
 	}
 	
-	//反震：对方同样受到伤害的30%（只对主角）
+	//反震：对方同样受到伤害的35%（只对主角）
 	class sm_48_1 extends SkillBase{
 		public $type="BEHURT";
 		function canUse($user,$self=null,$enemy=null){
 			return $this->tData[0]->isPKing;
 		}
 		function action($user,$self,$enemy){
-			$this->decHp($user,$enemy,-$this->tData[1]*0.3);
+			$this->decHp($user,$enemy,-$this->tData[1]*0.35);
 		}
 	}
 	

@@ -24,7 +24,7 @@
 		$team2Data->ring = new stdClass();
 		$team2Data->ring->id = $main_game[$level]['ring'];
 		$team2Data->ring->level = ceil($level/100);
-		$team2Data->fight = $level*2;
+		$team2Data->fight = $level;
 		foreach($userData->main_game->kill as $key=>$value)
 		{
 			$team2Data->list[$value] = 0;

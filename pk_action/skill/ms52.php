@@ -9,13 +9,13 @@
 		}
 	}
 	
-	//精神控制：80%伤害，-10MP，cd3
+	//精神控制：100%伤害，-10MP，cd3
 	class sm_52_1 extends SkillBase{
 		public $cd = 3;
 		public $isAtk = true;
 		function action($user,$self,$enemy){
 			$this->addMp($user,$enemy,-10);
-			$this->decHp($user,$enemy,$user->atk*0.8);
+			$this->decHp($user,$enemy,$user->atk);
 		}
 	}
 	
