@@ -6,11 +6,11 @@
 		public $isAtk = true;
 		function action($user,$self,$enemy){
 			$v = -$this->decHp($user,$enemy,$user->atk*2.2);
-			$this->addHp($user,$self,$v*($user->stat[101]?2:0.5));
+			$this->addHp($user,$self,$v*($user->stat[101]?2.2:0.5));
 		}
 	}
 	
-	//当生命少于30%时，吸血200%，round2
+	//当生命少于30%时，吸血220%，round2
 	class sm_45_1 extends SkillBase{
 		public $type = 'BEFORE';
 		public $once = true;
@@ -30,7 +30,7 @@
 		public $isAtk = true;
 		function action($user,$self,$enemy){
 			$v = -$this->decHp($user,$enemy,$user->atk);
-			$this->addHp($user,$self,$v*($user->stat[101]?2:0.5));
+			$this->addHp($user,$self,$v*($user->stat[101]?2.2:0.5));
 		}
 	}
 	
