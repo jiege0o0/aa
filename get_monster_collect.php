@@ -1,5 +1,5 @@
 <?php 
-
+	require_once($filePath."cache/monster.php");
 	//$num奖励数量，$maxTypeNum种类最大数量
 	function addMonsterCollect($callNum,$maxTypeNum){
 		global $monster_base,$userData;
