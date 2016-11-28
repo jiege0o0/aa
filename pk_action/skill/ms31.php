@@ -14,7 +14,6 @@
 			
 			$buff = new ValueBuff(array('atk'=>round($self->base_atk * 0.15)),2);
 			$buff->addToTarget($self);
-			$this->setSkillEffect($self);
 			
 			$this->decHp($user,$enemy,$user->atk*2);
 		}
@@ -36,7 +35,7 @@
 	class sm_31_2 extends SkillBase{
 		public $type = 'AFTER';
 		function action($user,$self,$enemy){
-			$user->speed += 2;//round($user->base_speed*0.02);
+			$user->addSpeed(2);//round($user->base_speed*0.02);
 		}
 	}
 	
@@ -50,12 +49,10 @@
 			$buff = new ValueBuff(array('atk'=>-round($enemy->base_atk * 0.1)),2);
 			$buff->isDebuff = true;
 			$buff->addToTarget($enemy);
-			$this->setSkillEffect($enemy);
 			
 			
 			$buff = new ValueBuff(array('atk'=>round($self->base_atk * 0.1)),2);
 			$buff->addToTarget($self);
-			$this->setSkillEffect($self);
 		}
 	}	
 	//∏®£∫--50%…À

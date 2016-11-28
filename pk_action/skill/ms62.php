@@ -37,7 +37,7 @@
 			$this->addHp($user,$self,$user->base_hp*4,true,true);
 			$v = round($user->base_atk*1);  
 			$user->add_atk += $v;
-			$user->atk += $v;
+			$user->addAtk($v);
 			$this->addHp($user,$self,$self->maxHp - $self->hp,false,true);
 		}
 	}

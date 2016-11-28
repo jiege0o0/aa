@@ -60,7 +60,7 @@ class player{
 	//1：攻，2：速，3：防，4：伤     --+10变成减值
 	//21：禁普攻，22：禁技能，23：禁特性，24：晕,25:魅惑
 	//31:魔免
-	//41：中毒，42：燃烧，43：治聊
+	//41：HP+，42：HP-，
 	//101:吸血增加(mid:45)，102：结界（mid:51）
 	
 	
@@ -126,6 +126,69 @@ class player{
 		$data->speed = $this->base_speed;
 		$data->num = 1; 
 		return $data;
+	}
+	
+	//速度改变
+	function addSpeed($value){
+		$id = 2;
+		if($value > 0)
+			$value = round(max(1,$value));
+		else
+		{	
+			$value = -round(max(1,-$value));
+			$id += 10;
+		}
+		$this->speed += $value;
+		$this->setSkillEffect(pk_skillType('STAT',numToStr($id)));
+		return $value;
+	}
+	
+	//加攻击
+	function addAtk($value,$forever=false){
+		$id = 1;
+		if($value > 0)
+			$value = round(max(1,$value));
+		else
+		{
+			$id += 10;
+			$value = -round(max(1,-$value));
+			if($this->atk < -$value)//攻击力不能少于0
+				$value = -$this->atk + 1; 
+		}
+		$this->atk += $value;
+		$this->setSkillEffect(pk_skillType('STAT',numToStr($id)));
+		return $value;
+	}
+	
+
+	
+	//加盾
+	function addDef($value){
+		$id = 3;
+		$this->def += $value;
+		if($value < 0)
+			$id += 10;
+		$this->setSkillEffect(pk_skillType('STAT',numToStr($id)));
+		return $value;
+	}
+	
+	//加伤
+	function addHurt($value){
+		$id = 4;
+		$this->hurt += $value;
+		if($value < 0)
+			$id += 10;
+		$this->setSkillEffect(pk_skillType('STAT',numToStr($id)));
+		return $value;
+	}	
+	
+	//作用技能效果
+	function setSkillEffect($mv=null){
+		global $pkData;
+		$this->setRoundEffect();
+		if(!$mv)
+			$mv = pk_skillType('MV',1);
+		$pkData->addSkillMV(null,$this,$mv);
 	}
 	
 	function setTecEffect($tec){
@@ -233,6 +296,14 @@ class player{
 		$this->tag = array();
 		$this->buffArr = array();
 		$this->stat = array();
+	}
+	
+	function addStat($id,$num){
+		if(!$this->stat[$id])
+		{
+			$this->stat[$id] = 0;
+		}
+		$this->stat[$id] += $num;
 	}
 	
 	//清除Skill的引用

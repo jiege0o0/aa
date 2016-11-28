@@ -16,7 +16,7 @@
 		function action($user,$self,$enemy){
 			if($this->temp1<30)
 			{
-				$self->def += 1;
+				$self->addDef(1);
 				$this->temp1 ++;
 			}
 				

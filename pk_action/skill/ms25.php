@@ -21,7 +21,7 @@
 	class sm_25_2 extends SkillBase{
 		public $cd = 0;
 		function action($user,$self,$enemy){
-			$self->def += 20;
+			$self->addDef(20);
 		}
 	}
 	

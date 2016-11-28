@@ -11,10 +11,7 @@
 			
 			$buff = new StatBuff(21,2);
 			$buff->isDebuff = true;
-			$buff->addToTarget($enemy);
-			
-			$this->setSkillEffect($enemy);
-			
+			$buff->addToTarget($enemy);		
 			
 		}
 	}
@@ -31,7 +28,7 @@
 	class sm_13_2 extends SkillBase{
 		public $cd = 0;
 		function action($user,$self,$enemy){
-			$user->def += 10;
+			$user->addDef(10);
 		}
 	}
 	
@@ -47,7 +44,7 @@
 	class sm_13_f2 extends SkillBase{
 		public $cd = 0;
 		function action($user,$self,$enemy){
-			$self->def += 5;
+			$self->addDef(5);
 		}
 	}
 
@@ -65,7 +62,6 @@
 			$buff->isDebuff = true;
 			$buff->addToTarget($enemy);
 			
-			$this->setSkillEffect($enemy);
 		}
 	}
 

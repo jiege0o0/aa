@@ -38,7 +38,6 @@
 				$player = $self->team->currentMonster[$i];
 				$buff = new ValueBuff(array('atk'=>round($player->base_atk * 0.15)),5);
 				$buff->addToTarget($player);
-				$this->setSkillEffect($player);
 			}
 		}
 	}

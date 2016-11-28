@@ -28,7 +28,7 @@
 			$def = min(30,round($this->temp1/$user->base_hp*20));
 			$add = $def - $this->temp2;
 			$this->temp2 = $def;
-			$self->def += $add;
+			$self->addDef($add);
 		}
 	}
 	

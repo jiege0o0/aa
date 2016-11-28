@@ -16,7 +16,7 @@
 		public $order = 1;//优先级，互斥时越大的越起作用
 		function action($user,$self,$enemy){
 			$this->decHp($user,$enemy,$user->atk*1.5);
-			$enemy->def -= 2;
+			$enemy->addDef(-2);
 		}
 	}
 	
@@ -26,7 +26,7 @@
 		public $isAtk = true;
 		function action($user,$self,$enemy){
 			$this->decHp($user,$enemy,$user->atk);
-			$enemy->def -= 2;
+			$enemy->addDef(-2);
 		}
 	}
 	
@@ -41,7 +41,6 @@
 				$buff = new ValueBuff(array('speed'=>-round($player->base_speed * 0.2),'atk'=>-round($player->base_speed * 0.15)),3);
 				$buff->isDebuff = true;
 				$buff->addToTarget($player);
-				$this->setSkillEffect($player);
 			}
 		}
 	}

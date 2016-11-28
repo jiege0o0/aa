@@ -23,7 +23,7 @@
 		public $cd = 0;
 		function action($user,$self,$enemy){
 			$num = $user->team->monsterBase->{$user->monsterID}->num;	
-			$user->atk += round($user->base_atk*0.1*$num);
+			$user->addAtk($user->base_atk*0.1*$num);
 			$this->addHp($user,$self,$user->base_hp*0.2*$num,true);
 		}
 	}

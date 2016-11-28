@@ -97,11 +97,7 @@
 		
 		//作用技能效果
 		function setSkillEffect($target,$mv=null){
-			global $pkData;
-			$target->setRoundEffect();
-			if(!$mv)
-				$mv = pk_skillType('MV',1);
-			$pkData->addSkillMV($user,$target,$mv);
+			$target->setSkillEffect($mv);
 		}
 		
 		//给已方召唤者增加技能(通过此方法加入的技能，下一回合才会生效)
@@ -190,56 +186,9 @@
 			$this->setSkillEffect($target,pk_skillType('MP',$value));
 			return $value;
 		}
+		
+		
 		/*
-		//速度改变
-		function addSpeed($user,$target,$value,$forever=false){
-			if($value > 0)
-				$value = round(max(1,$value));
-			else
-				$value = -round(max(1,-$value));
-			$target->speed += $value;
-			if($forever)
-				$target->add_speed += $value;
-			$this->setSkillEffect($target,pk_skillType('SPD',$value));
-			
-			return $value;
-		}
-		
-		//加攻击
-		function addAtk($user,$target,$value,$forever=false){
-			if($value > 0)
-				$value = round(max(1,$value));
-			else
-			{
-				$value = -round(max(1,-$value));
-				if($target->atk < -$value)//攻击力不能少于0
-					$value = -$target->atk + 1; 
-			}
-				
-			$target->atk += $value;
-			if($forever)
-				$target->add_atk += $value;
-			$this->setSkillEffect($target,pk_skillType('ATK',$value));
-			
-			return $value;
-		}
-		
-
-		
-		//加盾
-		function addDef($user,$target,$value){
-			$target->def += $value;
-			$this->setSkillEffect($target);
-			return $value;
-		}
-		
-		//加伤
-		function addHurt($user,$target,$value){
-			$target->hurt += $value;
-			$this->setSkillEffect($target);
-			return $value;
-		}	
-
 		//加每次行动血量改变
 		function addcdhp($user,$target,$value){
 			$target->cdhp += $value;

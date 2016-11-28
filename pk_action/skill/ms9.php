@@ -8,8 +8,6 @@
 			$buff->addToTarget($self);
 			
 			$self->missTimes += 5;
-			
-			$this->setSkillEffect($self);
 		}
 	}
 	
@@ -25,7 +23,6 @@
 				$buff = new ValueBuff(array('speed'=>-round($player->base_speed * 0.15)),2);
 				$buff->isDebuff = true;
 				$buff->addToTarget($player);
-				$this->setSkillEffect($player);
 			}
 		}
 	}
@@ -38,7 +35,6 @@
 			$buff = new StatBuff(24,1);
 			$buff->isDebuff = true;
 			$buff->addToTarget($enemy);
-			$this->setSkillEffect($enemy);
 		}
 	}
 	
@@ -51,7 +47,6 @@
 			{
 				$player = $self->team->currentMonster[$i];
 				$player->base_speed += round($player->base_speed * 0.1);
-				$this->setSkillEffect($player);
 			}
 		}
 	}
@@ -61,7 +56,7 @@
 		public $cd = 0;
 		function action($user,$self,$enemy){
 			$this->decHp($user,$self,$self->hp*0.08);
-			$self->atk += round($self->base_atk * 0.15);
+			$self->addAtk($self->base_atk * 0.15);
 		}
 	}	
 	//∏®£∫--50%…À∫¶

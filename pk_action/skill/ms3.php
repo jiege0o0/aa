@@ -13,7 +13,6 @@
 				$buff = new StatBuff(24,1);
 				$buff->isDebuff = true;
 				$buff->addToTarget($player);
-				$this->setSkillEffect($player);
 			}
 		}
 	}
@@ -45,8 +44,7 @@
 			for($i=1;$i<$len;$i++)
 			{
 				$player = $self->team->currentMonster[$i];
-				$player->atk += round($player->base_atk * 0.08);
-				$this->setSkillEffect($player);
+				$player->addAtk($player->base_atk * 0.08);
 			}
 		}
 	}
@@ -65,7 +63,6 @@
 				$buff = new StatBuff(24,1);
 				$buff->isDebuff = true;
 				$buff->addToTarget($player);
-				$this->setSkillEffect($player);
 			}
 		}
 	}	

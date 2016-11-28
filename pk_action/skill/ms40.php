@@ -30,7 +30,6 @@
 				
 				$buff = new ValueBuff(array('atk'=>round($player->base_speed * 0.1)),2);
 				$buff->addToTarget($player);
-				$this->setSkillEffect($player);
 			}
 		}
 	}
@@ -41,7 +40,6 @@
 		public $order = 10;
 		function action($user,$self,$enemy){
 			$user->manaHp += round($user->base_hp*0.5);
-			$this->setSkillEffect($user);
 		}
 	}
 	
@@ -59,7 +57,6 @@
 		public $order = 9;
 		function action($user,$self,$enemy){
 			$self->manaHp += round($user->base_hp*0.3);
-			$this->setSkillEffect($self);
 		}
 	}
 

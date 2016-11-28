@@ -34,9 +34,8 @@
 			for($i=0;$i<$len;$i++)
 			{
 				$player = $enemy->team->currentMonster[$i];
-				$player->atk -= round($player->base_atk * 0.15);
-				$player->speed -= round($player->base_speed * 0.15);
-				$this->setSkillEffect($player);
+				$player->addAtk(-$player->base_atk * 0.15);
+				$player->addSpeed(-$player->base_speed * 0.15);
 			}
 		}
 	}

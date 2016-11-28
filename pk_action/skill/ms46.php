@@ -25,7 +25,6 @@
 				$buff = new ValueBuff(array('speed'=>-round($player->base_speed * 0.2)),2);
 				$buff->isDebuff = true;
 				$buff->addToTarget($player);
-				$this->setSkillEffect($player);
 			}
 		}
 	}
@@ -40,8 +39,7 @@
 		}
 		function action($user,$self,$enemy){
 			$user->atk += round($user->base_atk*0.5);
-			$user->def += 20;
-			$this->setSkillEffect($user);
+			$user->addDef(20);
 		}
 	}
 	
@@ -49,7 +47,7 @@
 	class sm_46_3 extends SkillBase{
 		public $cd = 0;
 		function action($user,$self,$enemy){
-			$user->def += 20;
+			$user->addDef(20);
 		}
 	}
 	
@@ -66,7 +64,7 @@
 	class sm_46_f2 extends SkillBase{
 		public $cd = 0;
 		function action($user,$self,$enemy){
-			$self->def += 10;
+			$self->addDef(10);
 		}
 	}
 

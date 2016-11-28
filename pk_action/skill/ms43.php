@@ -22,7 +22,6 @@
 		public $isAtk = true;
 		public $order = -10;
 		function action($user,$self,$enemy){
-			$this->setSkillEffect($enemy);
 			$this->decHp($user,$self,$self->maxHp*0.2,false,true);
 			$this->decHp($user,$enemy,sm_43_resetHurt($user,$user->atk*0.6));
 			
@@ -45,8 +44,8 @@
 	class sm_43_f1 extends SkillBase{
 		public $cd = 0;
 		function action($user,$self,$enemy){
-			$self->speed += round($self->base_speed*0.1);
-			$this->setSkillEffect($self);
+			$self->addSpeed($self->base_speed*0.1);
+
 		}
 	}	
 	//∏®£∫--50%…À∫¶

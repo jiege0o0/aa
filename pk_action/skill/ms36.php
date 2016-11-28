@@ -4,10 +4,10 @@
 	function sm_36_addValue($self,$enemy,$rate){
 		$v1 = max(1,round($enemy->base_atk * $rate));
 		$v2 = max(1,round($enemy->base_speed * $rate));
-		$enemy->atk -= $v1;
-		$enemy->speed -= $v2;
-		$self->atk += $v1;
-		$self->speed += $v2;
+		$enemy->addAtk(-$v1);
+		$enemy->addSpeed(-$v2);
+		$self->addAtk($v1);
+		$self->addSpeed($v2);
 	}
 
 	//¼¼£ºÖØÅü£¨¼¼£©£º220%ÉË

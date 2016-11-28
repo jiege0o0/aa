@@ -8,7 +8,6 @@
 			$buff = new StatBuff(24,2);
 			$buff->isDebuff = true;
 			$buff->addToTarget($enemy);
-			$this->setSkillEffect($enemy);
 				
 		}
 	}
@@ -40,7 +39,6 @@
 			$buff = new StatBuff(24,1);
 			$buff->isDebuff = true;
 			$buff->addToTarget($enemy);
-			$this->setSkillEffect($enemy);
 		}
 	}	
 	//∏®£∫--60%…À∫¶

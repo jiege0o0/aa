@@ -9,8 +9,6 @@
 			
 			$buff = new HPBuff(round($self->maxHp*0.1),3);
 			$buff->addToTarget($self);
-
-			$this->setSkillEffect($self);
 		}
 	}
 	
@@ -34,7 +32,6 @@
 		function action($user,$self,$enemy){
 			$buff = new ValueBuff(array('def'=>50),2);
 			$buff->addToTarget($self);
-			$this->setSkillEffect($self);
 		}
 	}
 

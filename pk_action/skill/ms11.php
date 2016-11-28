@@ -41,9 +41,8 @@
 			for($i=1;$i<$len;$i++)
 			{
 				$player = $self->team->currentMonster[$i];
-				$self->atk += round($player->base_atk * 0.1);
+				$self->addAtk($player->base_atk * 0.1);
 			}
-			$this->setSkillEffect($self);
 		}
 	}
 	
@@ -51,8 +50,7 @@
 	class sm_11_f1 extends SkillBase{
 		public $cd = 0;
 		function action($user,$self,$enemy){
-			$self->atk += round($self->base_atk * 0.1);
-			$this->setSkillEffect($self);
+			$self->addAtk($self->base_atk * 0.1);
 		}
 	}	
 	//∏®£∫--50%…À

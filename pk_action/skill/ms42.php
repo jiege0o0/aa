@@ -9,7 +9,6 @@
 			{
 				$player = $enemy->team->currentMonster[$i];
 				$this->cleanStat($player,false,999);
-				$this->setSkillEffect($player);
 			}
 			
 			$len = count($self->team->currentMonster);
@@ -17,7 +16,6 @@
 			{
 				$player = $self->team->currentMonster[$i];
 				$this->cleanStat($player,true,999);
-				$this->setSkillEffect($player);
 			}
 		}
 	}

@@ -25,8 +25,7 @@
 	class sm_17_2 extends SkillBase{
 		public $cd = 0;
 		function action($user,$self,$enemy){
-			$enemy->atk -= round($enemy->base_atk*0.1);
-			$this->setSkillEffect($enemy);
+			$enemy->addAtk(-$enemy->base_atk*0.1);
 		}
 	}
 
@@ -52,8 +51,7 @@
 	class sm_17_f2 extends SkillBase{
 		public $cd = 0;
 		function action($user,$self,$enemy){
-			$enemy->atk -= round($enemy->base_atk*0.1);
-			$this->setSkillEffect($enemy);
+			$enemy->addAtk(-$enemy->base_atk*0.1);
 		}
 	}
 

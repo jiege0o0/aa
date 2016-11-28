@@ -39,8 +39,7 @@
 		public $cd = 0;
 		function action($user,$self,$enemy){
 			$num = $user->team->monsterBase->{$user->monsterID}->num;	
-			$user->atk += round($user->base_atk*0.2*$num);
-			$this->setSkillEffect($user);
+			$user->addAtk($user->base_atk*0.2*$num);
 		}
 	}
 	

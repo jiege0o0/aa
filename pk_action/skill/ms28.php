@@ -13,7 +13,6 @@
 				$buff = new ValueBuff(array('speed'=>-round($player->base_speed * 0.5)),2);
 				$buff->isDebuff = true;
 				$buff->addToTarget($player);
-				$this->setSkillEffect($player);
 			}
 			
 			$this->decHp($user,$enemy,$user->atk*1.2);
@@ -41,8 +40,7 @@
 			for($i=0;$i<$len;$i++)
 			{
 				$player = $self->team->currentMonster[$i];
-				$player->atk += round($player->base_atk*0.3);
-				$this->setSkillEffect($player);
+				$player->addAtk($player->base_atk*0.3);
 			};
 		}
 	}
@@ -62,7 +60,6 @@
 				$buff = new ValueBuff(array('speed'=>-round($player->base_speed * 0.3)),1);
 				$buff->isDebuff = true;
 				$buff->addToTarget($player);
-				$this->setSkillEffect($player);
 			}
 		}
 	}	

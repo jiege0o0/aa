@@ -22,7 +22,7 @@
 		public $isAtk = true;
 		function action($user,$self,$enemy){
 			$this->addHp($user,$enemy,$enemy->maxHp*0.1);
-			$enemy->speed -= round($enemy->base_speed*0.1);
+			$enemy->addSpeed(-$enemy->base_speed*0.1);
 			
 			if(!$user->temp['sendGift'])
 				$user->temp['sendGift'] = 0;
@@ -47,8 +47,7 @@
 				$this->temp = $user->temp['sendGift'];
 				if($this->temp > 5)
 				{
-					$user->atk += round($user->base_atk*0.1);
-					$this->setSkillEffect($user);
+					$user->addAtk($user->base_atk*0.1);
 				}
 			}
 		}

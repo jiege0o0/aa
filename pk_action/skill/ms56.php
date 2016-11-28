@@ -8,7 +8,6 @@
 			$buff = new StatBuff(22,5);
 			$buff->isDebuff = true;
 			$buff->addToTarget($enemy);
-			$this->setSkillEffect($enemy);
 		}
 	}
 	
@@ -20,7 +19,7 @@
 			for($i=1;$i<$len;$i++)
 			{
 				$player = $enemy->team->currentMonster[$i];
-				$player->atk -= round($player->base_atk * 0.3);
+				$player->addAtk(-$player->base_atk * 0.3);
 			}
 		}
 	}
@@ -44,7 +43,6 @@
 			$buff = new StatBuff(22,3);
 			$buff->isDebuff = true;
 			$buff->addToTarget($enemy);
-			$this->setSkillEffect($enemy);
 		}
 	}	
 	//辅：--响应：当已方使用绝招时，追加一次150%的输出

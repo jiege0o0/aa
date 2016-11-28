@@ -15,7 +15,6 @@
 		function action($user,$self,$enemy){
 			$buff = new ValueBuff(array('speed'=>round($self->base_speed * 0.5),'atk'=>round($self->base_atk * 0.5)),3);
 			$buff->addToTarget($self);
-			$this->setSkillEffect($self);
 		}
 	}
 	
@@ -38,7 +37,6 @@
 				$player = $self->team->currentMonster[$i];
 				$buff = new ValueBuff(array('speed'=>round($player->base_speed * 0.3),'atk'=>round($player->base_atk * 0.2)),3);
 				$buff->addToTarget($player);
-				$this->setSkillEffect($player);
 			}
 		}
 	}
@@ -49,7 +47,6 @@
 		function action($user,$self,$enemy){
 			$buff = new ValueBuff(array('speed'=>round($self->base_speed * 0.2),'atk'=>round($self->base_atk * 0.1)),3);
 			$buff->addToTarget($self);
-			$this->setSkillEffect($self);
 		}
 	}	
 	//∏®£∫-- 60%…À

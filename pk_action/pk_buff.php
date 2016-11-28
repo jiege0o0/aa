@@ -68,14 +68,41 @@
 			foreach($this->value as $key=>$value)
 			{
 				$this->target->{$key} -= round($value);
+				$this->addStat($key,-1);
 			}
+		}
+		
+		function addStat($key,$num){
+			$id = 0;
+			switch($key){
+				case 'atk':
+					$id = 1;
+					break;
+				case 'speed':
+					$id = 2;
+					break;	
+				case 'def':
+					$id = 3;
+					break;
+				case 'hurt':
+					$id = 4;
+					break;
+				default:trace($key);
+			}
+			if($this->isDebuff)
+				$id += 10;
+			$this->target->addStat($id,$num);
+			return $id;
 		}
 		
 		//buff添加时的处理
 		function onBuffAdd(){
+			global $pkData;
 			foreach($this->value as $key=>$value)
 			{
 				$this->target->{$key} += round($value);
+				$id = $this->addStat($key,1);
+				$pkData->addSkillMV(null,$this->target,pk_skillType('STAT',numToStr($id).$this->cd));
 			}
 		}
 	}
@@ -91,6 +118,16 @@
 				$this->isDebuff = false;
 			else
 				$this->isDebuff = true;
+			
+		}
+		
+		//buff添加时的处理
+		function onBuffAdd(){
+			global $pkData;
+			if($this->isDebuff)	
+				$pkData->addSkillMV(null,$this->target,pk_skillType('STAT',numToStr(42).$this->cd));
+			else 	
+				$pkData->addSkillMV(null,$this->target,pk_skillType('STAT',numToStr(41).$this->cd));
 		}
 
 		function onAction(){
@@ -120,17 +157,14 @@
 		
 		//清除buff效果时调用
 		function onClean(){
-			
-			$this->target->stat[$this->id] -= 1;
+			$this->target->addStat($this->id,-1);
 		}
 		
 		//buff添加时的处理
 		function onBuffAdd(){
-			if(!$this->target->stat[$this->id])
-			{
-				$this->target->stat[$this->id] = 0;
-			}
-			$this->target->stat[$this->id] += 1;
+			global $pkData;
+			$this->target->addStat($this->id,1);
+			$pkData->addSkillMV(null,$this->target,pk_skillType('STAT',numToStr($this->id).$this->cd));
 			// global $pkData;
 			// trace($pkData->step.':'.$this->target->id.'--'.$this->id.'--'.$this->target->stat[$this->id]);
 		}

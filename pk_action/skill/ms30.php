@@ -26,13 +26,13 @@
 	class sm_30_2 extends SkillBase{
 		public $cd = 0;
 		function action($user,$self,$enemy){
-			$self->atk += round($self->base_atk*0.5);
+			$self->addAtk($self->base_atk*0.5);
 		}
 	}	
 	class sm_30_5 extends SkillBase{
 		public $type='AFTER';
 		function action($user,$self,$enemy){
-			$self->atk -= round($self->base_atk*0.1);
+			$self->addAtk(-$self->base_atk*0.1);
 		}
 	}
 	
@@ -60,7 +60,7 @@
 		}
 		
 		function action($user,$self,$enemy){
-			$user->atk += round($user->base_atk*0.2);
+			$user->addAtk($user->base_atk*0.2);
 		}
 	}	
 	//∏®£∫--60%…À∫¶

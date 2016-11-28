@@ -12,7 +12,6 @@
 				$buff = new StatBuff(25,2);
 				$buff->isDebuff = true;
 				$buff->addToTarget($player);
-				$this->setSkillEffect($player);
 			}
 		}
 	}
@@ -25,8 +24,6 @@
 			$buff = new ValueBuff(array('atk'=>-round($enemy->base_atk * 0.3)),2);
 			$buff->isDebuff = true;
 			$buff->addToTarget($enemy);
-			
-			$this->setSkillEffect($enemy);
 		}
 	}
 	
@@ -61,7 +58,6 @@
 				$buff = new StatBuff(25,1);
 				$buff->isDebuff = true;
 				$buff->addToTarget($player);
-				$this->setSkillEffect($player);
 			}
 		}
 	}

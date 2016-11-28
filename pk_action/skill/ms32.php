@@ -13,7 +13,6 @@
 			$buff->isDebuff = true;
 			$buff->addToTarget($enemy);
 			
-			$this->setSkillEffect($enemy);
 		}
 	}
 	
@@ -25,7 +24,6 @@
 			$buff = new ValueBuff(array('def'=>-30),2);
 			$buff->isDebuff = true;
 			$buff->addToTarget($enemy);
-			$this->setSkillEffect($enemy);
 		}
 	}
 	
@@ -37,7 +35,7 @@
 			return $user->getHpRate() <= 0.3;
 		}
 		function action($user,$self,$enemy){
-			$user->speed += round($user->base_speed*0.2);
+			$user->addSpeed($user->base_speed*0.2);
 			$this->addHp($user,$user,$user->maxHp*0.5);
 		}
 	}
@@ -51,7 +49,6 @@
 			$buff = new ValueBuff(array('def'=>-30),2);
 			$buff->isDebuff = true;
 			$buff->addToTarget($enemy);
-			$this->setSkillEffect($enemy);
 		}
 	}	
 	//∏®£∫--80%…À∫¶

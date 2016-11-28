@@ -13,7 +13,6 @@
 			$buff->isDebuff = true;
 			$buff->addToTarget($enemy);
 			
-			$this->setSkillEffect($enemy);
 		}
 	}
 
@@ -35,9 +34,8 @@
 			for($i=1;$i<$len;$i++)
 			{
 				$player = $self->team->currentMonster[$i];
-				$player->atk -= round($player->base_atk * 0.08);
-				$player->speed -= round($player->base_speed * 0.15);
-				$this->setSkillEffect($player);
+				$player->addAtk(-$player->base_atk * 0.08);
+				$player->addSpeed(-$player->base_speed * 0.15);
 			}
 			
 		}
@@ -72,7 +70,6 @@
 			$buff->isDebuff = true;
 			$buff->addToTarget($enemy);
 			
-			$this->setSkillEffect($enemy);
 		}
 	}
 

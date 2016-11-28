@@ -50,7 +50,7 @@
 		function action($user,$self,$enemy){
 			$this->addHp($user,$self,$self->base_hp*0.6,true);
 			$this->addHp($user,$self,$self->maxHp - $self->hp);
-			$self->atk += round($self->base_atk*0.2);
+			$self->addAtk($self->base_atk*0.2);
 			$self->skill->disabled = true;
 			$self->skillArr[1]->disabled = true;
 		}
@@ -77,8 +77,6 @@
 			$buff = new ValueBuff(array('speed'=>-round($enemy->base_speed * 0.1)),3);
 			$buff->isDebuff = true;
 			$buff->addToTarget($enemy);
-			
-			$this->setSkillEffect($enemy);
 		}
 	}
 

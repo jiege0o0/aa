@@ -12,7 +12,6 @@
 				$buff = new StatBuff(24,2);
 				$buff->isDebuff = true;
 				$buff->addToTarget($player);
-				$this->setSkillEffect($player);
 			}
 		}
 	}

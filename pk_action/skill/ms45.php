@@ -47,8 +47,7 @@
 	class sm_45_f2 extends SkillBase{
 		public $cd = 0;
 		function action($user,$self,$enemy){
-			$self->atk += round($self->base_atk*0.1);
-			$this->setSkillEffect($self);
+			$self->addAtk($self->base_atk*0.1);
 		}
 	}
 

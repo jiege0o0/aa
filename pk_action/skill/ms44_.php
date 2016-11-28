@@ -43,7 +43,7 @@
 			for($i=1;$i<$len;$i++)
 			{
 				$player = $self->team->currentMonster[$i];
-				$player->atk += round($player->base_atk * 0.05);
+				$player->addAtk($player->base_atk * 0.05);
 				$this->setSkillEffect($player);
 			}
 		}

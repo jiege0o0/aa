@@ -14,7 +14,7 @@
 		public $cd = 3;
 		public $isAtk = true;
 		function action($user,$self,$enemy){
-			$enemy->atk += round($enemy->base_atk*0.2);
+			$enemy->addAtk($enemy->base_atk*0.2);
 			$this->decHp($user,$enemy,$enemy->maxHp*0.1,true);
 		}
 	}
@@ -28,7 +28,7 @@
 			for($i=1;$i<$len;$i++)
 			{
 				$player = $user->team->currentMonster[$i];
-				$player->atk -= round($player->base_atk*0.1);
+				$player->addAtk(-$player->base_atk*0.1);
 				$hp += $player->maxHp;
 			}
 			$this->addHp($user,$self,$hp*0.2);
