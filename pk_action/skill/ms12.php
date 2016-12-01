@@ -7,7 +7,7 @@
 		function action($user,$self,$enemy){
 			$this->decHp($user,$enemy,$user->atk*1.8);
 			
-			$buff = new ValueBuff(array('def'=>-20),3);
+			$buff = new ValueBuff('def',-20,3);
 			$buff->isDebuff = true;
 			$buff->addToTarget($enemy);
 		}
@@ -26,7 +26,7 @@
 	class sm_12_2 extends SkillBase{
 		public $cd = 0;
 		function action($user,$self,$enemy){
-			$buff = new ValueBuff(array('def'=>30),3);
+			$buff = new ValueBuff('def',30,3);
 			$buff->addToTarget($self);
 		}
 	}
@@ -48,7 +48,7 @@
 		public $order = 1;//优先级，互斥时越大的越起作用
 		function action($user,$self,$enemy){
 			$this->decHp($user,$enemy,$user->atk*0.6);
-			$buff = new ValueBuff(array('def'=>-20),2);
+			$buff = new ValueBuff('def',-20,2);
 			$buff->isDebuff = true;
 			$buff->addToTarget($enemy);
 		}

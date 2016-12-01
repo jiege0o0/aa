@@ -68,10 +68,11 @@
 				}
 				else
 				{
+					$enemy->addMp($PKConfig->defMP);
+					$pkData->addSkillMV(null,$enemy,pk_skillType('HMP',$PKConfig->defMP));
 					$this->action($user,$self,$enemy);
 					$enemy->testTSkill('BEATK',array($user));
-					$enemy->addMp($PKConfig->defMP);
-					$pkData->addSkillMV(null,$enemy,pk_skillType('MP',$PKConfig->defMP));	
+						
 				}
 			}
 			else
@@ -211,6 +212,7 @@
 		
 		//清除状态(谁加的，清多少)$isDebuff==-1为任意buff
 		function cleanStat($target,$isDebuff,$num){
+			global $pkData;
 			$len = count($target->buffArr);
 			$b = false;
 			for($i=0;$i<$len && $num > 0;$i++)
@@ -219,6 +221,7 @@
 					continue;
 				if($isDebuff == -1 || $target->buffArr[$i]->isDebuff == $isDebuff)
 				{
+					$pkData->out_cleanStat($target,$target->buffArr[$i]->cd,$target->buffArr[$i]->cd);
 					$target->buffArr[$i]->cd = 0;
 					$num --;
 					$b = true;

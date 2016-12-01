@@ -25,7 +25,7 @@
 			$this->decHp($user,$self,$self->maxHp*0.2,false,true);
 			$this->decHp($user,$enemy,sm_43_resetHurt($user,$user->atk*0.6));
 			
-			$buff = new ValueBuff(array('def'=>20),3);
+			$buff = new ValueBuff('def',20,3);
 			$buff->addToTarget($self);
 		}
 	}

@@ -38,9 +38,14 @@
 			for($i=0;$i<$len;$i++)
 			{
 				$player = $enemy->team->currentMonster[$i];
-				$buff = new ValueBuff(array('speed'=>-round($player->base_speed * 0.2),'atk'=>-round($player->base_speed * 0.15)),3);
+				$buff = new ValueBuff('speed',-round($player->base_speed * 0.2),3);
 				$buff->isDebuff = true;
 				$buff->addToTarget($player);
+				
+				$buff = new ValueBuff('atk',-round($player->base_speed * 0.15),3);
+				$buff->isDebuff = true;
+				$buff->addToTarget($player);
+				
 			}
 		}
 	}

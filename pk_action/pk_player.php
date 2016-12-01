@@ -366,7 +366,7 @@ class player{
 			$temp->owner = $this;
 			if($temp->cd == 0)//PK前执行
 			{
-				array_push($pkData->tArray,$temp);
+				array_push($pkData->frontArray,$temp);
 				array_push($this->skillArrCD0,$temp);
 			}
 			else 
@@ -545,7 +545,7 @@ class player{
 		
 		//技能状态
 		$pkData->startSkillMV($this);
-		$pkData->startSkillEffect();
+		// $pkData->startSkillEffect();
 		$this->buffAction('AFTER');
 		$pkData->endSkillMV(52);	
 		
@@ -603,6 +603,8 @@ class player{
 	function testOutStat()//100以上的不会输出
 	{
 		$this->testTSkill('STAT');
+		return;
+		
 		global $pkData;
 		if(!$pkData->outDetail)
 			return;
@@ -661,8 +663,21 @@ class player{
 			$this->testTSkill('HP');
 		else
 		{
+			global $pkData;
+			$pkData->out_die($this);
+			
 			$this->testTSkill('DIE');
 			$this->team->enemy->currentMonster[0]->testTSkill('EDIE');
+			
+			//死后清除BUFF
+			$len = count($this->buffArr);
+			for($i=0;$i<$len && $num > 0;$i++)
+			{
+				$this->buffArr[$i]->cd = 0;
+			}
+			$b = $this->testStateCD(0);
+			if($b)
+				$this->testOutStat();
 		}
 		
 		// if($this->id == 10)
@@ -688,14 +703,6 @@ class player{
 	}
 	
 	function reborn($v){
-		$len = count($this->buffArr);
-		for($i=0;$i<$len && $num > 0;$i++)
-		{
-			$this->buffArr[$i]->cd = 0;
-		}
-		$b = $this->testStateCD(0);
-		if($b)
-			$this->testOutStat();
 		$this->hp = round($this->maxHp*$v);	
 		global $pkData;
 		$pkData->addSkillMV(null,$this,pk_skillType('HP',$this->hp));	

@@ -26,7 +26,7 @@
 			}
 			
 				
-			$buff = new ValueBuff(array('atk'=>round($user->base_atk * 0.3)),3);
+			$buff = new ValueBuff('atk',round($user->base_atk * 0.3),3);
 			$buff->addToTarget($user);
 			
 		}

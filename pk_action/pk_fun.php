@@ -22,9 +22,10 @@
 		
 		$pkData->step = 1;
 		$pkData->roundStart($playArr1,$playArr2);
-		$pkData->dealTArray();
+		$pkData->dealFrontArray();
 		$result = $pkData->testRoundFinish();
-		$pkData->out_end();
+		$pkData->out_gameStart();
+		// $pkData->out_end();
 
 		while(!$result){
 			$result = pkOnePlayer($list);

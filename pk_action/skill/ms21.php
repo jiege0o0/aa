@@ -13,7 +13,10 @@
 	class sm_21_1 extends SkillBase{
 		public $cd = 0;
 		function action($user,$self,$enemy){
-			$buff = new ValueBuff(array('speed'=>round($self->base_speed * 0.5),'atk'=>round($self->base_atk * 0.5)),3);
+			$buff = new ValueBuff('speed',round($self->base_speed * 0.5),3);
+			$buff->addToTarget($self);
+			
+			$buff = new ValueBuff('atk',round($self->base_atk * 0.5),3);
 			$buff->addToTarget($self);
 		}
 	}
@@ -35,7 +38,11 @@
 			for($i=1;$i<$len;$i++)
 			{
 				$player = $self->team->currentMonster[$i];
-				$buff = new ValueBuff(array('speed'=>round($player->base_speed * 0.3),'atk'=>round($player->base_atk * 0.2)),3);
+					
+				$buff = new ValueBuff('speed',round($player->base_speed * 0.3),3);
+				$buff->addToTarget($player);
+				
+				$buff = new ValueBuff('atk',round($player->base_atk * 0.2),3);
 				$buff->addToTarget($player);
 			}
 		}
@@ -45,7 +52,10 @@
 	class sm_21_f1 extends SkillBase{
 		public $cd = 0;
 		function action($user,$self,$enemy){
-			$buff = new ValueBuff(array('speed'=>round($self->base_speed * 0.2),'atk'=>round($self->base_atk * 0.1)),3);
+			$buff = new ValueBuff('speed',round($self->base_speed * 0.2),3);
+			$buff->addToTarget($self);
+			
+			$buff = new ValueBuff('atk',round($self->base_atk * 0.1),3);
 			$buff->addToTarget($self);
 		}
 	}	

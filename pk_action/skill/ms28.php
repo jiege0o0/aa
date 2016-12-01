@@ -10,7 +10,7 @@
 			{
 				$player = $enemy->team->currentMonster[$i];
 				
-				$buff = new ValueBuff(array('speed'=>-round($player->base_speed * 0.5)),2);
+				$buff = new ValueBuff('speed',-round($player->base_speed * 0.5),2);
 				$buff->isDebuff = true;
 				$buff->addToTarget($player);
 			}
@@ -57,7 +57,7 @@
 			{
 				$player = $enemy->team->currentMonster[$i];
 				
-				$buff = new ValueBuff(array('speed'=>-round($player->base_speed * 0.3)),1);
+				$buff = new ValueBuff('speed',-round($player->base_speed * 0.3),1);
 				$buff->isDebuff = true;
 				$buff->addToTarget($player);
 			}

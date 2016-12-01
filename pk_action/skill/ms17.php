@@ -4,7 +4,7 @@
 	//技：圣光（技）：加30%攻击力，回25%血，3round
 	class sm_17_0 extends SkillBase{
 		function action($user,$self,$enemy){
-			$buff = new ValueBuff(array('atk'=>round($self->base_atk * 0.3)),3);
+			$buff = new ValueBuff('atk',round($self->base_atk * 0.3),3);
 			$buff->addToTarget($self);
 			
 			$this->addHp($user,$self,$self->maxHp*0.25);

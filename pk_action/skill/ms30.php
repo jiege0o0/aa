@@ -6,7 +6,7 @@
 	class sm_30_0 extends SkillBase{
 		public $isAtk = true;
 		function action($user,$self,$enemy){
-			$buff = new ValueBuff(array('speed'=>round($self->base_speed * 0.2)),3);
+			$buff = new ValueBuff('speed',round($self->base_speed * 0.2),3);
 			$buff->addToTarget($self);
 			
 			$this->decHp($user,$enemy,$user->atk*2);

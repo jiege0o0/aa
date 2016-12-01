@@ -28,7 +28,7 @@
 			{
 				$player = $user->team->currentMonster[$i];
 				
-				$buff = new ValueBuff(array('atk'=>round($player->base_speed * 0.1)),2);
+				$buff = new ValueBuff('atk',round($player->base_speed * 0.1),2);
 				$buff->addToTarget($player);
 			}
 		}

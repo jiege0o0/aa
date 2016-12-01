@@ -42,6 +42,7 @@ class PKData{//主要记录一些PK中的数据
 	public $from = -1;
 	public $to = -1;
 	public $tArray = array();//要执行的特性技能	/ 单位行动前的前置技能
+	public $frontArray = array();//进入PK时所有的技能
 	
 	public $round = 1;//当前的回合
 	
@@ -71,6 +72,7 @@ class PKData{//主要记录一些PK中的数据
 		$this->from = -1;
 		$this->to = -1;
 		$this->tArray = array();
+		$this->frontArray = array();
 		$this->playArr1 = $playArr1;
 		$this->playArr2 = $playArr2;
 		$this->team1->currentMonster = $playArr1;
@@ -164,31 +166,31 @@ class PKData{//主要记录一些PK中的数据
 	}
 	
 	//加入种类加成
-	function testKindAdd($user,$self,$enemy){
-		$addSelf = false;
-		$addEnemy = false;
-		foreach($user->monsterData['effect_kind'] as $value)
-		{
-			if(!$addSelf && in_array($value,$self->monsterData['kind'],true))
-			{
-				$addSelf = true;
-			}
-			if(!$addEnemy && in_array($value,$enemy->monsterData['kind'],true))
-			{
-				$addEnemy = true;
-			}
-		}
-		if($addSelf || $addEnemy)
-		{
-			$temp = pk_decodeSkill('KindSkill');
-			$temp->addSelf = $addSelf;
-			$temp->addEnemy = $addEnemy;
-			$temp->index = 53;
-			$temp->owner = $user;
-			array_push($user->skillArrCD0,$temp);
-			array_push($this->tArray,$temp);
-		}
-	}
+	// function testKindAdd($user,$self,$enemy){
+		// $addSelf = false;
+		// $addEnemy = false;
+		// foreach($user->monsterData['effect_kind'] as $value)
+		// {
+			// if(!$addSelf && in_array($value,$self->monsterData['kind'],true))
+			// {
+				// $addSelf = true;
+			// }
+			// if(!$addEnemy && in_array($value,$enemy->monsterData['kind'],true))
+			// {
+				// $addEnemy = true;
+			// }
+		// }
+		// if($addSelf || $addEnemy)
+		// {
+			// $temp = pk_decodeSkill('KindSkill');
+			// $temp->addSelf = $addSelf;
+			// $temp->addEnemy = $addEnemy;
+			// $temp->index = 53;
+			// $temp->owner = $user;
+			// array_push($user->skillArrCD0,$temp);
+			// array_push($this->tArray,$temp);
+		// }
+	// }
 	
 	//异步技能处理
 	function dealTArray(){
@@ -196,7 +198,7 @@ class PKData{//主要记录一些PK中的数据
 		if($len)
 		{
 			usort($this->tArray,tArraySortFun);
-			for($i=0;$i<$len;$i++) {
+			for($i=0;$i<count($this->tArray);$i++) {//可能中途会加入技能
 				$skillData = $this->tArray[$i];
 				$userX = $skillData->owner;
 				$enemyX = $userX->team->enemy->currentMonster[0];
@@ -205,6 +207,28 @@ class PKData{//主要记录一些PK中的数据
 				pk_action_skill($skillData,$userX,$selfX,$enemyX);
 			}
 			$this->tArray = array();
+		}
+	}
+	
+	//前置技能处理
+	function dealFrontArray(){
+		$len = count($this->frontArray);
+		if($len)
+		{
+			usort($this->frontArray,tArraySortFun);
+			for($i=0;$i<$len;$i++) {//可能中途会加入技能
+				$skillData = $this->frontArray[$i];
+				$userX = $skillData->owner;
+				$enemyX = $userX->team->enemy->currentMonster[0];
+				$selfX = $userX->team->currentMonster[0];
+				// trace($userX->id.'-'.$selfX->id.'-'.$enemyX->id.'-');
+				
+				$this->startSkillMV($userX);
+				pk_action_skill($skillData,$userX,$selfX,$enemyX);
+				$this->dealTArray();
+				$this->out_end($userX);
+			}
+			$this->frontArray = array();
 		}
 	}
 	
@@ -287,21 +311,21 @@ class PKData{//主要记录一些PK中的数据
 			return;
 		$this->skillRecord = array();
 		$this->skillUser = $user;
-		$this->skillRecordCountDec = 0;
+		// $this->skillRecordCountDec = 0;
 	}
 	
-	function startSkillEffect(){//技能效果开始
-		if(!$this->outDetail)
-			return;
-		array_push($this->skillRecord,array(null,null,'effectStart'));
-		$this->skillRecordCountDec ++;
-	}
-	function endSkillEffect(){//技能效果结束
-		if(!$this->outDetail)
-			return;
-		array_push($this->skillRecord,array(null,null,'effectEnd'));
-		$this->skillRecordCountDec ++;
-	}
+	// function startSkillEffect(){//技能效果开始
+		// if(!$this->outDetail)
+			// return;
+		// array_push($this->skillRecord,array(null,null,'effectStart'));
+		// $this->skillRecordCountDec ++;
+	// }
+	// function endSkillEffect(){//技能效果结束
+		// if(!$this->outDetail)
+			// return;
+		// array_push($this->skillRecord,array(null,null,'effectEnd'));
+		// $this->skillRecordCountDec ++;
+	// }
 	function addSkillMV($player,$target,$skillAction){
 		if(!$this->outDetail)
 			return;
@@ -313,7 +337,7 @@ class PKData{//主要记录一些PK中的数据
 		$len = count($this->skillRecord);
 		$addMV = false;
 		$out8 = false;
-		if($len - $this->skillRecordCountDec > 0)
+		if($len > 0)// - $this->skillRecordCountDec > 0)
 		{
 			$this->out_changeFrom($this->skillUser);//转换攻击者
 			$this->out_str('7'.numToStr($skillID)); //技能开始
@@ -329,10 +353,10 @@ class PKData{//主要记录一些PK中的数据
 					{
 						$addMV = true;
 					}
-					else if($this->skillRecord[$i][2] == 'effectStart')//技能效果开始
-					{
-						$this->out_str('3');
-					}
+					// else if($this->skillRecord[$i][2] == 'effectStart')//技能效果开始
+					// {
+						// $this->out_str('3');
+					// }
 					else
 					{
 						$this->out_str('8'.$this->skillRecord[$i][2]);
@@ -384,16 +408,6 @@ class PKData{//主要记录一些PK中的数据
 		}
 	}
 	
-	//播放技能   变成技能效果开始
-	// function out_skill($skillID,$value){
-		// if(!$this->outDetail)
-			// return;
-		// $str = '3'.numToStr($skillID); 
-		// if($value)
-			// $str .= $value;
-		// $this->out_str($str);
-	// }
-	
 	//状态改变 (stateKey是一个当前点亮状态的序列)
 	function out_stat($target,$stateKey){
 		if(!$this->outDetail)
@@ -421,6 +435,29 @@ class PKData{//主要记录一些PK中的数据
 			$this->out_changeFrom($target);//转换攻击者
 		$this->out_str('6');	
 		// $this->out_str('6'.($this->step);	
+	}
+	
+	//你来我往的回合开始
+	function out_gameStart(){
+		if(!$this->outDetail)
+			return;
+		$this->out_str('A');
+	}
+	
+	//清除技能
+	function out_cleanStat($target,$key,$time){
+		if(!$this->outDetail)
+			return;
+		$this->out_changeTo($target);//转换
+		$this->out_str('B'.numToStr($key).$time);
+	}
+	
+	//单位死亡
+	function out_die($target){
+		if(!$this->outDetail)
+			return;
+		$this->out_changeTo($target);//转换
+		$this->out_str('C');
 	}
 	
 	//***************************************************************************** end

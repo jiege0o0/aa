@@ -18,7 +18,7 @@
 		function action($user,$self,$enemy){
 			$enemy = $this->tData[0];
 			
-			$buff = new ValueBuff(array('speed'=>-round($enemy->base_speed * 0.2)),2);//此时对方回合未结束
+			$buff = new ValueBuff('speed',-round($enemy->base_speed * 0.2),2);//此时对方回合未结束
 			$buff->isDebuff = true;
 			$buff->addToTarget($enemy);
 			$this->temp1 ++;
@@ -36,7 +36,7 @@
 			for($i=1;$i<$len;$i++)
 			{
 				$player = $self->team->currentMonster[$i];
-				$buff = new ValueBuff(array('atk'=>round($player->base_atk * 0.15)),5);
+				$buff = new ValueBuff('atk',round($player->base_atk * 0.15),5);
 				$buff->addToTarget($player);
 			}
 		}
@@ -48,7 +48,7 @@
 		function action($user,$self,$enemy){
 			$enemy = $this->tData[0];
 			
-			$buff = new ValueBuff(array('speed'=>-round($enemy->base_speed * 0.2)),2);//此时对方回合未结束
+			$buff = new ValueBuff('speed',-round($enemy->base_speed * 0.2),2);//此时对方回合未结束
 			$buff->isDebuff = true;
 			$buff->addToTarget($enemy);
 			$this->temp1 ++;

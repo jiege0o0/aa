@@ -9,7 +9,7 @@
 			$buff->isDebuff = true;
 			$buff->addToTarget($enemy);
 			
-			$buff = new ValueBuff(array('speed'=>-round($enemy->base_speed * 0.3)),2);
+			$buff = new ValueBuff('speed',-round($enemy->base_speed * 0.3),2);
 			$buff->isDebuff = true;
 			$buff->addToTarget($enemy);
 			
@@ -66,7 +66,7 @@
 			$buff->isDebuff = true;
 			$buff->addToTarget($enemy);
 			
-			$buff = new ValueBuff(array('speed'=>-round($enemy->base_speed * 0.1)),2);
+			$buff = new ValueBuff('speed',-round($enemy->base_speed * 0.1),2);
 			$buff->isDebuff = true;
 			$buff->addToTarget($enemy);
 			

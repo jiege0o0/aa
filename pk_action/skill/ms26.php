@@ -21,7 +21,7 @@
 		public $cd = 4;
 		public $isAtk = true;
 		function action($user,$self,$enemy){
-			$buff = new ValueBuff(array('atk'=>-round($enemy->base_atk * 0.3)),2);
+			$buff = new ValueBuff('atk',-round($enemy->base_atk * 0.3),2);
 			$buff->isDebuff = true;
 			$buff->addToTarget($enemy);
 		}

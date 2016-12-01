@@ -44,7 +44,11 @@
 		public $isAtk = true;
 		function action($user,$self,$enemy){
 			
-			$buff = new ValueBuff(array('speed'=>-round($enemy->base_speed * 0.2),'def'=>-10),2);
+			$buff = new ValueBuff('speed',-round($enemy->base_speed * 0.2),2);
+			$buff->isDebuff = true;
+			$buff->addToTarget($enemy);
+			
+			$buff = new ValueBuff('def',-10,2);
 			$buff->isDebuff = true;
 			$buff->addToTarget($enemy);
 		}

@@ -9,7 +9,7 @@
 			$buff->isDebuff = true;
 			$buff->addToTarget($enemy);
 			
-			$buff = new ValueBuff(array('speed'=>-round($enemy->base_speed * 0.5)),3);
+			$buff = new ValueBuff('speed',-round($enemy->base_speed * 0.5),3);
 			$buff->isDebuff = true;
 			$buff->addToTarget($enemy);
 			
@@ -21,7 +21,7 @@
 		public $cd = 3;
 		public $isAtk = true;
 		function action($user,$self,$enemy){
-			$buff = new ValueBuff(array('def'=>-30),2);
+			$buff = new ValueBuff('def',-30,2);
 			$buff->isDebuff = true;
 			$buff->addToTarget($enemy);
 		}
@@ -46,7 +46,7 @@
 		public $isAtk = true;
 		public $order = 1;
 		function action($user,$self,$enemy){
-			$buff = new ValueBuff(array('def'=>-30),2);
+			$buff = new ValueBuff('def',-30,2);
 			$buff->isDebuff = true;
 			$buff->addToTarget($enemy);
 		}

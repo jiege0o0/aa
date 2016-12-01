@@ -4,7 +4,7 @@
 	//ATK(对对方造成伤害)，BEATK(被对方造成伤害),
 	$Skill_SAT = array(	//技能缩写
 			"HP"=>'1',
-			"SPD"=>'2',
+			"HMP"=>'2',//隐藏+MP
 			"ATK"=>'3',
 			"MHP"=>'4',
 			"MP"=>'5',
@@ -119,16 +119,16 @@
 		{
 			$mp = $user->mp;
 			$user->addMp(-$mp);
-			$pkData->addSkillMV($user,$user,pk_skillType('MP',-$mp));
+			$pkData->addSkillMV($user,$user,pk_skillType('HMP',-$mp));
 		}
 		else if(!$skillData->type && $user->isPKing && $skillData->cd > 0 && $user->addMP)//使用小技只是自己加能量
 		{
 			$user->addMP = false;//本轮只会加一次能量
 			$user->addMp($PKConfig->atkMP);
-			$pkData->addSkillMV($user,$user,pk_skillType('MP',$PKConfig->atkMP));
+			$pkData->addSkillMV($user,$user,pk_skillType('HMP',$PKConfig->atkMP));
 		}	
 		
-		$pkData->startSkillEffect();
+		// $pkData->startSkillEffect();
 		$b = $skillData->actionSkill($user,$self,$enemy);	
 		
 

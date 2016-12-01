@@ -248,7 +248,7 @@ class Team{
 			$skillIndex++;
 			if($skill->cd == 0)
 			{
-				array_push($pkData->tArray,$skill);
+				array_push($pkData->frontArray,$skill);
 			}
 			else 
 			{

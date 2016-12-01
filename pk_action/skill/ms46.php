@@ -22,7 +22,7 @@
 			for($i=0;$i<$len;$i++)
 			{
 				$player = $enemy->team->currentMonster[$i];
-				$buff = new ValueBuff(array('speed'=>-round($player->base_speed * 0.2)),2);
+				$buff = new ValueBuff('speed',-round($player->base_speed * 0.2),2);
 				$buff->isDebuff = true;
 				$buff->addToTarget($player);
 			}

@@ -9,7 +9,7 @@
 			$buff->isDebuff = true;
 			$buff->addToTarget($enemy);
 			
-			$buff = new ValueBuff(array('speed'=>-round($enemy->base_speed * 0.15)),2);
+			$buff = new ValueBuff('speed',-round($enemy->base_speed * 0.15),2);
 			$buff->isDebuff = true;
 			$buff->addToTarget($enemy);
 			
@@ -24,7 +24,7 @@
 		function action($user,$self,$enemy){
 			$this->decHp($user,$enemy,$user->atk*1.3);
 			
-			$buff = new ValueBuff(array('speed'=>-round($enemy->base_speed * 0.08)),1);
+			$buff = new ValueBuff('speed',-round($enemy->base_speed * 0.08),1);
 			$buff->isDebuff = true;
 			$buff->addToTarget($enemy);
 		}
@@ -74,7 +74,7 @@
 			$buff->isDebuff = true;
 			$buff->addToTarget($enemy);
 			
-			$buff = new ValueBuff(array('speed'=>-round($enemy->base_speed * 0.1)),3);
+			$buff = new ValueBuff('speed',-round($enemy->base_speed * 0.1),3);
 			$buff->isDebuff = true;
 			$buff->addToTarget($enemy);
 		}

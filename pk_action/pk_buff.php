@@ -58,21 +58,20 @@
 	//改变属性的buff
 	class ValueBuff extends BuffBase{
 		public $value;
-		function __construct($arr,$cd){//array('spd'=>30);
-			$this->value = $arr;
+		function __construct($key,$value,$cd){//array('spd'=>30);
+			$this->key = $key;
+			$this->value = $value;
 			$this->cd = $cd;
+			
 		}
 		
 		//清除buff效果时调用
 		function onClean(){
-			foreach($this->value as $key=>$value)
-			{
-				$this->target->{$key} -= round($value);
-				$this->addStat($key,-1);
-			}
+			$this->target->{$this->key} -= round($this->value);
+			// $this->addStat($key,-1);
 		}
 		
-		function addStat($key,$num){
+		function getID($key){
 			$id = 0;
 			switch($key){
 				case 'atk':
@@ -91,19 +90,16 @@
 			}
 			if($this->isDebuff)
 				$id += 10;
-			$this->target->addStat($id,$num);
 			return $id;
 		}
 		
 		//buff添加时的处理
 		function onBuffAdd(){
 			global $pkData;
-			foreach($this->value as $key=>$value)
-			{
-				$this->target->{$key} += round($value);
-				$id = $this->addStat($key,1);
-				$pkData->addSkillMV(null,$this->target,pk_skillType('STAT',numToStr($id).$this->cd));
-			}
+			$this->id = $this->getID($this->key);
+			$this->target->{$this->key} += round($this->value);
+			// $this->target->addStat($this->id,1);
+			$pkData->addSkillMV(null,$this->target,pk_skillType('STAT',numToStr($this->id).$this->cd));
 		}
 	}
 	
@@ -115,19 +111,22 @@
 			$this->value = round($value);
 			$this->cd = $cd;
 			if($value > 0)
+			{
 				$this->isDebuff = false;
+				$this->id = 41;
+			}
 			else
+			{
 				$this->isDebuff = true;
+				$this->id = 42;
+			}
 			
 		}
 		
 		//buff添加时的处理
 		function onBuffAdd(){
 			global $pkData;
-			if($this->isDebuff)	
-				$pkData->addSkillMV(null,$this->target,pk_skillType('STAT',numToStr(42).$this->cd));
-			else 	
-				$pkData->addSkillMV(null,$this->target,pk_skillType('STAT',numToStr(41).$this->cd));
+			$pkData->addSkillMV(null,$this->target,pk_skillType('STAT',numToStr($this->id).$this->cd));
 		}
 
 		function onAction(){
@@ -164,7 +163,8 @@
 		function onBuffAdd(){
 			global $pkData;
 			$this->target->addStat($this->id,1);
-			$pkData->addSkillMV(null,$this->target,pk_skillType('STAT',numToStr($this->id).$this->cd));
+			if($this->id < 100)
+				$pkData->addSkillMV(null,$this->target,pk_skillType('STAT',numToStr($this->id).$this->cd));
 			// global $pkData;
 			// trace($pkData->step.':'.$this->target->id.'--'.$this->id.'--'.$this->target->stat[$this->id]);
 		}
