@@ -108,6 +108,7 @@
 		
 		//A攻击B扣血
 		function decHp($user,$target,$value,$isMax=false,$forever=false,$realHurt=false){
+			global $pkData;
 			$value = round(max(1,$value));
 			if(!$realHurt && $user->teamID != $target->teamID)
 				$value = $user->getHurt($value,$target);
@@ -115,7 +116,7 @@
 				
 			if($target->hp <= $value && ($temp = $target->isDieMiss('atk')))
 			{
-				global $pkData;
+				
 				$value = 0;
 				$pkData->addSkillMV(null,$target,pk_skillType('NOHURT',$temp['id']));	
 				$target->testTSkill('DMISS',$temp);
@@ -131,8 +132,14 @@
 					$this->setSkillEffect($target,pk_skillType('MHP',$value));
 				}
 
-				$v = $target->addHp($value);
-				$this->setSkillEffect($target,pk_skillType('HP',$v));				
+				$rHp = $target->addHp($value);
+				if($rHp == 0 && $value < 0)
+					$this->setSkillEffect($target,pk_skillType('HP','-'.$rHp));
+				else 
+					$this->setSkillEffect($target,pk_skillType('HP',$rHp));
+					
+				if($target->hp == 0)
+					$pkData->addSkillMV(null,$target,pk_skillType('DIE',1));				
 			}
 
 			
@@ -164,8 +171,11 @@
 				$user->testTSkill('MHP',$value);
 			}
 			
-			$target->addHp($value);
-			$this->setSkillEffect($target,pk_skillType('HP',$value));
+			$rHp = $target->addHp($value);
+			if($rHp == 0 && $value < 0)
+				$this->setSkillEffect($target,pk_skillType('HP','-'.$rHp));
+			else 
+				$this->setSkillEffect($target,pk_skillType('HP',$rHp));
 			
 			if(!$this->type)//不是特性加血，会触发事件
 			{			
@@ -221,7 +231,8 @@
 					continue;
 				if($isDebuff == -1 || $target->buffArr[$i]->isDebuff == $isDebuff)
 				{
-					$pkData->out_cleanStat($target,$target->buffArr[$i]->cd,$target->buffArr[$i]->cd);
+					$pkData->addSkillMV(null,$enemy,pk_skillType('CSTAT',numToStr($target->buffArr[$i]->id).numToStr($target->buffArr[$i]->cd)).$target->buffArr[$i]->value);
+					// $pkData->out_cleanStat($target,$target->buffArr[$i]->id,$target->buffArr[$i]->cd);
 					$target->buffArr[$i]->cd = 0;
 					$num --;
 					$b = true;

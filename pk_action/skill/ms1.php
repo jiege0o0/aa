@@ -35,7 +35,7 @@
 			{
 				$player = $self->team->currentMonster[$i];
 				$player->addAtk(-$player->base_atk * 0.08);
-				$player->addSpeed(-$player->base_speed * 0.15);
+				$player->addSpeed($player->base_speed * 0.15);
 			}
 			
 		}

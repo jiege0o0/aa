@@ -139,7 +139,7 @@ class player{
 			$id += 10;
 		}
 		$this->speed += $value;
-		$this->setSkillEffect(pk_skillType('STAT',numToStr($id)));
+		$this->setSkillEffect(pk_skillType('STAT',numToStr($id).'0'.$value));
 		return $value;
 	}
 	
@@ -156,7 +156,7 @@ class player{
 				$value = -$this->atk + 1; 
 		}
 		$this->atk += $value;
-		$this->setSkillEffect(pk_skillType('STAT',numToStr($id)));
+		$this->setSkillEffect(pk_skillType('STAT',numToStr($id).'0'.$value));
 		return $value;
 	}
 	
@@ -168,7 +168,7 @@ class player{
 		$this->def += $value;
 		if($value < 0)
 			$id += 10;
-		$this->setSkillEffect(pk_skillType('STAT',numToStr($id)));
+		$this->setSkillEffect(pk_skillType('STAT',numToStr($id).'0'.$value));
 		return $value;
 	}
 	
@@ -178,7 +178,7 @@ class player{
 		$this->hurt += $value;
 		if($value < 0)
 			$id += 10;
-		$this->setSkillEffect(pk_skillType('STAT',numToStr($id)));
+		$this->setSkillEffect(pk_skillType('STAT',numToStr($id).'0'.$value));
 		return $value;
 	}	
 	
@@ -655,17 +655,22 @@ class player{
 		}
 		$this->hp += $v;
 		if($this->hp > $this->maxHp)
+		{
+			$v -= $this->hp - $this->maxHp;
 			$this->hp = $this->maxHp;
+			
+		}
 		else if($this->hp < 0)
-			$this->hp = 0;				
+		{
+			$v -= $this->hp;
+			$this->hp = 0;	
+		}
+						
 			
 		if($this->hp > 0)	
 			$this->testTSkill('HP');
 		else
 		{
-			global $pkData;
-			$pkData->out_die($this);
-			
 			$this->testTSkill('DIE');
 			$this->team->enemy->currentMonster[0]->testTSkill('EDIE');
 			

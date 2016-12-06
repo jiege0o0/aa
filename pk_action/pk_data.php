@@ -444,21 +444,21 @@ class PKData{//主要记录一些PK中的数据
 		$this->out_str('A');
 	}
 	
-	//清除技能
-	function out_cleanStat($target,$key,$time){
-		if(!$this->outDetail)
-			return;
-		$this->out_changeTo($target);//转换
-		$this->out_str('B'.numToStr($key).$time);
-	}
+	// 清除技能
+	// function out_cleanStat($target,$key,$time){
+		// if(!$this->outDetail)
+			// return;
+		// $this->out_changeTo($target);//转换
+		// $this->out_str('B'.numToStr($key).$time);
+	// }
 	
 	//单位死亡
-	function out_die($target){
-		if(!$this->outDetail)
-			return;
-		$this->out_changeTo($target);//转换
-		$this->out_str('C');
-	}
+	// function out_die($target){
+		// if(!$this->outDetail)
+			// return;
+		// $this->out_changeTo($target);//转换
+		// $this->out_str('C');
+	// }
 	
 	//***************************************************************************** end
 		

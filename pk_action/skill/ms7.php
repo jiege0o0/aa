@@ -6,8 +6,9 @@
 		public $isAtk = true;
 		function action($user,$self,$enemy){
 			$v = $this->addMp($user,$enemy,-$enemy->mp*0.5);
-			$this->addMp($user,$self,-$v);
+			
 			$this->addHp($user,$self,$self->maxHp*0.2);
+			$this->addMp($user,$self,-$v);
 		}
 	}
 	

@@ -57,12 +57,6 @@
 	}	
 	//辅：档刀，当致死时,抵挡一次，自己晕2回合，触发一次
 	class sm_5_f2 extends SkillBase{
-		public $cd = 0;
-		function action($user,$self,$enemy){
-			array_push($self->dieMissTimes,array("id"=>$user->id,'mid'=>$user->monsterID,"type"=>'atk'));
-		}
-	}
-	class sm_5_f3 extends SkillBase{
 		public $type = 'DMISS';
 		public $isSendAtOnce = true;
 		function canUse($user,$self=null,$enemy=null){
@@ -74,5 +68,12 @@
 			$buff->addToTarget($user);
 		}
 	}
+	class sm_5_f3 extends SkillBase{
+		public $cd = 0;
+		function action($user,$self,$enemy){
+			array_push($self->dieMissTimes,array("id"=>$user->id,'mid'=>$user->monsterID,"type"=>'atk'));
+		}
+	}
+
 
 ?> 

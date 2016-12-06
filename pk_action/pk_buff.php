@@ -60,7 +60,7 @@
 		public $value;
 		function __construct($key,$value,$cd){//array('spd'=>30);
 			$this->key = $key;
-			$this->value = $value;
+			$this->value = round($value);
 			$this->cd = $cd;
 			
 		}
@@ -97,9 +97,9 @@
 		function onBuffAdd(){
 			global $pkData;
 			$this->id = $this->getID($this->key);
-			$this->target->{$this->key} += round($this->value);
+			$this->target->{$this->key} += $this->value;
 			// $this->target->addStat($this->id,1);
-			$pkData->addSkillMV(null,$this->target,pk_skillType('STAT',numToStr($this->id).$this->cd));
+			$pkData->addSkillMV(null,$this->target,pk_skillType('STAT',numToStr($this->id).numToStr($this->cd).$this->value));
 		}
 	}
 	
@@ -126,7 +126,7 @@
 		//buff添加时的处理
 		function onBuffAdd(){
 			global $pkData;
-			$pkData->addSkillMV(null,$this->target,pk_skillType('STAT',numToStr($this->id).$this->cd));
+			$pkData->addSkillMV(null,$this->target,pk_skillType('STAT',numToStr($this->id).numToStr($this->cd)).$this->value);
 		}
 
 		function onAction(){
@@ -139,7 +139,13 @@
 				return false;
 			}
 			$v = $this->target->addHp($this->value);
-			$pkData->addSkillMV(null,$this->target,pk_skillType('HP',$v));
+			if($v == 0)
+				$pkData->addSkillMV(null,$this->target,pk_skillType('HP','-'.$v));
+			else 
+				$pkData->addSkillMV(null,$this->target,pk_skillType('HP',$v));
+			if($this->target->hp == 0)
+				$pkData->addSkillMV(null,$this->target,pk_skillType('DIE',1));	
+			
 			//trace($this->target->id.'**'.$this->target->hp);			
 			return true;
 		}
@@ -164,7 +170,7 @@
 			global $pkData;
 			$this->target->addStat($this->id,1);
 			if($this->id < 100)
-				$pkData->addSkillMV(null,$this->target,pk_skillType('STAT',numToStr($this->id).$this->cd));
+				$pkData->addSkillMV(null,$this->target,pk_skillType('STAT',numToStr($this->id).numToStr($this->cd).$this->value));
 			// global $pkData;
 			// trace($pkData->step.':'.$this->target->id.'--'.$this->id.'--'.$this->target->stat[$this->id]);
 		}
