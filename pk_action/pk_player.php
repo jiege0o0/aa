@@ -130,6 +130,9 @@ class player{
 	
 	//速度改变
 	function addSpeed($value){
+		if(!$value || $this->hp == 0)
+			return 0;
+
 		$id = 2;
 		if($value > 0)
 			$value = round(max(1,$value));
@@ -144,7 +147,9 @@ class player{
 	}
 	
 	//加攻击
-	function addAtk($value,$forever=false){
+	function addAtk($value){
+		if(!$value || $this->hp == 0)
+			return 0;
 		$id = 1;
 		if($value > 0)
 			$value = round(max(1,$value));
@@ -164,6 +169,8 @@ class player{
 	
 	//加盾
 	function addDef($value){
+		if(!$value || $this->hp == 0)
+			return 0;
 		$id = 3;
 		$this->def += $value;
 		if($value < 0)
@@ -174,6 +181,8 @@ class player{
 	
 	//加伤
 	function addHurt($value){
+		if(!$value || $this->hp == 0)
+			return 0;
 		$id = 4;
 		$this->hurt += $value;
 		if($value < 0)
@@ -473,6 +482,8 @@ class player{
 	
 	function addBuff($buff){
 		if($buff->isDebuff && $this->stat[31])
+			return false;
+		if($this->hp == 0)
 			return false;
 		array_push($this->buffArr,$buff);
 		$this->setRoundEffect();

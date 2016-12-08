@@ -28,7 +28,7 @@
 			return $user->getHpRate() > 0.5;
 		}
 		function action($user,$self,$enemy){
-			$buff = new ValueBuff('speed',round($self->base_speed * 0.3),1);
+			$buff = new ValueBuff('speed',round($self->base_speed * 0.3),2);
 			$buff->addToTarget($self);
 		}
 	}
