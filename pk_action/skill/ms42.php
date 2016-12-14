@@ -17,6 +17,8 @@
 				$player = $self->team->currentMonster[$i];
 				$this->cleanStat($player,true,999);
 			}
+			
+			$this->addHp($user,$self,$user->atk);
 		}
 	}
 	
@@ -41,7 +43,7 @@
 	class sm_42_f1 extends SkillBase{
 		public $cd = 1;
 		function action($user,$self,$enemy){
-			$this->addHp($user,$self,$user->atk*0.8);
+			$this->addHp($user,$self,$user->atk*1);
 			$this->cleanStat($self,true,1);
 		}
 	}	

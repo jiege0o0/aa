@@ -5,12 +5,12 @@
 	class sm_45_0 extends SkillBase{
 		public $isAtk = true;
 		function action($user,$self,$enemy){
-			$v = -$this->decHp($user,$enemy,$user->atk*2.2);
+			$v = -$this->decHp($user,$enemy,$user->atk*2.5);
 			$this->addHp($user,$self,$v*($user->stat[101]?2.2:0.5));
 		}
 	}
 	
-	//当生命少于30%时，吸血220%，round2
+	//当生命少于30%时，吸血220%，round3
 	class sm_45_1 extends SkillBase{
 		public $type = 'BEFORE';
 		public $once = true;
@@ -18,7 +18,7 @@
 			return $user->getHpRate() <= 0.3;
 		}
 		function action($user,$self,$enemy){
-			$buff = new StatBuff(101,2);
+			$buff = new StatBuff(101,3);
 			$buff->noClean = true;
 			$buff->addToTarget($self);
 		}
@@ -40,7 +40,7 @@
 		public $cd = 1;
 		public $isAtk = true;
 		function action($user,$self,$enemy){
-			$this->decHp($user,$enemy,$user->atk*0.4);
+			$this->decHp($user,$enemy,$user->atk*0.8);
 		}
 	}	
 	//辅：--+10%攻

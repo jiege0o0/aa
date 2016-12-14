@@ -7,12 +7,12 @@
 		function action($user,$self,$enemy){
 			
 		
-			$buff = new ValueBuff('atk',-round($enemy->base_atk * 0.15),2);
+			$buff = new ValueBuff('atk',-round($enemy->base_atk * 0.2),2);
 			$buff->isDebuff = true;
 			$buff->addToTarget($enemy);
 			
 			
-			$buff = new ValueBuff('atk',round($self->base_atk * 0.15),2);
+			$buff = new ValueBuff('atk',round($self->base_atk * 0.2),2);
 			$buff->addToTarget($self);
 			
 			$this->decHp($user,$enemy,$user->atk*2);
@@ -60,7 +60,7 @@
 		public $cd = 1;
 		public $isAtk = true;
 		function action($user,$self,$enemy){
-			$this->decHp($user,$enemy,$user->atk*0.5);
+			$this->decHp($user,$enemy,$user->atk*1);
 		}
 	}
 

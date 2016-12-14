@@ -114,7 +114,7 @@
 				$value = $user->getHurt($value,$target);
 				
 				
-			if($target->hp <= $value && ($temp = $target->isDieMiss('atk')))
+			if($user->teamID != $target->teamID && $target->hp <= $value && ($temp = $target->isDieMiss('atk')))
 			{
 				
 				$value = 0;
@@ -132,7 +132,7 @@
 					$this->setSkillEffect($target,pk_skillType('MHP',$value));
 				}
 
-				$rHp = $target->addHp($value);
+				$rHp = $target->addHp($value,$user->id == $target->id);
 				if($rHp == 0 && $value < 0)
 					$this->setSkillEffect($target,pk_skillType('HP','-'.$rHp));
 				else 

@@ -20,9 +20,12 @@
 	//第3次攻击同时为自己回复15MP
 	class sm_3_1 extends SkillBase{
 		public $cd = 3;
-		public $isSendAtOnce = true;
+		public $isAtk = true;
+		public $order = 1;
 		function action($user,$self,$enemy){
-			$this->addMp($user,$self,15);
+			$this->addMp($user,$self,20);
+			$this->decHp($user,$enemy,$user->atk);
+			$this->cleanStat($enemy,false,1);
 		}
 	}
 	
@@ -44,7 +47,7 @@
 			for($i=1;$i<$len;$i++)
 			{
 				$player = $self->team->currentMonster[$i];
-				$player->addAtk($player->base_atk * 0.08);
+				$player->addAtk($player->base_atk * 0.12);
 			}
 		}
 	}
@@ -71,7 +74,7 @@
 		public $cd = 1;
 		public $isAtk = true;
 		function action($user,$self,$enemy){
-			$this->decHp($user,$enemy,$user->atk*0.6);
+			$this->decHp($user,$enemy,$user->atk*1);
 			$this->cleanStat($enemy,false,1);
 		}
 	}

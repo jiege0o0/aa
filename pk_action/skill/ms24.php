@@ -4,7 +4,7 @@
 	class sm_24_0 extends SkillBase{
 		public $isAtk = true;
 		function action($user,$self,$enemy){
-			$this->decHp($user,$enemy,$user->atk*1.6);
+			$this->decHp($user,$enemy,$user->atk*1.8);
 			
 			$buff = new StatBuff(24,1);
 			$buff->isDebuff = true;
@@ -36,7 +36,7 @@
 			for($i=1;$i<$len;$i++)
 			{
 				$player = $self->team->currentMonster[$i];
-				$buff = new ValueBuff('atk',round($player->base_atk * 0.15),5);
+				$buff = new ValueBuff('atk',round($player->base_atk * 0.2),5);
 				$buff->addToTarget($player);
 			}
 		}
@@ -61,7 +61,7 @@
 		public $cd = 1;
 		public $isAtk = true;
 		function action($user,$self,$enemy){
-			$this->decHp($user,$enemy,$user->atk*0.6);
+			$this->decHp($user,$enemy,$user->atk*0.8);
 		}
 	}
 

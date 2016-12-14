@@ -29,7 +29,7 @@
 		public $isAtk = true;
 		public $order = 1;
 		function action($user,$self,$enemy){
-			$this->decHp($user,$enemy,$user->atk*1.2);
+			$this->decHp($user,$enemy,$user->atk*1.5);
 			if(!$user->temp['sm54'])
 				$user->temp['sm54'] = 0;
 			$user->temp['sm54'] += 2;
@@ -42,7 +42,7 @@
 		public $cd = 1;
 		public $isAtk = true;
 		function action($user,$self,$enemy){
-			$this->decHp($user,$enemy,$user->atk*0.3 + $enemy->maxHp*0.02);
+			$this->decHp($user,$enemy,$user->atk*0.5 + $enemy->maxHp*0.05);
 		}
 	}	
 	//¸¨£º--+10%¹¥»÷Á¦

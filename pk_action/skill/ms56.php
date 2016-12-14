@@ -5,6 +5,8 @@
 	class sm_56_0 extends SkillBase{
 		public $isAtk = true;
 		function action($user,$self,$enemy){
+			$this->decHp($user,$enemy,$user->atk*1);
+			
 			$buff = new StatBuff(22,5);
 			$buff->isDebuff = true;
 			$buff->addToTarget($enemy);
@@ -29,14 +31,14 @@
 		public $cd = 3;
 		public $isAtk = true;
 		function action($user,$self,$enemy){
-			$this->decHp($user,$enemy,$user->atk*1.8);
+			$this->decHp($user,$enemy,$user->atk*2.2);
 		}
 	}
 
 	
 	//辅：--沉默：对方无法使用绝招，round3,cd5
 	class sm_56_f1 extends SkillBase{
-		public $cd = 5;
+		public $cd = 3;
 		public $isAtk = true;
 		public $order = 1;
 		function action($user,$self,$enemy){
@@ -50,7 +52,7 @@
 		public $type = 'SKILL';
 		public $isAtk = true;
 		function action($user,$self,$enemy){
-			$this->decHp($user,$enemy,$user->atk*1.5);
+			$this->decHp($user,$enemy,$user->atk*2);
 		}
 	}
 	
@@ -59,7 +61,7 @@
 		public $cd = 1;
 		public $isAtk = true;
 		function action($user,$self,$enemy){
-			$this->decHp($user,$enemy,$user->atk*0.7);
+			$this->decHp($user,$enemy,$user->atk*0.9);
 		}
 	}
 

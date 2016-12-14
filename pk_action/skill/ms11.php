@@ -5,7 +5,7 @@
 	class sm_11_0 extends SkillBase{
 		public $isAtk = true;
 		function action($user,$self,$enemy){
-			$this->decHp($user,$enemy,$user->atk*2.3);
+			$this->decHp($user,$enemy,$user->atk*2.5);
 		}
 	}
 	
@@ -50,7 +50,7 @@
 	class sm_11_f1 extends SkillBase{
 		public $cd = 0;
 		function action($user,$self,$enemy){
-			$self->addAtk($self->base_atk * 0.1);
+			$self->addAtk($self->base_atk * 0.15);
 		}
 	}	
 	//¸¨£º--50%ÉË
@@ -58,7 +58,7 @@
 		public $cd = 1;
 		public $isAtk = true;
 		function action($user,$self,$enemy){
-			$this->decHp($user,$enemy,$user->atk*0.5);
+			$this->decHp($user,$enemy,$user->atk*1);
 		}
 	}
 

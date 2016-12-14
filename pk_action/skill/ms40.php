@@ -5,22 +5,23 @@
 	class sm_40_0 extends SkillBase{
 		public $isAtk = true;
 		function action($user,$self,$enemy){
-			$this->decHp($user,$enemy,$user->atk*2.5);
+			$this->decHp($user,$enemy,$user->atk*3);
 		}
 	}
 	
 	//+60%伤害 cd3
 	class sm_40_1 extends SkillBase{
 		public $cd = 3;
-		public $isAtk = true;
+		// public $isAtk = true;
 		function action($user,$self,$enemy){
-			$this->decHp($user,$enemy,$user->atk*1.6);
+			// $this->decHp($user,$enemy,$user->atk*1.6);
+			$user->manaHp += round($user->base_hp*0.1);
 		}
 	}
 	
 	//+辅助10%攻击，cd3,round2
 	class sm_40_2 extends SkillBase{
-		public $cd = 3;
+		public $cd = 4;
 		public $order = 1;
 		function action($user,$self,$enemy){
 			$len = count($user->team->currentMonster);
@@ -28,7 +29,7 @@
 			{
 				$player = $user->team->currentMonster[$i];
 				
-				$buff = new ValueBuff('atk',round($player->base_speed * 0.1),2);
+				$buff = new ValueBuff('atk',round($player->base_speed * 0.1),3);
 				$buff->addToTarget($player);
 			}
 		}
@@ -48,7 +49,7 @@
 		public $cd = 1;
 		public $isAtk = true;
 		function action($user,$self,$enemy){
-			$this->decHp($user,$enemy,$user->atk*0.6);
+			$this->decHp($user,$enemy,$user->atk*0.8);
 		}
 	}	
 	//辅：--自己生命30%的魔盾

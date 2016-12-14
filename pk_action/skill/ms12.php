@@ -5,7 +5,7 @@
 	class sm_12_0 extends SkillBase{
 		public $isAtk = true;
 		function action($user,$self,$enemy){
-			$this->decHp($user,$enemy,$user->atk*1.8);
+			$this->decHp($user,$enemy,$user->atk*2);
 			
 			$buff = new ValueBuff('def',-20,3);
 			$buff->isDebuff = true;
@@ -18,7 +18,8 @@
 		public $cd = 3;
 		public $isAtk = true;
 		function action($user,$self,$enemy){
-			$this->decHp($user,$enemy,$user->atk*1.4);
+			$this->decHp($user,$enemy,$user->atk*1.2);
+			$enemy->addDef(-5);
 		}
 	}
 	
@@ -38,16 +39,16 @@
 		public $cd = 1;
 		public $isAtk = true;
 		function action($user,$self,$enemy){
-			$this->decHp($user,$enemy,$user->atk*0.5);
+			$this->decHp($user,$enemy,$user->atk*0.9);
 		}
 	}	
 	//辅：--60%伤 + 2round带腐蚀-20%甲，cd5
 	class sm_12_f2 extends SkillBase{
-		public $cd = 5;
+		public $cd = 4;
 		public $isAtk = true;
 		public $order = 1;//优先级，互斥时越大的越起作用
 		function action($user,$self,$enemy){
-			$this->decHp($user,$enemy,$user->atk*0.6);
+			$this->decHp($user,$enemy,$user->atk*0.7);
 			$buff = new ValueBuff('def',-20,2);
 			$buff->isDebuff = true;
 			$buff->addToTarget($enemy);

@@ -5,7 +5,7 @@
 	class sm_47_0 extends SkillBase{
 		public $isAtk = true;
 		function action($user,$self,$enemy){
-			$this->decHp($user,$enemy,$user->atk*1.8);
+			$this->decHp($user,$enemy,$user->atk*2);
 		}
 	}
 	
@@ -14,7 +14,7 @@
 		public $cd = 4;
 		public $isSendAtOnce = true;
 		function action($user,$self,$enemy){
-			$this->addHp($user,$self,$user->maxHp*0.2);
+			$this->addHp($user,$self,$user->maxHp*0.3);
 		}
 	}
 	
@@ -34,7 +34,7 @@
 		public $cd = 1;
 		public $isAtk = true;
 		function action($user,$self,$enemy){
-			$this->decHp($user,$enemy,$user->atk*0.6);
+			$this->decHp($user,$enemy,$user->atk*0.9);
 		}
 	}	
 	//¸¨£º--¼òµ¥°üÔú£º»Øatk*0.7Ñª£¬cd3
@@ -42,7 +42,7 @@
 		public $cd = 3;
 		public $order = 1;
 		function action($user,$self,$enemy){
-			$this->addHp($user,$self,$user->atk*0.7);
+			$this->addHp($user,$self,$user->atk);
 		}
 	}
 

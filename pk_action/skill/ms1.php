@@ -5,7 +5,7 @@
 	class sm_1_0 extends SkillBase{
 		public $isAtk = true;
 		function action($user,$self,$enemy){
-			$buff = new HPBuff(-$user->atk*1.3,2);
+			$buff = new HPBuff(-$user->atk*1.8,2);
 			$buff->isDebuff = true;
 			$buff->addToTarget($enemy);
 			
@@ -21,7 +21,7 @@
 		public $isAtk = true;
 		public $cd = 3;
 		function action($user,$self,$enemy){
-			$this->decHp($user,$enemy,$user->atk*1.6);
+			$this->decHp($user,$enemy,$user->atk*2);
 		}
 	}
 
@@ -34,8 +34,8 @@
 			for($i=1;$i<$len;$i++)
 			{
 				$player = $self->team->currentMonster[$i];
-				$player->addAtk(-$player->base_atk * 0.08);
-				$player->addSpeed($player->base_speed * 0.15);
+				$player->addAtk(-$player->base_atk * 0.1);
+				$player->addSpeed($player->base_speed * 0.2);
 			}
 			
 		}
@@ -54,7 +54,7 @@
 		public $cd = 1;
 		public $isAtk = true;
 		function action($user,$self,$enemy){
-			$this->decHp($user,$enemy,$user->atk*0.6);
+			$this->decHp($user,$enemy,$user->atk*1);
 		}
 	}
 
@@ -62,11 +62,11 @@
 	class sm_1_f2 extends SkillBase{
 		public $cd = 0;
 		function action($user,$self,$enemy){
-			$buff = new HPBuff(-round($user->atk*0.3),2);
+			$buff = new HPBuff(-round($user->atk*0.5),3);
 			$buff->isDebuff = true;
 			$buff->addToTarget($enemy);
 			
-			$buff = new ValueBuff('speed',-round($enemy->base_speed * 0.1),2);
+			$buff = new ValueBuff('speed',-round($enemy->base_speed * 0.1),3);
 			$buff->isDebuff = true;
 			$buff->addToTarget($enemy);
 			

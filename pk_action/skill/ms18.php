@@ -9,7 +9,7 @@
 			return true;
 		}
 		function action($user,$self,$enemy){
-			$this->decHp($user,$enemy,$user->atk*2);
+			$this->decHp($user,$enemy,$user->atk*3);
 		}
 	}
 	
@@ -20,7 +20,7 @@
 		function action($user,$self,$enemy){
 			$this->decHp($user,$enemy,$user->atk);
 			
-			$buff = new ValueBuff('speed',round($self->base_speed * 0.3),2);
+			$buff = new ValueBuff('speed',round($self->base_speed * 1),2);
 			$buff->addToTarget($self);
 		}
 	}
@@ -39,7 +39,7 @@
 		public $cd = 1;
 		public $isAtk = true;
 		function action($user,$self,$enemy){
-			$this->decHp($user,$enemy,$user->atk);
+			$this->decHp($user,$enemy,$user->atk*1.5);
 		}
 	}	
 	//ИЈЃК--зЈзЂЃЌЫљгаИЈжњ+10%ЙЅЛї

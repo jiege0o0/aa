@@ -48,7 +48,7 @@
 		public $cd = 1;
 		public $isAtk = true;
 		function action($user,$self,$enemy){
-			$this->decHp($user,$enemy,$user->atk*0.5);
+			$this->decHp($user,$enemy,$user->atk*1);
 			
 			$buff = new ValueBuff('speed',-round($enemy->base_speed * 0.1),1);
 			$buff->isDebuff = true;
@@ -63,7 +63,7 @@
 			return $this->tData['id'] == $user->id;
 		}
 		function action($user,$self,$enemy){
-			$buff = new StatBuff(24,2);
+			$buff = new StatBuff(24,1);
 			$buff->isDebuff = true;
 			$buff->addToTarget($user);
 		}

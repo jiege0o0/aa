@@ -15,7 +15,7 @@
 				$buff->addToTarget($player);
 			}
 			
-			$this->decHp($user,$enemy,$user->atk*1.2);
+			$this->decHp($user,$enemy,$user->atk*1.8);
 		}
 	}
 	
@@ -25,6 +25,7 @@
 		public $isAtk = true;
 		function action($user,$self,$enemy){
 			$this->decHp($user,$enemy,$user->atk*1.6);
+			$enemy->addSpeed(-5);
 		}
 	}
 	
@@ -41,6 +42,7 @@
 			{
 				$player = $self->team->currentMonster[$i];
 				$player->addAtk($player->base_atk*0.3);
+				$player->addSpeed($player->base_speed*0.2);
 			};
 		}
 	}
@@ -68,7 +70,7 @@
 		public $cd = 1;
 		public $isAtk = true;
 		function action($user,$self,$enemy){
-			$this->decHp($user,$enemy,$user->atk*0.7);
+			$this->decHp($user,$enemy,$user->atk*0.9);
 		}
 	}
 

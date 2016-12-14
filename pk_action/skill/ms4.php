@@ -14,7 +14,7 @@
 		public $cd = 3;
 		public $isAtk = true;
 		function action($user,$self,$enemy){
-			$this->decHp($user,$enemy,$user->atk*1.5);
+			$this->decHp($user,$enemy,$user->atk*1.8);
 		}
 	}
 	
@@ -51,7 +51,7 @@
 	class sm_4_ds3 extends SkillBase{
 		public $cd = 0;
 		function action($user,$self,$enemy){
-			$self->addAtk($self->base_atk * 0.15);
+			$self->addAtk($self->base_atk * 0.2);
 		}
 	}
 	
@@ -62,7 +62,7 @@
 		public $cd = 1;
 		public $isAtk = true;
 		function action($user,$self,$enemy){
-			$this->decHp($user,$enemy,$user->atk*0.5);
+			$this->decHp($user,$enemy,$user->atk*0.8);
 		}
 	}	
 	//¸¨£º--+10%¹¥»÷

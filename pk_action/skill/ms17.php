@@ -7,7 +7,7 @@
 			$buff = new ValueBuff('atk',round($self->base_atk * 0.3),3);
 			$buff->addToTarget($self);
 			
-			$this->addHp($user,$self,$self->maxHp*0.25);
+			$this->addHp($user,$self,$self->maxHp*0.3);
 		}
 	}
 	
@@ -16,8 +16,8 @@
 		public $cd = 3;
 		public $isAtk = true;
 		function action($user,$self,$enemy){
-			$this->decHp($user,$self,$self->hp*0.05);
-			$this->decHp($user,$enemy,$user->atk*2.3);
+			$this->decHp($user,$user,$user->hp*0.05);
+			$this->decHp($user,$enemy,$user->atk*2.5);
 		}
 	}
 	
@@ -42,9 +42,9 @@
 		}
 		function action($user,$self,$enemy){
 			if($this->isAtk)
-				$this->decHp($user,$enemy,$user->atk*0.6);	
+				$this->decHp($user,$enemy,$user->atk*0.9);	
 			else
-				$this->addHp($user,$self,$user->atk*0.6);	
+				$this->addHp($user,$self,$user->atk*0.9);	
 		}
 	}	
 	//¸¨£º--¶Ô·½-10%¹¥

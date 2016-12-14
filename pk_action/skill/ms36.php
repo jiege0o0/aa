@@ -14,8 +14,8 @@
 	class sm_36_0 extends SkillBase{
 		public $isAtk = true;
 		function action($user,$self,$enemy){
-			$this->decHp($user,$enemy,$user->atk*2.2);
-			sm_36_addValue($user,$enemy,0.03);
+			$this->decHp($user,$enemy,$user->atk*2.5);
+			sm_36_addValue($user,$enemy,0.08);
 			
 		}
 	}
@@ -25,10 +25,10 @@
 		public $cd = 3;
 		public $isAtk = true;
 		function action($user,$self,$enemy){
-			$this->decHp($user,$enemy,$user->atk*1.3);
+			$this->decHp($user,$enemy,$user->atk*1.8);
 			
 			
-			sm_36_addValue($user,$enemy,0.03);
+			sm_36_addValue($user,$enemy,0.08);
 		}
 	}
 	
@@ -38,7 +38,7 @@
 		public $isAtk = true;
 		function action($user,$self,$enemy){
 			$this->decHp($user,$enemy,$user->atk);
-			sm_36_addValue($user,$enemy,0.03);
+			sm_36_addValue($user,$enemy,0.05);
 		}
 	}
 
@@ -48,8 +48,8 @@
 		public $cd = 1;
 		public $isAtk = true;
 		function action($user,$self,$enemy){
-			$this->decHp($user,$enemy,$user->atk*0.5);
-			sm_36_addValue($user,$enemy,0.02);
+			$this->decHp($user,$enemy,$user->atk*0.8);
+			sm_36_addValue($user,$enemy,0.03);
 		}
 	}	
 	//∏®£∫--50%…À∫¶

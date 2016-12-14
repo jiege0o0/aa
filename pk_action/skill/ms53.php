@@ -17,7 +17,8 @@
 			return $user->hp<=0;
 		}
 		function action($user,$self,$enemy){
-			$user->reborn(0.5);
+			$user->reborn(0.4);
+			$this->addMp($user,$self,40);
 		}
 	}
 	
@@ -34,7 +35,7 @@
 		public $cd = 1;
 		public $isAtk = true;
 		function action($user,$self,$enemy){
-			$this->decHp($user,$enemy,$user->atk*0.5);
+			$this->decHp($user,$enemy,$user->atk*0.8);
 		}
 	}	
 	//¸¨£º--¸´»î£¬20%Ñª£¬1´Î

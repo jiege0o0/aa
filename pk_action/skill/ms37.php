@@ -24,14 +24,17 @@
 		public $cd = 0;
 		function action($user,$self,$enemy){
 			$hp = 0;
+			$atk = 0;
 			$len = count($user->team->currentMonster);
 			for($i=1;$i<$len;$i++)
 			{
 				$player = $user->team->currentMonster[$i];
-				$player->addAtk(-$player->base_atk*0.1);
+				$player->addAtk(-$player->base_atk*0.2);
 				$hp += $player->maxHp;
+				$atk += $player->base_atk;
 			}
 			$this->addHp($user,$self,$hp*0.2);
+			$self->addAtk(round($atk*0.1));
 		}
 	}
 	
@@ -41,7 +44,7 @@
 		public $cd = 1;
 		public $isAtk = true;
 		function action($user,$self,$enemy){
-			$this->decHp($user,$enemy,$user->atk*0.5);
+			$this->decHp($user,$enemy,$user->atk*0.8);
 		}
 	}	
 	//辅：--减对方10%当前生命上限，增加到己方身上

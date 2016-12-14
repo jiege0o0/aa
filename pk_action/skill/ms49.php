@@ -5,7 +5,7 @@
 	class sm_49_0 extends SkillBase{
 		public $isAtk = true;
 		function action($user,$self,$enemy){
-			$this->decHp($user,$enemy,$user->atk);
+			$this->decHp($user,$enemy,$user->atk*1.5);
 		
 			$buff = new StatBuff(24,1);
 			$buff->isDebuff = true;
@@ -30,7 +30,7 @@
 		public $cd = 1;
 		public $isAtk = true;
 		function action($user,$self,$enemy){
-			$this->decHp($user,$enemy,$user->atk*0.5);
+			$this->decHp($user,$enemy,$user->atk*0.8);
 		}
 	}	
 	//¸¨£º--ÃÍ»÷£º100%ÉËº¦£¬cd4
@@ -40,6 +40,10 @@
 		public $order = 1;
 		function action($user,$self,$enemy){
 			$this->decHp($user,$enemy,$user->atk);
+			
+			$buff = new StatBuff(24,1);
+			$buff->isDebuff = true;
+			$buff->addToTarget($enemy);
 		}
 	}
 

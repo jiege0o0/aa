@@ -13,7 +13,7 @@
 	
 	//Áúºð£ºcd5,¼õÈ«ÌåËÙ15%£¬2round
 	class sm_9_1 extends SkillBase{
-		public $cd = 5;
+		public $cd = 4;
 		public $isAtk = true;
 		function action($user,$self,$enemy){
 			$len = count($enemy->team->currentMonster);
@@ -32,7 +32,7 @@
 		public $cd = 0;
 		public $isAtk = true;
 		function action($user,$self,$enemy){
-			$buff = new StatBuff(24,1);
+			$buff = new StatBuff(24,2);
 			$buff->isDebuff = true;
 			$buff->addToTarget($enemy);
 		}
@@ -55,8 +55,8 @@
 	class sm_9_f1 extends SkillBase{
 		public $cd = 0;
 		function action($user,$self,$enemy){
-			$this->decHp($user,$self,$self->hp*0.08);
-			$self->addAtk($self->base_atk * 0.15);
+			$this->decHp($user,$self,$self->hp*0.1);
+			$self->addAtk($self->base_atk * 0.20);
 		}
 	}	
 	//¸¨£º--50%ÉËº¦
@@ -64,7 +64,10 @@
 		public $cd = 1;
 		public $isAtk = true;
 		function action($user,$self,$enemy){
-			$this->decHp($user,$enemy,$user->atk*0.5);
+			$this->decHp($user,$enemy,$user->atk*0.8);
+			
+			$buff = new ValueBuff('speed',round($self->base_speed * 0.1),1);
+			$buff->addToTarget($self);
 		}
 	}
 

@@ -5,7 +5,7 @@
 	class sm_35_0 extends SkillBase{
 		public $isAtk = true;
 		function action($user,$self,$enemy){
-			$this->decHp($user,$enemy,($user->hp - 1)*2);
+			$this->decHp($user,$enemy,($user->hp - 1)*2.5);
 			$this->decHp($user,$user,$user->hp-1,false,true);
 		}
 	}
@@ -14,7 +14,8 @@
 	class sm_35_1 extends SkillBase{
 		public $cd = 1;
 		public $isAtk = true;
-		function action($user,$self,$enemy){		
+		function action($user,$self,$enemy){	
+			$this->decHp($user,$enemy,$user->atk*1);		
 			$buff = new HPBuff(-$user->atk*0.5,1);
 			$buff->isDebuff = true;
 			$buff->addToTarget($enemy);
@@ -48,7 +49,7 @@
 		public $cd = 1;
 		public $isAtk = true;
 		function action($user,$self,$enemy){
-			$this->decHp($user,$enemy,$user->atk*0.6);
+			$this->decHp($user,$enemy,$user->atk*0.8);
 			
 			$buff = new HPBuff(-$user->atk*0.4,1);
 			$buff->isDebuff = true;

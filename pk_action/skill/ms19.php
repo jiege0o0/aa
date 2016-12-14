@@ -5,13 +5,13 @@
 	class sm_19_0 extends SkillBase{
 		public $isAtk = true;
 		function action($user,$self,$enemy){
-			$this->decHp($user,$enemy,$user->atk*2.2);
+			$this->decHp($user,$enemy,$user->atk*2.5);
 		}
 	}
 	
 	//ìÌÉÕ£º80%ÉËº¦£¬»ð¶¾£¬2round,cd5 5%ÑªÁ¿
 	class sm_19_1 extends SkillBase{
-		public $cd = 5;
+		public $cd = 4;
 		public $isAtk = true;
 		function action($user,$self,$enemy){
 			$this->decHp($user,$enemy,$user->atk*0.8);
@@ -45,9 +45,9 @@
 			for($i=0;$i<$len;$i++)
 			{
 				$player = $enemy->team->currentMonster[$i];
-				$player->addAtk(-$player->base_atk*0.05);
-				$player->addSpeed(-$player->base_speed*0.05);
-				$player->addDef(-5);
+				$player->addAtk(-$player->base_atk*0.07);
+				$player->addSpeed(-$player->base_speed*0.07);
+				$player->addDef(-7);
 			}
 		}
 	}	
@@ -56,7 +56,7 @@
 		public $cd = 3;
 		public $isAtk = true;
 		function action($user,$self,$enemy){
-			$this->decHp($user,$enemy,$user->atk*1.2);
+			$this->decHp($user,$enemy,$user->atk*2.2);
 		}
 	}
 

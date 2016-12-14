@@ -10,7 +10,7 @@
 	class sm_43_0 extends SkillBase{
 		public $isAtk = true;
 		function action($user,$self,$enemy){
-			$this->decHp($user,$self,$self->maxHp*0.2);
+			$this->decHp($user,$user,$user->maxHp*0.25);
 			$this->decHp($user,$enemy,sm_43_resetHurt($user,$user->atk*2));
 			
 		}
@@ -22,8 +22,8 @@
 		public $isAtk = true;
 		public $order = -10;
 		function action($user,$self,$enemy){
-			$this->decHp($user,$self,$self->maxHp*0.2,false,true);
-			$this->decHp($user,$enemy,sm_43_resetHurt($user,$user->atk*0.6));
+			$this->decHp($user,$user,$user->maxHp*0.2,false,true);
+			$this->decHp($user,$enemy,sm_43_resetHurt($user,$user->atk*0.9));
 			
 			$buff = new ValueBuff('def',20,3);
 			$buff->addToTarget($self);
@@ -53,7 +53,7 @@
 		public $cd = 1;
 		public $isAtk = true;
 		function action($user,$self,$enemy){
-			$this->decHp($user,$enemy,sm_43_resetHurt($self,$user->atk*0.5));
+			$this->decHp($user,$enemy,sm_43_resetHurt($self,$user->atk*0.8));
 		}
 	}
 	//辅：--血的味道：自己场上单位生命越少，伤害越大

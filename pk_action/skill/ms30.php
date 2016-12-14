@@ -9,16 +9,16 @@
 			$buff = new ValueBuff('speed',round($self->base_speed * 0.2),3);
 			$buff->addToTarget($self);
 			
-			$this->decHp($user,$enemy,$user->atk*2);
+			$this->decHp($user,$enemy,$user->atk*2.5);
 		}
 	}
 	
 	//ÃÍ»÷£º+50%ÉËº¦
 	class sm_30_1 extends SkillBase{
-		public $cd = 3;
+		public $cd = 2;
 		public $isAtk = true;
 		function action($user,$self,$enemy){
-			$this->decHp($user,$enemy,$user->atk*1.5);
+			$this->decHp($user,$enemy,$user->atk*1.4);
 		}
 	}
 	
@@ -26,7 +26,7 @@
 	class sm_30_2 extends SkillBase{
 		public $cd = 0;
 		function action($user,$self,$enemy){
-			$self->addAtk($self->base_atk*0.5);
+			$self->addAtk($self->base_atk*0.6);
 		}
 	}	
 	class sm_30_5 extends SkillBase{
@@ -52,7 +52,7 @@
 	
 	
 	
-	//¸¨£º--ºÃÕ½£º´¦ÓÚ2ºÅÎ»Ê±£¬¹¥»÷+20%
+	//¸¨£º--ºÃÕ½£º´¦ÓÚ2ºÅÎ»Ê±£¬¹¥»÷+50%
 	class sm_30_f1 extends SkillBase{
 		public $cd = 0;
 		function canUse($user,$self=null,$enemy=null){
@@ -60,7 +60,7 @@
 		}
 		
 		function action($user,$self,$enemy){
-			$user->addAtk($user->base_atk*0.2);
+			$user->addAtk($user->base_atk*0.8);
 		}
 	}	
 	//¸¨£º--60%ÉËº¦
@@ -68,7 +68,7 @@
 		public $cd = 1;
 		public $isAtk = true;
 		function action($user,$self,$enemy){
-			$this->decHp($user,$enemy,$user->atk*0.6);;
+			$this->decHp($user,$enemy,$user->atk*0.6);
 		}
 	}
 

@@ -38,7 +38,7 @@
 			for($i=0;$i<$len;$i++)
 			{
 				$player = $enemy->team->currentMonster[$i];
-				$buff = new ValueBuff('speed',-round($player->base_speed * 0.2),3);
+				$buff = new ValueBuff('speed',-round($player->base_speed * 0.15),3);
 				$buff->isDebuff = true;
 				$buff->addToTarget($player);
 				
@@ -55,10 +55,11 @@
 		public $cd = 1;
 		public $isAtk = true;
 		function action($user,$self,$enemy){
-			if($enemy->getHpRate() <= 0.5)
-				$this->decHp($user,$enemy,$user->atk*1.2);
+			if($enemy->getHpRate() <= 0.3)
+				$this->decHp($user,$enemy,$user->atk*2);
 			else
-				$this->decHp($user,$enemy,$user->atk*0.5);
+				$this->decHp($user,$enemy,$user->atk*0.8);
+			$enemy->addDef(-1);
 		}
 	}	
 

@@ -17,7 +17,7 @@
 		public $cd = 3;
 		public $isAtk = true;
 		function action($user,$self,$enemy){
-			$this->decHp($user,$enemy,$user->atk*1.6);
+			$this->decHp($user,$enemy,$user->atk*1.8);
 		}
 	}
 	
@@ -43,7 +43,7 @@
 		
 		function action($user,$self,$enemy){
 			$this->order --;
-			$this->decHp($user,$enemy,$user->atk*0.6);
+			$this->decHp($user,$enemy,$user->atk*1);
 
 		}
 	}	
@@ -54,7 +54,7 @@
 		public $order = 100;
 		function action($user,$self,$enemy){
 			$this->order --;
-			$this->addHp($user,$self,$user->atk*0.6);
+			$this->addHp($user,$self,$user->atk*0.9);
 		}
 	}
 

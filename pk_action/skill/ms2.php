@@ -7,7 +7,7 @@
 		function action($user,$self,$enemy){
 			$this->decHp($user,$enemy,$user->atk*2);
 			
-			$buff = new ValueBuff('speed',round($self->base_speed * 0.15),2);
+			$buff = new ValueBuff('speed',round($self->base_speed * 0.2),2);
 			$buff->addToTarget($self);
 		}
 	}
@@ -17,7 +17,7 @@
 		public $type = 'BEATK';		
 		function action($user,$self,$enemy){
 			$this->temp1 ++;
-			if($this->temp1 >=4)
+			if($this->temp1 >=3)
 			{
 				$this->temp1 = 0;
 				$self->missTimes ++;
@@ -27,12 +27,12 @@
 	
 	//麻痹：5次会造成麻痹，-15%速2回合
 	class sm_2_2 extends SkillBase{
-		public $cd = 5;
+		public $cd = 3;
 		public $isAtk = true;
 		function action($user,$self,$enemy){
 			$this->decHp($user,$enemy,$user->atk*1.6);
 			
-			$buff = new ValueBuff('speed',-round($enemy->base_speed * 0.15),2);
+			$buff = new ValueBuff('speed',-round($enemy->base_speed * 0.1),2);
 			$buff->isDebuff = true;
 			$buff->addToTarget($enemy);
 		}
@@ -66,7 +66,7 @@
 		public $cd = 1;
 		public $isAtk = true;
 		function action($user,$self,$enemy){
-			$this->decHp($user,$enemy,$user->atk*0.5);
+			$this->decHp($user,$enemy,$user->atk*0.9);
 		}
 	}
 

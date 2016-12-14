@@ -33,7 +33,7 @@
 		public $cd = 3;
 		public $order = 2;
 		function action($user,$self,$enemy){
-			$this->addMp($user,$self,10);
+			$this->addMp($user,$self,15);
 		}
 	}
 	
@@ -48,7 +48,7 @@
 			$buff->isDebuff = true;
 			$buff->addToTarget($enemy);
 			
-			$buff = new ValueBuff('def',-10,2);
+			$buff = new ValueBuff('def',-20,2);
 			$buff->isDebuff = true;
 			$buff->addToTarget($enemy);
 		}

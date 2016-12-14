@@ -4,7 +4,7 @@
 	class sm_38_0 extends SkillBase{
 		public $isAtk = true;
 		function action($user,$self,$enemy){
-			$this->decHp($user,$enemy,$enemy->maxHp*0.4);
+			$this->decHp($user,$enemy,$enemy->maxHp*0.51);
 		}
 	}
 	
@@ -43,9 +43,9 @@
 	class sm_38_f1 extends SkillBase{
 		public $cd = 0;
 		function action($user,$self,$enemy){
-			$self->addAtk($self->base_atk*0.05);
-			$self->addSpeed($self->base_speed*0.05);
-			$this->addHp($user,$self,$self->base_hp*0.05,true);
+			$self->addAtk($self->base_atk*0.06);
+			$self->addSpeed($self->base_speed*0.06);
+			$this->addHp($user,$self,$self->base_hp*0.06,true);
 		}
 	}	
 	//¸¨£º--50%ÉËº¦
@@ -53,7 +53,7 @@
 		public $cd = 1;
 		public $isAtk = true;
 		function action($user,$self,$enemy){
-			$this->decHp($user,$enemy,$user->atk*0.5);
+			$this->decHp($user,$enemy,$user->atk*1);
 		}
 	}
 

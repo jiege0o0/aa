@@ -42,6 +42,14 @@
 		}
 	}
 	
+	class sm_62_3 extends SkillBase{
+		public $cd = 0;
+		public $order = 20;
+		function action($user,$self,$enemy){
+			$this->setStat31($user);
+		}
+	}
+	
 	//¸¨£º--80%ÉËº¦
 	class sm_62_f1 extends SkillBase{
 		public $cd = 1;
@@ -50,6 +58,14 @@
 			$this->decHp($user,$enemy,$user->atk*0.8);
 		}
 	}	
+	
+	class sm_62_f2 extends SkillBase{
+		public $cd = 0;
+		public $order = 20;
+		function action($user,$self,$enemy){
+			$this->setStat31($user);
+		}
+	}
 
 
 ?> 

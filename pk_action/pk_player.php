@@ -438,8 +438,8 @@ class player{
 	
 	//设计时器,用于出手排序
 	function setCDCount(){
-		// if($this->haveSetCDCount)
-			// return;
+		if($this->haveSetCDCount)
+			return;
 		global $PKConfig;
 		$this->cdCount = $this->__cdCount + $this->getCD();
 		
@@ -569,9 +569,8 @@ class player{
 		if($haveAction)//有行动
 		{
 			$this->actionCount ++;			
-			$pkData->out_times($this,$this->actionCount);
 		}
-		
+		$pkData->out_times($this,$this->actionCount);
 		return $this->actionCount >= $PKConfig->actionRound;
 	}
 	
@@ -650,10 +649,10 @@ class player{
 		
 	}
 	
-	function addHp($v){
+	function addHp($v,$isSelf=false){
 		if($v < 0 && $this->maxHurt!= 999 && -$v > $this->maxHurt*$this->maxHp)
 			$v = -round($this->maxHurt*$this->maxHp);
-		if($v < 0 && $this->manaHp > 0)
+		if($v < 0 && $this->manaHp > 0 && !$isSelf)
 		{
 			$this->manaHp += $v;
 			if($this->manaHp < 0)

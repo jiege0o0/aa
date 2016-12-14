@@ -5,7 +5,7 @@
 	class sm_13_0 extends SkillBase{
 		public $isAtk = true;
 		function action($user,$self,$enemy){
-			$buff = new HPBuff(-round($user->atk*0.5),2);
+			$buff = new HPBuff(-round($user->atk*0.6),2);
 			$buff->isDebuff = true;
 			$buff->addToTarget($enemy);
 			
@@ -20,7 +20,7 @@
 	class sm_13_1 extends SkillBase{
 		public $cd = 3;
 		function action($user,$self,$enemy){
-			$this->addHp($user,$self,$self->maxHp*0.1);
+			$this->addHp($user,$self,$self->maxHp*0.2);
 		}
 	}
 	
@@ -28,7 +28,7 @@
 	class sm_13_2 extends SkillBase{
 		public $cd = 0;
 		function action($user,$self,$enemy){
-			$user->addDef(10);
+			$user->addDef(15);
 		}
 	}
 	
@@ -37,21 +37,21 @@
 	class sm_13_f1 extends SkillBase{
 		public $cd = 2;
 		function action($user,$self,$enemy){
-			$this->addHp($user,$self,$self->maxHp*0.07);
+			$this->addHp($user,$self,$self->maxHp*0.1);
 		}
 	}	
 	//辅：-- +5%免伤
 	class sm_13_f2 extends SkillBase{
 		public $cd = 0;
 		function action($user,$self,$enemy){
-			$self->addDef(5);
+			$self->addDef(10);
 		}
 	}
 
 	//辅：-- 缠绕：普攻1回合,50%伤害，cd5
 	class sm_13_f3 extends SkillBase{
 		public $isAtk = true;
-		public $cd = 5;
+		public $cd = 4;
 		public $order = 1;//优先级，互斥时越大的越起作用
 		function action($user,$self,$enemy){
 			$buff = new HPBuff(-round($user->atk*0.5),1);

@@ -7,7 +7,7 @@
 		function action($user,$self,$enemy){
 			$v = $this->addMp($user,$enemy,-$enemy->mp*0.5);
 			
-			$this->addHp($user,$self,$self->maxHp*0.2);
+			$this->addHp($user,$self,$self->maxHp*0.3);
 			$this->addMp($user,$self,-$v);
 		}
 	}
@@ -18,7 +18,7 @@
 		public $cd = 3;
 		public $order = 1;//优先级，互斥时越大的越起作用
 		function action($user,$self,$enemy){
-			$this->decHp($user,$enemy,$user->atk*0.6);
+			$this->decHp($user,$enemy,$user->atk*0.8);
 			$this->addMp($user,$enemy,-10);
 		}
 	}
@@ -35,7 +35,7 @@
 			for($i=0;$i<$len;$i++)
 			{
 				$player = $enemy->team->currentMonster[$i];
-				$player->addAtk(-$player->base_atk * 0.15);
+				$player->addAtk(-$player->base_atk * 0.2);
 				$player->addSpeed(-$player->base_speed * 0.15);
 			}
 		}
@@ -45,7 +45,7 @@
 	class sm_7_f1 extends SkillBase{
 		public $cd = 1;
 		function action($user,$self,$enemy){
-			$this->addHp($user,$self,$user->atk*0.6);
+			$this->addHp($user,$self,$user->atk*0.9);
 		}
 	}	
 	//辅：--减对方10MP，cd3
@@ -53,7 +53,7 @@
 		public $cd = 3;
 		public $order = 1;//优先级，互斥时越大的越起作用
 		function action($user,$self,$enemy){
-			$this->addMp($user,$enemy,-10);
+			$this->addMp($user,$enemy,-15);
 		}
 	}
 

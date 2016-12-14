@@ -17,7 +17,7 @@
 		public $cd = 3;
 		public $isAtk = true;
 		function action($user,$self,$enemy){
-			$this->decHp($user,$enemy,$user->atk*1.5);
+			$this->decHp($user,$enemy,$user->atk*2.3);
 		}
 	}
 	
@@ -25,7 +25,7 @@
 	class sm_10_2 extends SkillBase{
 		public $type = 'AFTER';
 		function action($user,$self,$enemy){
-			$this->addHp($user,$self,$self->maxHp*0.05);
+			$this->addHp($user,$self,$self->maxHp*0.08);
 		}
 	}
 	
@@ -46,7 +46,7 @@
 		public $cd = 1;
 		public $isAtk = true;
 		function action($user,$self,$enemy){
-			$this->decHp($user,$enemy,$user->atk*0.6);
+			$this->decHp($user,$enemy,$user->atk*1);
 		}
 	}
 	//辅：--进入时回复20%生命

@@ -39,7 +39,7 @@
 			return $this->tData[0]->isPKing;
 		}
 		function action($user,$self,$enemy){
-			$this->decHp($user,$enemy,-$this->tData[1]*0.35);
+			$this->decHp($user,$enemy,-$this->tData[1]*0.5);
 		}
 	}
 	
@@ -48,11 +48,11 @@
 		public $cd = 3;
 		public $isAtk = true;
 		function action($user,$self,$enemy){
-			$this->decHp($user,$enemy,$user->atk*1.6);
+			$this->decHp($user,$enemy,$user->atk*2);
 		}
 	}
 	
-	//¹ÄÎè£º¸¨Öú+10%¹¥
+	//¹ÄÎè£º¸¨Öú+10%ËÙ
 	class sm_48_3 extends SkillBase{
 		public $cd = 0;
 		function action($user,$self,$enemy){
@@ -60,7 +60,7 @@
 			for($i=1;$i<$len;$i++)
 			{
 				$player = $self->team->currentMonster[$i];
-				$player->addAtk($player->base_atk * 0.1);
+				$player->addSpeed($player->base_speed * 0.1);
 			}
 		}
 	}
@@ -70,7 +70,7 @@
 		public $cd = 1;
 		public $isAtk = true;
 		function action($user,$self,$enemy){
-			$this->decHp($user,$enemy,$user->atk*0.7);
+			$this->decHp($user,$enemy,$user->atk*0.9);
 		}
 	}	
 	//¸¨£º--¹ÄÎè£º+15%¹¥

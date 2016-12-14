@@ -5,8 +5,8 @@
 	class sm_6_0 extends SkillBase{
 		public $isAtk = true;
 		function action($user,$self,$enemy){
-			$v = $this->decHp($user,$enemy,$user->atk*2.2);
-			$this->addHp($user,$user,-$v*0.4);
+			$v = $this->decHp($user,$enemy,$user->atk*2.5);
+			$this->addHp($user,$user,-$v*0.5);
 		}
 	}
 	
@@ -16,7 +16,7 @@
 		function action($user,$self,$enemy){
 			if($this->temp1<30)
 			{
-				$self->addDef(1);
+				$self->addDef(2);
 				$this->temp1 ++;
 			}
 				
@@ -29,7 +29,7 @@
 		public $isAtk = true;
 		function action($user,$self,$enemy){
 			$v = $this->decHp($user,$enemy,$user->atk);
-			$this->addHp($user,$user,-$v*0.25);
+			$this->addHp($user,$user,-$v*0.3);
 		}
 	}
 
@@ -39,7 +39,7 @@
 		public $cd = 1;
 		public $isAtk = true;
 		function action($user,$self,$enemy){
-			$this->decHp($user,$enemy,$user->atk*0.6);
+			$this->decHp($user,$enemy,$user->atk*0.9);
 		}
 	}	
 

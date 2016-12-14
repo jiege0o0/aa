@@ -5,7 +5,7 @@
 	class sm_46_0 extends SkillBase{
 		public $isAtk = true;
 		function action($user,$self,$enemy){
-			$this->decHp($user,$enemy,$user->atk*1.2);
+			$this->decHp($user,$enemy,$user->atk*2);
 			
 			$buff = new StatBuff(24,2);
 			$buff->isDebuff = true;
@@ -15,7 +15,7 @@
 	
 	//地震：全体-速20%，round2,cd5
 	class sm_46_1 extends SkillBase{
-		public $cd = 5;
+		public $cd = 4;
 		public $isAtk = true;
 		function action($user,$self,$enemy){
 			$len = count($enemy->team->currentMonster);
@@ -56,7 +56,7 @@
 		public $cd = 1;
 		public $isAtk = true;
 		function action($user,$self,$enemy){
-			$this->decHp($user,$enemy,$user->atk*0.5);
+			$this->decHp($user,$enemy,$user->atk*0.8);
 		}
 	}	
 	

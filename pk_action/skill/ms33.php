@@ -5,7 +5,7 @@
 	class sm_33_0 extends SkillBase{
 		public $isAtk = true;
 		function action($user,$self,$enemy){
-			$this->decHp($user,$enemy,$user->atk*2.2);
+			$this->decHp($user,$enemy,$user->atk*2.5);
 			
 			$buff = new ValueBuff('def',-3,3);
 			$buff->isDebuff = true;
@@ -20,7 +20,7 @@
 			return $this->tData[0]->isPKing;
 		}
 		function action($user,$self,$enemy){
-			$this->decHp($user,$enemy,$user->atk*0.6);
+			$this->decHp($user,$enemy,$user->atk*0.8);
 			
 			$buff = new ValueBuff('def',-3,3);
 			$buff->isDebuff = true;
@@ -46,7 +46,7 @@
 		public $cd = 1;
 		public $isAtk = true;
 		function action($user,$self,$enemy){
-			$this->decHp($user,$enemy,$user->atk*0.5);
+			$this->decHp($user,$enemy,$user->atk*0.8);
 			
 			$buff = new ValueBuff('def',-3,3);
 			$buff->isDebuff = true;

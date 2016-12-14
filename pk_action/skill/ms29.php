@@ -7,7 +7,7 @@
 		function action($user,$self,$enemy){
 			$this->decHp($user,$enemy,$user->atk*1.5);
 			
-			$buff = new HPBuff(-$enemy->maxHp*0.06,2);
+			$buff = new HPBuff(-$enemy->maxHp*0.1,2);
 			$buff->isDebuff = true;
 			$buff->addToTarget($enemy);
 		}
@@ -18,7 +18,7 @@
 		public $cd = 3;
 		public $isAtk = true;
 		function action($user,$self,$enemy){
-			$this->decHp($user,$enemy,$user->atk*1.7);
+			$this->decHp($user,$enemy,$user->atk*1 + $enemy->maxHp*0.05);
 		}
 	}
 	
@@ -26,7 +26,7 @@
 	class sm_29_2 extends SkillBase{
 		public $type = 'EAFTER';
 		function action($user,$self,$enemy){
-			$this->decHp($user,$enemy,$enemy->maxHp*0.03);
+			$this->decHp($user,$enemy,$enemy->maxHp*0.05);
 		}
 	}
 	
@@ -35,19 +35,19 @@
 		public $cd = 1;
 		public $isAtk = true;
 		function action($user,$self,$enemy){
-			$this->decHp($user,$enemy,$user->atk*0.7);
+			$this->decHp($user,$enemy,$user->atk*0.8);
 		}
 	}	
 	//¸¨£º--ÁúÑ×£¬50%ÉËº¦²¢³ÖĞø¿ÛÑª£¬round2,cd5    3%ÉúÃü
 	class sm_29_f2 extends SkillBase{
-		public $cd = 5;
+		public $cd = 3;
 		public $isAtk = true;
 		function action($user,$self,$enemy){
-			$buff = new HPBuff(-$enemy->maxHp*0.03,2);
+			$buff = new HPBuff(-$enemy->maxHp*0.05,2);
 			$buff->isDebuff = true;
 			$buff->addToTarget($enemy);
 			
-			$this->decHp($user,$enemy,$user->atk*0.5);
+			$this->decHp($user,$enemy,$user->atk*1);
 		}
 	}
 

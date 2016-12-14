@@ -23,7 +23,7 @@
 	class sm_64_f1 extends SkillBase{
 		public $cd = 1;
 		function action($user,$self,$enemy){
-			$this->addMp($user,$self,8);
+			$this->addMp($user,$self,10);
 		}
 	}	
 	//辅：--进场时加20点MP

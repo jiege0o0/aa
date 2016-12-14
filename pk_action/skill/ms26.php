@@ -41,13 +41,13 @@
 		public $cd = 1;
 		public $isAtk = true;
 		function action($user,$self,$enemy){
-			$this->decHp($user,$enemy,$user->atk*0.8);
+			$this->decHp($user,$enemy,$user->atk*1);
 		}
 	}	
 	
 	//辅：--魅惑：对方的辅助单位变成已方，1round，cd4
 	class sm_26_f2 extends SkillBase{
-		public $cd = 4;
+		public $cd = 3;
 		public $order = 1;
 		function action($user,$self,$enemy){
 			$len = count($enemy->team->currentMonster);

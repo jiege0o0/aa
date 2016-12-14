@@ -4,7 +4,7 @@
 	//¼¼£º¾ªÐÑ£¨¼¼£©£º-25%¹¥£¬+50%Ñª
 	class sm_20_0 extends SkillBase{
 		function action($user,$self,$enemy){
-			$self->addAtk(-$self->base_atk*0.25);
+			$self->addAtk(-$self->base_atk*0.2);
 			$this->addHp($user,$self,$self->maxHp*0.5);
 		}
 	}
@@ -13,8 +13,8 @@
 	class sm_20_1 extends SkillBase{
 		public $cd = 0;
 		function action($user,$self,$enemy){
-			$self->addAtk($self->base_atk*0.3);
-			$this->decHp($user,$self,$self->hp*0.2);
+			$self->addAtk($self->base_atk*0.4);
+			$this->decHp($user,$user,$user->hp*0.2);
 		}
 	}
 	
@@ -32,7 +32,7 @@
 		public $cd = 2;
 		public $isAtk = true;
 		function action($user,$self,$enemy){
-			$this->decHp($user,$enemy,$user->atk*1.2);
+			$this->decHp($user,$enemy,$user->atk*1.5);
 		}
 	}
 	
@@ -41,14 +41,14 @@
 		public $cd = 1;
 		public $isAtk = true;
 		function action($user,$self,$enemy){
-			$this->decHp($user,$enemy,$user->atk*0.6);
+			$this->decHp($user,$enemy,$user->atk*1);
 		}
 	}	
-	//¸¨£ºÊÈÑª:-10%µ±Ç°ÉúÃü£¬+15%¹¥
+	//¸¨£ºÊÈÑª:-10%µ±Ç°ÉúÃü£¬+10%¹¥
 	class sm_20_f2 extends SkillBase{
 		public $cd = 0;
 		function action($user,$self,$enemy){
-			$self->addAtk($self->base_atk*0.15);
+			$self->addAtk($self->base_atk*0.1);
 			$this->decHp($user,$self,$self->hp*0.1);
 		}
 	}

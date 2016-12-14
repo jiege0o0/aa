@@ -5,8 +5,8 @@
 	class sm_39_0 extends SkillBase{
 		public $isAtk = true;
 		function action($user,$self,$enemy){
-			$v = $this->addHp($user,$enemy,$enemy->maxHp*0.1);
-			$buff = new HPBuff(-$v*2.5,1);
+			$v = $this->addHp($user,$enemy,$enemy->maxHp*0.2);
+			$buff = new HPBuff(-$v*3,1);
 			$buff->isDebuff = true;
 			$buff->addToTarget($enemy);
 			
@@ -21,8 +21,9 @@
 		public $cd = 3;
 		public $isAtk = true;
 		function action($user,$self,$enemy){
-			$this->addHp($user,$enemy,$enemy->maxHp*0.1);
+			$this->addHp($user,$enemy,$enemy->maxHp*0.15);
 			$enemy->addSpeed(-$enemy->base_speed*0.1);
+			$enemy->addAtk(-$enemy->base_atk*0.1);
 			
 			if(!$user->temp['sendGift'])
 				$user->temp['sendGift'] = 0;
@@ -34,7 +35,7 @@
 	class sm_39_2 extends SkillBase{
 		public $type='EBEHEAL';
 		function action($user,$self,$enemy){
-			$this->addHp($user,$self,$this->tData*0.5);
+			$this->addHp($user,$self,$this->tData*0.8);
 		}
 	}
 	
@@ -66,7 +67,7 @@
 		function action($user,$self,$enemy){
 			if($this->isAtk)
 			{
-				$this->decHp($user,$enemy,$user->atk*0.8);
+				$this->decHp($user,$enemy,$user->atk*1);
 			}
 			else
 			{

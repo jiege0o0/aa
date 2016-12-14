@@ -5,7 +5,7 @@
 	class sm_34_0 extends SkillBase{
 		public $isAtk = true;
 		function action($user,$self,$enemy){
-			$this->decHp($user,$enemy,$user->atk + $enemy->maxHp*0.1,true);
+			$this->decHp($user,$enemy,$user->atk*1.5 + $enemy->maxHp*0.1,true);
 		}
 	}
 	
@@ -17,8 +17,8 @@
 			return $user->hp<=0;
 		}
 		function action($user,$self,$enemy){
-			$this->decHp($user,$enemy,$enemy->maxHp*0.1);
-			$user->reborn(0.1);
+			$this->decHp($user,$enemy,$enemy->maxHp*0.2);
+			$user->reborn(0.2);
 		}
 	}
 	
@@ -37,7 +37,7 @@
 		public $cd = 1;
 		public $isAtk = true;
 		function action($user,$self,$enemy){
-			$this->decHp($user,$enemy,$user->atk*0.5,true);
+			$this->decHp($user,$enemy,$user->atk*0.8,true);
 		}
 	}	
 ?> 

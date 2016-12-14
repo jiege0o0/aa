@@ -13,7 +13,7 @@
 		public $cd = 4;
 		public $isAtk = true;
 		function action($user,$self,$enemy){
-			$this->decHp($user,$enemy,$user->atk*1.7);
+			$this->decHp($user,$enemy,$user->atk*2.6);
 		}
 	}
 	
@@ -38,7 +38,7 @@
 		public $cd = 5;
 		public $order = 1;//优先级，互斥时越大的越起作用
 		function action($user,$self,$enemy){
-			$this->addHp($user,$self,$self->maxHp*0.20);
+			$this->addHp($user,$self,$self->maxHp*0.25);
 		}
 	}	
 	//辅：--50%伤害
@@ -46,7 +46,7 @@
 		public $cd = 1;
 		public $isAtk = true;
 		function action($user,$self,$enemy){
-			$this->decHp($user,$enemy,$user->atk*0.5);
+			$this->decHp($user,$enemy,$user->atk*0.8);
 		}
 	}
 
