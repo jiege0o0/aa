@@ -15,7 +15,7 @@
 	
 	//地震：全体-速20%，round2,cd5
 	class sm_46_1 extends SkillBase{
-		public $cd = 4;
+		public $cd = 3;
 		public $isAtk = true;
 		function action($user,$self,$enemy){
 			$len = count($enemy->team->currentMonster);
@@ -34,12 +34,12 @@
 		public $type='AFTER';
 		public $once = true;
 		function canUse($user,$self=null,$enemy=null){
-			$this->temp1 ++;
-			return $this->temp1 >= 10;
+			return $user->actionCount >= 8;
 		}
 		function action($user,$self,$enemy){
 			$user->atk += round($user->base_atk*0.5);
-			$user->addDef(20);
+			$user->addDef(30);
+			$this->addHp($user,$user,$user->maxHp*0.3);
 		}
 	}
 	

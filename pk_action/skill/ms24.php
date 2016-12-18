@@ -9,6 +9,10 @@
 			$buff = new StatBuff(24,1);
 			$buff->isDebuff = true;
 			$buff->addToTarget($enemy);
+			
+			$buff = new ValueBuff('speed',-round($enemy->base_speed * 0.5),1);
+			$buff->isDebuff = true;
+			$buff->addToTarget($enemy);
 		}
 	}
 	
@@ -22,7 +26,7 @@
 			$buff->isDebuff = true;
 			$buff->addToTarget($enemy);
 			$this->temp1 ++;
-			if($this->temp1 >= 10)
+			if($this->temp1 >= 15)
 				$this->disabled = true;
 			
 		}
@@ -52,7 +56,7 @@
 			$buff->isDebuff = true;
 			$buff->addToTarget($enemy);
 			$this->temp1 ++;
-			if($this->temp1 >= 5)
+			if($this->temp1 >= 8)
 				$this->disabled = true;
 		}
 	}	

@@ -5,7 +5,7 @@
 	class sm_27_0 extends SkillBase{
 		public $isAtk = true;
 		function action($user,$self,$enemy){
-			$this->decHp($user,$enemy,$user->atk*2.6);
+			$this->decHp($user,$enemy,$user->atk*2.8);
 		}
 	}
 	
@@ -32,7 +32,7 @@
 		public $type = 'BEFORE';
 		public $once = true;//技能只执行一次
 		function canUse($user,$self=null,$enemy=null){
-			return $user->getHpRate()<=0.4;
+			return $user->getHpRate()<=0.5;
 		}
 		function action($user,$self,$enemy){
 			$user->addAtk($user->base_atk*0.5);
@@ -62,7 +62,7 @@
 		public $type = 'BEFORE';
 		public $once = true;//技能只执行一次
 		function canUse($user,$self=null,$enemy=null){
-			return $self->getHpRate()<=0.3;
+			return $self->getHpRate()<=0.5;
 		}
 		function action($user,$self,$enemy){
 			$user->addAtk($user->base_atk*0.5);

@@ -38,11 +38,11 @@
 	
 	//辅：--沉默：对方无法使用绝招，round3,cd5
 	class sm_56_f1 extends SkillBase{
-		public $cd = 3;
+		public $cd = 4;
 		public $isAtk = true;
 		public $order = 1;
 		function action($user,$self,$enemy){
-			$buff = new StatBuff(22,3);
+			$buff = new StatBuff(22,4);
 			$buff->isDebuff = true;
 			$buff->addToTarget($enemy);
 		}
@@ -52,7 +52,7 @@
 		public $type = 'SKILL';
 		public $isAtk = true;
 		function action($user,$self,$enemy){
-			$this->decHp($user,$enemy,$user->atk*2);
+			$this->decHp($user,$enemy,$user->atk*2.5);
 		}
 	}
 	
@@ -61,7 +61,7 @@
 		public $cd = 1;
 		public $isAtk = true;
 		function action($user,$self,$enemy){
-			$this->decHp($user,$enemy,$user->atk*0.9);
+			$this->decHp($user,$enemy,$user->atk*1);
 		}
 	}
 

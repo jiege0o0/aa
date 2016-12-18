@@ -4,7 +4,7 @@
 	class sm_8_0 extends SkillBase{
 		function action($user,$self,$enemy){
 		
-			$buff = new ValueBuff('def',20,3);
+			$buff = new ValueBuff('def',30,3);
 			$buff->addToTarget($self);
 			
 			$buff = new HPBuff(round($self->maxHp*0.1),3);
@@ -18,6 +18,13 @@
 		public $isAtk = true;
 		function action($user,$self,$enemy){
 			$this->decHp($user,$enemy,$user->atk*1.8);
+			
+			$len = count($self->team->currentMonster);
+			for($i=1;$i<$len;$i++)
+			{
+				$player = $self->team->currentMonster[$i];
+				$player->addAtk(-$player->base_atk * 0.05);
+			}
 		}
 	}
 	
@@ -27,7 +34,7 @@
 		public $once = true;//技能只执行一次
 		
 		function canUse($user,$self=null,$enemy=null){
-			return $user->getHpRate() <= 0.2;
+			return $user->getHpRate() <= 0.3;
 		}
 		function action($user,$self,$enemy){
 			$buff = new ValueBuff('def',50,2);

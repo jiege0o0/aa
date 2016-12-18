@@ -17,7 +17,7 @@
 	class sm_49_1 extends SkillBase{
 		public $type = 'AFTER';
 		function canUse($user,$self=null,$enemy=null){
-			return $user->getHpRate()<=0.3;
+			return $user->getHpRate()<0.5;
 		}
 		function action($user,$self,$enemy){
 			$this->addHp($user,$self,$self->maxHp*0.1);

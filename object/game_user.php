@@ -300,6 +300,7 @@ class GameUser{
 	
 	//È¡ËéÆ¬ÊýÁ¿
 	function getCollectNum($id){
+		$id = 0;
 		if($this->collect->num->{$id})
 			return $this->collect->num->{$id};
 		return 0;
@@ -313,6 +314,7 @@ class GameUser{
 			$this->collect->num->{$id} = 0;
 		}
 			
+			debug($num);
 		$this->collect->num->{$id} += $num;
 		$this->setChangeKey('collect');	
 		

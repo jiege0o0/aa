@@ -14,7 +14,7 @@
 		public $cd = 4;
 		public $isAtk = true;
 		function action($user,$self,$enemy){
-			$this->decHp($user,$enemy,$user->atk*0.8);
+			$this->decHp($user,$enemy,$user->atk*1.2);
 			
 			$buff = new HPBuff(-$enemy->maxHp*0.05,2);
 			$buff->isDebuff = true;
@@ -45,9 +45,9 @@
 			for($i=0;$i<$len;$i++)
 			{
 				$player = $enemy->team->currentMonster[$i];
-				$player->addAtk(-$player->base_atk*0.07);
-				$player->addSpeed(-$player->base_speed*0.07);
-				$player->addDef(-7);
+				$player->addAtk(-$player->base_atk*0.08);
+				$player->addSpeed(-$player->base_speed*0.08);
+				$player->addDef(-8);
 			}
 		}
 	}	

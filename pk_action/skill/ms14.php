@@ -9,7 +9,7 @@
 			{
 				$player = $enemy->team->currentMonster[$i];
 				
-				$buff = new StatBuff(24,2);
+				$buff = new StatBuff(24,3);
 				$buff->isDebuff = true;
 				$buff->addToTarget($player);
 			}
@@ -29,13 +29,13 @@
 	class sm_14_2 extends SkillBase{
 		public $type = 'AFTER';
 		function action($user,$self,$enemy){
-			$this->decHp($user,$self,$user->atk*0.5);
+			$this->decHp($user,$self,$user->atk*1);
 		}
 	}
 	class sm_14_5 extends SkillBase{
 		public $type = 'EAFTER';
 		function action($user,$self,$enemy){
-			$this->decHp($user,$enemy,$enemy->atk*0.5);
+			$this->decHp($user,$enemy,$enemy->atk*1);
 		}
 	}
 	

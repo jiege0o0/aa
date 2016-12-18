@@ -5,7 +5,7 @@
 	class sm_39_0 extends SkillBase{
 		public $isAtk = true;
 		function action($user,$self,$enemy){
-			$v = $this->addHp($user,$enemy,$enemy->maxHp*0.2);
+			$v = $this->addHp($user,$enemy,$enemy->maxHp*0.25);
 			$buff = new HPBuff(-$v*3,1);
 			$buff->isDebuff = true;
 			$buff->addToTarget($enemy);

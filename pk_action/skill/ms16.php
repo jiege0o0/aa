@@ -36,7 +36,7 @@
 	class sm_16_3 extends SkillBase{
 		public $type = 'DIE';
 		function action($user,$self,$enemy){
-			$this->addLeaderSkill($user,'sm_16_ds3#'.round($user->maxHp*0.2));
+			$this->addLeaderSkill($user,'sm_16_ds3#'.round($user->maxHp*0.3));
 		}
 	}
 	class sm_16_ds3 extends SkillBase{

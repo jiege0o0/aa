@@ -38,11 +38,14 @@
 		public $cd = 0;
 		function action($user,$self,$enemy){
 			$len = count($self->team->currentMonster);
+			$atk = 0;
 			for($i=1;$i<$len;$i++)
 			{
 				$player = $self->team->currentMonster[$i];
-				$self->addAtk($player->base_atk * 0.1);
+				$atk += $player->base_atk;
 			}
+			
+			$self->addAtk($atk * 0.1);
 		}
 	}
 	
@@ -58,7 +61,7 @@
 		public $cd = 1;
 		public $isAtk = true;
 		function action($user,$self,$enemy){
-			$this->decHp($user,$enemy,$user->atk*1);
+			$this->decHp($user,$enemy,$user->atk*0.9);
 		}
 	}
 

@@ -22,7 +22,7 @@
 	class sm_20_2 extends SkillBase{
 		public $type = 'BEATK';
 		function action($user,$self,$enemy){
-			$self->addAtk($self->base_atk*0.05);
+			$self->addAtk($self->base_atk*0.1);
 
 		}
 	}

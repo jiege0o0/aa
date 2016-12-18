@@ -35,7 +35,7 @@
 		{
 			$returnData->fail = 2;
 			$returnData->sync_collect_num = new stdClass();
-			$returnData->sync_collect_num->{$id} = $mNum;
+			$returnData->sync_collect_num->{0} = $mNum;
 			break;
 		}
 		
@@ -84,9 +84,10 @@
 		//可以升级了
 		$userData->addCoin(-$coin);
 		$userData->levelUpTec($type,$id);
+		$userData->addCollect(0,-$needNum);
 		$userData->write2DB();
-		$returnData->{'sync_tec_'.$type} = new stdClass();
-		$returnData->{'sync_tec_'.$type}->{$id} = $userData->tec->{$type}->{$id};
+		// $returnData->{'sync_tec_'.$type} = new stdClass();
+		// $returnData->{'sync_tec_'.$type}->{$id} = $userData->tec->{$type}->{$id};
 		
 	}while(false)	
 	

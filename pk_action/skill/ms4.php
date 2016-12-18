@@ -35,7 +35,7 @@
 			return $user->getHpRate()<=0.5;
 		}
 		function action($user,$self,$enemy){
-			$buff = new sm_4_2_buff('atk',round($self->base_atk * 0.35),3);
+			$buff = new sm_4_2_buff('atk',round($self->base_atk * 0.5),3);
 			$buff->addToTarget($self);
 		}
 	}

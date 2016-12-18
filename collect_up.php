@@ -34,7 +34,6 @@
 			$returnData->sync_collect_num->{$id} = $num;
 			break;
 		}
-		
 		$userData->addCollect($id,-$need);
 		$userData->collect->level->{$id} = $level + 1;
 		

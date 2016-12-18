@@ -6,7 +6,7 @@
 		public $isAtk = true;
 		function action($user,$self,$enemy){
 			$v = -$this->decHp($user,$enemy,$user->atk*2.5);
-			$this->addHp($user,$self,$v*($user->stat[101]?2.2:0.5));
+			$this->addHp($user,$self,$v*($user->stat[101]?2.5:0.8));
 		}
 	}
 	
@@ -30,7 +30,7 @@
 		public $isAtk = true;
 		function action($user,$self,$enemy){
 			$v = -$this->decHp($user,$enemy,$user->atk);
-			$this->addHp($user,$self,$v*($user->stat[101]?2.2:0.5));
+			$this->addHp($user,$self,$v*($user->stat[101]?2.5:0.8));
 		}
 	}
 	

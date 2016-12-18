@@ -26,9 +26,20 @@
 	class sm_53_2 extends SkillBase{
 		public $type='BEATK';
 		function action($user,$self,$enemy){
-			$this->addMp($user,$self,-5);
+			$this->addMp($user,$self,-15);
 		}
 	}
+	
+	//æ´—™¡˜ ß£∫±ªπ•ª˜ ±£¨mp-5
+	class sm_53_3 extends SkillBase{
+		public $isAtk = true;
+		function action($user,$self,$enemy){
+			$this->decHp($user,$enemy,$user->atk*1);
+			$this->addMp($user,$self,5);
+			$this->addMp($user,$enemy,-5);
+		}
+	}
+	
 	
 	//∏®£∫--50%…À∫¶
 	class sm_53_f1 extends SkillBase{

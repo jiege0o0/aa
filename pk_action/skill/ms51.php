@@ -4,7 +4,7 @@
 	//技：结界（技）：2round，建立一个结界，在回合结速前不会受到任何伤害
 	class sm_51_0 extends SkillBase{
 		function action($user,$self,$enemy){
-			$buff = new sm_51_0_buff(102,2);
+			$buff = new sm_51_0_buff(102,3);
 			$buff->noClean = true;
 			$buff->addToTarget($user);
 			
@@ -30,10 +30,9 @@
 	
 	//无中生有：增加10点MP，cd3
 	class sm_51_1 extends SkillBase{
-		public $cd = 3;
-		public $order = 2;
 		function action($user,$self,$enemy){
-			$this->addMp($user,$self,15);
+			$this->addMp($user,$enemy,10);
+			$this->decHp($user,$enemy,$user->atk);
 		}
 	}
 	
@@ -72,7 +71,8 @@
 		public $cd = 3;
 		public $order = 2;
 		function action($user,$self,$enemy){
-			$this->addMp($user,$self,10);
+			$this->addMp($user,$enemy,15);
+			$this->decHp($user,$enemy,$user->atk);
 		}
 	}	
 	//辅：--80%伤害

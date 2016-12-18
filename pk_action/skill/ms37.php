@@ -34,7 +34,7 @@
 				$atk += $player->base_atk;
 			}
 			$this->addHp($user,$self,$hp*0.2);
-			$self->addAtk(round($atk*0.1));
+			$self->addAtk(round($atk*0.2));
 		}
 	}
 	

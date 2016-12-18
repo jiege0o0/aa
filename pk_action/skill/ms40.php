@@ -57,7 +57,7 @@
 		public $cd = 0;
 		public $order = 9;
 		function action($user,$self,$enemy){
-			$self->manaHp += round($user->base_hp*0.3);
+			$self->manaHp += round($user->base_hp*0.4);
 		}
 	}
 
