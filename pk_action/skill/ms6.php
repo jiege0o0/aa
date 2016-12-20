@@ -5,8 +5,8 @@
 	class sm_6_0 extends SkillBase{
 		public $isAtk = true;
 		function action($user,$self,$enemy){
-			$v = $this->decHp($user,$enemy,$user->atk*2.5);
-			$this->addHp($user,$user,-$v*0.5);
+			$v = $this->decHp($user,$enemy,$user->atk*3);
+			$this->addHp($user,$user,-$v*0.8);
 		}
 	}
 	
@@ -14,7 +14,7 @@
 	class sm_6_1 extends SkillBase{
 		public $type='BEATK';
 		function action($user,$self,$enemy){
-			if($this->temp1<30)
+			if($this->temp1<25)
 			{
 				$self->addDef(2);
 				$this->temp1 ++;

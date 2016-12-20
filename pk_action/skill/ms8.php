@@ -23,7 +23,7 @@
 			for($i=1;$i<$len;$i++)
 			{
 				$player = $self->team->currentMonster[$i];
-				$player->addAtk(-$player->base_atk * 0.05);
+				$player->addAtk(-$player->base_atk * 0.1);
 			}
 		}
 	}

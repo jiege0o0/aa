@@ -12,14 +12,18 @@
 		}
 	}
 	
-	//净化：每3次攻击后扔出一个骷髅头，-10点MP，60%伤害
+	//死亡后，把自己剩余的怒气值增加到下一出战单位身上
 	class sm_7_1 extends SkillBase{
-		public $isAtk = true;
-		public $cd = 3;
-		public $order = 1;//优先级，互斥时越大的越起作用
+		public $type = 'DIE';
 		function action($user,$self,$enemy){
-			$this->decHp($user,$enemy,$user->atk*0.8);
-			$this->addMp($user,$enemy,-10);
+			$this->addLeaderSkill($user,'sm_7_ds1#'.min(round($user->mp),50));
+		}
+	}
+
+	class sm_7_ds1 extends SkillBase{
+		public $cd = 0;
+		function action($user,$self,$enemy){
+			$v = $this->addMp($user,$self,$this->tData);
 		}
 	}
 	
@@ -53,7 +57,9 @@
 		public $cd = 3;
 		public $order = 1;//优先级，互斥时越大的越起作用
 		function action($user,$self,$enemy){
-			$this->addMp($user,$enemy,-15);
+			
+			$v = $this->addMp($user,$enemy,-10);
+			$this->addMp($user,$self,-$v);
 		}
 	}
 

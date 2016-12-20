@@ -15,7 +15,7 @@
 		public $isAtk = true;
 		public $order = 1;//优先级，互斥时越大的越起作用
 		function action($user,$self,$enemy){
-			$this->decHp($user,$enemy,$user->atk*1.5);
+			$this->decHp($user,$enemy,$user->atk*1.8);
 			$enemy->addDef(-2);
 		}
 	}
@@ -56,7 +56,7 @@
 		public $isAtk = true;
 		function action($user,$self,$enemy){
 			if($enemy->getHpRate() <= 0.3)
-				$this->decHp($user,$enemy,$user->atk*2);
+				$this->decHp($user,$enemy,$user->atk*2.4);
 			else
 				$this->decHp($user,$enemy,$user->atk*0.8);
 			$enemy->addDef(-1);

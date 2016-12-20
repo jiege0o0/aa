@@ -13,7 +13,7 @@
 		public $cd = 4;
 		public $isAtk = true;
 		function action($user,$self,$enemy){
-			$this->decHp($user,$enemy,$user->atk*2.6);
+			$this->decHp($user,$enemy,$user->atk*3);
 		}
 	}
 	
@@ -21,7 +21,7 @@
 	class sm_25_2 extends SkillBase{
 		public $cd = 0;
 		function action($user,$self,$enemy){
-			$self->addDef(20);
+			$self->addDef(30);
 		}
 	}
 	

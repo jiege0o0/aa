@@ -42,9 +42,9 @@
 		}
 		function action($user,$self,$enemy){
 			if($this->isAtk)
-				$this->decHp($user,$enemy,$user->atk*0.9);	
+				$this->decHp($user,$enemy,$user->atk*1);	
 			else
-				$this->addHp($user,$self,$user->atk*0.9);	
+				$this->addHp($user,$self,$user->atk*1);	
 		}
 	}	
 	//¸¨£º--¶Ô·½-10%¹¥
