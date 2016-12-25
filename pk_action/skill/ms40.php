@@ -29,7 +29,7 @@
 			{
 				$player = $user->team->currentMonster[$i];
 				
-				$buff = new ValueBuff('atk',round($player->base_speed * 0.1),3);
+				$buff = new ValueBuff('atk',round($player->base_atk * 0.15),3);
 				$buff->addToTarget($player);
 			}
 		}
@@ -49,7 +49,7 @@
 		public $cd = 1;
 		public $isAtk = true;
 		function action($user,$self,$enemy){
-			$this->decHp($user,$enemy,$user->atk*0.8);
+			$this->decHp($user,$enemy,$user->atk*1);
 		}
 	}	
 	//辅：--自己生命30%的魔盾
@@ -57,7 +57,7 @@
 		public $cd = 0;
 		public $order = 9;
 		function action($user,$self,$enemy){
-			$self->manaHp += round($user->base_hp*0.4);
+			$self->manaHp += round($user->base_hp*0.5);
 		}
 	}
 

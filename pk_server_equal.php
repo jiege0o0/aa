@@ -133,7 +133,7 @@
 		{
 			$userData->server_game_equal->last = 0;
 			$returnData->sync_server_game_equal->last = $userData->server_game_equal->last;
-			$award->g_exp = -2;
+			$award->g_exp = -2-2*pkLevel;
 		}
 
 		$winTime = min(9,$userData->server_game_equal->last + 1);//9次以上的奖励不会增加
@@ -155,6 +155,12 @@
 		
 		$userData->server_game_equal->pkdata = array("team1"=>$team1Data,"team2"=>$team2Data,"isequal"=>$equalPK,"info"=>$pkUserInfo);
 		$returnData->sync_server_game_equal->exp = $userData->server_game_equal->exp;
+		
+		if($userData->server_game_equal->exp > $userData->server_game_equal->top)
+		{
+			$userData->server_game_equal->top = $userData->server_game_equal->exp;
+			$returnData->sync_server_game_equal->top = $userData->server_game_equal->top;
+		}
 		
 		if(!$userData->sync_server_game_equal->choose)
 		{

@@ -16,7 +16,7 @@
 		public $isAtk = true;
 		function action($user,$self,$enemy){	
 			$this->decHp($user,$enemy,$user->atk*1);		
-			$buff = new HPBuff(-$user->atk*0.5,1);
+			$buff = new HPBuff(-$user->atk*0.8,1);
 			$buff->isDebuff = true;
 			$buff->addToTarget($enemy);
 		}
@@ -28,9 +28,9 @@
 		public $isAtk = true;
 		public $order = 1;
 		function action($user,$self,$enemy){
-			$this->decHp($user,$enemy,$user->atk*1.3);
+			$this->decHp($user,$enemy,$user->atk*1.5);
 			
-			$buff = new HPBuff(-$user->atk*0.5,1);
+			$buff = new HPBuff(-$user->atk*0.8,1);
 			$buff->isDebuff = true;
 			$buff->addToTarget($enemy);
 		}

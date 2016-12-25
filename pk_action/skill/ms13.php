@@ -37,7 +37,7 @@
 	class sm_13_f1 extends SkillBase{
 		public $cd = 2;
 		function action($user,$self,$enemy){
-			$this->addHp($user,$self,$self->maxHp*0.1);
+			$this->addHp($user,$self,$self->maxHp*0.08);
 		}
 	}	
 	//∏®£∫-- +5%√‚…À

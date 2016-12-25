@@ -30,9 +30,9 @@
 			for($i=0;$i<$len;$i++)
 			{
 				$player = $enemy->team->currentMonster[$i];
-				$player->addAtk(-$player->base_atk*0.15);
-				$player->addSpeed(-$player->base_speed*0.15);
-				$player->addDef(-15);
+				$player->addAtk(-$player->base_atk*0.2);
+				$player->addSpeed(-$player->base_speed*0.2);
+				$player->addDef(-20);
 			}
 		}
 	}
@@ -45,9 +45,9 @@
 			for($i=0;$i<$len;$i++)
 			{
 				$player = $enemy->team->currentMonster[$i];
-				$player->addAtk(-$player->base_atk*0.08);
-				$player->addSpeed(-$player->base_speed*0.08);
-				$player->addDef(-8);
+				$player->addAtk(-$player->base_atk*0.1);
+				$player->addSpeed(-$player->base_speed*0.1);
+				$player->addDef(-10);
 			}
 		}
 	}	

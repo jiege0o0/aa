@@ -60,7 +60,7 @@
 			for($i=1;$i<$len;$i++)
 			{
 				$player = $self->team->currentMonster[$i];
-				$player->addSpeed($player->base_speed * 0.15);
+				$player->addSpeed($player->base_speed * 0.2);
 			}
 		}
 	}

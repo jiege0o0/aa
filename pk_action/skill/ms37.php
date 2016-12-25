@@ -51,7 +51,7 @@
 	class sm_37_f2 extends SkillBase{
 		public $cd = 0;
 		function action($user,$self,$enemy){
-			$v = -$this->decHp($user,$enemy,$enemy->maxHp*0.1,true);
+			$v = -$this->decHp($user,$enemy,$enemy->maxHp*0.10,true);
 			$this->addHp($user,$self,$v,true);
 		}
 	}

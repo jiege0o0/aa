@@ -137,7 +137,7 @@
 			$returnData->sync_server_game->last = $userData->server_game->last;
 			$award->exp = round($award->exp/2);
 			$award->coin = round($award->coin/3);
-			$award->g_exp = -15;
+			$award->g_exp = -3 - $pkLevel*5;
 		}	
 		
 		foreach($award->prop as $key=>$value)
@@ -151,6 +151,12 @@
 		
 		
 		$userData->server_game->pkdata = array("team1"=>$team1Data,"team2"=>$team2Data,"isequal"=>$equalPK,"info"=>$pkUserInfo);
+		
+		if($userData->server_game->exp > $userData->server_game->top)
+		{
+			$userData->server_game->top = $userData->server_game->exp;
+			$returnData->sync_server_game->top = $userData->server_game->top;
+		}
 		
 		$returnData->sync_server_game->exp = $userData->server_game->exp;
 		$returnData->sync_server_game->pk = $userData->server_game->pk;

@@ -49,7 +49,7 @@
 	class sm_7_f1 extends SkillBase{
 		public $cd = 1;
 		function action($user,$self,$enemy){
-			$this->addHp($user,$self,$user->atk*0.9);
+			$this->addHp($user,$self,$user->atk*1.5);
 		}
 	}	
 	//¸¨£º--¼õ¶Ô·½10MP£¬cd3

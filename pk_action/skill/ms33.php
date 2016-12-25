@@ -20,7 +20,7 @@
 			return $this->tData[0]->isPKing;
 		}
 		function action($user,$self,$enemy){
-			$this->decHp($user,$enemy,$user->atk*0.8);
+			$this->decHp($user,$enemy,$user->atk*1);
 			
 			$buff = new ValueBuff('def',-3,3);
 			$buff->isDebuff = true;

@@ -37,6 +37,7 @@
 			unset($userData->server_game_equal->enemy->pkdata);
 
 		$returnData->data = $userData;
+		
 	}
 	else//没这个玩家，要新增
 	{

@@ -22,11 +22,11 @@
 		function action($user,$self,$enemy){
 			$enemy = $this->tData[0];
 			
-			$buff = new ValueBuff('speed',-round($enemy->base_speed * 0.2),2);//此时对方回合未结束
+			$buff = new ValueBuff('speed',-round($enemy->base_speed * 0.3),2);//此时对方回合未结束
 			$buff->isDebuff = true;
 			$buff->addToTarget($enemy);
 			$this->temp1 ++;
-			if($this->temp1 >= 15)
+			if($this->temp1 >= 10)
 				$this->disabled = true;
 			
 		}
@@ -52,11 +52,11 @@
 		function action($user,$self,$enemy){
 			$enemy = $this->tData[0];
 			
-			$buff = new ValueBuff('speed',-round($enemy->base_speed * 0.2),2);//此时对方回合未结束
+			$buff = new ValueBuff('speed',-round($enemy->base_speed * 0.3),2);//此时对方回合未结束
 			$buff->isDebuff = true;
 			$buff->addToTarget($enemy);
 			$this->temp1 ++;
-			if($this->temp1 >= 8)
+			if($this->temp1 >= 5)
 				$this->disabled = true;
 		}
 	}	

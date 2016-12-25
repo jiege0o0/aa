@@ -6,6 +6,7 @@
 		public $isAtk = true;
 		function action($user,$self,$enemy){
 			$this->decHp($user,$enemy,$user->atk*(0 + (1-$enemy->getHpRate())*5));
+			$enemy->addDef(-2);
 		}
 	}
 	
@@ -56,10 +57,10 @@
 		public $isAtk = true;
 		function action($user,$self,$enemy){
 			if($enemy->getHpRate() <= 0.3)
-				$this->decHp($user,$enemy,$user->atk*2.4);
+				$this->decHp($user,$enemy,$user->atk*2);
 			else
 				$this->decHp($user,$enemy,$user->atk*0.8);
-			$enemy->addDef(-1);
+			$enemy->addDef(-2);
 		}
 	}	
 

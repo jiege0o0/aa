@@ -35,7 +35,8 @@
 			return $user->getHpRate() <= 0.3;
 		}
 		function action($user,$self,$enemy){
-			$user->addSpeed($user->base_speed*0.2);
+			$user->addSpeed($user->base_speed*0.8);
+			$user->addAtk(-$user->base_atk*0.5);
 			$this->addHp($user,$user,$user->maxHp*0.5);
 		}
 	}
