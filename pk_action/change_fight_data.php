@@ -123,6 +123,7 @@
 			
 			
 			$outData->tec = new stdClass();
+			$outData->mlevel = new stdClass();
 				
 			//开始计算基础加成
 			//通用   13攻击，14血量，15速度，1-12对应属性加强（12个，攻血同加）
@@ -141,7 +142,8 @@
 				$vo = $monster_base[$monsterID];
 				if(!isset($outData->tec->{$monsterID}))
 				{
-					$outData->tec->{$monsterID} = getTecAdd('monster',$userData->tec->monster->{$monsterID});;
+					$outData->mlevel->{$monsterID} = $userData->tec->monster->{$monsterID};
+					$outData->tec->{$monsterID} = getTecAdd('monster',$userData->tec->monster->{$monsterID});
 					// $add = 0;
 					// if(isset($userData->tec->monster->{$monsterID}))
 						// $add = getTecAdd('monster',$userData->tec->monster->{$monsterID});

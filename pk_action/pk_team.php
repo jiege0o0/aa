@@ -78,7 +78,10 @@ class Team{
 					$this->monsterBase->{''.$player->monsterID}->num++;
 				}
 				else
+				{
 					$this->monsterBase->{''.$player->monsterID} = $player->initData($tec->{$player->monsterID},$this->fight);
+					$this->monsterBase->{''.$player->monsterID}->lv = $data->mlevel->{''.$player->monsterID};
+				}
 
 				// for($j=1;$j<=5;$j++)//PKÇ°ÖÃ¼¼ÄÜ
 				// {
@@ -288,6 +291,7 @@ class Team{
 		$oo->tl = $this->tecLevel;
 		$oo->list = $this->list;
 		$oo->mb = $this->monsterBase;
+		$oo->f = $this->fight;
 		return $oo;
 	}
 	
