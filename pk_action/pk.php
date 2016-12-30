@@ -26,6 +26,8 @@
 	
 	// $pkData->outDetail=true;
 
+	$star1 = 0;
+	$star2 = 0;
 	while(true)
 	{
 		//循环PK逻辑
@@ -37,7 +39,10 @@
 		if(count($playArr1) == 0 && count($playArr2) == 0)
 		{
 			//平局(平局算进攻方输)
-			$result = 0;
+			if($star1 > $star2)
+				$result = 1;
+			else 
+				$result = 0;
 			break;
 		}
 		else if(count($playArr1) == 0)
@@ -55,14 +60,24 @@
 		
 		// 战斗了3回合的要下场
 		if($playArr1[0]->pkRound >= 3)
+		{
+			$star1 ++;
 			$playArr1 = $pkData->team1->getFightArr();
+		}
+			
 		if($playArr2[0]->pkRound >= 3)
+		{
 			$playArr2 = $pkData->team2->getFightArr();
+			$star2 ++;
+		}
 			
 		if(count($playArr1) == 0 && count($playArr2) == 0)
 		{
 			//平局(平局算进攻方输)
-			$result = 0;
+			if($star1 > $star2)
+				$result = 1;
+			else 
+				$result = 0;
 			break;
 		}
 		else if(count($playArr1) == 0)
