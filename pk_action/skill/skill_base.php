@@ -158,7 +158,7 @@
 		}
 		
 		//A½áB¼ÓÑª
-		function addHp($user,$target,$value,$isMax=false,$forever=false){
+		function addHp($user,$target,$value,$isMax=false,$forever=false,$full=false){
 			global $pkData;
 			$value = round(max(1,$value));
 			if($isMax)
@@ -169,6 +169,8 @@
 					$target->add_hp += $value;
 				$this->setSkillEffect($target,pk_skillType('MHP',$value));
 				$user->testTSkill('MHP',$value);
+				if($full)
+					$value = $target->maxHp;
 			}
 			
 			$rHp = $target->addHp($value);

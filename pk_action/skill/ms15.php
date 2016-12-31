@@ -48,8 +48,7 @@
 		}
 		
 		function action($user,$self,$enemy){
-			$this->addHp($user,$self,$self->base_hp*0.8,true);
-			$this->addHp($user,$self,$self->maxHp - $self->hp);
+			$this->addHp($user,$self,$self->base_hp*0.8,true,false,true);
 			$self->addAtk($self->base_atk*0.5);
 			$self->skill->disabled = true;
 			$self->skillArr[1]->disabled = true;
