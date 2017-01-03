@@ -1,11 +1,11 @@
 <?php 
 	require_once($filePath."cache/monster.php");
 	//$num奖励数量，$maxTypeNum种类最大数量
-	function addMonsterCollect($callNum,$maxTypeNum){
+	function addMonsterCollect($callNum){//,$maxTypeNum
 		global $monster_base,$userData;
-		$award = array('0'=>$callNum);
+		// $award = array('0'=>$callNum);
 		$userData->addCollect(0,$callNum);
-		return $award;
+		return $callNum;
 		// $userLevel = $userData->level+1;
 		// $award = array();
 		// $awardList = array();

@@ -264,7 +264,11 @@ class PKData{//主要记录一些PK中的数据
 			
 				
 			if($player2->hp == 0)
+			{
+				
 				$player2->freeSkill();
+			}
+				
 			return $result;
 		}
 		return false;

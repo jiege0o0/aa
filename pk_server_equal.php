@@ -140,7 +140,7 @@
 		$award->exp = round(30*(1+$pkLevel/10)*$winTime);
 		$award->coin = round(30*(1+$pkLevel/10)*$winTime);
 		$collectNum = ceil($winTime/3*$pkLevel);
-		$award->collect = addMonsterCollect($collectNum,2);
+		$award->collect = addMonsterCollect($collectNum);//,2
 		
 
 		

@@ -50,7 +50,7 @@ class GameUser{
 		$this->day_game = $this->decode($data['day_game'],'{"level":0,"lasttime":0,"times":0,"pkdata":null}');
 		$this->honor = $this->decode($data['honor'],'{"monster":{}}');
 		$this->prop = $this->decode($data['prop']);
-		$this->energy = $this->decode($data['energy'],'{"v":0,"t":0,"rmb":0}');
+		$this->energy = $this->decode($data['energy'],'{"v":0,"t":0}');
 		$this->diamond = $this->decode($data['diamond'],'{"free":0,"rmb":0}');
 		$this->friends = $this->decode($data['friends'],'{"v":0,"t":0,"tk":0}');//好友相关
 		$this->active = $this->decode($data['active'],'{"task":{}}');//活动
@@ -87,22 +87,14 @@ class GameUser{
 	//体力相关==============================================
 	function getEnergy(){
 		$this->resetEnergy();
-		return $this->energy->v + $this->energy->rmb;
+		return $this->energy->v;// + $this->energy->rmb;
 	}
-	function addEnergy($v,$isRmb=false ){
+	function addEnergy($v){
 		global $returnData;
 		if($v)
 		{
 			$this->resetEnergy();
-			if($isRmb)
-				$this->energy->rmb += $v;
-			else	
-				$this->energy->v += $v;
-			if($this->energy->v < 0)
-			{
-				$this->energy->rmb += $this->energy->v;
-				$this->energy->v = 0;
-			}
+			$this->energy->v += $v;
 			$this->setChangeKey('energy');
 			$returnData->sync_energy = $this->energy;
 		}

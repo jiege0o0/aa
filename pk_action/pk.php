@@ -25,7 +25,8 @@
 	unset($team2Data->teamID);
 	
 	// $pkData->outDetail=true;
-
+// trace(count($pkData->team2->monsterList));
+// trace($team2Data);
 	$star1 = 0;
 	$star2 = 0;
 	while(true)

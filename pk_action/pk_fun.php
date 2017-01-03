@@ -21,8 +21,10 @@
 		array_push($list,$pkData->team2->teamPlayer);
 		
 		$pkData->step = 1;
+		// trace(count($playArr2));
 		$pkData->roundStart($playArr1,$playArr2);
 		$pkData->dealFrontArray();
+		// trace(count($pkData->playArr2));
 		$result = $pkData->testRoundFinish();
 		$pkData->out_gameStart();
 		// $pkData->out_end();

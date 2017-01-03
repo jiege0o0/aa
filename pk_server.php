@@ -115,7 +115,7 @@
 				$collectNum ++;
 			}
 			$collectNum = ceil($pkLevel/3)*$collectNum + 1;
-			$award->collect = addMonsterCollect($collectNum,2);
+			$award->collect = addMonsterCollect($collectNum);//,2
 			$award->g_exp = 3;
 			if($userData->server_game->exp < 0)//少于0的加速回归
 				$award->g_exp += floor(-$userData->server_game->exp/100);

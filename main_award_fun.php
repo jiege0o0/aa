@@ -9,7 +9,7 @@
 	
 	//每过30小关奖一个碎片
 	$propNum = (floor($level/30) + 1)*$rate;
-	$award->collect = addMonsterCollect($propNum,4+$rate);
+	$award->collect = addMonsterCollect($propNum);//,4+$rate
 	
 
 ?> 

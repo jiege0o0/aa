@@ -76,7 +76,7 @@
 			$award->coin = floor(pow(1.3 + $userLevel/100,$userData->day_game->level)*50);
 			
 			$propNum = floor(pow(1.25 + $userLevel/100,$userData->day_game->level));
-			$award->collect = addMonsterCollect($collectNum,2);
+			$award->collect = addMonsterCollect($collectNum);//,2
 			
 			if($userData->day_game->level >= 8)
 			{

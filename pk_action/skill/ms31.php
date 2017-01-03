@@ -27,7 +27,7 @@
 			return $user->getHpRate() <= 0.3;
 		}
 		function action($user,$self,$enemy){
-			$user->missTimes += 5;
+			$user->missTimes += 6;
 		}
 	}
 	
