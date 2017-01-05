@@ -32,9 +32,9 @@ class GameUser{
 		$this->tec_force = (int)$data['tec_force'];
 		$this->award_force = (int)$data['award_force'];
 		$this->last_land = $data['last_land'];
-		$this->coin = (int)$data['coin'];
-		
 
+		
+		$this->day_game = $this->decode($data['day_game'],'{"level":0,"lasttime":0,"times":0,"pkdata":null,"score":0}');
 		$this->server_game = $this->decode($data['server_game'],'{"choose":null,"exp":0,"win":0,"total":0,"last":0,"time":0,"pkdata":null,"enemy":null,"pk":0,"pktime":0,"top":0}');
 		$this->server_game_equal = $this->decode($data['server_game_equal'],'{"choose":null,"exp":0,"win":0,"total":0,"last":0,"max":0,"time":0,"pkdata":null,"enemy":null,"pk":0,"pktime":0,"top":0}');
 		$this->main_game = $this->decode($data['main_game'],'{"choose":null,"level":1,"kill":[],"awardtime":0,"time":0,"pkdata":null}');
@@ -43,11 +43,11 @@ class GameUser{
 		
 		if($isOther)
 			return;
+		$this->coin = (int)$data['coin'];
 		$this->next_exp = $this->getNextExp();
 		$this->land_key = $data['land_key'];	
 		$this->tec = $this->decode($data['tec'],'{"main":{},"monster":{}}');
 		$this->collect = $this->decode($data['collect'],'{"num":{}}');//碎片合成等级	
-		$this->day_game = $this->decode($data['day_game'],'{"level":0,"lasttime":0,"times":0,"pkdata":null}');
 		$this->honor = $this->decode($data['honor'],'{"monster":{}}');
 		$this->prop = $this->decode($data['prop']);
 		$this->energy = $this->decode($data['energy'],'{"v":0,"t":0}');
@@ -177,7 +177,7 @@ class GameUser{
 	
 	//加奖励的战力
 	function addAwardForce($v){
-		if($v < 0)
+		if($v <= 0)
 			return;
 		global $returnData;
 		$this->award_force += $v;
@@ -396,6 +396,8 @@ class GameUser{
 			array_push($arr,addKey('award_force',$this->award_force));
 		if($this->changeKey['coin'])
 			array_push($arr,addKey('coin',$this->coin));
+		if($this->changeKey['head'])
+			array_push($arr,addKey('head',$this->head));
 			
 		if($this->changeKey['tec'])
 			array_push($arr,addKey('tec',$this->tec,true));

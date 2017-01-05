@@ -71,7 +71,14 @@
 		{
 			$userLevel = $userData->main_game->level;
 			$userData->day_game->level ++;
+			$userData->day_game->score ++;
+			if($userData->day_game->score%10 == 0)
+				$userData->addAwardForce(1);
+			
+			
 			$returnData->sync_day_game->level = $userData->day_game->level;
+			$returnData->sync_day_game->score = $userData->day_game->score;
+			
 			$award->exp = 30;
 			$award->coin = floor(pow(1.3 + $userLevel/100,$userData->day_game->level)*50);
 			

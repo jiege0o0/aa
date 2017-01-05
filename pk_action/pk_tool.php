@@ -130,7 +130,6 @@
 		}
 		foreach($arr as $key=>$value)
 		{
-			debug($key.':'.$value);
 			monsterUseLogOne($table,$key,$value,$isWin);
 		}
 	}

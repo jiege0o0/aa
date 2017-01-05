@@ -170,8 +170,8 @@
 		$userData->setChangeKey('server_game');
 		$userData->write2DB();
 		
-		if($userData->level >= 10)
-			monsterUseLog('server_monster_'.$userData->level,$changeFightDataValue->chooseList,$myChoose,$result);
+		if($userData->level >= 5)
+			monsterUseLog('server_monster_'.min(25,floor($userData->level/5)*5),$changeFightDataValue->chooseList,$myChoose,$result);
 
 		
 	}while(false);

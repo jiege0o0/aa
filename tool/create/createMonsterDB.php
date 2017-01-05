@@ -12,7 +12,7 @@ if(!$_GET['table'])
 $arr = explode(',',$_GET['table']);
 foreach($arr as $key=>$sql_table)
 {
-	for($i = 10;$i<51;$i++)
+	for($i = 5;$i<=25;$i+=5)
 	{
 		mysql_query("
 		Create TABLE ".$sql_table."_".$i."(
