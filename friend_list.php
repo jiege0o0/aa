@@ -59,7 +59,7 @@
 			{
 				$otherid = $value['gameid'];
 				$friendInfo->{$otherid} = new stdClass();
-				$friendInfo->{$otherid}->nick = $value['nick'];
+				$friendInfo->{$otherid}->nick = base64_encode($value['nick']);
 				$friendInfo->{$otherid}->head = $value['head'];
 				$friendInfo->{$otherid}->level = $value['level'];
 				$friendInfo->{$otherid}->force = $value['tec_force'] + $value['award_force'];

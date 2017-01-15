@@ -45,7 +45,7 @@
 			$saveData->base = $changeFightDataValue->chooseList;
 			$saveData->userinfo = new stdClass();
 			$saveData->userinfo->head = $userData->head;
-			$saveData->userinfo->nick = $userData->nick;
+			$saveData->userinfo->nick = base64_encode($userData->nick);
 			$saveData->userinfo->level = $userData->level;
 			$saveData->userinfo->force = $userData->tec_force + $userData->award_force;
 			$saveData->userinfo->win = $userData->server_game->win;
@@ -83,7 +83,7 @@
 		//处更玩家数据,奖励
 		$award = new stdClass();
 		$returnData->award = $award;
-		$award->exp = round(30*(1+$pkLevel/10));
+		$award->exp = round(20*(1+$pkLevel/3));
 		$award->coin = round(30*(1+$pkLevel/10));//*$userData->server_game->last
 		$award->prop = new stdClass();
 		

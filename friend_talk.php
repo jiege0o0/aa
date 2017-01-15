@@ -25,8 +25,8 @@
 		$othernick = $result['nick'];
 		$oo = new stdClass();
 		$oo->head = $userData->head;
-		$oo->nick = $userData->nick;
-		$oo->talk = $talk;
+		$oo->nick = base64_encode($userData->nick);
+		$oo->talk = base64_encode($talk);
 		
 		$oo = json_encode($oo);
 		

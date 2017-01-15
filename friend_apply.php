@@ -41,7 +41,7 @@
 		$othernick = $result['nick'];
 		$oo = new stdClass();
 		$oo->head = $userData->head;
-		$oo->nick = $userData->nick;
+		$oo->nick = base64_encode($userData->nick);
 		$oo->level = $userData->level;
 		$oo->force = $userData->tec_force + $userData->award_force;
 		$oo = json_encode($oo);

@@ -33,7 +33,12 @@
 		$equalPK = true;
 		
 		$enemyAdd = $userData->server_game_equal->last;
-		$team2Data->fight += $enemyAdd;//知道了对方的卡牌，要增加对方实力才能平衡
+		if($enemyAdd >0 && $enemyAdd <3)
+			$enemyAdd = 0;
+		else($enemyAdd >=3)
+			$enemyAdd -= 2;
+		$team1Data->fight -= $enemyAdd;//知道了对方的卡牌，要降低实力才能平衡
+		
 		require_once($filePath."pk_action/pk.php");
 		// $team2Data->fight -= $enemyAdd;//知道了对方的卡牌，要增加对方实力才能平衡
 		
@@ -48,7 +53,7 @@
 			$saveData->base = $changeFightDataValue->chooseList;
 			$saveData->userinfo = new stdClass();
 			$saveData->userinfo->head = $userData->head;
-			$saveData->userinfo->nick = $userData->nick;
+			$saveData->userinfo->nick = base64_encode($userData->nick);
 			$saveData->userinfo->level = $userData->level;
 			$saveData->userinfo->force = $userData->tec_force + $userData->award_force;
 			$saveData->userinfo->win = $userData->server_game_equal->win;
@@ -137,7 +142,7 @@
 		}
 
 		$winTime = min(9,$userData->server_game_equal->last + 1);//9次以上的奖励不会增加
-		$award->exp = round(30*(1+$pkLevel/10)*$winTime);
+		$award->exp = round(20*(1+$pkLevel/3)*$winTime);
 		$award->coin = round(30*(1+$pkLevel/10)*$winTime);
 		$collectNum = ceil($winTime/3*$pkLevel);
 		$award->collect = addMonsterCollect($collectNum);//,2

@@ -78,8 +78,16 @@
 			
 			$enemyForce = $team2Data->force;
 			$userForce = $userData->tec_force + $userData->award_force;
-			if($enemyForce/$userForce > 1.5)//修正一下，最高只能打1.5倍战力
-				$team2Data->force = floor($userForce*1.5);
+			if($enemyForce/$userForce > 1.5 && $enemyForce-$userForce > 50)//修正一下，最高只能打1.5倍战力
+			{
+			debug($enemyForce);
+			debug($userForce);
+			debug($team2Data->fight);
+				$decForce = $enemyForce - floor($userForce*1.5);
+				if($decForce > 0)
+					$team2Data->fight -= $decForce;
+			}
+			
 			
 			$userData->{$pkType}->choose = $choose;
 			$userData->{$pkType}->enemy = $team2Data;

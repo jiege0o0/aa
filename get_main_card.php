@@ -11,8 +11,18 @@
 				$returnData->sync_energy = $userData->energy;
 				break;
 			}
-			require_once($filePath."pk_action/get_pk_card.php");
-			$choose = array(getPKCard($userData->level));
+			if($userData->exp == 0)
+			{
+				$obj = new stdClass();
+				$obj->list = array(16,53,29,59,20,43,1,5);
+				$choose = array($obj);
+			}
+			else
+			{
+				require_once($filePath."pk_action/get_pk_card.php");
+				$choose = array(getPKCard($userData->level));
+			}
+			
 			$userData->{$type}->choose = $choose;
 			$userData->setChangeKey($type);
 			$userData->addEnergy(-1);

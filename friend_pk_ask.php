@@ -47,12 +47,12 @@
 		}
 		
 		$contentOrg = new stdClass();
-		$contentOrg->talk = $msg->talk;
+		$contentOrg->talk = base64_encode($msg->talk);
 		$contentOrg->from_list = $fromList;
 		$contentOrg->ask_choose = $team1Data;
 		$contentOrg->isequal = $isEqual;
-		$contentOrg->fromnick = $userData->nick;
-		$contentOrg->tonick = $toNick;
+		$contentOrg->fromnick = base64_encode($userData->nick);
+		$contentOrg->tonick = base64_encode($toNick);
 		$contentOrg->fromhead = $userData->head;
 		$contentOrg->tohead = $toHead;
 		$content = json_encode($contentOrg);

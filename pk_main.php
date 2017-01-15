@@ -37,7 +37,7 @@
 		$award = new stdClass();
 		$returnData->award = $award;
 		$award->prop = new stdClass();
-		$award->exp = ceil(30*(1+$level/200));
+		$award->exp = ceil(20*(1+$level/50));
 		$award->coin = ceil(50*(1+$level/200));
 		if($result)
 		{
@@ -49,7 +49,7 @@
 		}
 		else
 		{
-			$award->exp = 10;
+			$award->exp = 10 + floor($level/50);
 			$award->coin = 0;
 		}
 

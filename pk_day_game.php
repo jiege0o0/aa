@@ -79,7 +79,7 @@
 			$returnData->sync_day_game->level = $userData->day_game->level;
 			$returnData->sync_day_game->score = $userData->day_game->score;
 			
-			$award->exp = 30;
+			$award->exp = ceil(30*(1+$userData->day_game->level/4));
 			$award->coin = floor(pow(1.3 + $userLevel/100,$userData->day_game->level)*50);
 			
 			$propNum = floor(pow(1.25 + $userLevel/100,$userData->day_game->level));
@@ -95,7 +95,7 @@
 		}
 		else
 		{				
-			$award->exp = 15;
+			$award->exp = 10 + ($userData->day_game->level)*2;
 			$award->coin = 0;
 		}
 		

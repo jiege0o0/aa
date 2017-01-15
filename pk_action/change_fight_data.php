@@ -74,8 +74,10 @@
 		if(!property_exists($data,'index'))
 			$data->index = 0;
 
-		if($data->index)
+		if($data->index){
+			$outData->index = $data->index;
 			$chooseList = $chooseList[$data->index];
+		}
 		else 
 			$chooseList = $chooseList[0];
 			
@@ -99,7 +101,7 @@
 		$outData->list = $data->list;	
 		$outData->ring = new stdClass();
 		$outData->ring->id = $data->ring;	
-		$outData->fight = 500;
+		$outData->fight = 0;
 		$outData->force = $force;
 		$len = count($data->list);
 		
