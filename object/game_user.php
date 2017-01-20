@@ -1,4 +1,12 @@
 <?php
+
+	$honorAwardBase = array('1'=>array('num'=>10,'diamond'=>10),
+	'2'=>array('num'=>100,'diamond'=>50),
+	'3'=>array('num'=>1000,'diamond'=>200),
+	'4'=>array('num'=>5000,'diamond'=>400),
+	'5'=>array('num'=>10000,'diamond'=>500));
+	
+	
 class GameUser{
 	public $gameid;
 	public $nick;
@@ -81,6 +89,22 @@ class GameUser{
 	//有可领奖的成就
 	function honorIsRed()
 	{
+		global $honorAwardBase;
+		foreach($this->honor->monster as $key=>$value)
+		{
+			$step = (int)$value->a;
+			if($step == 5)
+				return;
+			$step ++;
+			$need = $honorAwardBase[$step]['num'];
+			if($value->w >= $need)
+			{
+				debug($value);
+				debug('|'.$need.'|'.$step);
+				return true;
+			}
+				
+		}
 		return false;
 	}
 	
@@ -216,29 +240,29 @@ class GameUser{
 				$returnData->sync_level = $this->level;
 				$returnData->sync_next_exp = $upExp;
 			}
-			if($up)
-			{
-				if($this->level== 5 || $this->level== 8 || $this->level>= 10)//创建升级任务
-				{
-					if(!$this->active->task->doing)//是否有进行中的任务
-					{
-						$this->active->task->doing = true;
-						$this->active->task->type = 'server_game';
-						if($this->level >=10 && lcg_value()>0.6)
-						{
-							$this->active->task->type = 'server_game_equal';
-						}
-						$this->active->task->win = 0;
-						$this->active->task->total = 0;
-						$this->active->task->targettotal = rand(10,50);
-						$this->active->task->targetwin = round($this->active->task->targettotal*rand(5,8)/10);
-						$this->active->task->award = 1 + ceil($this->level/10);
-						$this->setChangeKey('task');
-						$returnData->sync_active_task = $this->active->task;
-						$returnData->new_task = true;
-					}
-				}
-			}
+			// if($up)
+			// {
+				// if($this->level== 5 || $this->level== 8 || $this->level>= 10)//创建升级任务
+				// {
+					// if(!$this->active->task->doing)//是否有进行中的任务
+					// {
+						// $this->active->task->doing = true;
+						// $this->active->task->type = 'server_game';
+						// if($this->level >=10 && lcg_value()>0.6)
+						// {
+							// $this->active->task->type = 'server_game_equal';
+						// }
+						// $this->active->task->win = 0;
+						// $this->active->task->total = 0;
+						// $this->active->task->targettotal = rand(10,50);
+						// $this->active->task->targetwin = round($this->active->task->targettotal*rand(5,8)/10);
+						// $this->active->task->award = 1 + ceil($this->level/10);
+						// $this->setChangeKey('task');
+						// $returnData->sync_active_task = $this->active->task;
+						// $returnData->new_task = true;
+					// }
+				// }
+			// }
 		}
 	}
 	

@@ -107,7 +107,7 @@
 		
 		$userData->server_game_equal->total++;
 		$returnData->sync_server_game_equal->total = $userData->server_game_equal->total;
-		testLevelTask($pkType,$result);
+		// testLevelTask($pkType,$result);
 		if($result)
 		{
 			$userData->server_game_equal->win++;

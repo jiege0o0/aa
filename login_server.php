@@ -17,9 +17,9 @@
 		// unset($userData->collect->num);
 		// $userData->collect->isred = $userData->collectIsRed();//初始红点
 		
-		
+		$honorRed = $userData->honorIsRed();
 		$userData->honor = new stdClass();
-		$userData->honor->isred = $userData->honorIsRed();
+		$userData->honor->isred = $honorRed;
 		
 		
 
@@ -35,6 +35,13 @@
 			
 		if($userData->server_game_equal->enemy && $userData->server_game_equal->enemy->pkdata && !$userData->server_game_equal->pktime)
 			unset($userData->server_game_equal->enemy->pkdata);
+			
+		$sql = "select time from ".$sql_table."friend_log where (to_gameid='".$userData->gameid."' or (from_gameid='".$userData->gameid."' and type!=1)) order by time desc limit 1";
+		$result = $conne->getRowsRst($sql);
+		if($result)	
+		{
+			$userData->friendtime = $result['time'];
+		}
 
 		$returnData->data = $userData;
 		

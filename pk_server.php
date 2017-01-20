@@ -87,7 +87,7 @@
 		$award->coin = round(30*(1+$pkLevel/10));//*$userData->server_game->last
 		$award->prop = new stdClass();
 		
-		testLevelTask($pkType,$result);
+		// testLevelTask($pkType,$result);
 		$userData->server_game->total++;
 		$returnData->sync_server_game->total = $userData->server_game->total;
 		if($result)
