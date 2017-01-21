@@ -48,8 +48,14 @@ http://172.17.196.195:90/test.php
 
 http://172.17.196.195:90/new_index.php
 http://hangegame.com/new_index.php
+http://hangegame.com/user/_create_db.php
 http://hangegame.com/game/_create_db.php?serverid=1
 http://hangegame.com/game/_create_monster_db.php?table=server_monster,server_equal_monster
+http://hangegame.com/index.html?host1=com&openid=h1
+http://hangegame.com/client/index.html
+
+http://172.17.196.195:9010/index.html?host1=com&openid=h1
+http://172.17.196.195:9010/index.html?host=com&openid=h1&serverid=1
 
 {"isagain":false,"landid":1458716565,"gameid":"1_10011"}
 

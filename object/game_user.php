@@ -272,6 +272,8 @@ class GameUser{
 	
 	//¼ÓÇ®
 	function addCoin($v){
+		if(!$v)
+			return;
 		global $returnData;
 		$this->coin += $v;
 		$this->setChangeKey('coin');

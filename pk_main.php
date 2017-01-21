@@ -41,6 +41,12 @@
 		$award->coin = ceil(50*(1+$level/200));
 		if($result)
 		{
+			if($userData->exp == 0 && $userData->level == 1)
+			{
+				$award->coin = 100;
+				require_once($filePath."get_monster_collect.php");
+				$award->collect = addMonsterCollect(1);
+			}
 			$userData->main_game->level++;
 			$userData->main_game->time = time();
 			$userData->main_game->kill = array();
