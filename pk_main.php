@@ -67,7 +67,7 @@
 		$userData->addCoin($award->coin);
 		$userData->addExp($award->exp);
 		$userData->main_game->choose = null;
-		$userData->main_game->pkdata = array("team1"=>$team1Data,"team2"=>$team2Data,"isequal"=>$equalPK,"info"=>$pkUserInfo);
+		$userData->main_game->pkdata = array("team1"=>$team1Data,"team2"=>$team2Data,"isequal"=>$equalPK,"info"=>$pkUserInfo,'version'=>$pk_version);
 		$returnData->sync_main_game->choose = null;
 		
 		$userData->addHistory($team1Data->list);

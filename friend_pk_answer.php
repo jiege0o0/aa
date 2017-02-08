@@ -59,6 +59,7 @@
 		
 		$content->answer_choose = $team1Data;
 		$content->result = $result;
+		$content->pk_version = $pk_version;
 		
 		$content = json_encode($content);
 		

@@ -106,7 +106,7 @@
 		$userData->addCoin($award->coin);
 		$userData->addExp($award->exp);
 		$userData->addEnergy(-1);
-		$userData->day_game->pkdata = array("team1"=>$team1Data,"team2"=>$team2Data,"isequal"=>$equalPK,"info"=>$pkUserInfo);
+		$userData->day_game->pkdata = array("team1"=>$team1Data,"team2"=>$team2Data,"isequal"=>$equalPK,"info"=>$pkUserInfo,'version'=>$pk_version);
 		
 		$userData->addHistory($team1Data->list);
 		$userData->setChangeKey('day_game');

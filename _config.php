@@ -1,4 +1,7 @@
 <?php
+	$game_version = 1;
+	$pk_version = 3;
+	
 	$sql_url = "127.0.0.1";
 	$sql_user = "root";	
 	$sql_password = "111111";	

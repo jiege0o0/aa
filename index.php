@@ -41,7 +41,7 @@
 	try{	
 		do{
 			//²âÊÔ°æ±¾ºÅ
-			if($_POST['version'] != '1'){
+			if($_POST['version'] != $game_version){
 				$sendData->error = 1;
 				break;
 			}

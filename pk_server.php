@@ -150,7 +150,7 @@
 		$userData->server_game->pk += 1;
 		
 		
-		$userData->server_game->pkdata = array("team1"=>$team1Data,"team2"=>$team2Data,"isequal"=>$equalPK,"info"=>$pkUserInfo);
+		$userData->server_game->pkdata = array("team1"=>$team1Data,"team2"=>$team2Data,"isequal"=>$equalPK,"info"=>$pkUserInfo,'version'=>$pk_version);
 		
 		if($userData->server_game->exp > $userData->server_game->top)
 		{

@@ -17,7 +17,7 @@ do{
 	}
 
 	//有没有重名
-	$sql = "select * from user_data where nick='".$nick."'";
+	$sql = "select * from ".$sql_table."user_data where nick='".$nick."'";
 	if($conne->getRowsNum($sql))
 	{
 		$returnData -> fail = 3;
