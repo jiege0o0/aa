@@ -17,7 +17,7 @@
 		public $order = 1;
 		function action($user,$self,$enemy){
 			$this->decHp($user,$enemy,$user->atk*1.5);
-			$self->addSpeed(5);//round($self->base_speed*0.05);
+			$user->addSpeed(5);//round($self->base_speed*0.05);
 			
 			$buff = new ValueBuff('atk',-round($enemy->base_atk * 0.2),1);
 			$buff->isDebuff = true;
@@ -31,7 +31,7 @@
 		public $isAtk = true;
 		function action($user,$self,$enemy){
 			$this->decHp($user,$enemy,$user->atk);
-			$self->addSpeed(5);//round($self->base_speed*0.05);
+			$user->addSpeed(5);//round($self->base_speed*0.05);
 		}
 	}
 	
@@ -59,7 +59,7 @@
 			$buff = new ValueBuff('atk',-round($enemy->base_atk * 0.1),1);
 			$buff->isDebuff = true;
 			$buff->addToTarget($enemy);
-			$self->addSpeed(2);
+			$user->addSpeed(2);
 		}
 	}	
 	//¸¨£º-- 50%ÉË
@@ -68,7 +68,7 @@
 		public $isAtk = true;
 		function action($user,$self,$enemy){
 			$this->decHp($user,$enemy,$user->atk*1);
-			$self->addSpeed(2);
+			$user->addSpeed(2);
 		}
 	}
 

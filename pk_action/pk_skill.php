@@ -133,7 +133,7 @@
 		$b = $skillData->actionSkill($user,$self,$enemy);	
 		
 
-		$pkData->endSkillMV($skillData->index);		
+		$pkData->endSkillMV($skillData->getClientIndex());		
 			
 		if(!$skillData->type)
 			$user->setSkillUse($skillData->index);

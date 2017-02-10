@@ -2,6 +2,7 @@
 	require($filePath."pk_action/pk_buff.php");
 	class SkillBase{
 		public $owner;//技能所有者
+		public $clientIndex=-1;//给客户端的技能ID
 		public $index=0;//技能ID
 		public $isMain = false;//是否能量技能
 		public $isAtk = false;//攻击型技能，被打者会加MP
@@ -37,6 +38,12 @@
 		
 		function localReInit(){
 
+		}
+		
+		function getClientIndex(){
+			if($this->clientIndex == -1)
+				return $this->index;
+			return $this->clientIndex;
 		}
 		
 		//技能是否能使用

@@ -34,6 +34,7 @@
 	}
 	class sm_14_5 extends SkillBase{
 		public $type = 'EAFTER';
+		public $clientIndex=2;
 		function action($user,$self,$enemy){
 			$this->decHp($user,$enemy,$enemy->atk*1);
 		}
@@ -49,6 +50,7 @@
 	}
 	class sm_14_f5 extends SkillBase{
 		public $type = 'EAFTER';
+		public $clientIndex=1;
 		function action($user,$self,$enemy){
 			$this->decHp($user,$enemy,$enemy->atk*0.5);
 		}

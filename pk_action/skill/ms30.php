@@ -31,6 +31,7 @@
 	}	
 	class sm_30_5 extends SkillBase{
 		public $type='AFTER';
+		public $clientIndex=2;
 		function action($user,$self,$enemy){
 			$self->addAtk(-$self->base_atk*0.1);
 		}
