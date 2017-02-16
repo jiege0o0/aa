@@ -267,7 +267,7 @@ class GameUser{
 	}
 	
 	function getNextExp(){
-		return (pow($this->level+1,3.2) - pow($this->level,3.2))*10;
+		return floor(pow($this->level+1,3.2) - pow($this->level,3.2))*10;
 	}
 	
 	//¼ÓÇ®
