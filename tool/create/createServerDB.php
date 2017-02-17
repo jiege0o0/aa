@@ -6,7 +6,7 @@ mysql_query("set names utf8");
 
 //ALTER TABLE `no1_user_data` ADD `pk_common` TEXT
 
-
+/*
 mysql_query("
 Create TABLE ".$sql_table."user_data(
 gameid varchar(16) NOT NULL Unique Key,
@@ -35,7 +35,7 @@ land_key varchar(63),
 last_land INT UNSIGNED
 )",$connect)or die("message=F,Invalid query: " . mysql_error()); 
 
-
+*/
 mysql_query("
 Create TABLE ".$sql_table."server_game_1(
 id TINYINT UNSIGNED,
@@ -82,7 +82,7 @@ for($i=1;$i<=100;$i++)
 	",".$arr['last_time'].")",
 	$connect)or die("message=F,Invalid query: " . mysql_error()); 
 }
-
+/*
 //好友相关
 mysql_query("
 Create TABLE ".$sql_table."user_friend(
@@ -114,7 +114,7 @@ type TINYINT UNSIGNED,
 content varchar(8138),
 time INT UNSIGNED
 )",$connect)or die("message=F,Invalid query: " . mysql_error()); 
-
+*/
 
 
 //服务器状态信息表(openid,state_key)

@@ -132,6 +132,7 @@
 			$userData->server_game_equal->choose = null;
 			$userData->server_game_equal->enemy = null;
 			$userData->server_game_equal->time = time();
+			$userData->server_game_equal->pk = 0;
 			
 			$winTime = min(9,$userData->server_game_equal->last + 1);//9次以上的奖励不会增加
 			$award->exp = round(20*(1+$pkLevel/3)*$winTime);
@@ -146,6 +147,7 @@
 			$returnData->sync_server_game_equal->last = $userData->server_game_equal->last;
 			$award->g_exp = -2-2*pkLevel;
 			$award->exp = round(20*(1+$pkLevel/3));
+			$userData->server_game_equal->pk += 1;
 		}
 
 
@@ -159,7 +161,7 @@
 		$userData->addCoin($award->coin);
 		$userData->addExp($award->exp);
 		$userData->server_game_equal->exp += $award->g_exp;
-		$userData->server_game_equal->pk += 1;
+		
 		
 		$userData->server_game_equal->pkdata = array("team1"=>$team1Data,"team2"=>$team2Data,"isequal"=>$equalPK,"info"=>$pkUserInfo,'version'=>$pk_version);
 		$returnData->sync_server_game_equal->exp = $userData->server_game_equal->exp;

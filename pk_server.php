@@ -130,6 +130,7 @@
 			$userData->server_game->choose = null;
 			$userData->server_game->enemy = null;
 			$userData->server_game->time = time();
+			$userData->server_game->pk = 0;
 		}
 		else
 		{
@@ -138,6 +139,7 @@
 			$award->exp = round($award->exp/2);
 			$award->coin = round($award->coin/3);
 			$award->g_exp = -3 - $pkLevel*5;
+			$userData->server_game->pk += 1;
 		}	
 		
 		foreach($award->prop as $key=>$value)
@@ -147,7 +149,7 @@
 		$userData->addCoin($award->coin);
 		$userData->addExp($award->exp);
 		$userData->server_game->exp += $award->g_exp;
-		$userData->server_game->pk += 1;
+		
 		
 		
 		$userData->server_game->pkdata = array("team1"=>$team1Data,"team2"=>$team2Data,"isequal"=>$equalPK,"info"=>$pkUserInfo,'version'=>$pk_version);
