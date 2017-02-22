@@ -5,11 +5,11 @@
 		'2'=>array('cost'=>60,'rmb'=>false),
 		
 		'11'=>array('cost'=>60,'rmb'=>false,'rate'=>1),
-		'12'=>array('cost'=>300,'rmb'=>false,'rate'=>5.1),
+		'12'=>array('cost'=>300,'rmb'=>false,'rate'=>6),
 		'13'=>array('cost'=>1500,'rmb'=>false,'rate'=>31),
 		
 		'21'=>array('cost'=>60,'rmb'=>false,'rate'=>1),
-		'22'=>array('cost'=>300,'rmb'=>false,'rate'=>5.1),
+		'22'=>array('cost'=>300,'rmb'=>false,'rate'=>6),
 		'23'=>array('cost'=>1500,'rmb'=>false,'rate'=>31),
 		
 		'31'=>array('cost'=>60,'rmb'=>false,'rate'=>5),
@@ -62,5 +62,6 @@
 		}
 		
 		$userData->write2DB();
+		payLog(json_encode($msg));
 	}while(false);
 ?> 

@@ -19,9 +19,9 @@
 		else
 		{
 			$userData->addDiamond($arr[$id]['diamond'],true);
-			$userData->write2DB();
 		}
-	
+		$userData->write2DB();
+		payLog(json_encode($msg));
 		
 	}while(false);
 ?> 
