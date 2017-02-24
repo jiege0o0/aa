@@ -45,7 +45,7 @@
 			break;
 		}
 		$friendInfo = new stdClass();
-		$friendInfo->nick = $value['nick'];
+		$friendInfo->nick = base64_encode($value['nick']);
 		$friendInfo->head = $value['head'];
 		$friendInfo->level = $value['level'];
 		$friendInfo->force = $value['tec_force'] + $value['award_force'];
@@ -67,7 +67,7 @@
 		
 		
 		$friendInfo2 = new stdClass();
-		$friendInfo2->nick = $userData->nick;
+		$friendInfo2->nick = base64_encode($userData->nick);
 		$friendInfo2->head = $userData->head;
 		$friendInfo2->level = $userData->level;
 		$friendInfo2->force = $userData->tec_force + $userData->award_force;

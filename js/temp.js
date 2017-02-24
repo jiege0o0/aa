@@ -72,7 +72,7 @@ aa('friend_pk_answer',{"landid":1449732148,"gameid":"1_10001","choose":{"list":[
 
 
 
-
+http://172.17.196.195:90/game/egret_pay.php
 
 
 
