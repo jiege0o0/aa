@@ -8,12 +8,12 @@
 			$returnData->fail = 3;
 			break;
 		}
-		if($userData->getFriendTalk() <=0)//今天不能再发了
-		{
-			$returnData->fail = 4;
-			$returnData->sync_friends = $userData->friends;
-			break;
-		}
+		// if($userData->getFriendTalk() <=0)//今天不能再发了
+		// {
+			// $returnData->fail = 4;
+			// $returnData->sync_friends = $userData->friends;
+			// break;
+		// }
 		$sql = "select nick from ".$sql_table."user_data where gameid='".$otherid."'";
 		$result = $conne->getRowsRst($sql);
 		if(!$result)//对方不存在	
@@ -39,7 +39,7 @@
 			break;
 		}
 		
-		$userData->addFriendTalk(-1);
+		// $userData->addFriendTalk(-1);
 		$returnData->data = 'ok';
 		$userData->write2DB();
 	}

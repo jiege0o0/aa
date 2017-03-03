@@ -57,7 +57,7 @@ class player{
 	// public $statKey = array('stat1','stat2','stat3','stat4','stat5','stat6','stat7','stat8','stat9','stat10',
 	// 'atk','speed','maxHp','action1','action2','action3','action4','action5','hurt','def','cdhp','healAdd');
 	public $stat = array();//特殊状态标记
-	//1：攻，2：速，3：防，4：伤     --+10变成减值
+	//1：攻，2：速，3：防，4：伤 5:血上限    --+10变成减值
 	//21：禁普攻，22：禁技能，23：禁特性，24：晕,25:魅惑
 	//31:魔免
 	//41：HP+，42：HP-，

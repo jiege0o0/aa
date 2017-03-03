@@ -95,7 +95,7 @@
 		file_put_contents($file4,json_encode($arr4),LOCK_EX);
 		file_put_contents($file5,json_encode($arr5),LOCK_EX);
 			
-		
+		$returnData->ok = true;
 	}while(false);
 	
 	//把合适的数据加到数组中
