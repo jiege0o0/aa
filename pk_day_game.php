@@ -54,7 +54,7 @@
 		$team2Data = $content->levels[$level-1];
 		if(!$team2Data->fight)
 			$team2Data->fight = 0;
-		$team2Data->fight += ($level-1)*20;//修正打时基础是300，10级时+180，差不多是1.6倍
+		$team2Data->fight += ($level-1)*15;//修正打时基础是300，10级时+135，差不多是1.45倍
 		$equalPK = true;
 		
 		$pkUserInfo = new stdClass();

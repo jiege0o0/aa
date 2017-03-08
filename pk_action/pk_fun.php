@@ -190,11 +190,15 @@
 			
 		}
 		
+		$self->testDie();
+		$enemy->testDie();
 		if(!$haveSkill && $user->setHaveAction($haveAction))
 		{
 			if($user->isPKing)
 				pk_kill($user,$enemy);
 		}
+		
+		
 		
 		//ÕæÕýËÀ
 		if($self->hp <= 0)

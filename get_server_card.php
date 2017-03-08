@@ -109,7 +109,8 @@
 			$returnData->enemy = $userData->{$pkType}->enemy;
 			$returnData->enemyinfo = $userData->{$pkType}->enemy->userinfo;
 		}
-		unset($returnData->enemy->pkdata);
+		if(!$userData->{$pkType}->pktime)
+			unset($returnData->enemy->pkdata);
 	}while(false);
 		
 ?> 

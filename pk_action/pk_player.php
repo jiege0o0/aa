@@ -679,7 +679,33 @@ class player{
 			
 		if($this->hp > 0)	
 			$this->testTSkill('HP');
-		else
+		/*else
+		{
+			$this->testTSkill('DIE');
+			$this->team->enemy->currentMonster[0]->testTSkill('EDIE');
+			
+			//ËÀºóÇå³ýBUFF
+			$len = count($this->buffArr);
+			for($i=0;$i<$len && $num > 0;$i++)
+			{
+				$this->buffArr[$i]->cd = 0;
+			}
+			$b = $this->testStateCD(0);
+			if($b)
+				$this->testOutStat();
+		}*/
+		
+		// if($this->id == 10)
+		// {
+			// global $pkData;
+			// debug($pkData->step.'-'.$this->hp.'_'.$v);
+		// }
+			
+		return $v;
+	}
+	
+	function testDie(){
+		if($this->hp <= 0)	
 		{
 			$this->testTSkill('DIE');
 			$this->team->enemy->currentMonster[0]->testTSkill('EDIE');
@@ -694,14 +720,6 @@ class player{
 			if($b)
 				$this->testOutStat();
 		}
-		
-		// if($this->id == 10)
-		// {
-			// global $pkData;
-			// debug($pkData->step.'-'.$this->hp.'_'.$v);
-		// }
-			
-		return $v;
 	}
 	
 	function getHpRate(){

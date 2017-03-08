@@ -131,7 +131,7 @@ class GameUser{
 		}
 	}
 	function resetEnergy(){//每一段时间回复一定量
-		$cd = $this->energy->vip?24:30; 
+		$cd = ($this->energy->vip?24:30)*60; 
 		$time = time();
 		$add = floor(($time - $this->energy->t)/$cd);
 		if($add > 0)

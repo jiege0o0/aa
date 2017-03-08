@@ -43,7 +43,7 @@
 		// $team2Data->fight -= $enemyAdd;//知道了对方的卡牌，要增加对方实力才能平衡
 		
 		//---------------------更新战斗池---------------
-		if($userData->server_game_equal->pk == 0 && ($result || $changeFightDataValue->cost < 20))//用了80以上的才正常
+		if($userData->server_game_equal->pk == 0 && ($result || $changeFightDataValue->cost > 80))//用了80以上的才正常
 		{
 			
 			$tableName = $sql_table.$pkType."_".$pkLevel;
@@ -63,22 +63,18 @@
 			
 	
 			//更新战斗表
-			$sql = "update ".$tableName." set gameid='".$userData->gameid."',game_data='".json_encode($team1Data)."',result=".($result == 0?0:1)." where id=".$id;
-			$conne->uidRst($sql);
-			
-			//更新战斗表
 			$time = time();
 			$sql1 = "update ".$tableName." set gameid='".$userData->gameid."',game_data='".json_encode($saveData)."',result=".($result == 0?0:1).",last_time=".$time.",choose_num=0";
 			$sql = $sql1." where id=".$userData->server_game_equal->enemy->id." and last_time=".$userData->server_game_equal->enemy->last_time;
-			if(!$conne->uidRst($sql)){//没有更新到
+			if(!$conne->uidRst($sql)){//没有更新到    && lcg_value()>0.9
 				//先取ID
 				$sql = "select id from ".$tableName." where gameid!='".$userData->gameid."' order by ".$winKey." choose_num asc, last_time asc limit 1";
-				$result = $conne->getRowsRst($sql);
-				if($result)
+				$sqlResult = $conne->getRowsRst($sql);
+				if($sqlResult)
 				{
 					$sql = "select * from ".$tableName." order by ".$winKey." choose_num asc, last_time asc limit 1";
-					$result = $conne->getRowsRst($sql);
-					$sql = $sql1." where id=".$result['id'];
+					$sqlResult = $conne->getRowsRst($sql);
+					$sql = $sql1." where id=".$sqlResult['id'];
 					$conne->uidRst($sql);
 				}
 			}
@@ -137,7 +133,7 @@
 			$winTime = min(9,$userData->server_game_equal->last + 1);//9次以上的奖励不会增加
 			$award->exp = round(20*(1+$pkLevel/3)*$winTime);
 			$award->coin = round(30*(1+$pkLevel/10)*$winTime);
-			$collectNum = ceil($winTime/3*$pkLevel);
+			$collectNum = ceil($winTime/3*$pkLevel) + 1;
 			$award->collect = addMonsterCollect($collectNum);//,2
 
 		}
