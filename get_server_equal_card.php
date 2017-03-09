@@ -58,10 +58,10 @@
 			
 			//到对应表中找
 			$winKey = "";
-			if($userData->server_game_equal->last >= 1)
-				$winKey = 'result desc,';
-			else
-				$winKey = 'result asc,';
+			// if($userData->server_game_equal->last >= 1)
+				// $winKey = 'result desc,';
+			// else
+				// $winKey = 'result asc,';
 			$sql = "select * from ".$tableName." where gameid!='".$userData->gameid."' order by ".$winKey." choose_num asc, last_time asc limit 1";
 			$result = $conne->getRowsRst($sql);
 			if(!$result)//没找到PK对象

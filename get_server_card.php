@@ -3,7 +3,7 @@
 	$isagain = $msg->isagain;
 	$pkType='server_game';
 	$choose = $userData->{$pkType}->choose;
-	$energyCost = $isagain?3:2;
+	$energyCost = 2;
 	do{
 		if($userData->getEnergy() < $energyCost)//体力不够
 		{
@@ -53,10 +53,10 @@
 			
 			//到对应表中找
 			$winKey = "";
-			if($userData->server_game->last >= 1)
-				$winKey = 'result desc,';
-			else
-				$winKey = 'result asc,';
+			// if($userData->server_game->last >= 1)
+				// $winKey = 'result desc,';
+			// else
+				// $winKey = 'result asc,';
 			$sql = "select * from ".$tableName." where gameid!='".$userData->gameid."' order by ".$winKey." choose_num asc, last_time asc limit 1";
 			$result = $conne->getRowsRst($sql);
 			if(!$result)//没找到PK对象
@@ -80,9 +80,6 @@
 			$userForce = $userData->tec_force + $userData->award_force;
 			if($enemyForce/$userForce > 1.5 && $enemyForce-$userForce > 50)//修正一下，最高只能打1.5倍战力
 			{
-			debug($enemyForce);
-			debug($userForce);
-			debug($team2Data->fight);
 				$decForce = $enemyForce - floor($userForce*1.5);
 				if($decForce > 0)
 					$team2Data->fight -= $decForce;

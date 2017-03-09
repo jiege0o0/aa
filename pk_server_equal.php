@@ -43,7 +43,7 @@
 		// $team2Data->fight -= $enemyAdd;//知道了对方的卡牌，要增加对方实力才能平衡
 		
 		//---------------------更新战斗池---------------
-		if($userData->server_game_equal->pk == 0 && ($result || $changeFightDataValue->cost > 80))//用了80以上的才正常
+		if($result || $changeFightDataValue->cost > 80)//用了80以上的才正常
 		{
 			
 			$tableName = $sql_table.$pkType."_".$pkLevel;
@@ -66,7 +66,7 @@
 			$time = time();
 			$sql1 = "update ".$tableName." set gameid='".$userData->gameid."',game_data='".json_encode($saveData)."',result=".($result == 0?0:1).",last_time=".$time.",choose_num=0";
 			$sql = $sql1." where id=".$userData->server_game_equal->enemy->id." and last_time=".$userData->server_game_equal->enemy->last_time;
-			if(!$conne->uidRst($sql)){//没有更新到    && lcg_value()>0.9
+			if(!$conne->uidRst($sql)&& lcg_value()>0.9){//没有更新到    
 				//先取ID
 				$sql = "select id from ".$tableName." where gameid!='".$userData->gameid."' order by ".$winKey." choose_num asc, last_time asc limit 1";
 				$sqlResult = $conne->getRowsRst($sql);
