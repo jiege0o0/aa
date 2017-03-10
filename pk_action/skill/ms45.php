@@ -20,7 +20,12 @@
 		function action($user,$self,$enemy){
 			$buff = new StatBuff(101,3);
 			$buff->noClean = true;
+			$buff->value = '45_1_1';
 			$buff->addToTarget($self);
+			$this->setSkillEffect($self);
+			
+			// global $pkData;
+			// $pkData->out_debug('QQQQQ');
 		}
 	}
 	

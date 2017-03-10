@@ -52,7 +52,7 @@
 	}
 	
 	//辅：-- 50%伤，如果对方生命低于50%，120%伤
-	class sm_22_f1 extends SkillBase{
+	class sm_22_f2 extends SkillBase{
 		public $cd = 1;
 		public $isAtk = true;
 		function action($user,$self,$enemy){

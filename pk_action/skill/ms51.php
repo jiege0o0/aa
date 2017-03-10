@@ -6,6 +6,7 @@
 		function action($user,$self,$enemy){
 			$buff = new sm_51_0_buff(102,3);
 			$buff->noClean = true;
+			$buff->value = '51_0_1';
 			$buff->addToTarget($user);
 			
 			if(!$user->temp['lastManaHP'])

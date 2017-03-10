@@ -44,7 +44,7 @@
 
 	
 	//辅：--摄取：每次减速减攻，加到自己身上  2%
-	class sm_36_f1 extends SkillBase{
+	class sm_36_f2 extends SkillBase{
 		public $cd = 1;
 		public $isAtk = true;
 		function action($user,$self,$enemy){

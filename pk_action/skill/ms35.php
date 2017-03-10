@@ -45,7 +45,7 @@
 	}
 	
 	//¸¨£º--Ý±¶¾£º60%ÉËº¦,Ê¹¶Ô·½ÖÐ¶¾£¬¼õÑª£¬round1,cd1  ATK*0.4
-	class sm_35_f1 extends SkillBase{
+	class sm_35_f2 extends SkillBase{
 		public $cd = 1;
 		public $isAtk = true;
 		function action($user,$self,$enemy){

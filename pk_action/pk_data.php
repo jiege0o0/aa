@@ -378,7 +378,9 @@ class PKData{//主要记录一些PK中的数据
 	
 	function out_debug($str){//在序列中打出debug信息
 		// return;
-		out_str('0'.$str);
+		if(!$this->outDetail)
+			return;
+		$this->out_str('0'.$str);
 	}
 	function out_str($str){
 		array_push($this->roundResultArray,$str);

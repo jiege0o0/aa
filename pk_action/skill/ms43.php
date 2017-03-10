@@ -49,7 +49,7 @@
 		}
 	}	
 	//∏®£∫--50%…À∫¶
-	class sm_43_f2 extends SkillBase{
+	class sm_43_f3 extends SkillBase{
 		public $cd = 1;
 		public $isAtk = true;
 		function action($user,$self,$enemy){

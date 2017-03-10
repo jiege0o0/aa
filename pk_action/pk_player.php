@@ -712,7 +712,7 @@ class player{
 			
 			//ËÀºóÇå³ýBUFF
 			$len = count($this->buffArr);
-			for($i=0;$i<$len && $num > 0;$i++)
+			for($i=0;$i<$len;$i++)
 			{
 				$this->buffArr[$i]->cd = 0;
 			}

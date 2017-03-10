@@ -155,6 +155,7 @@
 	//ÌØÊâ×´Ì¬ÀàµÄbuff
 	class StatBuff extends BuffBase{
 		public $id;
+		public $value;
 		function __construct($id,$cd){
 			$this->id = $id;
 			$this->cd = $cd;
@@ -171,6 +172,8 @@
 			$this->target->addStat($this->id,1);
 			if($this->id < 100)
 				$pkData->addSkillMV(null,$this->target,pk_skillType('STAT',numToStr($this->id).numToStr($this->cd).$this->value));
+			else
+				$pkData->addSkillMV(null,$this->target,pk_skillType('STAT2',numToStr($this->id-100).numToStr($this->cd).$this->value));
 			// global $pkData;
 			// trace($pkData->step.':'.$this->target->id.'--'.$this->id.'--'.$this->target->stat[$this->id]);
 		}

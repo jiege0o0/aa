@@ -105,7 +105,7 @@
 		$haveAction = false;//是否有行动
 		$haveSkill = false;//是否有大招，由于是插播，不算行动回合
 		
-		$user->buffAction('before');
+		$user->buffAction('BEFORE');
 		if($user->isPKing)//场上的单位
 		{
 			//战前特性生效

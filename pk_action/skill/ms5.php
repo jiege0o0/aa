@@ -44,7 +44,7 @@
 	}
 	
 	//辅：--50%伤害，-10%速度，1回合
-	class sm_5_f1 extends SkillBase{
+	class sm_5_f3 extends SkillBase{
 		public $cd = 1;
 		public $isAtk = true;
 		function action($user,$self,$enemy){
@@ -68,7 +68,7 @@
 			$buff->addToTarget($user);
 		}
 	}
-	class sm_5_f3 extends SkillBase{
+	class sm_5_f5 extends SkillBase{
 		public $cd = 0;
 		function action($user,$self,$enemy){
 			array_push($self->dieMissTimes,array("id"=>$user->id,'mid'=>$user->monsterID,"type"=>'atk'));
