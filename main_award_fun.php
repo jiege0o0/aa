@@ -4,7 +4,7 @@
 	$award = new stdClass();
 	$returnData->award = $award;
 	
-	$award->coin = $level*200*$rate;
+	$award->coin = $level*100*$rate;
 	$userData->addCoin($award->coin);
 	
 	//每过30小关奖一个碎片

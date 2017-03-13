@@ -21,7 +21,7 @@
 		}
 		
 		
-		$coin = floor(pow($level,2.2)*100);
+		$coin = floor(pow($level,2.4)*10*($level/10 + 1))+39*$level;
 		if($userData->coin < $coin)//钱不够
 		{
 			$returnData->fail = 1;
@@ -29,7 +29,7 @@
 			break;
 		}
 		
-		$needNum = floor(pow(1.25,$level)*$level) - floor(pow(1.25,$level-1)*($level-1));
+		$needNum = floor(pow(1.25,$level)*$level*0.6 + $level) - floor(pow(1.25,$level-1)*($level-1)*0.6 + ($level - 1));
 		$mNum = $userData->getCollectNum($id);
 		if($needNum > $mNum)//碎片不够
 		{

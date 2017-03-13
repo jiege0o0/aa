@@ -24,7 +24,7 @@
 		$team2Data->ring = new stdClass();
 		$team2Data->ring->id = $main_game[$level]['ring'];
 		$team2Data->ring->level = ceil($level/100);
-		$team2Data->fight = $level;
+		$team2Data->fight = getMainForce($level);
 		foreach($userData->main_game->kill as $key=>$value)
 		{
 			$team2Data->list[$value] = 0;
@@ -41,11 +41,11 @@
 		$award->coin = ceil(50*(1+$level/200));
 		if($result)
 		{
-			if($userData->exp == 0 && $userData->level == 1)
+			if($userData->exp == 0 && $userData->level == 1)//新手副利
 			{
-				$award->coin = 100;
+				$award->coin = 1000;
 				require_once($filePath."get_monster_collect.php");
-				$award->collect = addMonsterCollect(1);
+				$award->collect = addMonsterCollect(10);
 			}
 			$userData->main_game->level++;
 			$userData->main_game->time = time();
@@ -76,6 +76,17 @@
 
 		
 	}while(false);
+	
+	function getMainForce($level){
+		$add = $level;
+		$index = 1;
+		while($level > 50*$index)
+		{
+			$add += ($level - 50*$index);
+			$index ++;	
+		}
+		return $add;
+	}
 	
 
 
