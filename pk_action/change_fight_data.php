@@ -99,8 +99,8 @@
 			
 		$force = $userData->tec_force + $userData->award_force;
 		$outData->list = $data->list;	
-		$outData->ring = new stdClass();
-		$outData->ring->id = $data->ring;	
+		// $outData->ring = new stdClass();
+		// $outData->ring->id = $data->ring;	
 		$outData->fight = 0;
 		$outData->force = $force;
 		$len = count($data->list);
@@ -144,8 +144,12 @@
 				$vo = $monster_base[$monsterID];
 				if(!isset($outData->tec->{$monsterID}))
 				{
-					$outData->mlevel->{$monsterID} = $userData->tec->monster->{$monsterID};
-					$outData->tec->{$monsterID} = getTecAdd('monster',$userData->tec->monster->{$monsterID});
+					
+					if($userData->tec->monster->{$monsterID})
+						$outData->mlevel->{$monsterID} = $userData->tec->monster->{$monsterID};
+					$tecAdd = getTecAdd('monster',$userData->tec->monster->{$monsterID});
+					if($tecAdd)
+						$outData->tec->{$monsterID} = $tecAdd;
 					// $add = 0;
 					// if(isset($userData->tec->monster->{$monsterID}))
 						// $add = getTecAdd('monster',$userData->tec->monster->{$monsterID});

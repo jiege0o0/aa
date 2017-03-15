@@ -1,6 +1,6 @@
 <?php
 class Team{
-	public $ring=1;	//令牌（召唤者技能）
+	// public $ring=1;	//令牌（召唤者技能）
 	public $ringLevel=1;	//令牌等级（召唤者技能等级）	
 	public $ringLevelAdd=0;	//令牌等级增加值
 	public $teamPlayer;//通用技能发送者(召唤者)
@@ -45,8 +45,8 @@ class Team{
 		if($data)
 		{
 			$this->teamID = $data->teamID;
-			$this->ring = $data->ring->id;
-			$this->ringLevel = $data->ring->level;
+			// $this->ring = $data->ring->id;
+			// $this->ringLevel = $data->ring->level;
 			$this->fight = $data->fight;
 			$this->tecLevel = $data->stec;
 			$this->list = $data->list;
@@ -286,7 +286,7 @@ class Team{
 	function getTeamBase(){
 		$oo = new stdClass();
 		$oo->rl = $this->ringLevel;
-		$oo->r = $this->ring;
+		// $oo->r = $this->ring;
 		// $oo->f = $this->fight;
 		$oo->tl = $this->tecLevel;
 		$oo->list = $this->list;
@@ -298,7 +298,7 @@ class Team{
 	//通过回放数据重构team对象
 	function fromReplayNeed($teamID,$oo,$baseoo,$playerArr){
 		$this->ringLevel = $baseoo->rl;
-		$this->ring = $baseoo->r;
+		// $this->ring = $baseoo->r;
 		// $this->fight = $baseoo->f;
 		$this->tecLevel = $baseoo->tl;
 		$this->list = $baseoo->list;
