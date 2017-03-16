@@ -35,7 +35,7 @@
 			$rate = $data['rate'];
 			$award = new stdClass();
 			$returnData->award = $award;
-			$award->coin = round(pow(1.2,$userLevel)*1000*$rate);
+			$award->coin = round(pow(1.2,$userLevel+5)*1000*$rate);
 			$userData->addCoin($award->coin);
 		}
 		else if($id >20 && $id < 30)
@@ -45,7 +45,7 @@
 			// $userLevel = $userData->level;
 			$rate = $data['rate'];
 			// $exp = floor(150*(1+$userLevel/50))*$rate;
-			$collectNum = round(pow(1.2,$userLevel)*10*$rate);
+			$collectNum = round(pow(1.2,$userLevel+5)*10*$rate);
 
 			// $award->exp = $exp;
 			$award->collect = addMonsterCollect($collectNum);

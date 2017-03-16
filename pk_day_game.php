@@ -80,9 +80,9 @@
 			$returnData->sync_day_game->score = $userData->day_game->score;
 			
 			$award->exp = ceil(30*(1+$userData->day_game->level/4));
-			$award->coin = floor(pow(1.3 + $userLevel/100,$userData->day_game->level)*50);
+			$award->coin = floor(pow(1.3 + $userLevel/500,$userData->day_game->level/2)*50);
 			
-			$propNum = floor(pow(1.25 + $userLevel/100,$userData->day_game->level));
+			$collectNum = ceil($userData->day_game->level*(1+$userLevel/500)*2/3);
 			$award->collect = addMonsterCollect($collectNum);//,2
 			
 			if($userData->day_game->level >= 8)

@@ -38,14 +38,14 @@
 		$returnData->award = $award;
 		$award->prop = new stdClass();
 		$award->exp = ceil(20*(1+$level/50));
-		$award->coin = ceil(50*(1+$level/200));
+		$award->coin = ceil(30*(1+$level/100));
 		if($result)
 		{
 			if($userData->exp == 0 && $userData->level == 1)//新手副利
 			{
 				$award->coin = 1000;
 				require_once($filePath."get_monster_collect.php");
-				$award->collect = addMonsterCollect(10);
+				$award->collect = addMonsterCollect(30);
 			}
 			$userData->main_game->level++;
 			$userData->main_game->time = time();

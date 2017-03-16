@@ -29,6 +29,10 @@
 			$pkUserInfo->head = $userData->server_game->enemy->userinfo->head;
 			$pkUserInfo->gameid = $userData->server_game->enemy->userinfo->gameid;
 		}
+		else//系统机器人
+		{
+			$team2Data->fight = $team1Data->fight;
+		}
 		
 		$enemyAdd = $userData->server_game->last;
 		$team2Data->fight += $enemyAdd;//知道了对方的卡牌，要增加对方实力才能平衡
@@ -106,11 +110,11 @@
 			{
 				$collectNum ++;
 			}
-			if($userData->server_game->win%30 == 0)//每胜30场
+			if($userData->server_game->win%10 == 0)//每胜10场
 			{
 				$collectNum ++;
 			}
-			if($userData->server_game->win%100 == 0)//每胜100场
+			if($userData->server_game->win%30 == 0)//每胜30场
 			{
 				$collectNum ++;
 			}

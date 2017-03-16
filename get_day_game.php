@@ -5,7 +5,7 @@
 		{
 			require_once($filePath."tool/conn.php");
 			$table = $sql_table.'server_game_equal_';
-			$beginIndex = 5;
+			$beginIndex = min(1,max($msg->level,20));
 			$sql = "SHOW TABLES LIKE '".$table.$beginIndex."'";
 			while(!$conne->getRowsNum($sql))//没这个表
 			{
@@ -38,7 +38,7 @@
 			}
 			
 			require_once($filePath."pk_action/get_pk_card.php");
-			$choose = getPKCard(50);
+			$choose = getPKCard($msg->user_level);
 			$content = new stdClass();
 			$content->choose = $choose;
 			$content->levels = $result;

@@ -21,7 +21,7 @@
 		}
 		
 		
-		$coin = floor(pow($level,2.4)*10*($level/10 + 1))+39*$level;
+		$coin = floor(pow($level,2.4)*10*($level/5 + 1))+38*$level;
 		if($userData->coin < $coin)//钱不够
 		{
 			$returnData->fail = 1;
