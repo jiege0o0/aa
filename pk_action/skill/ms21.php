@@ -5,7 +5,7 @@
 	class sm_21_0 extends SkillBase{
 		public $isAtk = true;
 		function action($user,$self,$enemy){
-			$this->decHp($user,$enemy,$user->atk*1.8);
+			$this->decHp($user,$enemy,$user->atk*2);
 		}
 	}
 	
