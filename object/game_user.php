@@ -47,12 +47,16 @@ class GameUser{
 		$this->server_game_equal = $this->decode($data['server_game_equal'],'{"choose":null,"exp":0,"win":0,"total":0,"last":0,"max":0,"time":0,"pkdata":null,"enemy":null,"pk":0,"pktime":0,"top":0}');
 		$this->main_game = $this->decode($data['main_game'],'{"choose":null,"level":1,"kill":[],"awardtime":0,"time":0,"pkdata":null}');
 		
+		$this->day_game = $this->decode($data['day_game'],'{"level":0,"lasttime":0,"times":0,"pkdata":null,"score":0,"yscore":0,"ytime":0}');
+		if($isRank)
+			$this->resetDayGame();
+		
 		
 		
 		if($isRank)
 			return;
 			
-		$this->day_game = $this->decode($data['day_game'],'{"level":0,"lasttime":0,"times":0,"pkdata":null,"score":0}');
+		
 		$this->pk_common = $this->decode($data['pk_common'],'{"history":[]}');
 
 		
@@ -80,6 +84,25 @@ class GameUser{
 			$v = '{}';
 		}
 		return json_decode($v);
+	}
+	
+	function resetDayGame(){
+		debug('s0');
+		if(!isSameDate($this->day_game->lasttime))
+		{
+			debug('s1'.$this->day_game->lasttime.'|'.$this->day_game->score);
+			if(isSameDate($this->day_game->lasttime + 3600*24))//ÊÇ×òÌì
+			{
+				$this->day_game->yscore = $this->day_game->score;
+				$this->day_game->ytime = $this->day_game->lasttime;
+				debug('s2');
+			}
+			else
+			{
+				$this->day_game->yscore = 0;
+				$this->day_game->ytime = 0;
+			}
+		}
 	}
 	
 	function setChangeKey($key){

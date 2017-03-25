@@ -9,8 +9,10 @@
 			break;
 		}
 		
+		
 		if(!isSameDate($userData->day_game->lasttime))
 		{
+			$userData->resetDayGame();
 			$userData->day_game->level = 0;
 			$userData->day_game->lasttime = time();
 		}
@@ -50,6 +52,9 @@
 			$returnData -> fail = $team1Data->fail;
 			break;
 		}
+		
+		
+		
 		
 		$team2Data = $content->levels[$level-1];
 		if(!$team2Data->fight)
