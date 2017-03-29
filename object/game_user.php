@@ -11,6 +11,7 @@ class GameUser{
 	public $gameid;
 	public $nick;
 	public $exp;
+	public $word;
 	public $next_exp;
 	public $level;
 	public $tec_force;
@@ -35,6 +36,7 @@ class GameUser{
 		$this->gameid = $data['gameid'];
 		$this->nick = $data['nick'];
 		$this->head = $data['head'];
+		$this->word = $data['word'];
 		$this->exp = (int)$data['exp'];
 		$this->level = (int)$data['level'];
 		$this->tec_force = (int)$data['tec_force'];
@@ -454,6 +456,8 @@ class GameUser{
 			array_push($arr,addKey('coin',$this->coin));
 		if($this->changeKey['head'])
 			array_push($arr,addKey('head',$this->head));
+		if($this->changeKey['word'])
+			array_push($arr,addKey('word',"'".$this->word."'"));
 			
 		if($this->changeKey['tec'])
 			array_push($arr,addKey('tec',$this->tec,true));
@@ -489,7 +493,7 @@ class GameUser{
 		array_push($arr,addKey('last_land',time()));	
 			
 		$sql = "update ".$sql_table."user_data set ".join(",",$arr)." where gameid='".$msg->gameid."'";
-		 // debug($sql);
+		 debug($sql);
 		if(!$conne->uidRst($sql))//写用户数据失败
 		{
 			$sendData->error = 4;

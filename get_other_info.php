@@ -16,6 +16,7 @@
 		$returnUser->gameid = $otherUser->gameid;
 		$returnUser->nick = $otherUser->nick;
 		$returnUser->head = $otherUser->head;
+		$returnUser->word = $otherUser->word;
 		$returnUser->level = $otherUser->level;
 		$returnUser->force = $otherUser->tec_force + $otherUser->award_force;
 		$returnUser->server_game = array('exp'=>$otherUser->server_game->exp,'win'=>$otherUser->server_game->win,'total'=>$otherUser->server_game->total,'top'=>$otherUser->server_game->top);

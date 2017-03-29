@@ -34,7 +34,7 @@
 		$step = 100;
 		$t = microtime(true);
 		$time = time() - 3600*24*2;//2天前的数据不入榜
-		$sql = "select gameid,nick,head,exp,level,tec_force,award_force,server_game,server_game_equal,main_game,day_game,last_land from ".$sql_table."user_data where last_land>=".$time."";
+		$sql = "select gameid,nick,head,word,exp,level,tec_force,award_force,server_game,server_game_equal,main_game,day_game,last_land from ".$sql_table."user_data where last_land>=".$time."";
 		$result = $conne->getRowsArray($sql);
 		$len = count($result);
 		$begin = 0;
@@ -56,16 +56,16 @@
 		{
 			$gu = new GameUser($value,true,true);
 			//1战力榜，2等级榜，3过关榜，4day,4server，5server_equal
-			addToArr($arr1,array("head"=>$gu->head,"gameid"=>$gu->gameid,"nick"=>$gu->nick,"value"=>$gu->tec_force + $gu->award_force,"value2"=>0));
-			addToArr($arr2,array("head"=>$gu->head,"gameid"=>$gu->gameid,"nick"=>$gu->nick,"value"=>$gu->level,"value2"=>$gu->exp));
+			addToArr($arr1,array("head"=>$gu->head,"word"=>$gu->word,"gameid"=>$gu->gameid,"nick"=>$gu->nick,"value"=>$gu->tec_force + $gu->award_force,"value2"=>0));
+			addToArr($arr2,array("head"=>$gu->head,"word"=>$gu->word,"gameid"=>$gu->gameid,"nick"=>$gu->nick,"value"=>$gu->level,"value2"=>$gu->exp));
 			if($gu->main_game->time)
-				addToArr($arr3,array("head"=>$gu->head,"gameid"=>$gu->gameid,"nick"=>$gu->nick,"value"=>$gu->main_game->level,"value2"=>-$gu->main_game->time));
+				addToArr($arr3,array("head"=>$gu->head,"word"=>$gu->word,"gameid"=>$gu->gameid,"nick"=>$gu->nick,"value"=>$gu->main_game->level,"value2"=>-$gu->main_game->time));
 			if($gu->day_game->yscore)
-				addToArr($arr4,array("head"=>$gu->head,"gameid"=>$gu->gameid,"nick"=>$gu->nick,"value"=>$gu->day_game->yscore,"value2"=>-$gu->day_game->ytime));
+				addToArr($arr4,array("head"=>$gu->head,"word"=>$gu->word,"gameid"=>$gu->gameid,"nick"=>$gu->nick,"value"=>$gu->day_game->yscore,"value2"=>-$gu->day_game->ytime));
 			if($gu->server_game->time)
-				addToArr($arr5,array("head"=>$gu->head,"gameid"=>$gu->gameid,"nick"=>$gu->nick,"value"=>$gu->server_game->exp,"value2"=>-$gu->server_game->time));
+				addToArr($arr5,array("head"=>$gu->head,"word"=>$gu->word,"gameid"=>$gu->gameid,"nick"=>$gu->nick,"value"=>$gu->server_game->exp,"value2"=>-$gu->server_game->time));
 			if($gu->server_game_equal->time)
-				addToArr($arr6,array("head"=>$gu->head,"gameid"=>$gu->gameid,"nick"=>$gu->nick,"value"=>$gu->server_game_equal->exp,"value2"=>-$gu->server_game_equal->time));
+				addToArr($arr6,array("head"=>$gu->head,"word"=>$gu->word,"gameid"=>$gu->gameid,"nick"=>$gu->nick,"value"=>$gu->server_game_equal->exp,"value2"=>-$gu->server_game_equal->time));
 			
 			$begin ++;
 			if($begin%100 == 0)//每处理100条，判断一下是否要休眠一下
