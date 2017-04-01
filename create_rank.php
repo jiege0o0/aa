@@ -56,8 +56,8 @@
 		{
 			$gu = new GameUser($value,true,true);
 			//1战力榜，2等级榜，3过关榜，4day,4server，5server_equal
-			addToArr($arr1,array("head"=>$gu->head,"word"=>$gu->word,"gameid"=>$gu->gameid,"nick"=>$gu->nick,"value"=>$gu->tec_force + $gu->award_force,"value2"=>0));
-			addToArr($arr2,array("head"=>$gu->head,"word"=>$gu->word,"gameid"=>$gu->gameid,"nick"=>$gu->nick,"value"=>$gu->level,"value2"=>$gu->exp));
+			addToArr($arr1,array("head"=>$gu->head,"gameid"=>$gu->gameid,"nick"=>$gu->nick,"value"=>$gu->tec_force + $gu->award_force,"value2"=>0));
+			addToArr($arr2,array("head"=>$gu->head,"gameid"=>$gu->gameid,"nick"=>$gu->nick,"value"=>$gu->level,"value2"=>$gu->exp));
 			if($gu->main_game->time)
 				addToArr($arr3,array("head"=>$gu->head,"word"=>$gu->word,"gameid"=>$gu->gameid,"nick"=>$gu->nick,"value"=>$gu->main_game->level,"value2"=>-$gu->main_game->time));
 			if($gu->day_game->yscore)
