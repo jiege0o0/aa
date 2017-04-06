@@ -118,43 +118,6 @@ time INT UNSIGNED
 
 
 
-//不要服务器ID，所有服共同评论
-for($i = 1;$i<=100;$i++)
-{
-	mysql_query("
-	Create TABLE monster_talk_".$i."(
-	id SMALLINT UNSIGNED,
-	talk_key varchar(16),
-	talk varchar(8138),
-	good INT UNSIGNED default 0,
-	bad INT UNSIGNED default 0,
-	time INT UNSIGNED default 0
-	)",$connect)or die("message=F,Invalid query: " . mysql_error()); 
-
-	//往表插入数据
-	for($j=1;$j<=100;$j++)
-	{
-		mysql_query("
-		insert into monster_talk_".$i."(id) values(".$j.")",
-		$connect)or die("message=F,Invalid query: " . mysql_error()); 
-	}
-}
-
-mysql_query("
-Create TABLE monster_star(
-id SMALLINT UNSIGNED,
-s1 INT UNSIGNED default 0,
-s2 INT UNSIGNED default 0,
-s3 INT UNSIGNED default 0,
-s4 INT UNSIGNED default 0,
-s5 INT UNSIGNED default 0
-)",$connect)or die("message=F,Invalid query: " . mysql_error()); 
-for($j=1;$j<=100;$j++)
-{
-	mysql_query("
-	insert into monster_star(id) values(".$j.")",
-	$connect)or die("message=F,Invalid query: " . mysql_error()); 
-}
 
 
 
