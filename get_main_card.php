@@ -2,7 +2,9 @@
 	//领取可以出的牌
 	$type='main_game';
 	$choose = $userData->{$type}->choose;
-	if(!$choose || count($choose) == 0)//没有拿过牌
+	$force = $msg->force;
+	debug($force);
+	if($force || !$choose || count($choose) == 0)//没有拿过牌
 	{
 		do{
 			if($userData->getEnergy() < 1)//体力不够
