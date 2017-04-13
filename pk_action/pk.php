@@ -101,6 +101,7 @@
 	$returnData->team1base = $pkData->team1->getTeamBase();
 	$returnData->team2base = $pkData->team2->getTeamBase();
 	$returnData->info = $pkUserInfo;
+	$returnData->isequal = $equalPK;
 	$returnData->pk_version = $pk_version;
 	if($pkData->outDetail)
 	{
