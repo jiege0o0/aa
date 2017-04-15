@@ -208,7 +208,7 @@
 		$pkData->dealTArray();//特性生效
 		
 		$user->setRoundEffect();
-		// if($haveSkill || $haveAction || $user->isPKing)
+		// if($haveAction || $user->isPKing)//非回合中的玩家
 			$pkData->out_end($user);
 			
 

@@ -37,6 +37,8 @@
 		$sql = "select gameid,nick,head,word,exp,level,tec_force,award_force,server_game,server_game_equal,main_game,day_game,last_land from ".$sql_table."user_data where last_land>=".$time."";
 		$result = $conne->getRowsArray($sql);
 		$len = count($result);
+		if(!$result)
+			$len = 0;
 		$begin = 0;
 			// if(!$result || count($result)==0)//已处理完
 			// {
@@ -92,8 +94,8 @@
 			
 			
 			
-			
-		$conne->close_rst();
+		if($len)	
+			$conne->close_rst();
 		deleteValue2($arr1);
 		deleteValue2($arr2);
 		deleteValue2($arr3);

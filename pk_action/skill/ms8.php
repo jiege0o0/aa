@@ -17,13 +17,13 @@
 		public $cd = 3;
 		public $isAtk = true;
 		function action($user,$self,$enemy){
-			$this->decHp($user,$enemy,$user->atk*1.8);
+			$this->decHp($user,$enemy,$user->atk*1.2);
 			
 			$len = count($self->team->currentMonster);
 			for($i=1;$i<$len;$i++)
 			{
 				$player = $self->team->currentMonster[$i];
-				$player->addAtk(-$player->base_atk * 0.1);
+				$player->addAtk($player->base_atk * 0.1);
 			}
 		}
 	}

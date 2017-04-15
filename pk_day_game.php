@@ -78,7 +78,10 @@
 			$userData->day_game->level ++;
 			$userData->day_game->score ++;
 			if($userData->day_game->score%10 == 0)
+			{
+				$returnData->day_award = true;
 				$userData->addAwardForce(1);
+			}
 			
 			
 			$returnData->sync_day_game->level = $userData->day_game->level;
