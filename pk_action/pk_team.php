@@ -299,7 +299,7 @@ class Team{
 	function fromReplayNeed($teamID,$oo,$baseoo,$playerArr){
 		$this->ringLevel = $baseoo->rl;
 		// $this->ring = $baseoo->r;
-		// $this->fight = $baseoo->f;
+		$this->fight = $baseoo->f;
 		$this->tecLevel = $baseoo->tl;
 		$this->list = $baseoo->list;
 		$this->monsterBase = $baseoo->mb;
