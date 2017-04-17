@@ -1,6 +1,7 @@
 <?php 
 	$otherid = $msg->otherid;
 	$othernick = $msg->othernick;
+	$returnData->stopLog = true;
 	do{
 		require_once($filePath."tool/conn.php");
 		require_once($filePath."object/game_user.php");

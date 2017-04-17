@@ -15,7 +15,6 @@
 		'31'=>array('cost'=>60,'rmb'=>false,'rate'=>5),
 		'32'=>array('cost'=>300,'rmb'=>false,'rate'=>30)
 	);
-	
 	do{
 		$data = $arr[$id];
 		if($userData->getDiamond($data['rmb']) < $data['cost'])

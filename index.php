@@ -104,6 +104,11 @@
 					$returnData->data = $conne->getRowsArray($sql);
 					break;
 				}
+				case 'client_error':
+				{
+					clientLog($msg->msg);
+					break;
+				}
 				case 'test':
 				{
 				
@@ -148,7 +153,7 @@
 					else
 					{
 						$sendData->result = 'fail';
-						$sendData->msg = 'fun not found';
+						$sendData->msg = 'fun not found:'.$head;
 					}				
 					break;
 				}
@@ -166,10 +171,10 @@
 			echo $e->__toString(); 			
 	}
 	
-	if($returnData->fail)
+	if($returnData->fail && !$returnData->stopLog)
 	{
 		errorLog("#".$_POST['head'].$_POST['msg'].json_encode($returnData));
-		unset($returnData->failDebug);
-	}	
+	}
+	unset($returnData->stopLog);	
 	sendToClient($sendData);
 ?>

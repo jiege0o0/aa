@@ -1,7 +1,7 @@
 <?php 
 	$rankType = $msg->rank_type;
 	$file  = $filePath.'day_rank/server'.$serverID.'/rank'.date('Ymd', time())."_".$rankType.'.txt';//今天的排行榜数据
-	
+	$returnData->stopLog = true;
 	
 	do{
 		if(!is_file($file))//文件未生成

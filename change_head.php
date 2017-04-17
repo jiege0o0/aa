@@ -1,7 +1,6 @@
 <?php 
 
 	$id = $msg->headid;
-
 	do{
 
 		if($userData->head == $id)

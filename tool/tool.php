@@ -46,6 +46,11 @@
 		$file  = $filePath.'log/server'.$serverID.'/log'.date('Ymd', time()).'.txt';//要写入文件的文件名（可以是任意文件名），如果文件不存在，将会创建一个
 		file_put_contents($file, date('h:i:sa', time())." : ".$str.PHP_EOL,FILE_APPEND);
 	}
+	function clientLog($str){
+		global $filePath,$serverID;
+		$file  = $filePath.'log/client/log'.date('Ymd', time()).'.txt';//要写入文件的文件名（可以是任意文件名），如果文件不存在，将会创建一个
+		file_put_contents($file, date('h:i:sa', time())." : ".$str.PHP_EOL,FILE_APPEND);
+	}
 	//写消费日志
 	function payLog($str){
 		global $filePath,$serverID;
