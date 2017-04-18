@@ -23,7 +23,7 @@ for($i = 1;$i<=100;$i++)
 	)",$connect)or die("message=F,Invalid query: " . mysql_error()); 
 
 	//往表插入数据
-	for($j=1;$j<=100;$j++)
+	for($j=1;$j<=50;$j++)
 	{
 		mysql_query("
 		insert into monster_talk_".$i."(id) values(".$j.")",

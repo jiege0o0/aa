@@ -37,7 +37,9 @@ aa('add_user_server',{"serverid":1,"id":10000,"password":"111111"})
 http://172.17.196.195:90/game/_create_monster_db.php?table=server_monster,server_equal_monster
 http://172.17.196.195:90/game/_create_monster_db.php?table=test_monster
 
+http://172.17.196.195:90/game/clean_server.php?serverid=1
 http://172.17.196.195:90/game/_create_db.php?serverid=1
+http://172.17.196.195:90/game/_create_talk_db.php
 http://172.17.196.195:90/game/_create_monster_db.php?serverid=1
 http://172.17.196.195:90/user/_create_db.php?serverid=1
 http://qxu1606510485.my3w.com/game/_create_db.php?serverid=1

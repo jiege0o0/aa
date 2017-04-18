@@ -31,11 +31,11 @@
 		}
 		else//系统机器人
 		{
-			$team2Data->fight = $team1Data->fight;
+			$team2Data->fight = max($team1Data->fight-10,10);
 		}
 		
-		$enemyAdd = $userData->server_game->last;
-		$team2Data->fight += $enemyAdd;//知道了对方的卡牌，要增加对方实力才能平衡
+		// $enemyAdd = $userData->server_game->last;
+		// $team2Data->fight += $enemyAdd;//知道了对方的卡牌，要增加对方实力才能平衡
 		require_once($filePath."pk_action/pk.php");
 		// $team2Data->fight -= $enemyAdd;//知道了对方的卡牌，要增加对方实力才能平衡
 		
