@@ -29,8 +29,23 @@
 		
 		
 		$returnData->info = $returnUser;
+		
+		if($msg->isfriend)
+		{
+			$sql = "select friend_key,win1,win2,last_winner,last_time from ".$sql_table."friend_together where friend_key=".infoGetFriendKey($otherUser->gameid)."";
+			$result = $conne->getRowsRst($sql);
+			$returnData->pk = $result;
+		}
 
 		
 		
 	}while(false);
+	
+	function infoGetFriendKey($value){
+		global $msg; 
+		if($value > $msg->mygameid)
+			return "'".$value.$msg->mygameid."'";
+		else 
+			return "'".$msg->mygameid.$value."'";			
+	}
 ?> 

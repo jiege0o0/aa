@@ -89,15 +89,12 @@ class GameUser{
 	}
 	
 	function resetDayGame(){
-		debug('s0');
 		if(!isSameDate($this->day_game->lasttime))
 		{
-			debug('s1'.$this->day_game->lasttime.'|'.$this->day_game->score);
 			if(isSameDate($this->day_game->lasttime + 3600*24))//ÊÇ×òÌì
 			{
-				$this->day_game->yscore = $this->day_game->score;
+				$this->day_game->yscore = $this->day_game->level;
 				$this->day_game->ytime = $this->day_game->lasttime;
-				debug('s2');
 			}
 			else
 			{

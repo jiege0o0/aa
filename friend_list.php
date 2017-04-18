@@ -80,45 +80,45 @@
 		}
 		/////////////////////////////更新结束
 
-		$len = count($callList);
-		if($len > 0)
-		{	
-			for($i=0;$i<$len;$i++)
-			{
-				$callList[$i] = getFriendKey($callList[$i]);
-			}
-			$sql = "select friend_key,win1,win2,last_winner,last_time from ".$sql_table."friend_together where friend_key in(".join($callList,"','").") and last_time > ".$lastTime."";
-			$conne->close_rst();
-			$result = $conne->getRowsArray($sql);
-			$friendpk = array();
-			if($result)	
-			{
-				$len = count($result);
-				for($i=0;$i<$len;$i++)
-				{
-					$key = getFriendByKey($result[$i]['friend_key']);
-					$friendpk[$key] = $result[$i];
-				}
-			}
-			$returnData->friendpk = $friendpk;
-		}
-		else
-			$returnData->friendpk = array();
+		// $len = count($callList);
+		// if($len > 0)
+		// {	
+			// for($i=0;$i<$len;$i++)
+			// {
+				// $callList[$i] = getFriendKey($callList[$i]);
+			// }
+			// $sql = "select friend_key,win1,win2,last_winner,last_time from ".$sql_table."friend_together where friend_key in(".join($callList,"','").") and last_time > ".$lastTime."";
+			// $conne->close_rst();
+			// $result = $conne->getRowsArray($sql);
+			// $friendpk = array();
+			// if($result)	
+			// {
+				// $len = count($result);
+				// for($i=0;$i<$len;$i++)
+				// {
+					// $key = getFriendByKey($result[$i]['friend_key']);
+					// $friendpk[$key] = $result[$i];
+				// }
+			// }
+			// $returnData->friendpk = $friendpk;
+		// }
+		// else
+			// $returnData->friendpk = array();
 			
 	}
 	while(false);	
 	
-	function getFriendKey($value){
-		global $userData; 
-		if($value > $userData->gameid)
-			return "'".$value.$userData->gameid."'";
-		else 
-			return "'".$userData->gameid.$value."'";			
-	}
+	// function getFriendKey($value){
+		// global $userData; 
+		// if($value > $userData->gameid)
+			// return "'".$value.$userData->gameid."'";
+		// else 
+			// return "'".$userData->gameid.$value."'";			
+	// }
 	
-	function getFriendByKey($value){
-		global $userData; 
-		$value = str_replace($userData->gameid,'',$value);
-		return  $value;		
-	}
+	// function getFriendByKey($value){
+		// global $userData; 
+		// $value = str_replace($userData->gameid,'',$value);
+		// return  $value;		
+	// }
 ?> 
