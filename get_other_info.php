@@ -26,6 +26,7 @@
 		$returnUser->day_game = array('score'=>$otherUser->day_game->score,'times'=>$otherUser->day_game->times);
 		$returnUser->last_land = $otherUser->last_land;
 		$returnUser->pk_common = $otherUser->pk_common;
+		$returnUser->friends = $otherUser->friends;
 		
 		
 		$returnData->info = $returnUser;

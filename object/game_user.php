@@ -60,6 +60,7 @@ class GameUser{
 			
 		
 		$this->pk_common = $this->decode($data['pk_common'],'{"history":[]}');
+		$this->friends = $this->decode($data['friends'],'{"v":0,"t":0,"tk":0,"stop":false}');//好友相关
 
 		
 		if($isOther)
@@ -73,7 +74,6 @@ class GameUser{
 		$this->prop = $this->decode($data['prop']);
 		$this->energy = $this->decode($data['energy'],'{"v":0,"t":0}');
 		$this->diamond = $this->decode($data['diamond'],'{"free":0,"rmb":0}');
-		$this->friends = $this->decode($data['friends'],'{"v":0,"t":0,"tk":0}');//好友相关
 		$this->active = $this->decode($data['active'],'{"task":{}}');//活动
 	}
 	

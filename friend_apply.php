@@ -8,11 +8,21 @@
 			$returnData->fail = 3;
 			break;
 		}
-		$sql = "select nick from ".$sql_table."user_data where gameid='".$otherid."'";
+		$sql = "select nick,friends from ".$sql_table."user_data where gameid='".$otherid."'";
 		$result = $conne->getRowsRst($sql);
 		if(!$result)//对方不存在	
 		{
 			$returnData->fail = 1;
+			break;
+		}
+		
+		$friends = $result['friends'];
+		if(!$friends)
+			$friends = '{}';
+		$friends = json_decode($friends);
+		if($friends->stop)
+		{
+			$returnData->fail = 6;
 			break;
 		}
 		
