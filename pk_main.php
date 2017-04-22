@@ -3,9 +3,14 @@
 	require_once($filePath."pk_action/pk_tool.php");
 
 	$myChoose = $msg->choose;
-	debug($myChoose);
 	$team1Data = changePKData($myChoose,'main_game');
 	do{
+		if($userData->getEnergy() < 1)//体力不够
+		{
+			$returnData->fail = 1;
+			$returnData->sync_energy = $userData->energy;
+			break;
+		}
 		if(property_exists($team1Data,'fail'))//玩家牌的数据不对
 		{
 			$returnData -> fail = $team1Data->fail;
@@ -66,10 +71,12 @@
 		}
 		$userData->addCoin($award->coin);
 		$userData->addExp($award->exp);
-		$userData->main_game->choose = null;
+		// $userData->main_game->choose = null;
 		$userData->main_game->pkdata = array("team1"=>$team1Data,"team2"=>$team2Data,"isequal"=>$equalPK,"info"=>$pkUserInfo,'version'=>$pk_version);
-		$returnData->sync_main_game->choose = null;
+		// $returnData->sync_main_game->choose = null;
 		
+		renewMyCard();
+		$userData->addEnergy(-1);
 		$userData->addHistory($team1Data->list);
 		$userData->setChangeKey('main_game');
 		$userData->write2DB();		

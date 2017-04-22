@@ -2,18 +2,18 @@
 	//领取可以出的牌
 	$isagain = $msg->isagain;
 	$pkType='server_game';
-	$choose = $userData->{$pkType}->choose;
-	$energyCost = 2;
+	$choose = $userData->{$pkType}->choose;//是否选定了对手
+	// $energyCost = 2;
 	do{
-		if($userData->getEnergy() < $energyCost)//体力不够
+		// if($userData->getEnergy() < $energyCost)//体力不够
+		// {
+			// $returnData->fail = 4;
+			// $returnData->sync_energy = $userData->energy;
+			// break;
+		// }
+		if($isagain)//要求再打一次
 		{
-			$returnData->fail = 4;
-			$returnData->sync_energy = $userData->energy;
-			break;
-		}
-		if($isagain)
-		{
-			if(!$choose || count($choose) == 0)//没数据
+			if(!$userData->{$pkType}->enemy)//没敌人数据
 			{
 				$returnData->fail = 5;
 				break;
@@ -24,21 +24,21 @@
 				break;
 			}
 			
-			$returnData->choose = $choose;
+			$returnData->choose = true;
 			$returnData->enemy = $userData->{$pkType}->enemy;
 			$returnData->enemyinfo = $userData->{$pkType}->enemy->userinfo;
 			
 			$userData->{$pkType}->pk = 0;
 			$userData->{$pkType}->pktime ++;
 			$userData->setChangeKey($pkType);
-			$userData->addEnergy(-$energyCost);
+			// $userData->addEnergy(-$energyCost);
 			$userData->write2DB();
 		}
-		else if($userData->{$pkType}->pk > 0 || (!$choose || count($choose) == 0))//没有拿过牌
+		else if($userData->{$pkType}->pk > 0 || (!$choose))//没有拿过牌，并换人
 		{
 			require_once($filePath."pk_action/get_pk_card.php");
 			//取卡---------------------------------
-			$choose = array(getPKCard($userData->level),getPKCard($userData->level));
+			// $choose = array(getPKCard($userData->level),getPKCard($userData->level));
 			
 			//取对手---------------------------------
 			require_once($filePath."pk_action/pk_tool.php");
@@ -86,23 +86,23 @@
 			}
 			
 			
-			$userData->{$pkType}->choose = $choose;
+			$userData->{$pkType}->choose = true;
 			$userData->{$pkType}->enemy = $team2Data;
 			$userData->{$pkType}->pk = 0;
 			$userData->{$pkType}->pktime = 0;
 			$userData->setChangeKey($pkType);
-			$userData->addEnergy(-$energyCost);
+			// $userData->addEnergy(-$energyCost);
 			$userData->write2DB();
 			
-			$returnData->choose = $choose;
+			$returnData->choose = true;
 			$returnData->enemy = $team2Data;
 			$returnData->enemyinfo = $team2Data->userinfo;
 		
 		}
-		else
+		else //该打的没打
 		{
 			$returnData->fail = 3;
-			$returnData->choose = $choose;
+			$returnData->choose = true;
 			$returnData->enemy = $userData->{$pkType}->enemy;
 			$returnData->enemyinfo = $userData->{$pkType}->enemy->userinfo;
 		}

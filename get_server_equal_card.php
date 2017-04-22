@@ -3,7 +3,7 @@
 	$isagain = $msg->isagain;
 	$pkType='server_game_equal';
 	$choose = $userData->{$pkType}->choose;
-	$propCost = $isagain?1:1;
+	$propCost = $userData->{$pkType}->open?0:1;
 	do{
 		if($userData->getPropNum(21) < $propCost)
 		{
@@ -17,7 +17,7 @@
 		}
 		if($isagain)
 		{
-			if(!$choose || count($choose) == 0)//没数据
+			if(!$choose)//没数据
 			{
 				$returnData->fail = 5;
 				break;
@@ -28,22 +28,22 @@
 				break;
 			}
 			
-			$returnData->choose = $choose;
+			$returnData->choose = true;
 			$returnData->enemy = $userData->{$pkType}->enemy;
 			$returnData->enemyinfo = $userData->{$pkType}->enemy->userinfo;
 			
 			$userData->{$pkType}->pk = 0;
 			$userData->{$pkType}->pktime ++;
 			$userData->setChangeKey($pkType);
-			$userData->addEnergy(-$energyCost);
+			$userData->{$pkType}->open = true;
 			$userData->addProp(21,-$propCost);
 			$userData->write2DB();
 		}
-		else if($userData->{$pkType}->pk > 0 || (!$choose || count($choose) == 0))//没有拿过牌
+		else if($userData->{$pkType}->pk > 0 || (!$choose))//没有拿过牌
 		{
 			require_once($filePath."pk_action/get_pk_card.php");
 			//取卡---------------------------------
-			$choose = array(getPKCard($userData->level),getPKCard($userData->level));
+			// $choose = array(getPKCard($userData->level),getPKCard($userData->level));
 			
 			//取对手---------------------------------
 			require_once($filePath."pk_action/pk_tool.php");
@@ -84,15 +84,16 @@
 			
 			
 			
-			$userData->{$pkType}->choose = $choose;
+			$userData->{$pkType}->choose = true;
 			$userData->{$pkType}->enemy = $team2Data;
 			$userData->{$pkType}->pk = 0;
 			$userData->{$pkType}->pktime = 0;
 			$userData->setChangeKey($pkType);
+			$userData->{$pkType}->open = true;
 			$userData->addProp(21,-$propCost);
 			$userData->write2DB();
 			
-			$returnData->choose = $choose;
+			$returnData->choose = true;
 			$returnData->enemy = $team2Data;
 			$returnData->enemyinfo = $team2Data->userinfo;
 		

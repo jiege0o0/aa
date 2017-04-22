@@ -1,4 +1,4 @@
-﻿<?php
+<?php
 	require_once($filePath."tool/conn.php");
 	require_once($filePath."object/game_user.php");
 	$gameid = $serverID.'_'.$msg->id;
@@ -45,9 +45,24 @@
 			$userData->friendtime = $result['time'];
 		}
 		
+		if(!$userData->pk_common->my_card)
+		{
+			require_once($filePath."get_my_card.php");
+		}
+		
+		
+		
 		$userData->pk_version = $pk_version;
 
 		$returnData->data = $userData;
+		
+		$logtime = 1492612756;
+		if($msg->logtime < $logtime)
+		{
+			$returnData->logtext = new stdClass();
+			$returnData->logtext->text = '这是更新日志|这是更新日志2';
+			$returnData->logtext->time = $logtime;
+		}
 		
 	}
 	else//没这个玩家，要新增

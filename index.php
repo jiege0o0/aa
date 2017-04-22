@@ -11,7 +11,7 @@
 	require_once($filePath."_config.php");
 	require_once($filePath."tool/tool.php");
 	
-	//error1:°æ±¾ºÅ,2µÇÂ½×´Ì¬,3³ö´í,4Ğ´ÓÃ»§Ê§°Ü
+	//error1:ç‰ˆæœ¬å·,2ç™»é™†çŠ¶æ€,3å‡ºé”™,4å†™ç”¨æˆ·å¤±è´¥
 	
 	function  customError($errno, $errstr, $errfile, $errline)
 	{ 
@@ -32,7 +32,7 @@
 
 	$head = $_POST['head'];
 	$msg = json_decode($_POST['msg']);
-	$debugC = $_POST['debug_client'];//¿Í»§¶Ë·¢ÆğµÄDEBUG
+	$debugC = $_POST['debug_client'];//å®¢æˆ·ç«¯å‘èµ·çš„DEBUG
 	
 	$returnData = new stdClass();
 	$sendData = new stdClass();
@@ -40,23 +40,29 @@
 	$sendData->msg = $returnData;
 	try{	
 		do{
-			//²âÊÔ°æ±¾ºÅ
-			if($_POST['version'] != $game_version){
+			// $sendData->error = 99;
+			// $sendData->error_str = '15æ—¶é—´æ”¹å›æ­£å¸¸';
+			// break;
+			//æµ‹è¯•ç‰ˆæœ¬å·
+			if($_POST['version'] < $game_version){
 				$sendData->error = 1;
 				break;
 			}
+			if($_POST['version'] > $game_version){
+				$sendData->error = 5;
+				break;
+			}
 			
-			//²âÊÔµÇÂ½×´Ì¬,²¢Éè¶¨ÓÃ»§Êı¾İ
+			//æµ‹è¯•ç™»é™†çŠ¶æ€,å¹¶è®¾å®šç”¨æˆ·æ•°æ®
 			if(isset($msg->landid) && isset($msg->gameid))
 			{
 				require_once($filePath."tool/conn.php");
 				require_once($filePath."object/game_user.php");
 				$sql = "select * from ".$sql_table."user_data where gameid='".$msg->gameid."' and land_key=".$msg->landid;
 				$userData = $conne->getRowsRst($sql);
-				if(!$userData)//µÇÂ¼Ê§Ğ§
+				if(!$userData)//ç™»å½•å¤±æ•ˆ
 				{
 					$sendData->error = 2;
-					$sendData->aql = $sql;
 					break;
 				}
 				$userData = new GameUser($userData);

@@ -1,6 +1,23 @@
 <?php 
 	require_once($filePath."cache/monster.php");
 	$changeFightDataValue = new stdClass();
+	//更新玩家手牌数据
+	function renewMyCard(){
+		global $userData,$stopWriteDB,$returnData,$filePath;
+		$myCard = $userData->pk_common->my_card[0];
+		$myCard->num --;
+		if($myCard->num <= 0)
+		{
+			$stopWriteDB = true;
+			require_once($filePath."get_my_card.php");
+			$returnData->get_new_card = true;
+		}
+		else
+		{
+			$returnData->sync_my_card = $userData->pk_common->my_card;
+		}
+	}
+	
 	//合法性检测
 	function isMonsterDataError($data,$fromList,$isEqual){
 		//$data：{list:[],ring:1}
@@ -62,9 +79,12 @@
 		{
 			$chooseList = $chooseListIn;
 		}
-		else
+		else 
 		{
-			$chooseList = $userData->{$type}->choose;
+			if($type == 'main_game' || $type == 'server_game' || $type == 'server_game_equal')
+				$chooseList = $userData->pk_common->my_card;
+			else
+				$chooseList = $userData->{$type}->choose;
 			if(!$chooseList)
 			{
 				$outData->fail = 110;

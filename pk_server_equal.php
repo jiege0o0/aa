@@ -6,6 +6,12 @@
 	$myChoose = $msg->choose;
 	$team1Data = changePKData($myChoose,'server_game_equal',true);
 	do{
+		if($userData->getEnergy() < 1)//体力不够
+		{
+			$returnData->fail = 1;
+			$returnData->sync_energy = $userData->energy;
+			break;
+		}
 		if(!$userData->server_game_equal->enemy || !$userData->server_game_equal->choose)//没找到PK对象
 		{
 			$returnData -> fail = 1;
@@ -119,11 +125,11 @@
 			}
 				
 			
-			$award->g_exp = 2 + $userData->server_game_equal->last;
+			$award->g_exp = 4 + $userData->server_game_equal->last;
 			if($userData->server_game_equal->exp < 0)
 				$award->g_exp += floor(-$userData->server_game_equal->exp/100);
 				
-			tempAddProp(21);
+			// tempAddProp(21);
 			
 			$userData->server_game_equal->choose = null;
 			$userData->server_game_equal->enemy = null;
@@ -144,6 +150,7 @@
 			$award->g_exp = -2-2*pkLevel;
 			$award->exp = round(20*(1+$pkLevel/3));
 			$userData->server_game_equal->pk += 1;
+			$userData->server_game_equal->open = false;
 		}
 
 
@@ -161,6 +168,7 @@
 		
 		$userData->server_game_equal->pkdata = array("team1"=>$team1Data,"team2"=>$team2Data,"isequal"=>$equalPK,"info"=>$pkUserInfo,'version'=>$pk_version);
 		$returnData->sync_server_game_equal->exp = $userData->server_game_equal->exp;
+		$returnData->sync_server_game_equal->open = $userData->server_game_equal->open;
 		
 		if($userData->server_game_equal->exp > $userData->server_game_equal->top)
 		{
@@ -173,6 +181,9 @@
 			$returnData->sync_server_game_equal->choose = $userData->sync_server_game_equal->choose;
 			$returnData->sync_server_game_equal->enemy = $userData->sync_server_game_equal->enemy;
 		}
+		
+		renewMyCard();
+		$userData->addEnergy(-1);
 		
 		$userData->addHistory($team1Data->list);
 		$userData->setChangeKey('server_game_equal');
