@@ -7,7 +7,7 @@ mysql_query("set names utf8");
 //ALTER TABLE `no1_user_data` ADD `pk_common` TEXT
 
 
-mysql_query("
+/*mysql_query("
 Create TABLE ".$sql_table."user_data(
 gameid varchar(16) NOT NULL Unique Key,
 uid INT UNSIGNED NOT NULL PRIMARY KEY AUTO_INCREMENT,
@@ -34,9 +34,48 @@ active Text,
 pk_common Text,
 land_key varchar(63),
 last_land INT UNSIGNED
+)",$connect)or die("message=F,Invalid query: " . mysql_error()); */
+
+mysql_query("
+Create TABLE ".$sql_table."server_game(
+id smallint UNSIGNED NOT NULL PRIMARY KEY AUTO_INCREMENT,
+gameid varchar(16),
+game_data varchar(8138),
+data_key varchar(16),
+choose_num TINYINT UNSIGNED default 0,
+last_time INT UNSIGNED,
+INDEX(data_key)
 )",$connect)or die("message=F,Invalid query: " . mysql_error()); 
 
+for($i=1;$i<=10000;$i++)
+{
+	$arr = $server1[$i]; 
+	mysql_query("
+	insert into ".$sql_table."server_game(last_time,data_key) values(0,'".$i."')",
+	$connect)or die("message=F,Invalid query: " . mysql_error()); 
+}
 
+mysql_query("
+Create TABLE ".$sql_table."server_game_equal(
+id smallint UNSIGNED NOT NULL PRIMARY KEY AUTO_INCREMENT,
+gameid varchar(16),
+game_data varchar(8138),
+data_key varchar(16),
+choose_num TINYINT UNSIGNED default 0,
+last_time INT UNSIGNED,
+INDEX(data_key)
+)",$connect)or die("message=F,Invalid query: " . mysql_error()); 
+
+for($i=1;$i<=10000;$i++)
+{
+	$arr = $server1[$i]; 
+	mysql_query("
+	insert into ".$sql_table."server_game_equal(last_time,data_key) values(0,'".$i."')",
+	$connect)or die("message=F,Invalid query: " . mysql_error()); 
+}
+
+
+/*
 mysql_query("
 Create TABLE ".$sql_table."server_game_1(
 id TINYINT UNSIGNED,
@@ -82,8 +121,8 @@ for($i=1;$i<=100;$i++)
 	",".$arr['result'].
 	",".$arr['last_time'].")",
 	$connect)or die("message=F,Invalid query: " . mysql_error()); 
-}
-
+}*/
+/*
 //好友相关
 mysql_query("
 Create TABLE ".$sql_table."user_friend(
@@ -118,7 +157,7 @@ time INT UNSIGNED
 
 
 
-
+*/
 
 
 

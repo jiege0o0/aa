@@ -40,7 +40,7 @@
 		array_push($returnMonsterArr,$levelArr3[1]);
 		
 		//ÂÒĞò
-		usort($returnMonsterArr,randomSortFun);
+		// usort($returnMonsterArr,randomSortFun);
 		$obj = new stdClass();
 		$obj->list = $returnMonsterArr;
 		return $obj;

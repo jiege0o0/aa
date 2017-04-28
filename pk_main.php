@@ -3,6 +3,7 @@
 	require_once($filePath."pk_action/pk_tool.php");
 
 	$myChoose = $msg->choose;
+	$data_key = $msg->data_key;
 	$team1Data = changePKData($myChoose,'main_game');
 	do{
 		if($userData->getEnergy() < 1)//体力不够
@@ -79,7 +80,89 @@
 		$userData->addEnergy(-1);
 		$userData->addHistory($team1Data->list);
 		$userData->setChangeKey('main_game');
-		$userData->write2DB();		
+		$userData->write2DB();	
+
+		//插入数据
+		if($data_key && $changeFightDataValue->cost >80 && $level > 1 && $level < 50)
+		{
+			$file1  = $filePath.'log/server'.$serverID.'_create_1.txt';
+			if(!is_file($file1))//文件没生成,要去插入数据
+			{
+				$tableName = $sql_table.'server_game';
+				$sql = "select id from ".$tableName." where id between 1 and 100 and data_key='".$data_key."' and gameid='".$userData->gameid."' limit 1";
+				$result = $conne->getRowsRst($sql);
+				if(!$result)
+				{
+					$sql = "select id from ".$tableName." where id between 1 and 100 and last_time=0 limit 1";
+					$result = $conne->getRowsRst($sql);
+					if($result)
+					{
+						unset($team1Data->teamID);
+						$saveData = new stdClass();
+						$saveData->pkdata = $team1Data;
+						$saveData->base = $changeFightDataValue->chooseList;
+						$saveData->userinfo = new stdClass();
+						$saveData->userinfo->head = $userData->head;
+						$saveData->userinfo->nick = base64_encode($userData->nick);
+						$saveData->userinfo->level = $userData->level;
+						$saveData->userinfo->force = $userData->tec_force + $userData->award_force;
+						$saveData->userinfo->win = $userData->server_game->win;
+						$saveData->userinfo->total = $userData->server_game->total;
+						$saveData->userinfo->exp = $userData->server_game->exp;
+						$saveData->userinfo->gameid = $userData->gameid;
+						
+						$sql = "update ".$tableName." set gameid='".$userData->gameid."',game_data='".json_encode($saveData)."',data_key='".$data_key."',last_time=".time().",choose_num=0 where id=".$result['id'];
+						$conne->uidRst($sql);
+					}
+					else
+					{
+						file_put_contents($file1,date('Y-m-d H:i:s', time()),LOCK_EX);
+					}
+				}
+			}
+			
+			if($level > 30)
+			{
+				$file2  = $filePath.'log/server'.$serverID.'_create_2.txt';
+				if(!is_file($file2))//文件没生成,要去插入数据
+				{
+					$tableName = $sql_table.'server_game_equal';
+					$sql = "select id from ".$tableName." where id between 1 and 100 and data_key='".$data_key."' and gameid='".$userData->gameid."' limit 1";
+					$result = $conne->getRowsRst($sql);
+					if(!$result)
+					{
+						$sql = "select id from ".$tableName." where id between 1 and 100 and last_time=0 limit 1";
+						$result = $conne->getRowsRst($sql);
+						if($result)
+						{
+							unset($team1Data->teamID);
+							$saveData = new stdClass();
+							$saveData->pkdata = new stdClass();
+							$saveData->pkdata->list =$team1Data->list;
+							$saveData->base = $changeFightDataValue->chooseList;
+							$saveData->userinfo = new stdClass();
+							$saveData->userinfo->head = $userData->head;
+							$saveData->userinfo->nick = base64_encode($userData->nick);
+							$saveData->userinfo->level = $userData->level;
+							$saveData->userinfo->force = $userData->tec_force + $userData->award_force;
+							$saveData->userinfo->win = $userData->server_game_equal->win;
+							$saveData->userinfo->total = $userData->server_game_equal->total;
+							$saveData->userinfo->exp = $userData->server_game_equal->exp;
+							$saveData->userinfo->gameid = $userData->gameid;
+							
+							$sql = "update ".$tableName." set gameid='".$userData->gameid."',game_data='".json_encode($saveData)."',data_key='".$data_key."',last_time=".time().",choose_num=0 where id=".$result['id'];
+							$conne->uidRst($sql);
+						}
+						else
+						{
+							file_put_contents($file1,date('Y-m-d h:m:s', time()),LOCK_EX);
+						}
+					}
+				}
+			}
+		}
+		
+				
 
 		
 	}while(false);
