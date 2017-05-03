@@ -42,48 +42,84 @@
 			
 			//取对手---------------------------------
 			require_once($filePath."pk_action/pk_tool.php");
-			//创键对应表（如果不存在）
-			$pkLevel = getPKTableLevel($userData->server_game->exp,30);
-			if(!testPKTable($pkType,$pkLevel))
-			{
-				$returnData->fail = 20;
-				break;
-			}
-			$tableName = $sql_table.$pkType."_".$pkLevel;
+			$tableName = $sql_table.$pkType;
+			
+			
+			$index = $userData->{$pkType}->exp + 50;
+			$begin = $index - 10;
+			if($begin < 1)
+				$begin = 1;
+			$end = $index + 10;
+			if($end < 10)
+				$end = 10;
 			
 			//到对应表中找
-			$winKey = "";
-			// if($userData->server_game->last >= 1)
-				// $winKey = 'result desc,';
-			// else
-				// $winKey = 'result asc,';
-			$sql = "select * from ".$tableName." where gameid!='".$userData->gameid."' order by ".$winKey." choose_num asc, last_time asc limit 1";
-			$result = $conne->getRowsRst($sql);
-			if(!$result)//没找到PK对象
-			{
-				$sql = "select * from ".$tableName." order by ".$winKey." choose_num asc, last_time asc limit 1";
-				$result = $conne->getRowsRst($sql);
-			}
+
+			$sql = "select * from ".$tableName." where id between ".$begin." and ".$end." and last_time>0";
+			$result = $conne->getRowsArray($sql);
 			if(!$result)//还是没找到PK对象
 			{
 				$returnData->fail = 21;
 				break;
 			}
-			$sql = "update ".$tableName." set choose_num=choose_num+1 where id=".$result['id'];
-			$conne->uidRst($sql);
+			$lastpker = $userData->{$pkType}->lastpker;
+			if($lastpker == null)
+			{	
+				$lastpker = array();
+			}
+			$arr1 = array();//首选
+			$arr2 = array();//备选
+			foreach($result as $key=>$value)
+			{
+				if(!in_array($value['data_key'],$lastpker,true))
+				{
+					array_push($arr2,$value);
+					if($value['gameid'] != $userData->gameid)
+						array_push($arr1,$value);
+				}
+			}
+			
+			$enemyAddFight = 0;
+			if(count($arr1) > 0)
+			{
+				usort($arr1,randomSortFun);
+				$result = $arr1[0];
+			}
+			else if(count($arr2) > 0)
+			{
+				usort($arr2,randomSortFun);
+				$result = $arr2[0];
+				$enemyAddFight = 10;
+			}
+			else
+			{
+				$returnData->fail = 21;
+				break;
+			}
+			
+			
+			
 			$id = $result['id'];
+			array_push($lastpker,$result['data_key']);
+			while(count($lastpker) > 10)
+			{
+				array_shift($lastpker);
+			}
+			$userData->{$pkType}->lastpker = $lastpker;
+			
 			$team2Data = json_decode($result['game_data']);
 			$team2Data->id = $result['id'];
 			$team2Data->last_time = $result['last_time'];
 			
-			$enemyForce = $team2Data->force;
+			$enemyForce = $team2Data->pkdata->force;
 			$userForce = $userData->tec_force + $userData->award_force;
 			if($enemyForce/$userForce > 1.5 && $enemyForce-$userForce > 50)//修正一下，最高只能打1.5倍战力
 			{
 				$decForce = $enemyForce - floor($userForce*1.5);
 				if($decForce > 0)
-					$team2Data->fight -= $decForce;
+					$team2Data->pkdata->fight -= $decForce;
 			}
+			$team2Data->pkdata->fight += $enemyAddFight;
 			
 			
 			$userData->{$pkType}->choose = true;

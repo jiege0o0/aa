@@ -2,10 +2,6 @@
 	//取好友巧遇
 	require_once($filePath."pk_action/pk_tool.php");
 	
-	//随机排序
-	function randomSortFun($a,$b){
-		return lcg_value()>0.5?1:-1;
-	}
 	
 	do{
 		$sql = "select * from ".$sql_table."user_friend where gameid='".$userData->gameid."'";
@@ -24,7 +20,7 @@
 	
 	
 		$pkType = 'server_game';
-		$pkLevel = getPKTableLevel($userData->server_game->exp,30);
+		$pkLevel = getPKTableLevel($userData->server_game->exp,100);
 		if(!testPKTable($pkType,$pkLevel))
 		{
 			$returnData->fail = 20;

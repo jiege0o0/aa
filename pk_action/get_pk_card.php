@@ -1,9 +1,5 @@
 <?php 
 	require_once($filePath."cache/monster.php");
-	//随机排序
-	function randomSortFun($a,$b){
-		return lcg_value()>0.5?1:-1;
-	}
 	
 	//取玩家能用的怪物组合
 	function getPKCard($userLevel){

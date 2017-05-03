@@ -89,11 +89,11 @@
 			if(!is_file($file1))//文件没生成,要去插入数据
 			{
 				$tableName = $sql_table.'server_game';
-				$sql = "select id from ".$tableName." where id between 1 and 100 and data_key='".$data_key."' and gameid='".$userData->gameid."' limit 1";
+				$sql = "select id from ".$tableName." where id between 50 and 100 and data_key='".$data_key."' and gameid='".$userData->gameid."' limit 1";
 				$result = $conne->getRowsRst($sql);
 				if(!$result)
 				{
-					$sql = "select id from ".$tableName." where id between 1 and 100 and last_time=0 limit 1";
+					$sql = "select id from ".$tableName." where id between 50 and 100 and last_time=0 limit 1";
 					$result = $conne->getRowsRst($sql);
 					if($result)
 					{
@@ -127,11 +127,11 @@
 				if(!is_file($file2))//文件没生成,要去插入数据
 				{
 					$tableName = $sql_table.'server_game_equal';
-					$sql = "select id from ".$tableName." where id between 1 and 100 and data_key='".$data_key."' and gameid='".$userData->gameid."' limit 1";
+					$sql = "select id from ".$tableName." where id between 50 and 100 and data_key='".$data_key."' and gameid='".$userData->gameid."' limit 1";
 					$result = $conne->getRowsRst($sql);
 					if(!$result)
 					{
-						$sql = "select id from ".$tableName." where id between 1 and 100 and last_time=0 limit 1";
+						$sql = "select id from ".$tableName." where id between 50 and 100 and last_time=0 limit 1";
 						$result = $conne->getRowsRst($sql);
 						if($result)
 						{

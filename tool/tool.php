@@ -89,6 +89,11 @@
 		return substr(md5('hange0o0_'.$time.$id),16).($time - 1453027182);
 	}
 	
+	//随机排序
+	function randomSortFun($a,$b){
+		return lcg_value()>0.5?1:-1;
+	}
+	
 	//时间相关============================
 	function isSameDate($t1,$t2=null){
 		if(!$t2)

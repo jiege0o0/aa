@@ -81,7 +81,7 @@
 		}
 		else 
 		{
-			if($type == 'main_game' || $type == 'server_game' || $type == 'server_game_equal')
+			if($type == 'main_game' || $type == 'server_game' || $type == 'server_game_equal' || $type == 'map_game')
 				$chooseList = $userData->pk_common->my_card;
 			else
 				$chooseList = $userData->{$type}->choose;

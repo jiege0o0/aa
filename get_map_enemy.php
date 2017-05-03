@@ -1,49 +1,37 @@
 <?php 
+	do{
 
-	//随机排序
-	function randomSortFun($a,$b){
-		return lcg_value()>0.5?1:-1;
-	}
-	
-	//更换卡牌
-	$level = $msg->level;
-	$arr = array();
-	foreach($monster_base as $key=>$value)
-	{
-		if($level >= $value['level'])
-		{	
-			array_push($arr,$value);
-		}
-	}
-	
-	$count = 0;
-	$cost = 0;
-	$returnArr = array();
-	while(true)
-	{
-		usort($arr,randomSortFun);
-		$vo = $arr[0];
-		if($cost + $vo['cost'] < 100)
+		if($userData->getEnergy() < 1)//体力不够
 		{
-			array_push($returnArr,$vo['id']);
-			$count += 1;
-			$cost += $vo['cost'];
-		}
-		if($cost > 80)
-		{
+			$returnData->fail = 1;
+			$returnData->sync_energy = $userData->energy;
 			break;
 		}
-		if($count > 6)
+		
+		require_once($filePath."random_fight_card.php");
+		$oo = new stdClass();
+		$oo->list = randomFightCard(ceil($msg->level/2));
+		$begin = ceil(pow($msg->level,2.2));
+		$end = $begin + ceil(pow($msg->level,1.2));
+		$oo->force = rand($begin,$end);
+		$oo->level = $msg->level; 
+		
+		if($userData->pk_common->map == null)
 		{
-			$returnArr = array();
-			$count = 0;
-			$cost = 0;
+			$userData->pk_common->map = new stdClass();
+			$userData->pk_common->map->value = 0;
+			$userData->pk_common->map->level = 1;
+			$userData->pk_common->map->step = 0;
+			$userData->pk_common->map->lasttime = time();
+			$userData->pk_common->map->sweep = new stdClass();
 		}
-	}
-	usort($returnArr,randomSortFun);
-	
-	$force = 0;
-	
-	$returnData->sync_map = $choose;
+		$userData->pk_common->map->enemy = $oo;
+		
+		$userData->addEnergy(-1);
+		$userData->setChangeKey('pk_common');
+		$userData->write2DB();	
+		
+		$returnData->data = $oo;
+	}while(false);
 		
 ?> 

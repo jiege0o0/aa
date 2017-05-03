@@ -3,42 +3,44 @@
 	do{
 		if(!is_file($file))//文件未生成
 		{
-			require_once($filePath."tool/conn.php");
-			$table = $sql_table.'server_game_equal_';
-			$beginIndex = max(1,min($msg->level,20));
-			$sql = "SHOW TABLES LIKE '".$table.$beginIndex."'";
-			while(!$conne->getRowsNum($sql))//没这个表
+			$file2  = $filePath.'log/server'.$serverID.'_create_2.txt';
+			if(is_file($file2))//文件生成了,可以从表中找数据
 			{
-				$beginIndex -- ;
-				$sql = "SHOW TABLES LIKE '".$table.$beginIndex."'";
-				if($beginIndex <= 0)
+				require_once($filePath."tool/conn.php");
+				$table = $sql_table.'server_game_equal';
+				$begin = $msg->level + rand(-100,0);
+				if($begin < 50)
+					$begin = rand(51,90);
+				$sql = "select game_data from ".$table." where id between ".$begin." and ".($begin + 30)." and last_time>0 limit 10";
+				$result = $conne->getRowsArray($sql);
+				if(count($result) != 10)//找不到纪录
 				{	
+					$returnData->fail = 2;
 					break;
 				}
+				$len = count($result);
+				for($i=0;$i<$len;$i++)
+				{
+					$temp = $result[$i]['game_data'];
+					$temp = json_decode($temp);
+					$result[$i] = $temp->pkdata;
+				}
+				usort($result,dayGameRandomSortFun);
 			}
-			if($beginIndex <= 0)//找不到表
+			else
 			{
-				$returnData->fail = 1;					
-				break;
+				$result = array();
+				require_once($filePath."random_fight_card.php");
+				for($i=0;$i<10;$i++)
+				{
+					$oo = new stdClass();
+					$oo->list = randomFightCard($msg->level);
+					array_push($result,$oo);
+				}
 			}
 			
-			$begin = rand(0,90);
 			
-			$sql = "select game_data from ".$table.$beginIndex." where id>".$begin.' and id<='.($begin + 10);
-			$result = $conne->getRowsArray($sql);
-			if(count($result)!=10)//找不到纪录
-			{	
-				$returnData->fail = 2;
-				break;
-			}
-			usort($result,dayGameRandomSortFun);
-			$len = count($result);
-			for($i=0;$i<$len;$i++)
-			{
-				$temp = $result[$i]['game_data'];
-				$temp = json_decode($temp);
-				$result[$i] = $temp->pkdata;
-			}
+			
 			
 			require_once($filePath."pk_action/get_pk_card.php");
 			$choose = getPKCard($msg->user_level);

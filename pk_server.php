@@ -3,6 +3,7 @@
 	require_once($filePath."pk_action/pk_tool.php");
 	require_once($filePath."get_monster_collect.php");
 
+	$data_key = $msg->data_key;
 	$myChoose = $msg->choose;
 	$team1Data = changePKData($myChoose,'server_game');
 	do{
@@ -23,7 +24,7 @@
 			break;
 		}
 		$pkType = 'server_game';
-		$pkLevel = getPKTableLevel($userData->server_game->exp,30);
+		$pkLevel = getPKTableLevel($userData->server_game->exp,100);
 		
 		
 		$team2Data = $userData->server_game->enemy->pkdata;
@@ -48,37 +49,37 @@
 		//---------------------更新战斗池---------------
 		if($result || $changeFightDataValue->cost >80)//cost最大是88  && ($userData->tec_force + $userData->award_force)
 		{
-			$tableName = $sql_table.$pkType."_".$pkLevel;
-			unset($team1Data->teamID);
-			$saveData = new stdClass();
-			$saveData->pkdata = $team1Data;
-			$saveData->base = $changeFightDataValue->chooseList;
-			$saveData->userinfo = new stdClass();
-			$saveData->userinfo->head = $userData->head;
-			$saveData->userinfo->nick = base64_encode($userData->nick);
-			$saveData->userinfo->level = $userData->level;
-			$saveData->userinfo->force = $userData->tec_force + $userData->award_force;
-			$saveData->userinfo->win = $userData->server_game->win;
-			$saveData->userinfo->total = $userData->server_game->total;
-			$saveData->userinfo->exp = $userData->server_game->exp;
-			$saveData->userinfo->gameid = $userData->gameid;
+			$id = $userData->server_game->exp + 50;
+			if($id < 1)
+				$id = 1;
+			$tableName = $sql_table.$pkType;
+			
 		
 			//更新战斗表
-			$time = time();
-			$sql1 = "update ".$tableName." set gameid='".$userData->gameid."',game_data='".json_encode($saveData)."',result=".($result == 0?0:1).",last_time=".$time.",choose_num=0";
-			$sql = $sql1." where id=".$userData->server_game->enemy->id." and last_time=".$userData->server_game->enemy->last_time;
-			if(!$conne->uidRst($sql)&& lcg_value()>0.9){//没有更新到   
-				//先取ID
-				$sql = "select id from ".$tableName." where gameid!='".$userData->gameid."' order by ".$winKey." choose_num asc, last_time asc limit 1";
-				$result = $conne->getRowsRst($sql);
-				if($result)
-				{
-					$sql = "select * from ".$tableName." order by ".$winKey." choose_num asc, last_time asc limit 1";
-					$result = $conne->getRowsRst($sql);
-					$sql = $sql1." where id=".$result['id'];
-					$conne->uidRst($sql);
-				}
+			$sql = "select id from ".$tableName." where id between ".($id-10)." and ".($id+10)." and data_key='".$data_key."' and gameid='".$userData->gameid."' limit 1";
+			$result2 = $conne->getRowsRst($sql);
+			if(!$result2)
+			{
+				unset($team1Data->teamID);
+				$saveData = new stdClass();
+				$saveData->pkdata = $team1Data;
+				$saveData->base = $changeFightDataValue->chooseList;
+				$saveData->userinfo = new stdClass();
+				$saveData->userinfo->head = $userData->head;
+				$saveData->userinfo->nick = base64_encode($userData->nick);
+				$saveData->userinfo->level = $userData->level;
+				$saveData->userinfo->force = $userData->tec_force + $userData->award_force;
+				$saveData->userinfo->win = $userData->server_game->win;
+				$saveData->userinfo->total = $userData->server_game->total;
+				$saveData->userinfo->exp = $userData->server_game->exp;
+				$saveData->userinfo->gameid = $userData->gameid;
+			
+				$sql = "select id from ".$tableName." where id between ".($id-3)." and ".($id+3)." order by last_time asc limit 1";
+				$result2 = $conne->getRowsRst($sql);
+				$sql = "update ".$tableName." set gameid='".$userData->gameid."',game_data='".json_encode($saveData)."',data_key='".$data_key."',last_time=".time().",choose_num=0 where id=".$result2['id'];
+				$conne->uidRst($sql);
 			}
+			
 			
 		}
 		
@@ -124,7 +125,7 @@
 			{
 				$collectNum ++;
 			}
-			$collectNum = ceil($pkLevel/3)*$collectNum + 1;
+			$collectNum = ceil($pkLevel/3)*($collectNum + 1);
 			$award->collect = addMonsterCollect($collectNum);//,2
 			$award->g_exp = 3;
 			if($userData->server_game->exp < 0)//少于0的加速回归
