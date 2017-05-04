@@ -24,13 +24,13 @@
 		
 
 		if($userData->main_game->pkdata)
-			$userData->main_game->pkdata = $userData->main_game->pkdata->version;
+			$userData->main_game->pkdata = array("version"=>$userData->main_game->pkdata->version,"time"=>$userData->main_game->pkdata->time);
 		if($userData->server_game->pkdata)
-			$userData->server_game->pkdata = $userData->server_game->pkdata->version;
+			$userData->server_game->pkdata = array("version"=>$userData->server_game->pkdata->version,"time"=>$userData->server_game->pkdata->time);
 		if($userData->server_game_equal->pkdata)
-			$userData->server_game_equal->pkdata = $userData->server_game_equal->pkdata->version;
+			$userData->server_game_equal->pkdata = array("version"=>$userData->server_game_equal->pkdata->version,"time"=>$userData->pkdata->pkdata->time);
 		if($userData->day_game->pkdata)
-			$userData->day_game->pkdata = $userData->day_game->pkdata->version;
+			$userData->day_game->pkdata = array("version"=>$userData->day_game->pkdata->version,"time"=>$userData->day_game->pkdata->time);
 			
 		if($userData->server_game->enemy && $userData->server_game->enemy->pkdata && !$userData->server_game->pktime)
 			unset($userData->server_game->enemy->pkdata);

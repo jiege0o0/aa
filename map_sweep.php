@@ -4,6 +4,7 @@
 		if($userData->pk_common->map->level <= $level)
 		{
 			$returnData->fail = 1;//没通关
+			$returnData->level = $userData->pk_common->map->level;		
 			break;
 		}
 		

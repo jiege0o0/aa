@@ -73,7 +73,7 @@
 		$userData->addCoin($award->coin);
 		$userData->addExp($award->exp);
 		// $userData->main_game->choose = null;
-		$userData->main_game->pkdata = array("team1"=>$team1Data,"team2"=>$team2Data,"isequal"=>$equalPK,"info"=>$pkUserInfo,'version'=>$pk_version);
+		$userData->main_game->pkdata = array("team1"=>$team1Data,"team2"=>$team2Data,"isequal"=>$equalPK,"info"=>$pkUserInfo,'version'=>$pk_version,'time'=>time());
 		// $returnData->sync_main_game->choose = null;
 		
 		renewMyCard();

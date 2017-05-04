@@ -165,7 +165,7 @@
 		$userData->server_game_equal->exp += $award->g_exp;
 		
 		
-		$userData->server_game_equal->pkdata = array("team1"=>$team1Data,"team2"=>$team2Data,"isequal"=>$equalPK,"info"=>$pkUserInfo,'version'=>$pk_version);
+		$userData->server_game_equal->pkdata = array("team1"=>$team1Data,"team2"=>$team2Data,"isequal"=>$equalPK,"info"=>$pkUserInfo,'version'=>$pk_version,'time'=>time());
 		$returnData->sync_server_game_equal->exp = $userData->server_game_equal->exp;
 		$returnData->sync_server_game_equal->open = $userData->server_game_equal->open;
 		
