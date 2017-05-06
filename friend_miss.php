@@ -16,24 +16,23 @@
 			if(!$serverFriend[0])
 				$serverFriend = array();
 		}
-	
-	
-	
-		$pkType = 'server_game';
-		$pkLevel = getPKTableLevel($userData->server_game->exp,100);
-		if(!testPKTable($pkType,$pkLevel))
-		{
-			$returnData->fail = 20;
-			break;
-		}
-		$tableName = $sql_table.$pkType."_".$pkLevel;
+		
+		$pkType='server_game';
+		$tableName = $sql_table.$pkType;
+		$index = $userData->{$pkType}->exp + 50;
+		$begin = $index - 20;
+		if($begin < 1)
+			$begin = 1;
+		$end = $index + 20;
+		if($end < 10)
+			$end = 30;
 		
 		//到对应表中找
-		$winKey = "";
-		$sql = "select * from ".$tableName." where gameid!='".$userData->gameid."' and gameid!='0'";
+		$sql = "select * from ".$tableName." where id between ".$begin." and ".$end." and last_time>0 and gameid!='".$userData->gameid."'";
 		$result = $conne->getRowsArray($sql);
+
 		$list = array();
-		if($result)//还是没找到PK对象
+		if($result)
 		{
 			foreach($result as $key=>$value)
 			{
