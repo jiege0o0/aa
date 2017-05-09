@@ -9,6 +9,7 @@
 	// set_error_handler("customError");
 	// $filePath = dirname(__FILE__).'/game/';
 	require_once($filePath."_config.php");
+	require_once($filePath."_config_version.php");
 	require_once($filePath."tool/tool.php");
 	
 	//error1:版本号,2登陆状态,3出错,4写用户失败

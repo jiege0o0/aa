@@ -170,9 +170,9 @@
 	function getMainForce($level){
 		$add = $level;
 		$index = 1;
-		while($level > 50*$index)
+		while($level > 10*$index)
 		{
-			$add += ($level - 50*$index);
+			$add += ($level - 10*$index);
 			$index ++;	
 		}
 		return $add;

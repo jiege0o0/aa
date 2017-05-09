@@ -11,8 +11,8 @@
 		require_once($filePath."random_fight_card.php");
 		$oo = new stdClass();
 		$oo->list = randomFightCard(ceil($msg->level/2));
-		$begin = ceil(pow($msg->level,2.2));
-		$end = $begin + ceil(pow($msg->level,1.2));
+		$begin = ceil(pow($msg->level,2.5)) + 5*$msg->level;
+		$end = $begin + ceil(pow($msg->level,1.25))+ $msg->level;
 		$oo->force = rand($begin,$end);
 		$oo->level = $msg->level; 
 		

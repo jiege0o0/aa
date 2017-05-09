@@ -30,7 +30,7 @@
 			{
 				break;
 			}
-			if($count > 6)
+			if($count >= 6)
 			{
 				$returnArr = array();
 				$count = 0;

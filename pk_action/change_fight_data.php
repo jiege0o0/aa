@@ -63,7 +63,7 @@
 			$count = 0;
 			for($i=1;$i<=$level;$i ++)
 			{
-				$count += ceil(($i + 1)/10); 
+				$count += $i;//ceil(($i + 1)/10); 
 			}
 			return $count;
 		}

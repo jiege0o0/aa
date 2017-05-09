@@ -89,7 +89,7 @@ class player{
 		global $equalPK;
 		if($equalPK)
 		{
-			$add = 300;
+			$add = 1000;
 		}
 		if(!$fight)
 		{

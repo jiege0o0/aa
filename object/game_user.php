@@ -392,7 +392,7 @@ class GameUser{
 		//µÈ¼¶Ó°Ïì
 		for($i=1;$i<=$this->level;$i++)
 		{
-			$this->tec_force += ceil(($i+1)/10);
+			$this->tec_force += $i;//ceil(($i+1)/10);
 		}
 		
 		
@@ -409,7 +409,10 @@ class GameUser{
 		$count = 0;
 		foreach($data as $key=>$value)
 		{
-			$count += $value;
+			for($i=1;$i<=$value;$i ++)
+			{
+				$count += $i;//ceil(($i + 1)/10); 
+			}
 		}
 		return $count;
 	}
