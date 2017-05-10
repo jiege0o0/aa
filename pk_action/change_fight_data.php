@@ -10,10 +10,6 @@
 		$len = count($pkTaskData);
 		if($task && $task->current < $task->num && $len)//ÈÎÎñ
 		{
-			debug('===');
-			debug($task->type);
-			debug($pkTaskData[0]->monsterID);
-			
 			if($task->type == 1)
 			{
 				if($pkTaskData[0]->monsterID == $task->mid)
@@ -28,10 +24,11 @@
 			{
 				if($returnData->result)
 				{
+					$list = $returnData->team1base->list;
+					$len = count($list);
 					for($i=0;$i<$len;$i++)
 					{
-						$player = $pkTaskData[$i];
-						if($player->monsterID == $task->mid)
+						if($list[$i] == $task->mid)
 						{
 							$task->current ++;
 							break;
