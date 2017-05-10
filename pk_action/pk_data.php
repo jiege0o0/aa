@@ -52,7 +52,7 @@ class PKData{//主要记录一些PK中的数据
 	
 	public $step = 0;//在回合中的步数
 	
-
+	public $lastSkiller;
 		
 	//初始化类
 	function __construct($team1Data=null,$team2Data=null){

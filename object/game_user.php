@@ -121,8 +121,6 @@ class GameUser{
 			$need = $honorAwardBase[$step]['num'];
 			if($value->w >= $need)
 			{
-				debug($value);
-				debug('|'.$need.'|'.$step);
 				return true;
 			}
 				
@@ -361,7 +359,6 @@ class GameUser{
 			$this->collect->num->{$id} = 0;
 		}
 			
-			debug($num);
 		$this->collect->num->{$id} += $num;
 		$this->setChangeKey('collect');	
 		

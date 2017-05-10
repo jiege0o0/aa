@@ -3,7 +3,6 @@
 	$type='main_game';
 	$choose = $userData->{$type}->choose;
 	$force = $msg->force;
-	debug($force);
 	if($force || !$choose || count($choose) == 0)//没有拿过牌
 	{
 		do{

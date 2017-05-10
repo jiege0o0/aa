@@ -16,25 +16,36 @@
 		$count = 0;
 		$cost = 0;
 		$returnArr = array();
+		$runIndex = 0;
+		$len = count($arr) - 1;
+		$addTime = 0;
 		while(true)
 		{
-			usort($arr,randomSortFun);
-			$vo = $arr[0];
-			if($cost + $vo['cost'] < 100)
+			$vo = $arr[rand(0,$len)];
+			if($cost + $vo['cost'] <= 88)
 			{
 				array_push($returnArr,$vo['id']);
 				$count += 1;
 				$cost += $vo['cost'];
 			}
-			if($cost > 80)
+			else
+				$addTime ++;
+			if($cost >= 88-$runIndex)
 			{
 				break;
 			}
-			if($count >= 6)
+			if($runIndex > 30)
+			{
+				break;
+			}
+			if($count >= 6 || $addTime > 10)
 			{
 				$returnArr = array();
 				$count = 0;
 				$cost = 0;
+				$addTime = 0;
+				$runIndex+= 0.2;
+				
 			}
 		}
 		usort($returnArr,randomSortFun);

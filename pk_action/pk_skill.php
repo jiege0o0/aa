@@ -68,7 +68,6 @@
 		if($arr[1])
 		{
 			$vo->tData = (int)$arr[1];
-			debug($vo->tData);
 		}
 		
 		$vo->name = $skillClassIn;

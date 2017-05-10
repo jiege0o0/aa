@@ -3,9 +3,96 @@
 	$changeFightDataValue = new stdClass();
 	//更新玩家手牌数据
 	function renewMyCard(){
-		global $userData,$stopWriteDB,$returnData,$filePath;
+		global $userData,$stopWriteDB,$returnData,$filePath,$pkTaskData;
 		$myCard = $userData->pk_common->my_card[0];
 		$myCard->num --;
+		$task = $myCard->task;
+		$len = count($pkTaskData);
+		if($task && $task->current < $task->num && $len)//任务
+		{
+			debug('===');
+			debug($task->type);
+			debug($pkTaskData[0]->monsterID);
+			
+			if($task->type == 1)
+			{
+				if($pkTaskData[0]->monsterID == $task->mid)
+					$task->current ++;
+			}
+			else if($task->type == 4)
+			{
+				if($returnData->result && $pkTaskData[$len-1]->monsterID == $task->mid)
+					$task->current ++;
+			}
+			else if($task->type == 6)
+			{
+				if($returnData->result)
+				{
+					for($i=0;$i<$len;$i++)
+					{
+						$player = $pkTaskData[$i];
+						if($player->monsterID == $task->mid)
+						{
+							$task->current ++;
+							break;
+						}
+					}
+				}
+			}
+			else 
+			{
+				$kill = 0;
+				for($i=0;$i<$len;$i++)
+				{
+					$player = $pkTaskData[$i];
+					if($player->monsterID == $task->mid)
+					{
+						$kill ++;
+						if($task->type == 5)
+							$task->current ++;
+						else if($task->type == 2 && $kill == 2)
+							$task->current ++;
+						else if($task->type == 3 && $kill == 3)
+							$task->current ++;
+					}
+					else
+					{
+						$kill = 0;
+					}
+				}
+				
+			}
+			
+			if($task->current >= $task->num)//完成任务
+			{
+				switch($task->award_type)
+				{
+					case 'diamond':
+						$userData->addDiamond($task->award_value);
+						break;
+					case 'coin':
+						$userData->addCoin($task->award_value);
+						break;
+					case 'card':
+						addMonsterCollect($task->award_value);
+						break;
+					case 'energy':
+						$userData->addEnergy($task->award_value);
+						break;
+					case 'ticket':
+						$userData->addProp(21,$task->award_value);
+						break;
+				}
+				$returnData->finish_task = new stdClass();
+				$returnData->finish_task->{$task->award_type} = $task->award_value;
+			}
+			
+			
+		}
+		
+		
+		
+		
 		if($myCard->num <= 0)
 		{
 			$stopWriteDB = true;

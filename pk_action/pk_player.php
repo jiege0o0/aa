@@ -98,7 +98,6 @@ class player{
 		
 		
 		$fight += $add;
-		debug($fight);
 		
 			
 			

@@ -15,6 +15,7 @@
 	$team1Data->teamID = 1;
 	$team2Data->teamID = 2;
 	
+	$pkTaskData = array();
 
 	
 	$pkData = new PKData($team1Data,$team2Data);
@@ -33,10 +34,17 @@
 	{
 		//循环PK逻辑
 		pkOneRound($playArr1,$playArr2);
+		
+		if($playArr2[0]->hp == 0)
+		{
+			$playArr2 = $pkData->team2->getFightArr();
+			if($playArr1[0]->hp != 0 || $pkData->lastSkiller->teamID == 1)
+			{
+				array_push($pkTaskData,$playArr1[0]);
+			}
+		}
 		if($playArr1[0]->hp == 0)
 			$playArr1 = $pkData->team1->getFightArr();
-		if($playArr2[0]->hp == 0)
-			$playArr2 = $pkData->team2->getFightArr();
 		if(count($playArr1) == 0 && count($playArr2) == 0)
 		{
 			//平局(平局算进攻方输)
