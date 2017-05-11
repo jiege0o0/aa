@@ -59,7 +59,7 @@ class GameUser{
 			return;
 			
 		
-		$this->pk_common = $this->decode($data['pk_common'],'{"history":[],"my_card":null,"map":{}}');
+		$this->pk_common = $this->decode($data['pk_common'],'{"history":[],"my_card":null,"map":null}');
 		$this->friends = $this->decode($data['friends'],'{"v":0,"t":0,"tk":0,"stop":false}');//∫√”—œ‡πÿ
 
 		

@@ -25,6 +25,11 @@
 			$userData->pk_common->map->lasttime = time();
 			$userData->pk_common->map->sweep = new stdClass();
 		}
+		if(!$userData->pk_common->map->level)
+		{
+			$userData->pk_common->map->level = 1;
+			$userData->pk_common->map->step = 0;
+		}
 		$userData->pk_common->map->enemy = $oo;
 		
 		$userData->addEnergy(-1);
