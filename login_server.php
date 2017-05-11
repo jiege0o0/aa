@@ -56,13 +56,13 @@
 
 		$returnData->data = $userData;
 		
-		$logtime = 1492612756;
-		if($msg->logtime < $logtime)
-		{
-			$returnData->logtext = new stdClass();
-			$returnData->logtext->text = '这是更新日志|这是更新日志2';
-			$returnData->logtext->time = $logtime;
-		}
+		// $logtime = 1492612756;
+		// if($msg->logtime < $logtime)
+		// {
+			// $returnData->logtext = new stdClass();
+			// $returnData->logtext->text = '这是更新日志|这是更新日志2';
+			// $returnData->logtext->time = $logtime;
+		// }
 		
 	}
 	else//没这个玩家，要新增

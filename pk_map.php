@@ -13,6 +13,12 @@
 			break;
 		}
 		
+		if($userData->pk_common->map->enemy->is_pk)
+		{
+			$returnData -> fail = 1;
+			break;
+		}
+		
 		
 		$team2Data = new stdClass();
 		$team2Data->list = $userData->pk_common->map->enemy->list;
@@ -31,15 +37,16 @@
 		$award->exp = ceil(20*(1+$level/10));
 		if($result)
 		{
+			$maxPKTimes = min(10,$level + 2);
 			$award->g_exp = $level * 2;
 			$userData->pk_common->map->value += $award->g_exp;
 			if($currentLevel == $level)
 			{
 				$userData->pk_common->map->step ++;
-				if($userData->pk_common->map->step >= 10)
+				if($userData->pk_common->map->step >= $maxPKTimes)
 				{
 					$userData->pk_common->map->step = 0;
-					$userData->pk_common->map->sweep->{$level} = 10;
+					$userData->pk_common->map->sweep->{$level} = $maxPKTimes;
 					$userData->pk_common->map->level ++;
 				}
 			}
@@ -55,13 +62,14 @@
 					$userData->pk_common->map->sweep->{$level} ++;
 			}
 			$userData->pk_common->map->lasttime = time();
-			$userData->setChangeKey('pk_common');
+			
 		}
 		else
 		{
 			$award->exp = 10 + floor($level/5);
 		}
-	
+		$userData->pk_common->map->enemy->is_pk = true;
+		$userData->setChangeKey('pk_common');
 		$userData->addExp($award->exp);	
 		renewMyCard();
 		$userData->addHistory($team1Data->list);

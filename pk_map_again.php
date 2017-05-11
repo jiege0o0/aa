@@ -6,7 +6,8 @@
 			$returnData->sync_energy = $userData->energy;
 			break;
 		}
-		
+		$userData->pk_common->map->enemy->is_pk = false;
+		$userData->setChangeKey('pk_common');
 		$userData->addEnergy(-1);
 		$userData->write2DB();	
 		

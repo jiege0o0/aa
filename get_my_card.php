@@ -37,7 +37,7 @@
 				$mvo = $monster_base[$obj->task->mid];
 				
 				$obj->task->type = rand(1,6);
-				if($vo['cost'] <10)
+				if($mvo['cost'] <10)
 				{
 					if($obj->task->type == 2 || $obj->task->type == 3)
 						$obj->task->type = 6;
@@ -57,7 +57,7 @@
 						$end = 10;
 					}
 				}
-				else if($vo['cost'] <20)
+				else if($mvo['cost'] <20)
 				{
 
 					if($obj->task->type == 1)

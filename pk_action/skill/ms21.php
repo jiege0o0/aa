@@ -42,7 +42,7 @@
 				$buff = new ValueBuff('speed',round($player->base_speed * 0.3),3);
 				$buff->addToTarget($player);
 				
-				$buff = new ValueBuff('atk',round($player->base_atk * 0.2),3);
+				$buff = new ValueBuff('atk',round($player->base_atk * 0.3),3);
 				$buff->addToTarget($player);
 			}
 		}

@@ -13,10 +13,11 @@
 			$userData->pk_common->map->sweep = new StdClass();
 		}
 		$pktimes = $userData->pk_common->map->sweep->{$level};
+		$maxPKTimes = min(10,$level + 2);
 		if(!$pktimes)
-			$pktimes = 10;
+			$pktimes = $maxPKTimes;
 		else
-			$pktimes = 10 - $pktimes;
+			$pktimes = $maxPKTimes - $pktimes;
 			
 		if($pktimes <= 0)
 		{
@@ -33,7 +34,7 @@
 		}
 		
 		$value = $level * 2 * $pktimes;
-		$userData->pk_common->map->sweep->{$level} = 10;
+		$userData->pk_common->map->sweep->{$level} = $maxPKTimes;
 		$userData->pk_common->map->value += $value;
 		$userData->pk_common->map->lasttime = time();
 		$userData->setChangeKey('pk_common');
