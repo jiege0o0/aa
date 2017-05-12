@@ -127,7 +127,7 @@
 			}
 			$collectNum = ceil($pkLevel/3)*($collectNum + 1);
 			$award->collect = addMonsterCollect($collectNum);//,2
-			$award->g_exp = 3;
+			$award->g_exp = 4;
 			if($userData->server_game->exp < 0)//少于0的加速回归
 				$award->g_exp += floor(-$userData->server_game->exp/100);
 				
@@ -135,7 +135,7 @@
 			$userForce = $userData->tec_force + $userData->award_force;
 			if($enemyForce && $userForce / $enemyForce > 1.2)//高于阶段战力的加速上升
 			{
-				$award->g_exp += floor($userForce / $enemyForce*$pkLevel);
+				$award->g_exp += floor(min($userForce / $enemyForce,2)*$pkLevel);
 			}
 				
 			$userData->server_game->choose = false;

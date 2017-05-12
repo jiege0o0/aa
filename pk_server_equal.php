@@ -126,7 +126,7 @@
 			
 			$award->g_exp = 4 + $userData->server_game_equal->last;
 			if($userData->server_game_equal->exp < 0)
-				$award->g_exp += floor(-$userData->server_game_equal->exp/100);
+				$award->g_exp += floor(-$userData->server_game_equal->exp/10);
 				
 			// tempAddProp(21);
 			
