@@ -47,7 +47,7 @@
 		$returnData->sync_active->draw_time = $userData->active->draw_time;
 		$returnData->sync_active->draw_num = $userData->active->draw_num;
 		$userData->setChangeKey('active');
-		// $userData->write2DB();
+		$userData->write2DB();
 	}while(false);
 	
 
