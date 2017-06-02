@@ -6,5 +6,5 @@
 		die('no serverID');
 	require_once($filePath."_config.php");
 	// require_once($filePath."tool/create/createDB.php");
-	require_once($filePath."tool/create/createServerDB.php");
+	require_once($filePath."create/createServerDB.php");
 ?> 

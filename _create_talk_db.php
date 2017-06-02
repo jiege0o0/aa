@@ -3,5 +3,5 @@
 	$filePath = dirname(__FILE__).'/';
 	require_once($filePath."_config.php");
 	// require_once($filePath."tool/create/createDB.php");
-	require_once($filePath."tool/create/createServerTalkDB.php");
+	require_once($filePath."create/createServerTalkDB.php");
 ?> 
