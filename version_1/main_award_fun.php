@@ -4,11 +4,11 @@
 	$award = new stdClass();
 	$returnData->award = $award;
 	
-	$award->coin = $level*200*$rate;
+	$award->coin = $level*300*$rate;
 	$userData->addCoin($award->coin);
 	
-	//每过30小关奖一个碎片
-	$propNum = (floor($level/30) + 1)*$rate;
+	//每过20小关奖一个碎片
+	$propNum = (floor($level/20) + 1)*$rate;
 	$award->collect = addMonsterCollect($propNum);//,4+$rate
 	
 
