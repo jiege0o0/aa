@@ -1,38 +1,28 @@
 <?php 
 	do{
-
-		if($userData->getEnergy() < 1)//体力不够
+		require_once($filePath."map_code.php");
+		
+		if(!$userData->pk_common->map->pk_value)//PK次数不足
 		{
-			$returnData->fail = 1;
-			$returnData->sync_energy = $userData->energy;
-			break;
+			resetMapCD();
+			if(!$userData->pk_common->map->pk_value)
+			{
+				$returnData->fail = 1;
+				break;
+			}
 		}
 		
+		$level = $userData->pk_common->map->level;
 		require_once($filePath."random_fight_card.php");
 		$oo = new stdClass();
-		$oo->list = randomFightCard(ceil($msg->level/2));
-		$begin = ceil(pow($msg->level,2.5)) + 5*$msg->level;
-		$end = $begin + ceil(pow($msg->level,1.25))+ $msg->level;
-		$oo->force = rand($begin,$end);
-		$oo->level = $msg->level; 
+		$oo->list = randomFightCard(ceil($level));
+		$force = ceil(pow($level,1.6))*25 - 24;
+		$oo->force = $force + rand(0,$level*9);
+		$oo->level = $level; 
 		
-		if($userData->pk_common->map == null)
-		{
-			$userData->pk_common->map = new stdClass();
-			$userData->pk_common->map->value = 0;
-			$userData->pk_common->map->level = 1;
-			$userData->pk_common->map->step = 0;
-			$userData->pk_common->map->lasttime = time();
-			$userData->pk_common->map->sweep = new stdClass();
-		}
-		if(!$userData->pk_common->map->level)
-		{
-			$userData->pk_common->map->level = 1;
-			$userData->pk_common->map->step = 0;
-		}
+		$userData->pk_common->map->pk_value --;
 		$userData->pk_common->map->enemy = $oo;
 		
-		$userData->addEnergy(-1);
 		$userData->setChangeKey('pk_common');
 		$userData->write2DB();	
 		

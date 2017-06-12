@@ -133,6 +133,7 @@
 			monsterUseLogOne($table,$key,$value,$isWin);
 		}
 	}
+	
 	function monsterUseLogOne($table,$id,$useNum,$isWin){
 		global $conne;
 		$arr = array();
@@ -152,7 +153,25 @@
 		return $key."=".$key.'+'.$value;
 	}
 	
-	
+	//怪物的基础属性
+    function getMonsterValue($monsterID){
+		global $userData,$monster_base;
+		$mvo = $monster_base[$monsterID];
+        $force = ($userData->award_force + $userData->tec_force);
+		$mLevel = $userData->tec->monster->{$monsterID};
+		if(!$mLevel)
+			$mLevel = 0;
+		for($i=1;$i<=$mLevel;$i ++)
+		{
+			$force += $i;
+		}
+		
+		return array(
+			'atk'=>round($mvo['atk'] * (1+$force/100)),
+			'hp'=>round($mvo['hp'] * (1+$force/100)),
+			'speed'=>$mvo['speed']
+		);
+    }
 	
 	
 	

@@ -251,9 +251,20 @@ class GameUser{
 		if($v <= 0)
 			return;
 		global $returnData;
+		$this->beforeForceChange();
 		$this->award_force += $v;
 		$this->setChangeKey('award_force');
 		$returnData->sync_award_force = $this->award_force;
+	}
+	
+	function beforeForceChange(){
+		// require_once($filePath."map_code.php");
+		// if($resetMapData())
+		// {
+			// global $returnData;
+			// $returnData->sync_map = $this->pk_common->map;
+			// $this->setChangeKey('pk_common');
+		// }
 	}
 	//加经验
 	function addExp($v){
@@ -405,6 +416,8 @@ class GameUser{
 	//重新计算战力
 	function resetForce(){
 		global $returnData;
+		$this->beforeForceChange();
+		
 		$this->tec_force = 0;
 		//等级影响
 		for($i=1;$i<=$this->level;$i++)

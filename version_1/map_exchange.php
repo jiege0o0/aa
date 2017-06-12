@@ -11,18 +11,18 @@
 		
 		if($type == 1)//换金币
 		{
-			$returnData->coin = $value*10;
+			$returnData->coin = $value*5;
 			$userData->addCoin($returnData->coin);
 		}
 		else if($type == 2)//换card
 		{
-			if($value % 10 != 0)//不对
+			if($value % 20 != 0)//不对
 			{	
 				$returnData->fail = 2;
 				break;
 			}
 			require_once($filePath."get_monster_collect.php");
-			$returnData->card = floor($value/10);
+			$returnData->card = floor($value/20);
 			addMonsterCollect($returnData->card);
 		}
 		

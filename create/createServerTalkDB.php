@@ -19,7 +19,8 @@ for($i = 1;$i<=100;$i++)
 	talk varchar(8138),
 	good INT UNSIGNED default 0,
 	bad INT UNSIGNED default 0,
-	time INT UNSIGNED default 0
+	time INT UNSIGNED default 0,
+	INDEX(time)
 	)",$connect)or die("message=F,Invalid query: " . mysql_error()); 
 
 	//往表插入数据

@@ -54,6 +54,7 @@ http://hangegame.com/new_index.php
 http://hangegame.com/user/_create_db.php
 http://hangegame.com/game/_create_db.php?serverid=1
 http://hangegame.com/game/_create_talk_db.php
+http://hangegame.com/game/_create_dungeon_db.php?serverid=1&month=6
 http://hangegame.com/game/_create_monster_db.php?table=server_monster,server_equal_monster
 http://hangegame.com/index.html?host1=com&openid=h1
 http://hangegame.com/client/index.html

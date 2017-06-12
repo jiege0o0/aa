@@ -6,6 +6,13 @@
 	$team1Data = changePKData($myChoose,'my_card');
 	do{
 		
+		if($userData->getEnergy() < 1)//体力不够
+		{
+			$returnData->fail = 2;
+			$returnData->sync_energy = $userData->energy;
+			break;
+		}
+		
 		if(property_exists($team1Data,'fail'))//玩家牌的数据不对
 		{
 			$returnData -> fail = $team1Data->fail;
@@ -23,7 +30,12 @@
 		$team2Data->list = $userData->pk_common->map->enemy->list;
 		$team2Data->fight = $userData->pk_common->map->enemy->force;
 		$currentLevel = $userData->pk_common->map->level;
-
+		
+		if($currentLevel != $userData->pk_common->map->level)//通辑令与当前关卡不对
+{
+			$returnData -> fail = 3;
+			break;
+		}
 		
 	
 		require_once($filePath."pk_action/pk.php");
@@ -36,32 +48,12 @@
 		$award->exp = ceil(20*(1+$level/10));
 		if($result)
 		{
-			$maxPKTimes = min(10,$level + 2);
-			$award->g_exp = $level * 2;
+
+			$award->g_exp = ceil(pow($level,1.2)) + 4;
 			$userData->pk_common->map->value += $award->g_exp;
-			if($currentLevel == $level)
-			{
-				$userData->pk_common->map->step ++;
-				if($userData->pk_common->map->step >= $maxPKTimes)
-				{
-					$userData->pk_common->map->step = 0;
-					$userData->pk_common->map->sweep->{$level} = $maxPKTimes;
-					$userData->pk_common->map->level ++;
-				}
-			}
-			else
-			{
-				if(!isSameDate($userData->pk_common->map->lasttime))
-				{
-					$userData->pk_common->map->sweep = new StdClass();
-				}
-				if(!$userData->pk_common->map->sweep->{$level})
-					$userData->pk_common->map->sweep->{$level} = 1;
-				else
-					$userData->pk_common->map->sweep->{$level} ++;
-			}
-			$userData->pk_common->map->lasttime = time();
 			
+			if($userData->pk_common->map->step < 10)
+				$userData->pk_common->map->step ++;
 		}
 		else
 		{
@@ -72,6 +64,7 @@
 		$userData->addExp($award->exp);	
 		renewMyCard();
 		$userData->addHistory($team1Data->list);
+		$userData->addEnergy(-1);
 		$userData->write2DB();	
 		
 	}while(false);
