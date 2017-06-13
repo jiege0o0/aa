@@ -1,7 +1,12 @@
 <?php 
 	require_once($filePath."map_code.php");
 	do{
-		$b = $resetMapData();
+		if(!$userData->pk_common->map->lasttime)
+		{
+			require_once($filePath."map_start.php");
+			return;
+		}
+		$b = resetMapData();
 		if($b)
 		{
 			$userData->setChangeKey('pk_common');

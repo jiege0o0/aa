@@ -9,17 +9,17 @@
 		}
 		if($level > $userData->pk_common->map->max_level+1)
 		{
-			$returnData -> fail = 1;
+			$returnData -> fail = 2;
 			break;
 		}
 		if($level == $userData->pk_common->map->max_level+1 && $userData->pk_common->map->step < 10)
 		{
-			$returnData -> fail = 1;
+			$returnData -> fail = 3;
 			break;
 		}
 		
 	
-		$resetMapData();
+		resetMapData();
 		$userData->pk_common->map->value += $userData->pk_common->map->bag;
 		$userData->pk_common->map->bag = 0;
 		$userData->pk_common->map->pk_value = 0;
@@ -31,7 +31,7 @@
 		}
 		$userData->pk_common->map->lasttime = time();
 		
-		$resetMapData();
+		resetMapData();
 		$userData->setChangeKey('pk_common');
 		$userData->write2DB();	
 		$returnData->data = $userData->pk_common->map;
