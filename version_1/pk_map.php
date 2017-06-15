@@ -31,7 +31,9 @@
 		$team2Data->fight = $userData->pk_common->map->enemy->force;
 		$currentLevel = $userData->pk_common->map->level;
 		
-		if($currentLevel != $userData->pk_common->map->level)//通辑令与当前关卡不对
+		$level = $userData->pk_common->map->enemy->level;
+		
+		if($currentLevel != $level)//通辑令与当前关卡不对
 {
 			$returnData -> fail = 3;
 			break;
@@ -42,7 +44,7 @@
 		addMonsterUse($myChoose,$result);
 		
 		//处更玩家数据,奖励
-		$level = $userData->pk_common->map->enemy->level;
+		
 		$award = new stdClass();
 		$returnData->award = $award;
 		$award->exp = ceil(20*(1+$level/10));
@@ -52,7 +54,7 @@
 			$award->g_exp = ceil(pow($level,1.2)) + 4;
 			$userData->pk_common->map->value += $award->g_exp;
 			
-			if($userData->pk_common->map->step < 10)
+			if($currentLevel == $userData->pk_common->map->max_level && $userData->pk_common->map->step < 10)
 				$userData->pk_common->map->step ++;
 		}
 		else

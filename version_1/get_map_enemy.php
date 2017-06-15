@@ -4,7 +4,7 @@
 		
 		if(!$userData->pk_common->map->pk_value)//PK次数不足
 		{
-			resetMapCD();
+			resetMapData();
 			if(!$userData->pk_common->map->pk_value)
 			{
 				$returnData->fail = 1;
