@@ -56,14 +56,14 @@
 
 		$returnData->data = $userData;
 		
-		$logtime = 1496631187;
+		$logtime = 1497597526;
 		if($msg->logtime < $logtime)
 		{
 			$returnData->logtext = new stdClass();
-			$returnData->logtext->text = '战斗动画调整，现在能通过动画方式浏览整个PK过程了|'.
-			'把好友功能调整为3级开放|'.
-			'首页布局调整，成就功能放到了玩家详情中去了|'.
-			'加入一个团队PEV副本，需要玩家与好友组队共同挑战';
+			$returnData->logtext->text = '重做野外副本，改为挂机副本|'.
+			'增加卡兵定位及描述，方便玩家上手|'.
+			'UI体验化|'.
+			'BUG修改及细节调整';
 			$returnData->logtext->time = $logtime;
 		}
 		
