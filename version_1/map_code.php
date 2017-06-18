@@ -80,7 +80,7 @@
 			$userData->pk_common->map->lasttime += $addNum * $cd;
 			
 			if($userData->pk_common->map->bag > $maxAward)
-                $userData->pk_common->map->bag > $maxAward;
+                $userData->pk_common->map->bag = $maxAward;
 			return true;
         }
 		return false;
