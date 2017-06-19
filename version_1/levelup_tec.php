@@ -1,4 +1,5 @@
 <?php 
+	require_once($filePath."cache/monster.php");
 	//升级科技等级
 	$type=$msg->type;//类型
 	$id=$msg->id;//类型中的哪个科技
@@ -21,7 +22,8 @@
 		}
 		
 		
-		$coin = floor(pow($level,2.5)*10*($level/5 + 1))+38*floor(pow($level,1.5));
+		$coin = floor((pow($level,2.5)*10*($level/5 + 1))+38*floor(pow($level,1.5)) * (1+$monster_base[$id]['cost']/100));
+		
 		if($userData->coin < $coin)//钱不够
 		{
 			$returnData->fail = 1;
@@ -29,7 +31,7 @@
 			break;
 		}
 		
-		$needNum = floor(pow(1.3,$level)*$level*0.6 + $level) - floor(pow(1.3,$level-1)*($level-1)*0.6 + ($level - 1));
+		$needNum = floor((pow(1.3,$level)*$level*0.6 + $level - (pow(1.3,$level-1)*($level-1)*0.6 + ($level - 1))) * (1+$monster_base[$id]['cost']/100));
 		$mNum = $userData->getCollectNum($id);
 		if($needNum > $mNum)//碎片不够
 		{
