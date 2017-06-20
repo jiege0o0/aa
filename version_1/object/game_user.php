@@ -468,7 +468,7 @@ class GameUser{
 				return $key."=".$value;
 		}
 		
-		global $conne,$msg,$sendData,$sql_table;
+		global $conne,$msg,$mySendData,$sql_table;
 		$arr = array();
 		
 		if($this->changeKey['level'] || $this->changeKey['tec'])//会影响战力
@@ -526,7 +526,7 @@ class GameUser{
 		 debug($sql);
 		if(!$conne->uidRst($sql))//写用户数据失败
 		{
-			$sendData->error = 4;
+			$mySendData->error = 4;
 			return false;
 		}
 		

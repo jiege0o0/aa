@@ -62,6 +62,7 @@
 			
 			if($task->current >= $task->num)//完成任务
 			{
+				require_once($filePath."get_monster_collect.php");
 				switch($task->award_type)
 				{
 					case 'diamond':

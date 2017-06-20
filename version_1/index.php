@@ -7,50 +7,82 @@
 	ini_set('display_errors', '1');
 
 
-	// set_error_handler("customError");
-	// $filePath = dirname(__FILE__).'/game/';
+	set_error_handler("customError");
+	register_shutdown_function('fatalErrorHandler');
 	require_once($filePath."_config_version.php");
 	require_once($filePath."tool/tool.php");
 	
-	//error1:版本号,2登陆状态,3出错,4写用户失败
 	
-	function  customError($errno, $errstr, $errfile, $errline)
-	{ 
-		if($errno == 8192)
-			return;
-		if($errno == 8)
-			return;
-		global $_POST,$sendData,$debugC,$debugArr;
-		errorLog("#".$_POST['head'].$_POST['msg'].$errstr."=>code:".$errstr."=>code:".$errno.'=>file:'.$errfile."=>line:".$errline);//.$errstr."=>code:".$errno'=>file:'.$errfile."=>line:".$errline
-		$sendData->error = 3;
-		$sendData->debug = $debugArr;
-		if($debugC)
-			echo $errstr."=>code:".$errno.'=>file:'.$errfile."=>line:".$errline; 	
-	
-		sendToClient($sendData);			
-		// die();
-	}
-
 	$head = $_POST['head'];
 	$msg = json_decode($_POST['msg']);
 	$debugC = $_POST['debug_client'];//客户端发起的DEBUG
 	
+	global $returnData,$mySendData;
+	
 	$returnData = new stdClass();
-	$sendData = new stdClass();
-	$sendData->head = $head;
-	$sendData->msg = $returnData;
+	$mySendData = new stdClass();
+	$mySendData->head = $head;
+	$mySendData->msg = $returnData;
+	
+	if($debugC){
+		$startT = microtime(true);
+		$debugArr = array();
+	}
+	
+	
+	
+	//error1:版本号,2登陆状态,3出错,4写用户失败
+	
+	 function fatalErrorHandler(){
+	 global $_POST,$mySendData,$debugC,$debugArr;
+             $e = error_get_last();
+             switch($e['type']){
+                case E_ERROR:
+                case E_PARSE:
+                case E_CORE_ERROR:
+                case E_COMPILE_ERROR:
+                case E_USER_ERROR:
+                     customError($e['type'],$e['message'],$e['file'],$e['line']);
+                     break;         
+            }
+    }
+	
+	function  customError($errno, $errstr, $errfile, $errline)
+	{ 
+		global $_POST,$mySendData,$debugC,$debugArr;
+		if($errno == 8192)
+			return;
+		if($errno == 8)
+			return;
+		
+		errorLog("#".$_POST['head'].$_POST['msg'].$errstr."=>code:".$errstr."=>code:".$errno.'=>file:'.$errfile."=>line:".$errline);//.$errstr."=>code:".$errno'=>file:'.$errfile."=>line:".$errline
+		
+		sendErroClient();	
+	}
+	
+	
+	function sendErroClient(){
+		global $_POST,$mySendData,$debugC,$debugArr;
+		$mySendData = new stdClass();
+		$mySendData->head = $_POST['head'];
+		$mySendData->error = 3;
+		$mySendData->debug = $debugArr;
+		
+		sendToClient($mySendData);		
+	}
+
 	try{	
 		do{
-			// $sendData->error = 99;
-			// $sendData->error_str = '15时间改回正常';
+			// $mySendData->error = 99;
+			// $mySendData->error_str = '15时间改回正常';
 			// break;
 			//测试版本号
 			if($_POST['version'] < $game_version){
-				$sendData->error = 1;
+				$mySendData->error = 1;
 				break;
 			}
 			if($_POST['version'] > $game_version){
-				$sendData->error = 5;
+				$mySendData->error = 5;
 				break;
 			}
 			
@@ -63,21 +95,17 @@
 				$userData = $conne->getRowsRst($sql);
 				if(!$userData)//登录失效
 				{
-					$sendData->error = 2;
+					$mySendData->error = 2;
 					break;
 				}
 				$userData = new GameUser($userData);
-			}
+			}			
 			
-			if($debugC){
-				$startT = microtime(true);
-				$debugArr = array();
-			}
 			switch($head)
 			{
 				case 'debug':
 				{
-					$sendData->msg = $msg;
+					$mySendData->msg = $msg;
 					break;
 				}
 				case 'login_server':
@@ -159,21 +187,21 @@
 					}
 					else
 					{
-						$sendData->result = 'fail';
-						$sendData->msg = 'fun not found:'.$head;
+						$mySendData->result = 'fail';
+						$mySendData->msg = 'fun not found:'.$head;
 					}				
 					break;
 				}
 			}		
 			if($debugC){
-				$sendData->runtime = microtime(true) - $startT;
-				$sendData->debug = $debugArr;
+				$mySendData->runtime = microtime(true) - $startT;
+				$mySendData->debug = $debugArr;
 			}
 		}while(false);
 	}
 	catch(Exception $e){
 		errorLog("#".$_POST['head'].$_POST['msg'].$e->getMessage()."=>code:".$e->getCode().'=>file:'.$e->getFile()."=>line:".$e->getLine());
-		$sendData->error = 3;
+		$mySendData->error = 3;
 		if($debugC)
 			echo $e->__toString(); 			
 	}
@@ -183,5 +211,5 @@
 		errorLog("#".$_POST['head'].$_POST['msg'].json_encode($returnData));
 	}
 	unset($returnData->stopLog);	
-	sendToClient($sendData);
+	sendToClient($mySendData);
 ?>
