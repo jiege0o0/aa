@@ -17,9 +17,9 @@
 		// unset($userData->collect->num);
 		// $userData->collect->isred = $userData->collectIsRed();//初始红点
 		
-		$honorRed = $userData->honorIsRed();
-		$userData->honor = new stdClass();
-		$userData->honor->isred = $honorRed;
+		// $honorRed = $userData->honorIsRed();
+		// $userData->honor = new stdClass();
+		// $userData->honor->isred = $honorRed;
 		
 		
 
