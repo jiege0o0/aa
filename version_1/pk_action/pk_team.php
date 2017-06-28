@@ -61,6 +61,7 @@ class Team{
 				// $indexArray = new stdClass();
 			$this->monsterBase = new stdClass();
 			$this->initTeamPlayer();
+			$index = 0;
 			for($i=0;$i<$len;$i++)
 			{
 				if(!$list[$i])
@@ -71,7 +72,7 @@ class Team{
 				$player = new Player($list[$i]);
 				$player->teamID = $this->teamID;
 				$player->team = $this;
-				$player->id = 10 + ($this->teamID-1)*20 + $i;
+				$player->id = 10 + ($this->teamID-1)*20 + $index;
 				if($this->monsterBase->{''.$player->monsterID})
 				{
 					$player->initData($tec->{$player->monsterID},$this->fight);
@@ -104,6 +105,7 @@ class Team{
 				// }	
 				
 				array_push($this->monsterList,$player);
+				$index ++;
 			}
 
 		}

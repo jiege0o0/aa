@@ -7,7 +7,12 @@
 	if(!$card || $card->num == 0 || $force)//没有拿过牌
 	{
 		do{
-			if($force && $card != null)//用钻石拿
+			$freeGet = false;
+			if($card && $card[0]->task && $card[0]->task->current  >= $card[0]->task->num)
+			{
+				$freeGet = true;
+			}
+			if(!$freeGet && $force && $card != null)//用钻石拿
 			{
 				$needDiamond = max(0,$card[0]->num);
 				if($userData->getDiamond() < $needDiamond)
@@ -18,6 +23,7 @@
 				}
 				$userData->addDiamond(-$needDiamond);
 			}
+			
 			if($userData->exp == 0)
 			{
 				$obj = new stdClass();
