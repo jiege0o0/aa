@@ -13,10 +13,10 @@
 	class sm_21_1 extends SkillBase{
 		public $cd = 0;
 		function action($user,$self,$enemy){
-			$buff = new ValueBuff('speed',round($self->base_speed * 0.5),3);
+			$buff = new ValueBuff('speed',round($self->base_speed * 0.3),3);
 			$buff->addToTarget($self);
 			
-			$buff = new ValueBuff('atk',round($self->base_atk * 0.5),3);
+			$buff = new ValueBuff('atk',round($self->base_atk * 0.3),3);
 			$buff->addToTarget($self);
 		}
 	}

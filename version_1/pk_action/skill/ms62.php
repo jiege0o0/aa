@@ -17,7 +17,7 @@
 	class sm_62_1 extends SkillBase{
 		public $type='DIE';
 		function canUse($user,$self=null,$enemy=null){
-			$num = $user->team->monsterBase->{$user->monsterID}->num;
+			$num = $user->team->monsterBase->{$user->monsterID}->num + 1;
 			return $self->hp<=0 && !sm_62_king($user) && $num > $this->temp1;
 		}
 		function action($user,$self,$enemy){

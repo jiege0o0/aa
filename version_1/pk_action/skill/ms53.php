@@ -18,7 +18,7 @@
 		}
 		function action($user,$self,$enemy){
 			$user->reborn(0.4);
-			$this->addMp($user,$self,40);
+			$this->addMp($user,$self,30);
 		}
 	}
 	

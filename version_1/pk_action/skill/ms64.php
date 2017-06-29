@@ -5,7 +5,7 @@
 	class sm_64_0 extends SkillBase{
 		public $isAtk = true;
 		function action($user,$self,$enemy){
-			$this->decHp($user,$enemy,$user->atk*6);
+			$this->decHp($user,$enemy,$user->atk*5);
 		}
 	}
 	
@@ -30,7 +30,7 @@
 	class sm_64_f2 extends SkillBase{
 		public $cd = 0;
 		function action($user,$self,$enemy){
-			$this->addMp($user,$self,20);
+			$this->addMp($user,$self,10);
 		}
 	}
 

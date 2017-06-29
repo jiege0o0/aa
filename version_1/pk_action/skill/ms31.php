@@ -24,10 +24,10 @@
 		public $type = 'HP';
 		public $once = true;
 		function canUse($user,$self=null,$enemy=null){
-			return $user->getHpRate() <= 0.3;
+			return $user->getHpRate() <= 0.2;
 		}
 		function action($user,$self,$enemy){
-			$user->missTimes += 6;
+			$user->missTimes += 5;
 		}
 	}
 	

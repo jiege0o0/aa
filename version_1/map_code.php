@@ -33,7 +33,7 @@
 		
 		
 		$userData->pk_common->map->cd_key = $cd_key;
-		$boss = array('atk'=>90,'hp'=>1000,'speed'=>50);
+		$boss = array('atk'=>90,'hp'=>600,'speed'=>50);
         $force = pow(1+$userData->pk_common->map->level/2,1.3);
         $boss['atk'] = floor($boss['atk'] * $force);
         $boss['hp'] = floor($boss['hp'] * $force*20);	

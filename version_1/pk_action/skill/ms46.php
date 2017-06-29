@@ -5,7 +5,7 @@
 	class sm_46_0 extends SkillBase{
 		public $isAtk = true;
 		function action($user,$self,$enemy){
-			$this->decHp($user,$enemy,$user->atk*2);
+			$this->decHp($user,$enemy,$user->atk*1.5);
 			
 			$buff = new StatBuff(24,2);
 			$buff->isDebuff = true;
@@ -34,12 +34,12 @@
 		public $type='AFTER';
 		public $once = true;
 		function canUse($user,$self=null,$enemy=null){
-			return $user->actionCount >= 8;
+			return $user->actionCount >= 6;
 		}
 		function action($user,$self,$enemy){
 			$user->atk += round($user->base_atk*0.5);
-			$user->addDef(30);
-			$this->addHp($user,$user,$user->maxHp*0.3);
+			$user->addDef(50);
+			$this->addHp($user,$user,$user->maxHp*0.5);
 		}
 	}
 	

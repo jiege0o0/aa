@@ -64,8 +64,12 @@
 			$returnData->sync_honor_monster = new stdClass();
 		}
 		$list = $pkData->list;
+		$addData = array();
 		foreach($list as $key=>$value)
 		{
+			if($addData[$value])
+				continue;
+			$addData[$value] = true; 
 			if(!$userData->honor->monster->{$value})
 			{
 				$userData->honor->monster->{$value} = new stdClass();

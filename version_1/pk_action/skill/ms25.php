@@ -35,7 +35,7 @@
 	
 	//辅：--圣光：回20%血，cd5
 	class sm_25_f1 extends SkillBase{
-		public $cd = 5;
+		public $cd = 4;
 		public $order = 1;//优先级，互斥时越大的越起作用
 		function action($user,$self,$enemy){
 			$this->addHp($user,$self,$self->maxHp*0.25);

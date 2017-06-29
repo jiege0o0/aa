@@ -40,7 +40,7 @@
 		public $cd = 0;
 		public $order = 10;
 		function action($user,$self,$enemy){
-			$self->maxMp -= 20;
+			$self->maxMp -= 10;
 		}
 	}	
 	
