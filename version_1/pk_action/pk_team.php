@@ -30,6 +30,7 @@ class Team{
 	public $totalPKAction=array();//过程中产生的，会在PK前填充到nextPKAction['V,atk#456#CD@5*Round@6']
 	public $tArr = array();//特性技能
 	
+	public $allMonsterList = array();//所有宠物的集合
 	public $monsterList = array();//等待出战的宠物
 	public $currentMonster = array();//当前出战的宠物
 	public $teamID;
@@ -105,6 +106,7 @@ class Team{
 				// }	
 				
 				array_push($this->monsterList,$player);
+				array_push($this->allMonsterList,$player);
 				$index ++;
 			}
 

@@ -8,7 +8,7 @@
 			$v = $this->addHp($user,$enemy,$enemy->maxHp*0.25);
 			$buff = new HPBuff(-$v*3,1,'39_0');
 			$buff->isDebuff = true;
-			$buff->addToTarget($enemy);
+			$buff->addToTarget($user,$enemy);
 			
 			if(!$user->temp['sendGift'])
 				$user->temp['sendGift'] = 0;
@@ -21,8 +21,8 @@
 		public $cd = 3;
 		function action($user,$self,$enemy){
 			$this->addHp($user,$enemy,$enemy->maxHp*0.15);
-			$enemy->addSpeed(-$enemy->base_speed*0.1);
-			$enemy->addAtk(-$enemy->base_atk*0.1);
+			$this->addSpeed($user,$enemy,-$enemy->base_speed*0.1);
+			$this->addAtk($user,$enemy,-$enemy->base_atk*0.1);
 			
 			if(!$user->temp['sendGift'])
 				$user->temp['sendGift'] = 0;
@@ -47,7 +47,7 @@
 				$this->temp = $user->temp['sendGift'];
 				if($this->temp > 5)
 				{
-					$user->addAtk($user->base_atk*0.1);
+					$this->addAtk($user,$user,$user->base_atk*0.1);
 				}
 			}
 		}

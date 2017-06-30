@@ -9,7 +9,7 @@
 			
 			$buff = new ValueBuff('def',-3,3);
 			$buff->isDebuff = true;
-			$buff->addToTarget($enemy);
+			$buff->addToTarget($user,$enemy);
 		}
 	}
 	
@@ -24,7 +24,7 @@
 			
 			$buff = new ValueBuff('def',-3,3);
 			$buff->isDebuff = true;
-			$buff->addToTarget($enemy);
+			$buff->addToTarget($user,$enemy);
 		}
 	}
 	
@@ -37,7 +37,7 @@
 			
 			$buff = new ValueBuff('def',-3,3);
 			$buff->isDebuff = true;
-			$buff->addToTarget($enemy);
+			$buff->addToTarget($user,$enemy);
 		}
 	}
 	
@@ -50,7 +50,7 @@
 			
 			$buff = new ValueBuff('def',-3,3);
 			$buff->isDebuff = true;
-			$buff->addToTarget($enemy);
+			$buff->addToTarget($user,$enemy);
 		}
 	}	
 

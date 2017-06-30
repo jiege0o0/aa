@@ -16,7 +16,7 @@
 	class sm_7_1 extends SkillBase{
 		public $type = 'DIE';
 		function action($user,$self,$enemy){
-			$this->addLeaderSkill($user,'sm_7_ds1#'.min(round($user->mp),50));
+			$this->addLeaderSkill($user,'sm_7_ds1#'.min(round($user->mp),30));
 		}
 	}
 
@@ -39,8 +39,8 @@
 			for($i=0;$i<$len;$i++)
 			{
 				$player = $enemy->team->currentMonster[$i];
-				$player->addAtk(-$player->base_atk * 0.2);
-				$player->addSpeed(-$player->base_speed * 0.15);
+				$this->addAtk($user,$player,-$player->base_atk * 0.2);
+				$this->addSpeed($user,$player,-$player->base_speed * 0.15);
 			}
 		}
 	}
@@ -49,7 +49,7 @@
 	class sm_7_f1 extends SkillBase{
 		public $cd = 1;
 		function action($user,$self,$enemy){
-			$this->addHp($user,$self,$user->atk*1.5);
+			$this->addHp($user,$self,$user->atk*1.2);
 		}
 	}	
 	//¸¨£º--¼õ¶Ô·½10MP£¬cd3

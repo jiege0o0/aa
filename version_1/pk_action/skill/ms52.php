@@ -4,7 +4,7 @@
 	//技：召唤人偶替身(技)：替身可叠加，每个替身增加自己30%攻击力
 	class sm_52_0 extends SkillBase{
 		function action($user,$self,$enemy){
-			$user->addAtk($user->base_atk*0.3);
+			$this->addAtk($user,$user,$user->base_atk*0.3);
 			array_push($user->dieMissTimes,array("id"=>$user->id,'mid'=>$user->monsterID));
 		}
 	}
@@ -27,7 +27,7 @@
 			return $this->tData['id'] == $user->id;
 		}
 		function action($user,$self,$enemy){
-			$user->addAtk(-$user->base_atk*0.3);
+			$this->addAtk($user,$user,-$user->base_atk*0.3);
 			$user->addStat(11,-1);
 			$user->addStat(1,-1);
 			$this->addHp($user,$user,$user->maxHp*0.1);

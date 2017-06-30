@@ -16,7 +16,7 @@
 		public $order = 10;
 		function action($user,$self,$enemy){
 			$buff = new StatBuff(31,3);
-			$buff->addToTarget($user);
+			$buff->addToTarget($user,$user);
 		}
 	}
 	
@@ -24,7 +24,7 @@
 	class sm_59_2 extends SkillBase{
 		public $cd = 0;
 		function action($user,$self,$enemy){
-			$user->addDef(15);
+			$this->addDef($user,$user,15);
 		}
 	}
 	

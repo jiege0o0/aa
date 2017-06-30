@@ -5,13 +5,13 @@
 	class sm_13_0 extends SkillBase{
 		public $isAtk = true;
 		function action($user,$self,$enemy){
-			$buff = new HPBuff(-round($user->atk*0.6),2,'13_0');
+			$buff = new HPBuff(-round($user->atk*1),2,'13_0');
 			$buff->isDebuff = true;
-			$buff->addToTarget($enemy);
+			$buff->addToTarget($user,$enemy);
 			
 			$buff = new StatBuff(21,2);
 			$buff->isDebuff = true;
-			$buff->addToTarget($enemy);		
+			$buff->addToTarget($user,$enemy);		
 			
 		}
 	}
@@ -28,7 +28,7 @@
 	class sm_13_2 extends SkillBase{
 		public $cd = 0;
 		function action($user,$self,$enemy){
-			$user->addDef(15);
+			$this->addDef($user,$user,15);
 		}
 	}
 	
@@ -37,14 +37,14 @@
 	class sm_13_f1 extends SkillBase{
 		public $cd = 2;
 		function action($user,$self,$enemy){
-			$this->addHp($user,$self,$self->maxHp*0.08);
+			$this->addHp($user,$self,$self->maxHp*0.1);
 		}
 	}	
 	//¸¨£º-- +5%ÃâÉË
 	class sm_13_f2 extends SkillBase{
 		public $cd = 0;
 		function action($user,$self,$enemy){
-			$self->addDef(10);
+			$this->addDef($user,$self,10);
 		}
 	}
 
@@ -56,11 +56,11 @@
 		function action($user,$self,$enemy){
 			$buff = new HPBuff(-round($user->atk*0.5),1,'13_f3');
 			$buff->isDebuff = true;
-			$buff->addToTarget($enemy);
+			$buff->addToTarget($user,$enemy);
 			
 			$buff = new StatBuff(21,1);
 			$buff->isDebuff = true;
-			$buff->addToTarget($enemy);
+			$buff->addToTarget($user,$enemy);
 			
 		}
 	}

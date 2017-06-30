@@ -18,7 +18,7 @@
 			$this->decHp($user,$enemy,$user->atk*1);		
 			$buff = new HPBuff(-$user->atk*0.8,1,'35_1');
 			$buff->isDebuff = true;
-			$buff->addToTarget($enemy);
+			$buff->addToTarget($user,$enemy);
 		}
 	}
 	
@@ -32,7 +32,7 @@
 			
 			$buff = new HPBuff(-$user->atk*0.8,1,'35_2');
 			$buff->isDebuff = true;
-			$buff->addToTarget($enemy);
+			$buff->addToTarget($user,$enemy);
 		}
 	}
 	
@@ -53,7 +53,7 @@
 			
 			$buff = new HPBuff(-$user->atk*0.4,1,'35_f2');
 			$buff->isDebuff = true;
-			$buff->addToTarget($enemy);
+			$buff->addToTarget($user,$enemy);
 		}
 	}	
 

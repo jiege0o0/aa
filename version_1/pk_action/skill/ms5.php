@@ -30,7 +30,7 @@
 			
 			$buff = new ValueBuff('speed',-round($enemy->base_speed * 0.1),1);
 			$buff->isDebuff = true;
-			$buff->addToTarget($enemy);
+			$buff->addToTarget($user,$enemy);
 		}
 	}
 	
@@ -39,7 +39,7 @@
 		public $cd = 0;
 		function action($user,$self,$enemy){
 			$num = $user->team->monsterBase->{$user->monsterID}->num;	
-			$user->addAtk($user->base_atk*0.2*$num);
+			$this->addAtk($user,$user,$user->base_atk*0.2*$num);
 		}
 	}
 	
@@ -52,7 +52,7 @@
 			
 			$buff = new ValueBuff('speed',-round($enemy->base_speed * 0.1),1);
 			$buff->isDebuff = true;
-			$buff->addToTarget($enemy);
+			$buff->addToTarget($user,$enemy);
 		}
 	}	
 	//辅：档刀，当致死时,抵挡一次，自己晕2回合，触发一次
@@ -65,7 +65,7 @@
 		function action($user,$self,$enemy){
 			$buff = new StatBuff(24,1);
 			$buff->isDebuff = true;
-			$buff->addToTarget($user);
+			$buff->addToTarget($user,$user);
 		}
 	}
 	class sm_5_f5 extends SkillBase{

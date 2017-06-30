@@ -116,6 +116,22 @@
 		$returnData->detail = $pkData->roundResultCollect;
 	}
 	
+	$returnData->mvp = new stdClass();
+	foreach($pkData->team1->allMonsterList as $key=>$value)
+	{
+		$returnData->mvp->{$value->id} = floor($value->hpCount)."|".
+		floor($value->atkCount)."|".floor($value->healCount)."|".floor($value->effectCount);
+	}
+	
+	foreach($pkData->team2->allMonsterList as $key=>$value)
+	{
+		$returnData->mvp->{$value->id} = floor($value->hpCount)."|".
+		floor($value->atkCount)."|".floor($value->healCount)."|".floor($value->effectCount);
+	}
+	
+
+	
+	
 	// echo join('##',$pkData->resultArray);//.'<br/>'.$result.$playArr2[0]->hp;
 	// debug($result);
 	// debug('trace');

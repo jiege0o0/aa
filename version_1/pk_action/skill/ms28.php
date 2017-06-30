@@ -12,7 +12,7 @@
 				
 				$buff = new ValueBuff('speed',-round($player->base_speed * 0.5),2);
 				$buff->isDebuff = true;
-				$buff->addToTarget($player);
+				$buff->addToTarget($user,$player);
 			}
 			
 			$this->decHp($user,$enemy,$user->atk*1.8);
@@ -25,7 +25,7 @@
 		public $isAtk = true;
 		function action($user,$self,$enemy){
 			$this->decHp($user,$enemy,$user->atk*1.6);
-			$enemy->addSpeed(-5);
+			$this->addSpeed($user,$enemy,-5);
 		}
 	}
 	
@@ -41,8 +41,8 @@
 			for($i=0;$i<$len;$i++)
 			{
 				$player = $self->team->currentMonster[$i];
-				$player->addAtk($player->base_atk*0.3);
-				$player->addSpeed($player->base_speed*0.2);
+				$this->addAtk($user,$player,$player->base_atk*0.3);
+				$this->addSpeed($user,$player,$player->base_speed*0.2);
 			};
 		}
 	}
@@ -61,7 +61,7 @@
 				
 				$buff = new ValueBuff('speed',-round($player->base_speed * 0.3),1);
 				$buff->isDebuff = true;
-				$buff->addToTarget($player);
+				$buff->addToTarget($user,$player);
 			}
 		}
 	}	

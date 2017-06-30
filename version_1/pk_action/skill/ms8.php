@@ -5,10 +5,10 @@
 		function action($user,$self,$enemy){
 		
 			$buff = new ValueBuff('def',30,3);
-			$buff->addToTarget($self);
+			$buff->addToTarget($user,$self);
 			
 			$buff = new HPBuff(round($self->maxHp*0.1),3,'8_0');
-			$buff->addToTarget($self);
+			$buff->addToTarget($user,$self);
 		}
 	}
 	
@@ -23,7 +23,7 @@
 			for($i=1;$i<$len;$i++)
 			{
 				$player = $self->team->currentMonster[$i];
-				$player->addAtk($player->base_atk * 0.1);
+				$this->addAtk($user,$player,$player->base_atk * 0.1);
 			}
 		}
 	}
@@ -38,7 +38,7 @@
 		}
 		function action($user,$self,$enemy){
 			$buff = new ValueBuff('def',50,2);
-			$buff->addToTarget($self);
+			$buff->addToTarget($user,$self);
 		}
 	}
 

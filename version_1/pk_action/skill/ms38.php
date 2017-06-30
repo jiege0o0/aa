@@ -31,8 +31,8 @@
 			for($i=1;$i<$len;$i++)
 			{
 				$player = $user->team->currentMonster[$i];
-				$player->addAtk($player->base_atk*0.2);
-				$player->addSpeed($player->base_speed*0.2);
+				$this->addAtk($user,$player,$player->base_atk*0.2);
+				$this->addSpeed($user,$player,$player->base_speed*0.2);
 			}
 		}
 	}
@@ -43,8 +43,8 @@
 	class sm_38_f1 extends SkillBase{
 		public $cd = 0;
 		function action($user,$self,$enemy){
-			$self->addAtk($self->base_atk*0.08);
-			$self->addSpeed($self->base_speed*0.08);
+			$this->addAtk($user,$self,$self->base_atk*0.08);
+			$this->addSpeed($user,$self,$self->base_speed*0.08);
 			$this->addHp($user,$self,$self->base_hp*0.08,true);
 		}
 	}	

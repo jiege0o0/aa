@@ -55,8 +55,9 @@
 		if($errno == 8)
 			return;
 		
-		errorLog("#".$_POST['head'].$_POST['msg'].$errstr."=>code:".$errstr."=>code:".$errno.'=>file:'.$errfile."=>line:".$errline);//.$errstr."=>code:".$errno'=>file:'.$errfile."=>line:".$errline
-		
+		errorLog("#".$_POST['head'].$_POST['msg']."=>code:".$errstr."=>code:".$errno.'=>file:'.$errfile."=>line:".$errline);//.$errstr."=>code:".$errno'=>file:'.$errfile."=>line:".$errline
+		if($debugC)
+			echo "=>code:".$errstr."=>code:".$errno.'=>file:'.$errfile."=>line:".$errline;
 		sendErroClient();	
 	}
 	
@@ -67,7 +68,7 @@
 		$mySendData->head = $_POST['head'];
 		$mySendData->error = 3;
 		$mySendData->debug = $debugArr;
-		
+		$mySendData->key = 'sendErroClient';
 		sendToClient($mySendData);		
 	}
 

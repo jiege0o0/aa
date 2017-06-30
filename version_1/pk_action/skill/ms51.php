@@ -7,7 +7,7 @@
 			$buff = new sm_51_0_buff(102,1);
 			$buff->noClean = true;
 			$buff->value = '51_0_1';
-			$buff->addToTarget($user);
+			$buff->addToTarget($user,$user);
 			
 			if(!$user->temp['lastManaHP'])
 				$user->temp['lastManaHP'] = $user->manaHp;
@@ -46,11 +46,11 @@
 			
 			$buff = new ValueBuff('speed',-round($enemy->base_speed * 0.2),2);
 			$buff->isDebuff = true;
-			$buff->addToTarget($enemy);
+			$buff->addToTarget($user,$enemy);
 			
 			$buff = new ValueBuff('def',-20,2);
 			$buff->isDebuff = true;
-			$buff->addToTarget($enemy);
+			$buff->addToTarget($user,$enemy);
 		}
 	}
 	
@@ -62,7 +62,7 @@
 			for($i=1;$i<$len;$i++)
 			{
 				$player = $self->team->currentMonster[$i];
-				$player->addAtk($player->base_atk * 0.1);
+				$this->addAtk($user,$player,$player->base_atk * 0.1);
 			}
 		}
 	}

@@ -11,7 +11,7 @@
 				
 				$buff = new StatBuff(25,2);
 				$buff->isDebuff = true;
-				$buff->addToTarget($player);
+				$buff->addToTarget($user,$player);
 			}
 		}
 	}
@@ -23,7 +23,7 @@
 		function action($user,$self,$enemy){
 			$buff = new ValueBuff('atk',-round($enemy->base_atk * 0.3),2);
 			$buff->isDebuff = true;
-			$buff->addToTarget($enemy);
+			$buff->addToTarget($user,$enemy);
 		}
 	}
 	
@@ -57,7 +57,7 @@
 				
 				$buff = new StatBuff(25,1);
 				$buff->isDebuff = true;
-				$buff->addToTarget($player);
+				$buff->addToTarget($user,$player);
 			}
 		}
 	}

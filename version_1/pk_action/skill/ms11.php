@@ -17,7 +17,7 @@
 		}
 		function action($user,$self,$enemy){
 			$buff = new ValueBuff('atk',round($self->base_atk * 0.3),1);
-			$buff->addToTarget($self);
+			$buff->addToTarget($user,$self);
 		}
 	}
 	
@@ -29,7 +29,7 @@
 		}
 		function action($user,$self,$enemy){
 			$buff = new ValueBuff('speed',round($self->base_speed * 0.3),2);
-			$buff->addToTarget($self);
+			$buff->addToTarget($user,$self);
 		}
 	}
 	
@@ -45,7 +45,7 @@
 				$atk += $player->base_atk;
 			}
 			
-			$self->addAtk($atk * 0.1);
+			$this->addAtk($user,$self,$atk * 0.1);
 		}
 	}
 	
@@ -53,7 +53,7 @@
 	class sm_11_f1 extends SkillBase{
 		public $cd = 0;
 		function action($user,$self,$enemy){
-			$self->addAtk($self->base_atk * 0.15);
+			$this->addAtk($user,$self,$self->base_atk * 0.15);
 		}
 	}	
 	//∏®£∫--50%…À

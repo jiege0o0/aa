@@ -12,7 +12,7 @@
 				
 				$buff = new StatBuff(24,2);
 				$buff->isDebuff = true;
-				$buff->addToTarget($player);
+				$buff->addToTarget($user,$player);
 			}
 			
 			$len = count($self->team->currentMonster);
@@ -22,12 +22,12 @@
 				
 				$buff = new StatBuff(24,2);
 				$buff->isDebuff = true;
-				$buff->addToTarget($player);
+				$buff->addToTarget($user,$player);
 			}
 			
 				
 			$buff = new ValueBuff('atk',round($user->base_atk * 0.3),3);
-			$buff->addToTarget($user);
+			$buff->addToTarget($user,$user);
 			
 		}
 	}
@@ -60,7 +60,7 @@
 			for($i=1;$i<$len;$i++)
 			{
 				$player = $self->team->currentMonster[$i];
-				$player->addSpeed($player->base_speed * 0.2);
+				$this->addSpeed($user,$player,$player->base_speed * 0.2);
 			}
 		}
 	}
@@ -77,7 +77,7 @@
 	class sm_48_f2 extends SkillBase{
 		public $cd = 0;
 		function action($user,$self,$enemy){
-			$self->addAtk($self->base_atk * 0.15);
+			$this->addAtk($user,$self,$self->base_atk * 0.15);
 		}
 	}
 

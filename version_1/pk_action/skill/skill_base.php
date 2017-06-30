@@ -119,7 +119,15 @@
 		//A¹¥»÷B¿ÛÑª
 		function decHp($user,$target,$value,$isMax=false,$forever=false,$realHurt=false){
 			global $pkData;
+			$orginValue = $value;
 			$value = round(max(1,$value));
+			
+			if($user->teamID != $target->teamID)
+				$target->hpCount += $value;
+			
+			
+			
+			
 			if(!$realHurt && $user->teamID != $target->teamID)
 				$value = $user->getHurt($value,$target);
 				
@@ -133,6 +141,8 @@
 			}
 			else
 			{
+				if($user->teamID != $target->teamID)
+					$user->atkCount += $orginValue;
 				$value = -$value;
 				if($isMax)
 				{
@@ -171,6 +181,8 @@
 		function addHp($user,$target,$value,$isMax=false,$forever=false,$full=false){
 			global $pkData;
 			$value = round(max(1,$value));
+			if($user->teamID == $target->teamID && $user->id != $target->id)
+				$user->healCount += $value;
 			if($isMax)
 			{	
 			
@@ -204,10 +216,33 @@
 		
 		//¼ÓÄ§
 		function addMp($user,$target,$value){
+			$user->effectCount += abs($value)*2*($user->getForceRate());
 			$value = round($value);
 			$target->mp += $value;
 			$this->setSkillEffect($target,pk_skillType('MP',$value));
 			return $value;
+		}
+		
+		function addSpeed($user,$target,$value){
+			if($user->id!==$target->id)
+				$user->effectCount += abs($value)*3*($user->getForceRate())*5;
+			$target->addSpeed($value);
+		}
+		
+		function addAtk($user,$target,$value){
+			if($user->id!==$target->id)
+				$user->effectCount += abs($value)*5;
+			$target->addAtk($value);
+		}
+		
+		function addDef($user,$target,$value){
+			if($user->id!==$target->id)
+				$user->effectCount += abs($value)/100*$target->maxHp*2*5;
+			$target->addDef($value);
+		}
+		
+		function addHurt($user,$target,$value){
+			$target->addHurt($value);
 		}
 		
 		

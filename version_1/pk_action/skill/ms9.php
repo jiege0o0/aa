@@ -5,7 +5,7 @@
 	class sm_9_0 extends SkillBase{
 		function action($user,$self,$enemy){
 			$buff = new ValueBuff('speed',round($self->base_speed * 0.1),3);
-			$buff->addToTarget($self);
+			$buff->addToTarget($user,$self);
 			
 			$self->missTimes += 5;
 		}
@@ -22,7 +22,7 @@
 				$player = $enemy->team->currentMonster[$i];
 				$buff = new ValueBuff('speed',-round($player->base_speed * 0.15),2);
 				$buff->isDebuff = true;
-				$buff->addToTarget($player);
+				$buff->addToTarget($user,$player);
 			}
 		}
 	}
@@ -34,7 +34,7 @@
 		function action($user,$self,$enemy){
 			$buff = new StatBuff(24,2);
 			$buff->isDebuff = true;
-			$buff->addToTarget($enemy);
+			$buff->addToTarget($user,$enemy);
 		}
 	}
 	
@@ -56,7 +56,7 @@
 		public $cd = 0;
 		function action($user,$self,$enemy){
 			$this->decHp($user,$self,$self->hp*0.1);
-			$self->addAtk($self->base_atk * 0.20);
+			$this->addAtk($user,$self,$self->base_atk * 0.20);
 		}
 	}	
 	//¸¨£º--50%ÉËº¦
@@ -67,7 +67,7 @@
 			$this->decHp($user,$enemy,$user->atk*0.8);
 			
 			$buff = new ValueBuff('speed',round($self->base_speed * 0.1),1);
-			$buff->addToTarget($self);
+			$buff->addToTarget($user,$self);
 		}
 	}
 

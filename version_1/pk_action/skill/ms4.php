@@ -23,7 +23,7 @@
 		function onEnd(){
 			$this -> onClean();
 			$buff = new ValueBuff('atk',-round($this->target->base_atk * 0.5),10);
-			$buff->addToTarget($this->target);
+			$buff->addToTarget($user,$this->target);
 		}
 	}
 	
@@ -36,7 +36,7 @@
 		}
 		function action($user,$self,$enemy){
 			$buff = new sm_4_2_buff('atk',round($self->base_atk * 0.5),3);
-			$buff->addToTarget($self);
+			$buff->addToTarget($user,$self);
 		}
 	}
 	
@@ -51,7 +51,7 @@
 	class sm_4_ds3 extends SkillBase{
 		public $cd = 0;
 		function action($user,$self,$enemy){
-			$self->addAtk($self->base_atk * 0.2);
+			$this->addAtk($user,$self,$self->base_atk * 0.2);
 		}
 	}
 	
@@ -69,7 +69,7 @@
 	class sm_4_f2 extends SkillBase{
 		public $cd = 0;
 		function action($user,$self,$enemy){
-			$self->addAtk($self->base_atk * 0.1);
+			$this->addAtk($user,$self,$self->base_atk * 0.1);
 		}
 	}
 

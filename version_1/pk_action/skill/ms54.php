@@ -49,7 +49,7 @@
 	class sm_54_f2 extends SkillBase{
 		public $cd = 0;
 		function action($user,$self,$enemy){
-			$self->addAtk($self->base_atk * 0.1);
+			$this->addAtk($user,$self,$self->base_atk * 0.1);
 		}
 	}
 

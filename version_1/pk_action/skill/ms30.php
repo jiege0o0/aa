@@ -7,7 +7,7 @@
 		public $isAtk = true;
 		function action($user,$self,$enemy){
 			$buff = new ValueBuff('speed',round($self->base_speed * 0.2),3);
-			$buff->addToTarget($self);
+			$buff->addToTarget($user,$self);
 			
 			$this->decHp($user,$enemy,$user->atk*2.5);
 		}
@@ -26,14 +26,14 @@
 	class sm_30_2 extends SkillBase{
 		public $cd = 0;
 		function action($user,$self,$enemy){
-			$self->addAtk($self->base_atk*0.6);
+			$this->addAtk($user,$self,$self->base_atk*0.6);
 		}
 	}	
 	class sm_30_5 extends SkillBase{
 		public $type='AFTER';
 		public $clientIndex=2;
 		function action($user,$self,$enemy){
-			$self->addAtk(-$self->base_atk*0.1);
+			$this->addAtk($user,$self,-$self->base_atk*0.1);
 		}
 	}
 	
@@ -61,7 +61,7 @@
 		}
 		
 		function action($user,$self,$enemy){
-			$user->addAtk($user->base_atk*0.8);
+			$this->addAtk($user,$user,$user->base_atk*0.8);
 		}
 	}	
 	//∏®£∫--60%…À∫¶

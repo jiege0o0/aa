@@ -9,7 +9,7 @@
 			
 			$buff = new StatBuff(24,2);
 			$buff->isDebuff = true;
-			$buff->addToTarget($enemy);
+			$buff->addToTarget($user,$enemy);
 		}
 	}
 	
@@ -24,7 +24,7 @@
 				$player = $enemy->team->currentMonster[$i];
 				$buff = new ValueBuff('speed',-round($player->base_speed * 0.3),2);
 				$buff->isDebuff = true;
-				$buff->addToTarget($player);
+				$buff->addToTarget($user,$player);
 			}
 		}
 	}
@@ -34,11 +34,11 @@
 		public $type='AFTER';
 		public $once = true;
 		function canUse($user,$self=null,$enemy=null){
-			return $user->actionCount >= 6;
+			return $user->actionCount >= 5;
 		}
 		function action($user,$self,$enemy){
 			$user->atk += round($user->base_atk*0.5);
-			$user->addDef(50);
+			$this->addDef($user,$user,50);
 			$this->addHp($user,$user,$user->maxHp*0.5);
 		}
 	}
@@ -47,7 +47,7 @@
 	class sm_46_3 extends SkillBase{
 		public $cd = 0;
 		function action($user,$self,$enemy){
-			$user->addDef(20);
+			$this->addDef($user,$user,20);
 		}
 	}
 	
@@ -64,7 +64,7 @@
 	class sm_46_f2 extends SkillBase{
 		public $cd = 0;
 		function action($user,$self,$enemy){
-			$self->addDef(10);
+			$this->addDef($user,$self,10);
 		}
 	}
 

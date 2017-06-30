@@ -5,7 +5,7 @@
 	class sm_17_0 extends SkillBase{
 		function action($user,$self,$enemy){
 			$buff = new ValueBuff('atk',round($self->base_atk * 0.3),3);
-			$buff->addToTarget($self);
+			$buff->addToTarget($user,$self);
 			
 			$this->addHp($user,$self,$self->maxHp*0.3);
 		}
@@ -25,7 +25,7 @@
 	class sm_17_2 extends SkillBase{
 		public $cd = 0;
 		function action($user,$self,$enemy){
-			$enemy->addAtk(-$enemy->base_atk*0.1);
+			$this->addAtk($user,$enemy,-$enemy->base_atk*0.1);
 		}
 	}
 
@@ -51,7 +51,7 @@
 	class sm_17_f2 extends SkillBase{
 		public $cd = 0;
 		function action($user,$self,$enemy){
-			$enemy->addAtk(-$enemy->base_atk*0.1);
+			$this->addAtk($user,$enemy,-$enemy->base_atk*0.1);
 		}
 	}
 

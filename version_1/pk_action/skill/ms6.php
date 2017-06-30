@@ -16,7 +16,7 @@
 		function action($user,$self,$enemy){
 			if($this->temp1<25)
 			{
-				$self->addDef(2);
+				$this->addDef($user,$self,2);
 				$this->temp1 ++;
 			}
 				
@@ -29,7 +29,7 @@
 		public $isAtk = true;
 		function action($user,$self,$enemy){
 			$v = $this->decHp($user,$enemy,$user->atk);
-			$this->addHp($user,$user,-$v*0.3);
+			$this->addHp($user,$user,-$v*0.2);
 		}
 	}
 

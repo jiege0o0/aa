@@ -15,7 +15,7 @@
 		public $isAtk = true;
 		function action($user,$self,$enemy){
 			$this->decHp($user,$enemy,$user->atk*1.5);
-			$user->addAtk($user->base_atk*0.05);
+			$this->addAtk($user,$user,$user->base_atk*0.05);
 		}
 	}
 	
@@ -23,7 +23,7 @@
 	class sm_27_2 extends SkillBase{
 		public $cd = 0;
 		function action($user,$self,$enemy){
-			$user->addAtk(-$user->base_atk*0.5);
+			$this->addAtk($user,$user,-$user->base_atk*0.5);
 		}
 	}
 	
@@ -35,7 +35,7 @@
 			return $user->getHpRate()<=0.5;
 		}
 		function action($user,$self,$enemy){
-			$user->addAtk($user->base_atk*0.5);
+			$this->addAtk($user,$user,$user->base_atk*0.5);
 			$user->addStat(11,-1);
 			$user->addStat(1,-1);
 		}
@@ -53,7 +53,7 @@
 	class sm_27_f2 extends SkillBase{
 		public $cd = 0;
 		function action($user,$self,$enemy){
-			$user->addAtk(-$user->base_atk*0.5);
+			$this->addAtk($user,$user,-$user->base_atk*0.5);
 		}
 	}
 	
@@ -65,7 +65,7 @@
 			return $self->getHpRate()<=0.5;
 		}
 		function action($user,$self,$enemy){
-			$user->addAtk($user->base_atk*0.5);
+			$this->addAtk($user,$user,$user->base_atk*0.5);
 			$user->addStat(11,-1);
 			$user->addStat(1,-1);
 		}

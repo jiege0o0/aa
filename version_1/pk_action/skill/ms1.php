@@ -7,11 +7,11 @@
 		function action($user,$self,$enemy){
 			$buff = new HPBuff(-$user->atk*1.8,2,'1_0');
 			$buff->isDebuff = true;
-			$buff->addToTarget($enemy);
+			$buff->addToTarget($user,$enemy);
 			
 			$buff = new ValueBuff('speed',-round($enemy->base_speed * 0.3),2);
 			$buff->isDebuff = true;
-			$buff->addToTarget($enemy);
+			$buff->addToTarget($user,$enemy);
 			
 		}
 	}
@@ -34,8 +34,8 @@
 			for($i=1;$i<$len;$i++)
 			{
 				$player = $self->team->currentMonster[$i];
-				$player->addAtk(-$player->base_atk * 0.1);
-				$player->addSpeed($player->base_speed * 0.2);
+				$this->addAtk($user,$player,-$player->base_atk * 0.1);
+				$this->addSpeed($user,$player,$player->base_speed * 0.2);
 			}
 			
 		}
@@ -64,11 +64,11 @@
 		function action($user,$self,$enemy){
 			$buff = new HPBuff(-round($user->atk*0.5),3,'1_f2');
 			$buff->isDebuff = true;
-			$buff->addToTarget($enemy);
+			$buff->addToTarget($user,$enemy);
 			
 			$buff = new ValueBuff('speed',-round($enemy->base_speed * 0.1),3);
 			$buff->isDebuff = true;
-			$buff->addToTarget($enemy);
+			$buff->addToTarget($user,$enemy);
 			
 		}
 	}

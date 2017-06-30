@@ -30,7 +30,7 @@
 				$player = $user->team->currentMonster[$i];
 				
 				$buff = new ValueBuff('atk',round($player->base_atk * 0.15),3);
-				$buff->addToTarget($player);
+				$buff->addToTarget($user,$player);
 			}
 		}
 	}
@@ -60,6 +60,7 @@
 		public $order = 9;
 		function action($user,$self,$enemy){
 			$v = round($user->base_hp*0.5);
+			$user->effectCount += $v;
 			$self->manaHp += $v;
 			$self->setSkillEffect(pk_skillType('MANAHP',$v));
 		}

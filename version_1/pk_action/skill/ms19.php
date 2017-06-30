@@ -18,7 +18,7 @@
 			
 			$buff = new HPBuff(-$enemy->maxHp*0.05,2,'19_1');
 			$buff->isDebuff = true;
-			$buff->addToTarget($enemy);
+			$buff->addToTarget($user,$enemy);
 		}
 	}
 	
@@ -30,9 +30,9 @@
 			for($i=0;$i<$len;$i++)
 			{
 				$player = $enemy->team->currentMonster[$i];
-				$player->addAtk(-$player->base_atk*0.2);
-				$player->addSpeed(-$player->base_speed*0.2);
-				$player->addDef(-20);
+				$this->addAtk($user,$player,-$player->base_atk*0.2);
+				$this->addSpeed($user,$player,-$player->base_speed*0.2);
+				$this->addDef($user,$player,-20);
 			}
 		}
 	}
@@ -45,9 +45,9 @@
 			for($i=0;$i<$len;$i++)
 			{
 				$player = $enemy->team->currentMonster[$i];
-				$player->addAtk(-$player->base_atk*0.1);
-				$player->addSpeed(-$player->base_speed*0.1);
-				$player->addDef(-10);
+				$this->addAtk($user,$player,-$player->base_atk*0.1);
+				$this->addSpeed($user,$player,-$player->base_speed*0.1);
+				$this->addDef($user,$player,-10);
 			}
 		}
 	}	

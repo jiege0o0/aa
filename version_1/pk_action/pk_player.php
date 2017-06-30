@@ -68,6 +68,12 @@ class player{
 	public $hitTimes = 0;//必中的次数
 	public $dieMissTimes = array();//可闪避的死亡次数
 	
+	
+	public $atkCount = 0;//伤害累计
+	public $hpCount = 0;//防累计
+	public $healCount = 0;//治疗
+	public $effectCount = 0;//辅助
+	
 		
 	//初始化类
 	function __construct($id){
@@ -81,6 +87,11 @@ class player{
 		// $this->maxHp = $data['hp'];
 		// $this->speed = $data['speed'];
 		// $this->atk = $data['atk'];
+	}
+	
+	//战力比例
+	function getForceRate(){
+		return $this->base_atk / $this->monsterData['atk'];
 	}
 	
 
@@ -428,7 +439,7 @@ class player{
 		
 	//取回合用时，cd越小，出手越快
 	function getCD(){
-		return 2310 / max(10,$this->speed);
+		return 2310 / min(max(10,$this->speed),200);
 	}
 	
 	//这个回合有受到影响

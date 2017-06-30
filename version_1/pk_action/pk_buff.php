@@ -3,7 +3,8 @@
 		public $removeAble = true;//可被技能清理
 		public $isDebuff = false;//负面BUFF
 		public $cd = 0;//持续回合，-1为到回合结束
-		public $target = 0;//Buff依附的目标
+		public $user;//Buff施法者
+		public $target;//Buff依附的目标
 		public $actionTime;//起作用的时机,0为不会中途起作用
 		public $icon = 0;//0为没有图标，其它为图标ID
 		public $noClean = false;//BUFF不会被清
@@ -33,8 +34,9 @@
 		}
 		
 		//把buff加到玩家身上
-		function addToTarget($target){
+		function addToTarget($user,$target){
 			$this->target = $target;
+			$this->user = $user;
 			$success = $target->addBuff($this);
 			if($success)
 				$this->onBuffAdd();
@@ -100,8 +102,21 @@
 			$this->target->{$this->key} += $this->value;
 			// $this->target->addStat($this->id,1);
 			$pkData->addSkillMV(null,$this->target,pk_skillType('STAT',numToStr($this->id).numToStr($this->cd).$this->value));
+			
+			switch($key){
+				case 'atk':
+					$this->user->effectCount += abs($this->value)*($this->user->getForceRate())*$this->cd;
+					break;
+				case 'speed':
+					$this->user->effectCount += abs($this->value)*3*$this->cd;
+					break;	
+				case 'def':
+					$this->user->effectCount += abs($this->value)/100*2*$this->target->maxHp*$this->cd;
+					break;
+			}
 		}
 	}
+
 	
 	//回合结束改变血量的buff
 	class HPBuff extends BuffBase{
@@ -133,12 +148,21 @@
 		function onAction(){
 			global $pkData;
 			
+			if($this->value<0 && $this->user->teamID != $this->target->teamID)
+				$this->target->hpCount += -$value;
+			
 			if($this->value<0 && $this->target->hp <= -$this->value && ($temp = $this->target->isDieMiss('buff')))
 			{
 				$pkData->addSkillMV(null,$this->target,pk_skillType('NOHURT',$temp['id']));
 				$this->target->testTSkill('DMISS',$temp);
 				return false;
 			}
+			
+			if($this->value<0 && $user->teamID != $target->teamID)
+				$this->user->atkCount += -$value;
+			if($this->value > 0 && $user->teamID == $target->teamID && $user->id != $target->id)
+				$this->user->healCount += $value;
+					
 			$v = $this->target->addHp($this->value);
 			if($v == 0)
 				$pkData->addSkillMV(null,$this->target,pk_skillType('CDHP','-'.$v.'#'.$this->skillID));

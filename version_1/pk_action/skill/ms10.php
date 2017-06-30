@@ -7,7 +7,7 @@
 		function action($user,$self,$enemy){
 			$buff = new StatBuff(24,2);
 			$buff->isDebuff = true;
-			$buff->addToTarget($enemy);
+			$buff->addToTarget($user,$enemy);
 				
 		}
 	}
@@ -38,7 +38,7 @@
 		function action($user,$self,$enemy){
 			$buff = new StatBuff(24,1);
 			$buff->isDebuff = true;
-			$buff->addToTarget($enemy);
+			$buff->addToTarget($user,$enemy);
 		}
 	}	
 	//∏®£∫--60%…À∫¶

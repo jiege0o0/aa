@@ -9,7 +9,7 @@
 		
 			$buff = new StatBuff(24,1);
 			$buff->isDebuff = true;
-			$buff->addToTarget($enemy);
+			$buff->addToTarget($user,$enemy);
 		}
 	}
 	
@@ -43,7 +43,7 @@
 			
 			$buff = new StatBuff(24,1);
 			$buff->isDebuff = true;
-			$buff->addToTarget($enemy);
+			$buff->addToTarget($user,$enemy);
 		}
 	}
 

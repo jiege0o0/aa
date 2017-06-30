@@ -21,7 +21,7 @@
 			$this->decHp($user,$enemy,$user->atk);
 			
 			$buff = new ValueBuff('speed',round($self->base_speed * 1),2);
-			$buff->addToTarget($self);
+			$buff->addToTarget($user,$self);
 		}
 	}
 	
@@ -50,7 +50,7 @@
 			for($i=1;$i<$len;$i++)
 			{
 				$player = $self->team->currentMonster[$i];
-				$player->addAtk($player->base_atk * 0.1);
+				$this->addAtk($user,$player,$player->base_atk * 0.1);
 			}
 		}
 	}

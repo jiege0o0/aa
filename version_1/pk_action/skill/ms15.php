@@ -7,11 +7,11 @@
 		function action($user,$self,$enemy){
 			$buff = new HPBuff(-$user->atk*0.5,2,'15_0');
 			$buff->isDebuff = true;
-			$buff->addToTarget($enemy);
+			$buff->addToTarget($user,$enemy);
 			
 			$buff = new ValueBuff('speed',-round($enemy->base_speed * 0.15),2);
 			$buff->isDebuff = true;
-			$buff->addToTarget($enemy);
+			$buff->addToTarget($user,$enemy);
 			
 			$this->decHp($user,$enemy,$user->atk*2);
 		}
@@ -26,7 +26,7 @@
 			
 			$buff = new ValueBuff('speed',-round($enemy->base_speed * 0.1),1);
 			$buff->isDebuff = true;
-			$buff->addToTarget($enemy);
+			$buff->addToTarget($user,$enemy);
 		}
 	}
 	
@@ -49,7 +49,7 @@
 		
 		function action($user,$self,$enemy){
 			$this->addHp($user,$self,$self->base_hp*0.8,true,false,true);
-			$self->addAtk($self->base_atk*0.5);
+			$this->addAtk($user,$self,$self->base_atk*0.5);
 			$self->skill->disabled = true;
 			$self->skillArr[1]->disabled = true;
 		}
@@ -71,11 +71,11 @@
 		function action($user,$self,$enemy){
 			$buff = new HPBuff(-$user->atk*0.4,3,'15_f2');
 			$buff->isDebuff = true;
-			$buff->addToTarget($enemy);
+			$buff->addToTarget($user,$enemy);
 			
 			$buff = new ValueBuff('speed',-round($enemy->base_speed * 0.1),3);
 			$buff->isDebuff = true;
-			$buff->addToTarget($enemy);
+			$buff->addToTarget($user,$enemy);
 		}
 	}
 

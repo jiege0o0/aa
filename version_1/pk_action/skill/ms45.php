@@ -21,7 +21,7 @@
 			$buff = new StatBuff(101,3);
 			$buff->noClean = true;
 			$buff->value = '45_1_1';
-			$buff->addToTarget($self);
+			$buff->addToTarget($user,$self);
 			$this->setSkillEffect($self);
 			
 			// global $pkData;
@@ -52,7 +52,7 @@
 	class sm_45_f2 extends SkillBase{
 		public $cd = 0;
 		function action($user,$self,$enemy){
-			$self->addAtk($self->base_atk*0.1);
+			$this->addAtk($user,$self,$self->base_atk*0.1);
 		}
 	}
 

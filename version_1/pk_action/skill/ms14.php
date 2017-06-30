@@ -11,7 +11,7 @@
 				
 				$buff = new StatBuff(24,3);
 				$buff->isDebuff = true;
-				$buff->addToTarget($player);
+				$buff->addToTarget($user,$player);
 			}
 		}
 	}

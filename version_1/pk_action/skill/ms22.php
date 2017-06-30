@@ -6,7 +6,7 @@
 		public $isAtk = true;
 		function action($user,$self,$enemy){
 			$this->decHp($user,$enemy,$user->atk*(0.5 + (1-$enemy->getHpRate())*5));
-			$enemy->addDef(-2);
+			$this->addDef($user,$enemy,-2);
 		}
 	}
 	
@@ -17,7 +17,7 @@
 		public $order = 1;//优先级，互斥时越大的越起作用
 		function action($user,$self,$enemy){
 			$this->decHp($user,$enemy,$user->atk*2);
-			$enemy->addDef(-2);
+			$this->addDef($user,$enemy,-2);
 		}
 	}
 	
@@ -27,7 +27,7 @@
 		public $isAtk = true;
 		function action($user,$self,$enemy){
 			$this->decHp($user,$enemy,$user->atk);
-			$enemy->addDef(-2);
+			$this->addDef($user,$enemy,-2);
 		}
 	}
 	
@@ -41,11 +41,11 @@
 				$player = $enemy->team->currentMonster[$i];
 				$buff = new ValueBuff('speed',-round($player->base_speed * 0.3),3);
 				$buff->isDebuff = true;
-				$buff->addToTarget($player);
+				$buff->addToTarget($user,$player);
 				
 				$buff = new ValueBuff('atk',-round($player->base_speed * 0.3),3);
 				$buff->isDebuff = true;
-				$buff->addToTarget($player);
+				$buff->addToTarget($user,$player);
 				
 			}
 		}
@@ -60,7 +60,7 @@
 				$this->decHp($user,$enemy,$user->atk*2);
 			else
 				$this->decHp($user,$enemy,$user->atk*0.8);
-			$enemy->addDef(-2);
+			$this->addDef($user,$enemy,-2);
 		}
 	}	
 

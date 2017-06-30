@@ -22,11 +22,11 @@
 		public $isAtk = true;
 		public $order = -10;
 		function action($user,$self,$enemy){
-			$this->decHp($user,$user,$user->hp*0.2,false,true);
-			$this->decHp($user,$enemy,sm_43_resetHurt($user,$user->atk*0.9));
+			$this->decHp($user,$user,$user->hp*0.3,false,true);
+			$this->decHp($user,$enemy,sm_43_resetHurt($user,$user->atk*1));
 			
 			$buff = new ValueBuff('def',20,3);
-			$buff->addToTarget($self);
+			$buff->addToTarget($user,$self);
 		}
 	}
 	
@@ -44,7 +44,7 @@
 	class sm_43_f1 extends SkillBase{
 		public $cd = 0;
 		function action($user,$self,$enemy){
-			$self->addSpeed($self->base_speed*0.1);
+			$this->addSpeed($user,$self,$self->base_speed*0.1);
 
 		}
 	}	

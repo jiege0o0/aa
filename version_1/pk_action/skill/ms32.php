@@ -7,11 +7,11 @@
 		function action($user,$self,$enemy){
 			$buff = new HPBuff(-round($enemy->maxHp*0.1),3,'32_0');
 			$buff->isDebuff = true;
-			$buff->addToTarget($enemy);
+			$buff->addToTarget($user,$enemy);
 			
 			$buff = new ValueBuff('speed',-round($enemy->base_speed * 0.5),3);
 			$buff->isDebuff = true;
-			$buff->addToTarget($enemy);
+			$buff->addToTarget($user,$enemy);
 			
 		}
 	}
@@ -23,7 +23,7 @@
 		function action($user,$self,$enemy){
 			$buff = new ValueBuff('def',-30,2);
 			$buff->isDebuff = true;
-			$buff->addToTarget($enemy);
+			$buff->addToTarget($user,$enemy);
 		}
 	}
 	
@@ -35,8 +35,8 @@
 			return $user->getHpRate() <= 0.3;
 		}
 		function action($user,$self,$enemy){
-			$user->addSpeed($user->base_speed*0.8);
-			$user->addAtk(-$user->base_atk*0.5);
+			$this->addSpeed($user,$user,$user->base_speed*1.2);
+			$this->addAtk($user,$user,-$user->base_atk*0.5);
 			$this->addHp($user,$user,$user->maxHp*0.5);
 		}
 	}
@@ -49,7 +49,7 @@
 		function action($user,$self,$enemy){
 			$buff = new ValueBuff('def',-30,2);
 			$buff->isDebuff = true;
-			$buff->addToTarget($enemy);
+			$buff->addToTarget($user,$enemy);
 		}
 	}	
 	//∏®£∫--80%…À∫¶
