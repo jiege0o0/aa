@@ -48,8 +48,8 @@
 		public $isAtk = true;
 		public $order = 1;//优先级，互斥时越大的越起作用
 		function action($user,$self,$enemy){
-			$this->decHp($user,$enemy,$user->atk*0.7);
-			$buff = new ValueBuff('def',-20,2);
+			$this->decHp($user,$enemy,$user->atk*1);
+			$buff = new ValueBuff('def',-10,2);
 			$buff->isDebuff = true;
 			$buff->addToTarget($user,$enemy);
 		}

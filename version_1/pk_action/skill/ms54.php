@@ -7,7 +7,7 @@
 		function action($user,$self,$enemy){
 			if(!$user->temp['sm54'])
 				$user->temp['sm54'] = 0;
-			$this->decHp($user,$enemy,$user->atk*($user->temp['sm54']+1)*0.5);
+			$this->decHp($user,$enemy,$user->atk*($user->temp['sm54'])*0.5 + 1);
 		}
 	}
 	

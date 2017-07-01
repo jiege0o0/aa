@@ -2,7 +2,7 @@
 	
 
 	function sm_43_resetHurt($self,$v){
-		return round((2-$self->getHpRate()*1)*$v);
+		return round((3-$self->getHpRate()*2)*$v);
 	}
 	
 	

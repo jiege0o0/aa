@@ -4,7 +4,7 @@
 	//¼¼£º¾ªĞÑ£¨¼¼£©£º-25%¹¥£¬+50%Ñª
 	class sm_20_0 extends SkillBase{
 		function action($user,$self,$enemy){
-			$this->addAtk($user,$self,-$self->base_atk*0.2);
+			$this->addAtk($user,$self,-$self->base_atk*0.3);
 			$this->addHp($user,$self,$self->maxHp*0.5);
 		}
 	}
@@ -22,7 +22,7 @@
 	class sm_20_2 extends SkillBase{
 		public $type = 'BEATK';
 		function action($user,$self,$enemy){
-			$this->addAtk($user,$self,$self->base_atk*0.1);
+			$this->addAtk($user,$self,$self->base_atk*0.15);
 
 		}
 	}

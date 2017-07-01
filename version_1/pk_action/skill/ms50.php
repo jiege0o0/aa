@@ -31,7 +31,7 @@
 	class sm_50_f1 extends SkillBase{
 		public $cd = 1;
 		function action($user,$self,$enemy){
-			$this->addHp($user,$self,$self->maxHp*0.05 + $user->atk*0.8);
+			$this->addHp($user,$self,$self->maxHp*0.05 + $user->atk*0.5);
 		}
 	}	
 	//¸¨£º--×ÔÈ»Ö®¼×£ºµÖµ²2´ÎÉËº¦£¬cd5
@@ -39,7 +39,8 @@
 		public $cd = 4;
 		public $order = 1;
 		function action($user,$self,$enemy){
-			$self->missTimes += 2;
+			$self->missTimes += 1;
+			$this->addHp($user,$self,$self->maxHp*0.05 + $user->atk*0.5);
 		}
 	}
 

@@ -67,14 +67,15 @@
 		}
 	}
 	
-	//辅：--无中生有：增加10点MP，cd3
+	//辅：--
 	class sm_51_f1 extends SkillBase{
 		public $cd = 3;
 		public $order = 2;
 		function action($user,$self,$enemy){
-			$this->addMp($user,$self,10);
+			$self->missTimes += 1;
 		}
 	}	
+	
 	//辅：--80%伤害
 	class sm_51_f2 extends SkillBase{
 		public $cd = 1;

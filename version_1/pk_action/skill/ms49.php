@@ -20,7 +20,7 @@
 			return $user->getHpRate()<0.5;
 		}
 		function action($user,$self,$enemy){
-			$this->addHp($user,$self,$self->maxHp*0.1);
+			$this->addHp($user,$self,$self->maxHp*0.15);
 		}
 	}
 	

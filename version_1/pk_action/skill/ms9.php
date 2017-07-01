@@ -4,7 +4,7 @@
 	//技：升空（技）：无视接下来的5次攻击，并增加10%速度，3round
 	class sm_9_0 extends SkillBase{
 		function action($user,$self,$enemy){
-			$buff = new ValueBuff('speed',round($self->base_speed * 0.1),3);
+			$buff = new ValueBuff('speed',round($self->base_speed * 0.2),3);
 			$buff->addToTarget($user,$self);
 			
 			$self->missTimes += 5;
@@ -30,11 +30,9 @@
 	//钢索：进入时固定对方1个回合，无法行动
 	class sm_9_2 extends SkillBase{
 		public $cd = 0;
-		public $isAtk = true;
 		function action($user,$self,$enemy){
-			$buff = new StatBuff(24,2);
-			$buff->isDebuff = true;
-			$buff->addToTarget($user,$enemy);
+			$buff = new ValueBuff('speed',round($self->base_speed * 0.2),2);
+			$buff->addToTarget($user,$self);
 		}
 	}
 	
@@ -56,7 +54,7 @@
 		public $cd = 0;
 		function action($user,$self,$enemy){
 			$this->decHp($user,$self,$self->hp*0.1);
-			$this->addAtk($user,$self,$self->base_atk * 0.20);
+			$this->addSpeed($user,$self,$self->base_apeed * 0.20);
 		}
 	}	
 	//辅：--50%伤害
