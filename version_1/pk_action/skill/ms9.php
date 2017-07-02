@@ -4,7 +4,7 @@
 	//技：升空（技）：无视接下来的5次攻击，并增加10%速度，3round
 	class sm_9_0 extends SkillBase{
 		function action($user,$self,$enemy){
-			$buff = new ValueBuff('speed',round($self->base_speed * 0.2),3);
+			$buff = new ValueBuff('speed',round($self->base_speed * 0.3),3);
 			$buff->addToTarget($user,$self);
 			
 			$self->missTimes += 5;
@@ -20,7 +20,7 @@
 			for($i=0;$i<$len;$i++)
 			{
 				$player = $enemy->team->currentMonster[$i];
-				$buff = new ValueBuff('speed',-round($player->base_speed * 0.15),2);
+				$buff = new ValueBuff('speed',-round($player->base_speed * 0.2),2);
 				$buff->isDebuff = true;
 				$buff->addToTarget($user,$player);
 			}
