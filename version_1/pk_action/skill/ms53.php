@@ -30,7 +30,7 @@
 		}
 	}
 	
-	//精血流失：被攻击时，mp-5
+	//
 	class sm_53_3 extends SkillBase{
 		public $isAtk = true;
 		function action($user,$self,$enemy){
@@ -58,6 +58,7 @@
 		}
 		function action($user,$self,$enemy){
 			$self->reborn(0.2);
+			$user->effectCount += $self->maxHp*0.2;
 		}
 	}
 

@@ -52,7 +52,7 @@
 		public $type = 'SKILL';
 		public $isAtk = true;
 		function action($user,$self,$enemy){
-			$this->decHp($user,$enemy,$user->atk*2.5);
+			$this->decHp($user,$enemy,$user->atk*2);
 		}
 	}
 	

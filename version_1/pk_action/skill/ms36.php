@@ -24,8 +24,8 @@
 	class sm_36_0 extends sm_36_base{
 		public $isAtk = true;
 		function action($user,$self,$enemy){
-			$this->decHp($user,$enemy,$user->atk*2.5);
 			$this->sm_36_addValue($user,$enemy,0.15);
+			$this->decHp($user,$enemy,$user->atk*2.5);
 			
 		}
 	}
@@ -35,10 +35,9 @@
 		public $cd = 3;
 		public $isAtk = true;
 		function action($user,$self,$enemy){
+			$this->sm_36_addValue($user,$enemy,0.1);
 			$this->decHp($user,$enemy,$user->atk*1.8);
 			
-			
-			$this->sm_36_addValue($user,$enemy,0.08);
 		}
 	}
 	
@@ -47,8 +46,8 @@
 		public $cd = 1;
 		public $isAtk = true;
 		function action($user,$self,$enemy){
-			$this->decHp($user,$enemy,$user->atk);
 			$this->sm_36_addValue($user,$enemy,0.05);
+			$this->decHp($user,$enemy,$user->atk);
 		}
 	}
 
@@ -58,8 +57,9 @@
 		public $cd = 1;
 		public $isAtk = true;
 		function action($user,$self,$enemy){
+			$this->sm_36_addValue($user,$enemy,0.05);
 			$this->decHp($user,$enemy,$user->atk*0.8);
-			$this->sm_36_addValue($user,$enemy,0.03);
+			
 		}
 	}	
 	//∏®£∫--50%…À∫¶

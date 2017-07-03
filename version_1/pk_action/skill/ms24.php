@@ -26,7 +26,7 @@
 			$buff->isDebuff = true;
 			$buff->addToTarget($user,$enemy);
 			$this->temp1 ++;
-			if($this->temp1 >= 10)
+			if($this->temp1 >= 8)
 				$this->disabled = true;
 			
 		}

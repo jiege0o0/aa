@@ -154,6 +154,7 @@
 			if($this->value<0 && $this->target->hp <= -$this->value && ($temp = $this->target->isDieMiss('buff')))
 			{
 				$pkData->addSkillMV(null,$this->target,pk_skillType('NOHURT',$temp['id']));
+				$temp['decHp'] = -$this->value;
 				$this->target->testTSkill('DMISS',$temp);
 				return false;
 			}
@@ -168,7 +169,7 @@
 				$pkData->addSkillMV(null,$this->target,pk_skillType('CDHP','-'.$v.'#'.$this->skillID));
 			else 
 				$pkData->addSkillMV(null,$this->target,pk_skillType('CDHP',$v.'#'.$this->skillID));
-			if($this->target->hp == 0)
+			if($this->target->hp <= 0)
 				$pkData->addSkillMV(null,$this->target,pk_skillType('DIE',1));	
 			
 			//trace($this->target->id.'**'.$this->target->hp);			
@@ -199,6 +200,13 @@
 				$pkData->addSkillMV(null,$this->target,pk_skillType('STAT',numToStr($this->id).numToStr($this->cd).$this->value));
 			else
 				$pkData->addSkillMV(null,$this->target,pk_skillType('STAT2',numToStr($this->id-100).numToStr($this->cd).$this->value));
+			
+			if(!$user->isPKing && $user->id != $target->id && $this->id > 20 && $this->id < 30)
+			{
+				$user->effectCount += 100*($user->getForceRate())*$this->cd;
+			}
+			
+			
 			// global $pkData;
 			// trace($pkData->step.':'.$this->target->id.'--'.$this->id.'--'.$this->target->stat[$this->id]);
 		}

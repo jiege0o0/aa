@@ -116,6 +116,20 @@
 		if(!$skillData->canUse($user,$self,$enemy))
 			return false;
 			
+		if($skillData->isAtk && $enemy->hp <= 0)
+		{	
+			if($skillData->isMain)
+			{
+				trace($skillData->owner->monsterID);
+				trace($enemy->monsterID);
+				trace($enemy->maxHp);
+				trace($enemy->hp);
+				die("why?");
+			}
+
+				return false;
+		}
+			
 		$pkData->startSkillMV($user);
 		
 		if($skillData->isMain)//使用大绝扣能量

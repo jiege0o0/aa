@@ -66,6 +66,8 @@
 			$buff = new StatBuff(24,1);
 			$buff->isDebuff = true;
 			$buff->addToTarget($user,$user);
+			
+			$user->effectCount += $this->tData['decHp'];
 		}
 	}
 	class sm_5_f5 extends SkillBase{

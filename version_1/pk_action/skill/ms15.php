@@ -44,7 +44,7 @@
 		public $type = 'BEFORE';
 		public $once = true;
 		function canUse($user,$self=null,$enemy=null){
-			return $user->getHpRate() <= 0.2;
+			return $user->getHpRate() <= 0.3;
 		}
 		
 		function action($user,$self,$enemy){

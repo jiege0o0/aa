@@ -5,7 +5,7 @@
 	class sm_13_0 extends SkillBase{
 		public $isAtk = true;
 		function action($user,$self,$enemy){
-			$buff = new HPBuff(-round($user->atk*1),2,'13_0');
+			$buff = new HPBuff(-round($user->atk*1.5),2,'13_0');
 			$buff->isDebuff = true;
 			$buff->addToTarget($user,$enemy);
 			
@@ -35,9 +35,9 @@
 	
 	//辅：-- 回复：7%生命
 	class sm_13_f1 extends SkillBase{
-		public $cd = 2;
+		public $cd = 1;
 		function action($user,$self,$enemy){
-			$this->addHp($user,$self,$self->maxHp*0.1);
+			$this->addHp($user,$self,$self->maxHp*0.05);
 		}
 	}	
 	//辅：-- +5%免伤
@@ -51,10 +51,10 @@
 	//辅：-- 缠绕：普攻1回合,50%伤害，cd5
 	class sm_13_f3 extends SkillBase{
 		public $isAtk = true;
-		public $cd = 4;
+		public $cd = 3;
 		public $order = 1;//优先级，互斥时越大的越起作用
 		function action($user,$self,$enemy){
-			$buff = new HPBuff(-round($user->atk*0.5),1,'13_f3');
+			$buff = new HPBuff(-round($user->atk*1),1,'13_f3');
 			$buff->isDebuff = true;
 			$buff->addToTarget($user,$enemy);
 			

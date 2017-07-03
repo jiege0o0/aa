@@ -10,7 +10,7 @@
 	class sm_43_0 extends SkillBase{
 		public $isAtk = true;
 		function action($user,$self,$enemy){
-			$this->decHp($user,$user,$user->hp*0.25);
+			$this->decHp($user,$user,$user->hp*0.3);
 			$this->decHp($user,$enemy,sm_43_resetHurt($user,$user->atk*2));
 			
 		}

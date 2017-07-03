@@ -137,6 +137,7 @@
 				
 				$value = 0;
 				$pkData->addSkillMV(null,$target,pk_skillType('NOHURT',$temp['id']));	
+				$temp['decHp'] = $value;
 				$target->testTSkill('DMISS',$temp);
 			}
 			else
@@ -146,10 +147,16 @@
 				$value = -$value;
 				if($isMax)
 				{
+					$maxHpAdd = $value;
 					$target->maxHp += $value;
+					if($target->maxHp < 1)
+					{
+						$maxHpAdd += 1-$target->maxHp;
+						$target->maxHp = 1;
+					}
 					if($forever)
-						$target->add_hp += $value;
-					$this->setSkillEffect($target,pk_skillType('MHP',$value));
+						$target->add_hp += $maxHpAdd;
+					$this->setSkillEffect($target,pk_skillType('MHP',$maxHpAdd));
 				}
 
 				$rHp = $target->addHp($value,$user->id == $target->id);
@@ -158,7 +165,7 @@
 				else 
 					$this->setSkillEffect($target,pk_skillType('HP',$rHp));
 					
-				if($target->hp == 0)
+				if($target->hp <= 0)
 					$pkData->addSkillMV(null,$target,pk_skillType('DIE',1));				
 			}
 
@@ -192,7 +199,10 @@
 				$this->setSkillEffect($target,pk_skillType('MHP',$value));
 				$user->testTSkill('MHP',$value);
 				if($full)
-					$value = $target->maxHp;
+					$value = $target->maxHp - $target->hp;
+					
+				if($user->teamID == $target->teamID && $user->id != $target->id)
+					$user->effectCount += $value;
 			}
 			
 			$rHp = $target->addHp($value);
@@ -216,6 +226,8 @@
 		
 		//¼ÓÄ§
 		function addMp($user,$target,$value){
+			if($target->hp <= 0)
+				return 0;
 			$user->effectCount += abs($value)*2*($user->getForceRate());
 			$value = round($value);
 			$target->mp += $value;
@@ -224,18 +236,24 @@
 		}
 		
 		function addSpeed($user,$target,$value){
+			if($target->hp <= 0)
+				return 0;
 			if($user->id!==$target->id)
 				$user->effectCount += abs($value)*3*($user->getForceRate())*5;
 			$target->addSpeed($value);
 		}
 		
 		function addAtk($user,$target,$value){
+			if($target->hp <= 0)
+				return 0;
 			if($user->id!==$target->id)
 				$user->effectCount += abs($value)*5;
 			$target->addAtk($value);
 		}
 		
 		function addDef($user,$target,$value){
+			if($target->hp <= 0)
+				return 0;
 			if($user->id!==$target->id)
 				$user->effectCount += abs($value)/100*$target->maxHp*2*5;
 			$target->addDef($value);

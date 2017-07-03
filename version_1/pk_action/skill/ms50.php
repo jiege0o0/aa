@@ -40,6 +40,7 @@
 		public $order = 1;
 		function action($user,$self,$enemy){
 			$self->missTimes += 1;
+			$user->effectCount += $user->getForceRate()*100;
 			$this->addHp($user,$self,$self->maxHp*0.05 + $user->atk*0.5);
 		}
 	}

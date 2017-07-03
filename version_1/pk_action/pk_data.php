@@ -239,14 +239,14 @@ class PKData{//主要记录一些PK中的数据
 		$player1 = $this->playArr1[0];
 		$player2 = $this->playArr2[0];
 		// trace($this->round.'=='.$this->step);
-		if($player1->hp == 0 || $player2->hp == 0)
+		if($player1->hp <= 0 || $player2->hp <= 0)
 		{
 			$result = new stdClass();
-			if($player1->hp == 0 && $player2->hp == 0)
+			if($player1->hp <= 0 && $player2->hp <= 0)
 			{
 				$result->w = 0;
 			}
-			else if($player1->hp == 0)
+			else if($player1->hp <= 0)
 			{
 				$result->w = $player2->teamID;
 				$result->hp = min($player2->hp,($player2->base_hp + $player2->add_hp));
@@ -256,14 +256,14 @@ class PKData{//主要记录一些PK中的数据
 				$result->w = $player1->teamID;
 				$result->hp = min($player1->hp,$player1->base_hp + $player1->add_hp);
 			}
-			if($player1->hp == 0)
+			if($player1->hp <= 0)
 			{
 				// trace(count($this->playArr1));
 				$player1->freeSkill();
 			}
 			
 				
-			if($player2->hp == 0)
+			if($player2->hp <= 0)
 			{
 				
 				$player2->freeSkill();

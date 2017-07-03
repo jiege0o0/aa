@@ -8,6 +8,7 @@
 	require($filePath."pk_action/pk_fun.php");
 	require($filePath."pk_action/pk_skill.php");
 	require($filePath."pk_action/pk_data.php");
+
 	
 	
 	// $team2Data = array('list'=>array(107,107,107,107,107,107,107,107,107,106),'ring'=>array('id'=>1,'level'=>10),'tec'=>array(107,107,107,107,107,107,107,107,107,107));
@@ -35,15 +36,15 @@
 		//Ñ­»·PKÂß¼­
 		pkOneRound($playArr1,$playArr2);
 		
-		if($playArr2[0]->hp == 0)
+		if($playArr2[0]->hp <= 0)
 		{
 			$playArr2 = $pkData->team2->getFightArr();
-			if($playArr1[0]->hp != 0 || $pkData->lastSkiller->teamID == 1)
+			if($playArr1[0]->hp > 0 || $pkData->lastSkiller->teamID == 1)
 			{
 				array_push($pkTaskData,$playArr1[0]);
 			}
 		}
-		if($playArr1[0]->hp == 0)
+		if($playArr1[0]->hp <= 0)
 			$playArr1 = $pkData->team1->getFightArr();
 		if(count($playArr1) == 0 && count($playArr2) == 0)
 		{
