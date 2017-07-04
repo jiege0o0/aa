@@ -45,5 +45,13 @@
 			$this->addHp($user,$self,$user->atk);
 		}
 	}
+	
+	class sm_47_f3 extends SkillBase{
+		public $cd = 0;
+		public $order = 20;
+		function action($user,$self,$enemy){
+			$this->setStat31($user);
+		}
+	}
 
 ?> 
