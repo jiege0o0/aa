@@ -34,7 +34,7 @@
 	class sm_39_2 extends SkillBase{
 		public $type='EBEHEAL';
 		function action($user,$self,$enemy){
-			$this->addHp($user,$self,$this->tData*0.8);
+			$this->addHp($user,$self,$this->tData*1);
 		}
 	}
 	

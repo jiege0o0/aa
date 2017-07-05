@@ -46,7 +46,7 @@
 		public $cd = 1;
 		public $isAtk = true;
 		function action($user,$self,$enemy){
-			$this->sm_36_addValue($user,$enemy,0.05);
+			$this->sm_36_addValue($user,$enemy,0.06);
 			$this->decHp($user,$enemy,$user->atk);
 		}
 	}
