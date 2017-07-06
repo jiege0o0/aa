@@ -286,7 +286,7 @@
 		}*/
 		
 		//清除状态(谁加的，清多少)$isDebuff==-1为任意buff
-		function cleanStat($target,$isDebuff,$num){
+		function cleanStat($user,$target,$isDebuff,$num){
 			global $pkData;
 			$len = count($target->buffArr);
 			$b = false;
@@ -298,6 +298,11 @@
 				{
 					$pkData->addSkillMV(null,$enemy,pk_skillType('CSTAT',numToStr($target->buffArr[$i]->id).numToStr($target->buffArr[$i]->cd)).$target->buffArr[$i]->value);
 					// $pkData->out_cleanStat($target,$target->buffArr[$i]->id,$target->buffArr[$i]->cd);
+					
+					
+					if($user->id!==$target->id)
+						$user->effectCount += $target->buffArr[$i]->cd*$user->getForceRate()*50;
+						
 					$target->buffArr[$i]->cd = 0;
 					$num --;
 					$b = true;
@@ -314,13 +319,13 @@
 			return $b;	
 		}
 		
-		function setStat31($target)
+		function setStat31($user,$target)
 		{
 			if($target->stat[31])
 				$target->stat[31] ++;
 			else
 				$target->stat[31] = 1;
-			$this->cleanStat($target,true,999);
+			$this->cleanStat($user,$target,true,999);
 		}
 	}
 ?> 

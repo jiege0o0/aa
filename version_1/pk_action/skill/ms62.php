@@ -46,7 +46,7 @@
 		public $cd = 0;
 		public $order = 20;
 		function action($user,$self,$enemy){
-			$this->setStat31($user);
+			$this->setStat31($user,$user);
 		}
 	}
 	
@@ -63,7 +63,7 @@
 		public $cd = 0;
 		public $order = 20;
 		function action($user,$self,$enemy){
-			$this->setStat31($user);
+			$this->setStat31($user,$user);
 		}
 	}
 

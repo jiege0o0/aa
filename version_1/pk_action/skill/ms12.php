@@ -5,7 +5,7 @@
 	class sm_12_0 extends SkillBase{
 		public $isAtk = true;
 		function action($user,$self,$enemy){
-			$this->decHp($user,$enemy,$user->atk*2);
+			$this->decHp($user,$enemy,$user->atk*2.2);
 			
 			$buff = new ValueBuff('def',-20,3);
 			$buff->isDebuff = true;

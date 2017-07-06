@@ -29,7 +29,7 @@
 	class sm_18_2 extends SkillBase{
 		public $cd = 0;
 		function action($user,$self,$enemy){
-			$this->setStat31($self);
+			$this->setStat31($user,$self);
 		}
 	}
 

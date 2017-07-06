@@ -61,7 +61,7 @@
 		// public $cd = 1;
 		// function action($user,$self,$enemy){
 			// $this->decHp($user,$enemy,$user->atk*0.5);
-			// $this->cleanStat($enemy,-1,1);
+			// $this->cleanStat($user,$enemy,-1,1);
 		// }
 	// }
 

@@ -25,7 +25,7 @@
 		function action($user,$self,$enemy){
 			$this->addMp($user,$self,20);
 			$this->decHp($user,$enemy,$user->atk);
-			$this->cleanStat($enemy,false,1);
+			$this->cleanStat($user,$enemy,false,1);
 		}
 	}
 	
@@ -35,7 +35,7 @@
 		public $isAtk = true;
 		function action($user,$self,$enemy){
 			$this->decHp($user,$enemy,$user->atk);
-			$this->cleanStat($enemy,false,1);
+			$this->cleanStat($user,$enemy,false,1);
 		}
 	}
 	
@@ -75,7 +75,7 @@
 		public $isAtk = true;
 		function action($user,$self,$enemy){
 			$this->decHp($user,$enemy,$user->atk*1);
-			$this->cleanStat($enemy,false,1);
+			$this->cleanStat($user,$enemy,false,1);
 		}
 	}
 

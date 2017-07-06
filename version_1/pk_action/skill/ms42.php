@@ -8,14 +8,14 @@
 			for($i=0;$i<$len;$i++)
 			{
 				$player = $enemy->team->currentMonster[$i];
-				$this->cleanStat($player,false,999);
+				$this->cleanStat($user,$player,false,999);
 			}
 			
 			$len = count($self->team->currentMonster);
 			for($i=0;$i<$len;$i++)
 			{
 				$player = $self->team->currentMonster[$i];
-				$this->cleanStat($player,true,999);
+				$this->cleanStat($user,$player,true,999);
 			}
 			
 			$this->addHp($user,$self,$user->atk);
@@ -44,7 +44,7 @@
 		public $cd = 1;
 		function action($user,$self,$enemy){
 			$this->addHp($user,$self,$user->atk*1);
-			$this->cleanStat($self,true,1);
+			$this->cleanStat($user,$self,true,1);
 		}
 	}	
 	//辅：--进场时回己方20%最大生命
