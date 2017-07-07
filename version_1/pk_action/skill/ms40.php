@@ -60,7 +60,7 @@
 		public $order = 9;
 		function action($user,$self,$enemy){
 			$v = round($user->base_hp*0.5);
-			$user->effectCount += $v;
+			$user->addEffectCount($v);
 			$self->manaHp += $v;
 			$self->setSkillEffect(pk_skillType('MANAHP',$v));
 		}

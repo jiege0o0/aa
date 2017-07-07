@@ -32,7 +32,8 @@
 				$player = $enemy->team->currentMonster[$i];
 				$this->addAtk($user,$player,-$player->base_atk*0.2);
 				$this->addSpeed($user,$player,-$player->base_speed*0.2);
-				$this->addDef($user,$player,-20);
+				if($player->isPKing)
+					$this->addDef($user,$player,-20);
 			}
 		}
 	}
@@ -47,7 +48,8 @@
 				$player = $enemy->team->currentMonster[$i];
 				$this->addAtk($user,$player,-$player->base_atk*0.1);
 				$this->addSpeed($user,$player,-$player->base_speed*0.1);
-				$this->addDef($user,$player,-10);
+				if($player->isPKing)
+					$this->addDef($user,$player,-10);
 			}
 		}
 	}	
@@ -57,6 +59,7 @@
 		public $isAtk = true;
 		function action($user,$self,$enemy){
 			$this->decHp($user,$enemy,$user->atk*2.2);
+			
 		}
 	}
 

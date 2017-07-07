@@ -105,13 +105,13 @@
 			
 			switch($key){
 				case 'atk':
-					$this->user->effectCount += abs($this->value)*($this->user->getForceRate())*$this->cd;
+					$this->user->addEffectCount(abs($this->value)*$this->cd);
 					break;
 				case 'speed':
-					$this->user->effectCount += abs($this->value)*3*$this->cd;
+					$this->user->addEffectCount(abs($this->value)*3*($this->user->getForceRate())*$this->cd);
 					break;	
 				case 'def':
-					$this->user->effectCount += abs($this->value)/100*2*$this->target->maxHp*$this->cd;
+					$this->user->addEffectCount(abs($this->value)/100*$this->target->maxHp*$this->cd);
 					break;
 			}
 		}
@@ -149,7 +149,7 @@
 			global $pkData;
 			
 			if($this->value<0 && $this->user->teamID != $this->target->teamID)
-				$this->target->hpCount += -$value;
+				$this->target->addHpCount(-$value);
 			
 			if($this->value<0 && $this->target->hp <= -$this->value && ($temp = $this->target->isDieMiss('buff')))
 			{
@@ -160,9 +160,9 @@
 			}
 			
 			if($this->value<0 && $user->teamID != $target->teamID)
-				$this->user->atkCount += -$value;
+				$this->user->addAtkCount(-$value);
 			if($this->value > 0 && $user->teamID == $target->teamID && $user->id != $target->id)
-				$this->user->healCount += $value;
+				$this->user->addHealCount($value);
 					
 			$v = $this->target->addHp($this->value);
 			if($v == 0)
@@ -203,7 +203,7 @@
 			
 			if(!$user->isPKing && $user->id != $target->id && $this->id > 20 && $this->id < 30)
 			{
-				$user->effectCount += 100*($user->getForceRate())*$this->cd;
+				$user->addEffectCount(100*($user->getForceRate())*$this->cd);
 			}
 			
 			

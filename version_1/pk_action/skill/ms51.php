@@ -73,7 +73,7 @@
 		public $order = 2;
 		function action($user,$self,$enemy){
 			$self->missTimes += 1;
-			$user->effectCount += $user->getForceRate()*100;
+			$user->addEffectCount($user->getForceRate()*100);
 		}
 	}	
 	

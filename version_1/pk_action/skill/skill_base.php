@@ -66,7 +66,7 @@
 				$self = $enemy;
 				$enemy = $temp;
 			}
-			
+			$user->skillID = $this->index;
 			$this->actionBefore($user,$self,$enemy);
 			if($this->isAtk)
 			{
@@ -123,7 +123,7 @@
 			$value = round(max(1,$value));
 			
 			if($user->teamID != $target->teamID)
-				$target->hpCount += $value;
+				$target->addHpCount($value);
 			
 			
 			
@@ -143,7 +143,7 @@
 			else
 			{
 				if($user->teamID != $target->teamID)
-					$user->atkCount += $orginValue;
+					$user->addAtkCount($orginValue);
 				$value = -$value;
 				if($isMax)
 				{
@@ -157,6 +157,14 @@
 					if($forever)
 						$target->add_hp += $maxHpAdd;
 					$this->setSkillEffect($target,pk_skillType('MHP',$maxHpAdd));
+					
+					if($user->teamID != $target->teamID)
+					{
+						if($forever)
+							$user->addEffectCount(abs($maxHpAdd));
+						else
+							$user->addEffectCount(abs($maxHpAdd)*0.5);
+					}
 				}
 
 				$rHp = $target->addHp($value,$user->id == $target->id);
@@ -189,7 +197,7 @@
 			global $pkData;
 			$value = round(max(1,$value));
 			if($user->teamID == $target->teamID && $user->id != $target->id)
-				$user->healCount += $value;
+				$user->addHealCount($value);
 			if($isMax)
 			{	
 			
@@ -202,7 +210,12 @@
 					$value = $target->maxHp - $target->hp;
 					
 				if($user->teamID == $target->teamID && $user->id != $target->id)
-					$user->effectCount += $value;
+				{
+					if($forever)
+						$user->addEffectCount($value);
+					else
+						$user->addEffectCount($value*0.5);
+				}
 			}
 			
 			$rHp = $target->addHp($value);
@@ -228,7 +241,7 @@
 		function addMp($user,$target,$value){
 			if($target->hp <= 0)
 				return 0;
-			$user->effectCount += abs($value)*2*($user->getForceRate());
+			$user->addEffectCount(abs($value)*2*($user->getForceRate()));
 			$value = round($value);
 			$target->mp += $value;
 			$this->setSkillEffect($target,pk_skillType('MP',$value));
@@ -239,7 +252,7 @@
 			if($target->hp <= 0)
 				return 0;
 			if($user->id!==$target->id)
-				$user->effectCount += abs($value)*3*($user->getForceRate())*5;
+				$user->addEffectCount(abs($value)*3*($user->getForceRate())*3);
 			$target->addSpeed($value);
 		}
 		
@@ -247,7 +260,7 @@
 			if($target->hp <= 0)
 				return 0;
 			if($user->id!==$target->id)
-				$user->effectCount += abs($value)*5;
+				$user->addEffectCount(abs($value)*3);
 			$target->addAtk($value);
 		}
 		
@@ -255,7 +268,7 @@
 			if($target->hp <= 0)
 				return 0;
 			if($user->id!==$target->id)
-				$user->effectCount += abs($value)/100*$target->maxHp*2*5;
+				$user->addEffectCount(abs($value)/100*$target->maxHp*3);
 			$target->addDef($value);
 		}
 		
@@ -301,7 +314,7 @@
 					
 					
 					if($user->id!==$target->id)
-						$user->effectCount += $target->buffArr[$i]->cd*$user->getForceRate()*50;
+						$user->addEffectCount($target->buffArr[$i]->cd*$user->getForceRate()*50);
 						
 					$target->buffArr[$i]->cd = 0;
 					$num --;

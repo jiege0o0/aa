@@ -58,7 +58,7 @@
 		}
 		function action($user,$self,$enemy){
 			$self->reborn(0.2);
-			$user->effectCount += $self->maxHp*0.2;
+			$user->addEffectCount($self->maxHp*0.2);
 		}
 	}
 

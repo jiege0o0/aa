@@ -56,14 +56,13 @@
 
 		$returnData->data = $userData;
 		
-		$logtime = 1498631347;
+		$logtime = 1499419469;
 		if($msg->logtime < $logtime)
 		{
 			$returnData->logtext = new stdClass();
-			$returnData->logtext->text = '重做野外副本，改为挂机副本|'.
-			'增加卡兵定位及描述，方便玩家上手|'.
-			'UI体验化|'.
-			'BUG修改及细节调整';
+			$returnData->logtext->text = 'UI和体验再次优化升级|'.
+			'卡兵属性和技能优化，战斗更迅速，卡兵特点更突出|'.
+			'其它小修小补';
 			$returnData->logtext->time = $logtime;
 		}
 		

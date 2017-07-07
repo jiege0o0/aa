@@ -39,6 +39,7 @@ class player{
 	public $buffArr = array();//状态回合计算
 	public $skillArr = array();//可选择的技能
 	public $skillArrCD0 = array();//开始就用了的技能
+	public $allSkillArr = array();//所有的技能
 
 	
 	public $temp = array();
@@ -69,6 +70,7 @@ class player{
 	public $dieMissTimes = array();//可闪避的死亡次数
 	
 	
+	public $skillID = 0;//正在释放的技能
 	public $atkCount = 0;//伤害累计
 	public $hpCount = 0;//防累计
 	public $healCount = 0;//治疗
@@ -92,6 +94,36 @@ class player{
 	//战力比例
 	function getForceRate(){
 		return $this->base_atk / $this->monsterData['atk'];
+	}
+	
+	function addAtkCount($v){
+		$this->getSkillUser()->atkCount += $v;
+	}
+	function addHpCount($v){
+		$this->getSkillUser()->hpCount += $v;
+	}
+	function addHealCount($v){
+		$this->getSkillUser()->healCount += $v;
+	}
+	function addEffectCount($v){
+		$this->getSkillUser()->effectCount += $v;
+	}
+	
+	function getSkillUser(){
+		
+		if($this->id >= 10)
+			return $this;
+		//throw new Exception(count($this->allSkillArr));	
+		$skillItem = $this->allSkillArr[$this->skillID];
+		//trace($skillItem);
+		
+		if($skillItem)
+		{
+			$skillUser = $this->team->allMonsterList[$skillItem->orginOwnerID%10];
+			if($skillUser)
+				return $skillUser;
+		}
+		return $this;
 	}
 	
 
@@ -312,6 +344,7 @@ class player{
 		$this->skill = null;
 		$this->skillArr = array();
 		$this->skillArrCD0 = array();
+		$this->allSkillArr = array();
 		$this->tag = array();
 		$this->buffArr = array();
 		$this->stat = array();
@@ -382,6 +415,7 @@ class player{
 		$temp = pk_monsterSkill($this->monsterID,$key);
 		if($temp && !$temp->leader)
 		{
+			$this->allSkillArr[$index] = $temp;
 			$temp->index = $index;
 			$temp->owner = $this;
 			if($temp->cd == 0)//PK前执行

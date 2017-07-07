@@ -253,6 +253,7 @@ class Team{
 			$skill->owner = $this->teamPlayer;
 			$skill->index = $skillIndex;
 			$skillIndex++;
+			$this->teamPlayer->allSkillArr[$skill->index] = $skill;
 			if($skill->cd == 0)
 			{
 				array_push($pkData->frontArray,$skill);
