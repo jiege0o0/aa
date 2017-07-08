@@ -27,7 +27,7 @@
 			break;
 		}
 			
-		$cost = 10;
+		$cost = 15;
 		while(lcg_value()>0.5)
 			$cost += 5;
 		$arr = array();
