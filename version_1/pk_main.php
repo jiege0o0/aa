@@ -47,7 +47,7 @@
 		$award->coin = ceil(30*(1+$level/100));
 		if($result)
 		{
-			if($userData->exp == 0 && $userData->level == 1)//新手副利
+			if($userData->exp < 30 && $userData->level == 1)//新手副利
 			{
 				$award->coin = 1000;
 				require_once($filePath."get_monster_collect.php");

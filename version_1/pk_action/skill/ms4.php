@@ -22,7 +22,7 @@
 	class sm_4_2_buff extends ValueBuff{
 		function onEnd(){
 			$this -> onClean();
-			$buff = new ValueBuff('atk',-round($this->target->base_atk * 0.5),10);
+			$buff = new ValueBuff('atk',-round($this->target->base_atk * 0.6),10);
 			$buff->addToTarget($user,$this->target);
 		}
 	}
@@ -35,7 +35,7 @@
 			return $user->getHpRate()<=0.5;
 		}
 		function action($user,$self,$enemy){
-			$buff = new sm_4_2_buff('atk',round($self->base_atk * 0.5),3);
+			$buff = new sm_4_2_buff('atk',round($self->base_atk * 0.6),2);
 			$buff->addToTarget($user,$self);
 		}
 	}

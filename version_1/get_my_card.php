@@ -28,7 +28,7 @@
 			{
 				$obj = new stdClass();
 				$obj->list = array(16,53,29,59,20,43,1,5);
-				$obj->num = 1;
+				$obj->num = 2;
 			}
 			else
 			{
