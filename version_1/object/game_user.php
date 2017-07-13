@@ -413,6 +413,10 @@ class GameUser{
 		return $cLevel;
 	}
 	
+	function getForce(){
+		return $this->tec_force + $this->award_force;
+	}
+	
 	//重新计算战力
 	function resetForce(){
 		global $returnData;
