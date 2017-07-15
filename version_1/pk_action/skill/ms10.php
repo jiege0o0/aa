@@ -25,7 +25,7 @@
 	class sm_10_2 extends SkillBase{
 		public $type = 'AFTER';
 		function action($user,$self,$enemy){
-			$this->addHp($user,$self,$self->maxHp*0.30);
+			$this->addHp($user,$self,$self->maxHp*0.50);
 		}
 	}
 	

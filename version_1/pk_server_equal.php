@@ -168,6 +168,7 @@
 		$userData->server_game_equal->pkdata = array("team1"=>$team1Data,"team2"=>$team2Data,"isequal"=>$equalPK,"info"=>$pkUserInfo,'version'=>$pk_version,'time'=>time());
 		$returnData->sync_server_game_equal->exp = $userData->server_game_equal->exp;
 		$returnData->sync_server_game_equal->open = $userData->server_game_equal->open;
+		$returnData->sync_server_game_equal->pk = $userData->server_game_equal->pk;
 		
 		if($userData->server_game_equal->exp > $userData->server_game_equal->top)
 		{
@@ -175,10 +176,10 @@
 			$returnData->sync_server_game_equal->top = $userData->server_game_equal->top;
 		}
 		
-		if(!$userData->sync_server_game_equal->choose)
+		if(!$userData->sync_server_game_equal->open)
 		{
-			$returnData->sync_server_game_equal->choose = $userData->sync_server_game_equal->choose;
-			$returnData->sync_server_game_equal->enemy = $userData->sync_server_game_equal->enemy;
+			$returnData->sync_server_game_equal->choose = $userData->server_game_equal->choose;
+			$returnData->sync_server_game_equal->enemy = $userData->server_game_equal->enemy;
 		}
 		
 		renewMyCard();

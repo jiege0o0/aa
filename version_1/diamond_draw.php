@@ -40,6 +40,7 @@
 		}
 		$value = $arr[rand(0,count($arr) - 1)];
 		$returnData->cardid = $value['id'];
+		$userData->addTaskStat('draw');
 		$userData->addDiamond($value['cost']);
 		$userData->active->draw_time = $time;
 		$userData->active->draw_num ++;

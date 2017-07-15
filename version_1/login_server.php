@@ -32,10 +32,10 @@
 		if($userData->day_game->pkdata)
 			$userData->day_game->pkdata = array("version"=>$userData->day_game->pkdata->version,"time"=>$userData->day_game->pkdata->time);
 			
-		if($userData->server_game->enemy && $userData->server_game->enemy->pkdata && !$userData->server_game->pktime)
+		if($userData->server_game->enemy && $userData->server_game->enemy->pkdata && !$userData->server_game->pk)
 			unset($userData->server_game->enemy->pkdata);
 			
-		if($userData->server_game_equal->enemy && $userData->server_game_equal->enemy->pkdata && !$userData->server_game_equal->pktime)
+		if($userData->server_game_equal->enemy && $userData->server_game_equal->enemy->pkdata && !$userData->server_game_equal->pk)
 			unset($userData->server_game_equal->enemy->pkdata);
 			
 		$sql = "select time from ".$sql_table."friend_log where (to_gameid='".$userData->gameid."' or (from_gameid='".$userData->gameid."' and (type=2 or type=3))) order by time desc limit 1";

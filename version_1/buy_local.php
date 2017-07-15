@@ -17,13 +17,15 @@
 	);
 	do{
 		$data = $arr[$id];
-		if($userData->getDiamond($data['rmb']) < $data['cost'])
+		$isTask = $id == 31 && (!$userData->active->task->stat || !$userData->active->task->stat->ticket);
+		if(!$isTask && $userData->getDiamond($data['rmb']) < $data['cost'])
 		{
 			$returnData->fail = 1;//Ç®²»¹»
 			$returnData->sync_diamond = $userData->diamond;
 			break;
 		}
-		$userData->addDiamond(-$data['cost']);
+		if(!$isTask)
+			$userData->addDiamond(-$data['cost']);
 		$userLevel = $userData->level;
 		if($id == 2)
 		{
@@ -59,7 +61,8 @@
 			$award->prop->{21} = $rate;	
 			$userData->addProp(21,$rate);
 		}
-		
+		if($id == 31)
+			$userData->addTaskStat('ticket');
 		$userData->write2DB();
 		payLog(json_encode($msg));
 	}while(false);

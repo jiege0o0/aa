@@ -26,6 +26,7 @@
 			addMonsterCollect($returnData->card);
 		}
 		
+		$userData->addTaskStat('map_buy');
 		$userData->pk_common->map->value -= $value;
 		$userData->setChangeKey('pk_common');
 		$userData->write2DB();	

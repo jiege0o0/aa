@@ -79,6 +79,10 @@
 		
 		$friendInfo->gameid = $otherid;
 		$returnData->otherinfo = $friendInfo;
+		
+		
+		$userData->addTaskStat('friend');
+		$userData->write2DB();
 	}
 	while(false);	
 	

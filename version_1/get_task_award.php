@@ -10,7 +10,7 @@
 	
 	
 	$arr = array();
-	foreach($task_base ad $key=>$value)
+	foreach($task_base as $key=>$value)
 	{
 		if($value['line'] == $line)
 		{
@@ -46,6 +46,7 @@
 			if(!$b)
 			{
 				$returnData->fail = 1;
+				$returnData->sync_task = $userData->active->task;
 				break;
 			}	
 		}
@@ -62,9 +63,10 @@
 		//任务前置条件
 		if($taskVO['level'])
 		{
-			if($line = 2 && $userData->level < $taskVO['level'])
+			if($line == 2 && $userData->level < $taskVO['level'])
 			{
 				$returnData->fail = 2;
+				$returnData->sync_task = $userData->active->task;
 				break;
 			}
 		}
@@ -74,10 +76,11 @@
 		$stat = $userData->active->task->stat;
 		$value1 = $taskVO['value1'];
 		$value2 = $taskVO['value2'];
+		debug($line);
 		
 		if(!$stat)
 			$stat = new stdClass();
-		switch($taskVO['coin'])
+		switch($taskVO['type'])
 		{
 			case 'draw':
                 if($stat->{'draw'})
@@ -87,7 +90,7 @@
                 $isFinsih = $userData->main_game->level >= $value1;
                 break;
             case 'force':
-                $isFinsih = $userData->main_game->getForce() >= $value1;
+                $isFinsih = $userData->getForce() >= $value1;
                 break;
             case 'map_game':
 				if($userData->pk_common->map)
@@ -119,7 +122,7 @@
 				$isFinsih = $currentValue >= $value1;
                 break;
             case 'map_game_buy':
-                if($stat->{'map_buy'])
+                if($stat->{'map_buy'})
 					$isFinsih = true;
                 break;
             case 'map_game_next':
@@ -160,7 +163,9 @@
 					$isFinsih = $mLevel >= $value2;
                 break;
             case 'day_game':
-               if(isSameDate($userData->day_game->lasttime))
+				if($value1 < 0)
+					$isFinsih = $userData->day_game->pkdata;
+				else if(isSameDate($userData->day_game->lasttime))
 				{
 					$isFinsih = $userData->day_game->level >= $value1;
 				}
@@ -177,20 +182,30 @@
 		if(!$isFinsih)
 		{
 			$returnData->fail = 3;
+			$returnData->sync_task = $userData->active->task;
 			break;
 		}
-		
+		debug($line);
 		//发放奖励
+		$returnData->award = array();
 		if($taskVO['diamond'])
+		{
 			$userData->addDiamond($taskVO['diamond']);
+			$returnData->award['diamond'] = $taskVO['diamond'];
+		}
 		if($taskVO['coin'])
+		{
 			$userData->addCoin($taskVO['coin']);
+			$returnData->award['coin'] = $taskVO['coin'];
+		}
 		if($taskVO['card'])
 		{
 			require_once($filePath."get_monster_collect.php");
 			addMonsterCollect($taskVO['card']);
+			$returnData->award['card'] = $taskVO['card'];
 		}
 		
+		debug($task_base[$taskID]);
 		$userData->active->task->{$line} = $taskID;
 		$returnData->sync_task = array();
 		$returnData->sync_task[$line] = $taskID;

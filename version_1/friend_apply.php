@@ -3,6 +3,11 @@
 	$maxFriend = 30;
 	$otherid = $msg->otherid;
 	do{
+		if($otherid == 'npc')
+		{
+			$returnData->data = 'ok';
+			break;
+		}
 		if($otherid == $userData->gameid)//不能向自己请求
 		{
 			$returnData->fail = 3;
@@ -67,6 +72,9 @@
 				break;
 			}
 		}
+		
+		$userData->addTaskStat('friend');
+		$userData->write2DB();
 		$returnData->data = 'ok';
 	}
 	while(false);

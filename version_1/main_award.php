@@ -14,7 +14,7 @@
 		
 		require_once($filePath."main_award_fun.php");
 		
-		
+		$userData->addTaskStat('award');
 		$userData->main_game->awardtime = time();
 		$returnData->sync_main_game = new stdClass();
 		$returnData->sync_main_game->awardtime = $userData->main_game->awardtime;

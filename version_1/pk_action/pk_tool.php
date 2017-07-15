@@ -86,28 +86,28 @@
 	}
 	
 	//完成等级任务
-	function testLevelTask($type,$result){
-		global $userData,$returnData;
-		if($userData->active->task->doing  && $userData->active->task->type = $type)
-		{
-			if($result)
-				$userData->active->task->win ++;
-			$userData->active->task->total ++;
-			if($userData->active->task->win == $userData->active->task->targetwin)
-			{
-				$returnData->honor_task_award = $userData->active->task->award;
-				$userData->active->task->doing = false;
-				$userData->addAwardForce($userData->active->task->award);
-			}
-			else if($userData->active->task->targettotal - $userData->active->task->total < $userData->active->task->targetwin - $userData->active->task->win)
-			{//可打的场数< 要胜的场数
-				$userData->active->task->doing = false;
-			}
-			$returnData->sync_active_task = $userData->active->task;
-			$returnData->finish_task = true;
-			$userData->setChangeKey('active');
-		}
-	}
+	// function testLevelTask($type,$result){
+		// global $userData,$returnData;
+		// if($userData->active->task->doing  && $userData->active->task->type = $type)
+		// {
+			// if($result)
+				// $userData->active->task->win ++;
+			// $userData->active->task->total ++;
+			// if($userData->active->task->win == $userData->active->task->targetwin)
+			// {
+				// $returnData->honor_task_award = $userData->active->task->award;
+				// $userData->active->task->doing = false;
+				// $userData->addAwardForce($userData->active->task->award);
+			// }
+			// else if($userData->active->task->targettotal - $userData->active->task->total < $userData->active->task->targetwin - $userData->active->task->win)
+			// {//可打的场数< 要胜的场数
+				// $userData->active->task->doing = false;
+			// }
+			// $returnData->sync_active_task = $userData->active->task;
+			// $returnData->finish_task = true;
+			// $userData->setChangeKey('active');
+		// }
+	// }
 	
 	//编码压缩数据
 	function pkEncode($data){

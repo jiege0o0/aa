@@ -51,7 +51,7 @@
 			$sql = "select last_insert_id() as id";
 			$returnData ->data = $conne->getRowsRst($sql);
 			
-
+			$userData->addTaskStat('friend_dungeon');
 			$userData->active->{$type}->lasttime = $time;
 			$userData->active->{$type}->team = $returnData->data['id'];
 			$userData->setChangeKey('active');
@@ -62,6 +62,7 @@
 			$returnData -> fail = 3;
 			debug($sql);
 		}
+		
 	}while(false);
 	
 

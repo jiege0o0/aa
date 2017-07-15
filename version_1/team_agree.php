@@ -87,7 +87,7 @@
 			$userData->setChangeKey('active');
 		}
 
-		
+		userData->addTaskStat('friend_dungeon');
 		$userData->write2DB();
 		
 		

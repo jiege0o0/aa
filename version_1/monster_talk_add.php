@@ -36,6 +36,7 @@
 			break;
 		}
 		
+		$userData->addTaskStat('comment');
 		$userData->addEnergy(-1);
 		$returnData->id = $id;
 		$returnData->talk_key = $talk_key;
