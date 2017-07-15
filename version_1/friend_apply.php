@@ -5,6 +5,8 @@
 	do{
 		if($otherid == 'npc')
 		{
+			$userData->addTaskStat('friend');
+			$userData->write2DB();
 			$returnData->data = 'ok';
 			break;
 		}
