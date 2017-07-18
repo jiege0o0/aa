@@ -9,6 +9,7 @@
 	
 class GameUser{
 	public $gameid;
+	public $uid;
 	public $nick;
 	public $exp;
 	public $word;
@@ -34,6 +35,7 @@ class GameUser{
 	//³õÊ¼»¯Àà
 	function __construct($data,$isOther=false,$isRank=false){
 		$this->gameid = $data['gameid'];
+		$this->uid = $data['uid'];
 		$this->nick = $data['nick'];
 		$this->head = $data['head'];
 		$this->word = $data['word'];

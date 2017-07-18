@@ -15,7 +15,6 @@
 		if($value['line'] == $line)
 		{
 			$temp = explode('_',$key,2);
-			$value['index'] = ((int)$temp[0])*1000 + ((int)$temp[1]);
 			array_push($arr,$value);
 		}
 	}
@@ -197,6 +196,11 @@
 		{
 			$userData->addCoin($taskVO['coin']);
 			$returnData->award['coin'] = $taskVO['coin'];
+		}
+		if($taskVO['energy'])
+		{
+			$userData->addEnergy($taskVO['energy']);
+			$returnData->award['energy'] = $taskVO['energy'];
 		}
 		if($taskVO['card'])
 		{

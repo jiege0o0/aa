@@ -1,6 +1,4 @@
 <?php 
-	
-	
 	//技：心灵控制(技)：所有单位禁固1回合
 	class sm_3_0 extends SkillBase{
 		public $isAtk = true;
@@ -47,7 +45,7 @@
 			for($i=1;$i<$len;$i++)
 			{
 				$player = $self->team->currentMonster[$i];
-				$this->addAtk($user,$player,$player->base_atk * 0.15);
+				$this->addAtk($user,$player,$player->base_atk * 0.18);
 			}
 		}
 	}

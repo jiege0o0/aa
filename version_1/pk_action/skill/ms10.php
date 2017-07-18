@@ -32,7 +32,7 @@
 	
 	//辅：石化（技）：停1回合，cd5
 	class sm_10_f1 extends SkillBase{
-		public $cd = 5;
+		public $cd = 4;
 		public $isAtk = true;
 		public $order = 1;//优先级，互斥时越大的越起作用
 		function action($user,$self,$enemy){
