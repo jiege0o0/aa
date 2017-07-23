@@ -225,6 +225,8 @@ class PKData{//主要记录一些PK中的数据
 				
 				$this->startSkillMV($userX);
 				pk_action_skill($skillData,$userX,$selfX,$enemyX);
+				$selfX->testDie();
+				$enemyX->testDie();
 				$this->dealTArray();
 				$this->out_end($userX);
 			}

@@ -17,7 +17,7 @@
 		public $cd = 3;
 		public $isAtk = true;
 		function action($user,$self,$enemy){
-			$this->decHp($user,$enemy,$user->atk*1);
+			$this->decHp($user,$enemy,$user->atk*1.5);
 			
 			$len = count($self->team->currentMonster);
 			for($i=1;$i<$len;$i++)
