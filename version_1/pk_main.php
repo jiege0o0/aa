@@ -49,9 +49,9 @@
 		{
 			if($userData->exp < 30 && $userData->level == 1)//新手副利
 			{
-				$award->coin = 1000;
+				$award->coin = 200;
 				require_once($filePath."get_monster_collect.php");
-				$award->collect = addMonsterCollect(30);
+				$award->collect = addMonsterCollect(5);
 			}
 			$userData->main_game->level++;
 			$userData->main_game->time = time();
