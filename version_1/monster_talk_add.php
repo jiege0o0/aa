@@ -3,10 +3,20 @@
 	$talk = $msg->talk;
 	$monster = $msg->monster;
 	do{
+		
 		if($userData->getEnergy() < 1)//体力不够
 		{
 			$returnData->fail = 1;
 			$returnData->sync_energy = $userData->energy;
+			break;
+		}
+		
+		if($talk == '没有什么看法，就是做个任务')
+		{
+			$userData->addTaskStat('comment');
+			$userData->addEnergy(-1);
+			$returnData->id = -1;
+			$userData->write2DB();
 			break;
 		}
 		

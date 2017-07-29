@@ -51,10 +51,10 @@
 	//辅：-- 缠绕：普攻1回合,50%伤害，cd5
 	class sm_13_f3 extends SkillBase{
 		public $isAtk = true;
-		public $cd = 3;
+		public $cd = 4;
 		public $order = 1;//优先级，互斥时越大的越起作用
 		function action($user,$self,$enemy){
-			$buff = new HPBuff(-round($user->atk*1),1,'13_f3');
+			$buff = new HPBuff(-round($user->atk*1.2),1,'13_f3');
 			$buff->isDebuff = true;
 			$buff->addToTarget($user,$enemy);
 			
