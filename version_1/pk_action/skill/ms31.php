@@ -27,7 +27,7 @@
 			return $user->getHpRate() <= 0.2;
 		}
 		function action($user,$self,$enemy){
-			$user->missTimes += 5;
+			$user->missTimes += 4;
 		}
 	}
 	
@@ -60,7 +60,7 @@
 		public $cd = 1;
 		public $isAtk = true;
 		function action($user,$self,$enemy){
-			$this->decHp($user,$enemy,$user->atk*1);
+			$this->decHp($user,$enemy,$user->atk*0.9);
 		}
 	}
 

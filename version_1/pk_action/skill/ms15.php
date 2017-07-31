@@ -69,7 +69,7 @@
 		public $isAtk = true;
 		public $order = 1;
 		function action($user,$self,$enemy){
-			$buff = new HPBuff(-$user->atk*0.4,3,'15_f2');
+			$buff = new HPBuff(-$user->atk*0.5,3,'15_f2');
 			$buff->isDebuff = true;
 			$buff->addToTarget($user,$enemy);
 			

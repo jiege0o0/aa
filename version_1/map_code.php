@@ -56,7 +56,7 @@
 		
 		$totalHurt = $totalHurt/$monsterNum;//平均伤害值
 		
-        $userData->pk_common->map->cd = ceil($boss['hp']/$totalHurt) * 5;
+        $userData->pk_common->map->cd = max(30,ceil($boss['hp']/$totalHurt) * 5);
 		return true;
 	 }
 	 

@@ -25,7 +25,7 @@
 	class sm_17_2 extends SkillBase{
 		public $cd = 0;
 		function action($user,$self,$enemy){
-			$this->addAtk($user,$enemy,-$enemy->base_atk*0.1);
+			$this->addAtk($user,$enemy,-$enemy->base_atk*0.15);
 		}
 	}
 

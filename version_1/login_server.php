@@ -61,8 +61,11 @@
 		{
 			$returnData->logtext = new stdClass();
 			$returnData->logtext->text = 'UI和体验再次优化升级|'.
-			'卡兵属性和技能优化，战斗更迅速，卡兵特点更突出|'.
-			'其它小修小补';
+				'卡兵属性和技能小范围调整|'.
+				'加入布阵自定义功能|'.
+				'优化新手引导|'.
+				'加入任务系统|'.
+				'重做野外清剿动画，更有团战的感觉';
 			$returnData->logtext->time = $logtime;
 		}
 		
