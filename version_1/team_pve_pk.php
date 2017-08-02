@@ -58,8 +58,8 @@
 		
 		$team2Data = new stdClass();
 		$team2Data->list = $content[$level-1]->list;
-		$forceArr = array(0,100,1200,2500,5000,8500,13000);
-		$team2Data->fight = $forceArr[$gameData->hard] + ($gameData->hard)*($level - 1);
+		$forceArr = array(0,100,1000,3000,6000,10000,15000);
+		$team2Data->fight = $forceArr[$gameData->hard] + floor((pow($gameData->hard,0) - 0.5)*($level - 1));
 
 
 		

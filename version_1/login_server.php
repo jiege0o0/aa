@@ -56,7 +56,7 @@
 
 		$returnData->data = $userData;
 		
-		$logtime = 1499419469;
+		$logtime = 1501639499;
 		if($msg->logtime < $logtime)
 		{
 			$returnData->logtext = new stdClass();

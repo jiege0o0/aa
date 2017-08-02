@@ -177,8 +177,47 @@
 		);
     }
 	
+	//这个战力下对应的怪物等级
+	function getForceLevel($force){
+		$force = pow($force,0.6)-6;
+		$level = 0;
+		$levelForce = 0;
+		while($levelForce + $level < $force)
+		{
+			$levelForce += $level;
+			$level ++;
+		}
+		return max(0,$level-1);
+	}
+	//怪物对应战力
+	function getMonsetrForce($level){
+		$count = 0;
+		for($i=1;$i<=$level;$i ++)
+		{
+			$count += $i;
+		}
+		return $count;
+	}
 	
-	
+	function resetTeam2Data(){
+		global $team2Data;
+		$mLevel = getForceLevel($team2Data->fight);
+		if(!mLevel)
+			return;
+			
+		$mForce = getMonsetrForce($mLevel);
+		$team2Data->tec = new stdClass();
+		$team2Data->mlevel = new stdClass();
+		foreach($team2Data->list as $key=>$monsterID)
+		{	
+			if($monsterID && !isset($team2Data->tec->{$monsterID}))
+			{
+				$team2Data->mlevel->{$monsterID} = $mLevel;
+				$team2Data->tec->{$monsterID} = $mForce;
+			}
+		}
+		
+	}
 	
 	
 	

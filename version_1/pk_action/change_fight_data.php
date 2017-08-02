@@ -270,8 +270,8 @@
 		
 		if($hardLevel)//спиооч
 		{
-			$forceLimit = array(0,100,1000,2000,4000,7000,10000);
-			$levelLimit = array(0,3,6,10,15,20,25);
+			$forceLimit = array(0,100,1000,3000,6000,10000,15000);
+			$levelLimit = array(0,4,10,15,20,25,30);
 			$forceLimit = $forceLimit[$hardLevel];
 			$levelLimit = $levelLimit[$hardLevel];
 			
