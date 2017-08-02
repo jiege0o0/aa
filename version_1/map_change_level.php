@@ -12,7 +12,8 @@
 			$returnData -> fail = 2;
 			break;
 		}
-		if($level == $userData->pk_common->map->max_level+1 && $userData->pk_common->map->step < 10)
+		$maxTime = ($level - 1) + 5;
+		if($level == $userData->pk_common->map->max_level+1 && $userData->pk_common->map->step < $maxTime)
 		{
 			$returnData -> fail = 3;
 			break;
