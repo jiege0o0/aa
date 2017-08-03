@@ -26,14 +26,45 @@
 		usort($levelArr3,randomSortFun);
 		
 		$returnMonsterArr = array();//返回的宠物数据
-		array_push($returnMonsterArr,$levelArr1[0]);
-		array_push($returnMonsterArr,$levelArr1[1]);
-		array_push($returnMonsterArr,$levelArr2[0]);
-		array_push($returnMonsterArr,$levelArr2[1]);
-		array_push($returnMonsterArr,$levelArr2[2]);
-		array_push($returnMonsterArr,$levelArr2[3]);
-		array_push($returnMonsterArr,$levelArr3[0]);
-		array_push($returnMonsterArr,$levelArr3[1]);
+		for($i=0;$i<2;$i++)
+		{
+			$id = array_pop($levelArr1);
+			if($id)
+				array_push($returnMonsterArr,$id);
+				
+			$id = array_pop($levelArr2);
+			if($id)
+				array_push($returnMonsterArr,$id);
+				
+			$id = array_pop($levelArr2);
+			if($id)
+				array_push($returnMonsterArr,$id);
+				
+			$id = array_pop($levelArr3);
+			if($id)
+				array_push($returnMonsterArr,$id);
+		}
+		
+		//不足，要补
+		if(count($returnMonsterArr) < 8)
+		{
+			$newArr = array_merge($levelArr1,$levelArr2,$levelArr3);
+			usort($newArr,randomSortFun);
+			while(count($returnMonsterArr) < 8 && count($newArr) > 0)
+			{
+				$id = array_pop($newArr);
+				if($id)
+					array_push($returnMonsterArr,$id);
+			}
+		}
+		// array_push($returnMonsterArr,$levelArr1[0]);
+		// array_push($returnMonsterArr,$levelArr1[1]);
+		// array_push($returnMonsterArr,$levelArr2[0]);
+		// array_push($returnMonsterArr,$levelArr2[1]);
+		// array_push($returnMonsterArr,$levelArr2[2]);
+		// array_push($returnMonsterArr,$levelArr2[3]);
+		// array_push($returnMonsterArr,$levelArr3[0]);
+		// array_push($returnMonsterArr,$levelArr3[1]);
 		
 		//乱序
 		// usort($returnMonsterArr,randomSortFun);

@@ -24,17 +24,12 @@
 				$userData->addDiamond(-$needDiamond);
 			}
 			
-			if($userData->exp == 0)
+			require_once($filePath."pk_action/get_pk_card.php");
+			$obj = getPKCard($userData->level);
+			$obj->num = 10;
+			if($userData->exp)
 			{
-				$obj = new stdClass();
-				$obj->list = array(16,53,29,59,20,43,1,5);
-				$obj->num = 2;
-			}
-			else
-			{
-				require_once($filePath."pk_action/get_pk_card.php");
-				$obj = getPKCard($userData->level);
-				$obj->num = 10;
+				
 				
 				
 				$obj->task = new stdClass();
