@@ -54,11 +54,23 @@
 				require_once($filePath."get_monster_collect.php");
 				$award->collect = addMonsterCollect(5);
 			}
+			
+			if($team2Data->fight >= $team1Data->fight && count($userData->main_game->kill) == 0)//如果战力小于等于对方，会奖励战力
+			{
+				$awardForce = ceil(($userData->main_game->level + 100)/200);
+				$returnData->main_award = $awardForce;
+				$userData->addAwardForce($awardForce);
+			}
+			
+			
 			$userData->main_game->level++;
 			$userData->main_game->time = time();
 			$userData->main_game->kill = array();
 			$returnData->sync_main_game->kill = array();
 			$returnData->sync_main_game->level = $userData->main_game->level;
+			
+			
+			
 		}
 		else
 		{

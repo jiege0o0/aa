@@ -179,7 +179,7 @@
 	
 	//这个战力下对应的怪物等级
 	function getForceLevel($force){
-		$force = pow($force,0.6)-6;
+		$force = pow($force,0.62)-6;
 		$level = 0;
 		$levelForce = 0;
 		while($levelForce + $level < $force)
