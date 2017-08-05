@@ -46,6 +46,7 @@
 		$award->prop = new stdClass();
 		$award->exp = ceil(20*(1+$level/50));
 		$award->coin = ceil(30*(1+$level/100));
+		
 		if($result)
 		{
 			if($userData->exp < 30 && $userData->level == 1)//新手副利
@@ -60,6 +61,8 @@
 				$awardForce = ceil(($userData->main_game->level + 100)/200);
 				$returnData->main_award = $awardForce;
 				$userData->addAwardForce($awardForce);
+				require_once($filePath."add_main_pass.php");
+				
 			}
 			
 			
@@ -67,10 +70,7 @@
 			$userData->main_game->time = time();
 			$userData->main_game->kill = array();
 			$returnData->sync_main_game->kill = array();
-			$returnData->sync_main_game->level = $userData->main_game->level;
-			
-			
-			
+			$returnData->sync_main_game->level = $userData->main_game->level;	
 		}
 		else
 		{
@@ -190,7 +190,6 @@
 		}
 		return $add;
 	}
-	
 
 
 ?> 

@@ -34,7 +34,7 @@ active Text,
 pk_common Text,
 land_key varchar(63),
 last_land INT UNSIGNED
-)",$connect)or die("message=F,Invalid query: " . mysql_error()); */
+)",$connect)or die("message=F,Invalid query: " . mysql_error()); 
 
 mysql_query("
 Create TABLE ".$sql_table."server_game(
@@ -75,54 +75,8 @@ for($i=1;$i<=10000;$i++)
 }
 
 
-/*
-mysql_query("
-Create TABLE ".$sql_table."server_game_1(
-id TINYINT UNSIGNED,
-gameid varchar(16),
-game_data varchar(8138),
-result TINYINT UNSIGNED,
-choose_num TINYINT UNSIGNED default 0,
-last_time INT UNSIGNED
-)",$connect)or die("message=F,Invalid query: " . mysql_error()); 
 
-// 往表插入数据
-require_once($filePath."tool/create/server_data.php");
-for($i=1;$i<=100;$i++)
-{
-	$arr = $server1[$i]; 
-	mysql_query("
-	insert into ".$sql_table."server_game_1(id,gameid,game_data,result,last_time) values(".$arr['id'].
-	",'".$arr['gameid']."'".
-	",'".$arr['game_data']."'".
-	",".$arr['result'].
-	",".$arr['last_time'].")",
-	$connect)or die("message=F,Invalid query: " . mysql_error()); 
-}
 
-mysql_query("
-Create TABLE ".$sql_table."server_game_equal_1(
-id TINYINT UNSIGNED,
-gameid varchar(16),
-game_data varchar(8138),
-result TINYINT UNSIGNED,
-choose_num TINYINT UNSIGNED default 0,
-last_time INT UNSIGNED
-)",$connect)or die("message=F,Invalid query: " . mysql_error()); 
-
-// 往表插入数据
-for($i=1;$i<=100;$i++)
-{
-	$arr = $server2[$i]; 
-	mysql_query("
-	insert into ".$sql_table."server_game_equal_1(id,gameid,game_data,result,last_time) values(".$arr['id'].
-	",'".$arr['gameid']."'".
-	",'".$arr['game_data']."'".
-	",".$arr['result'].
-	",".$arr['last_time'].")",
-	$connect)or die("message=F,Invalid query: " . mysql_error()); 
-}*/
-/*
 //好友相关
 mysql_query("
 Create TABLE ".$sql_table."user_friend(
@@ -158,6 +112,17 @@ time INT UNSIGNED
 
 
 */
+
+mysql_query("
+Create TABLE ".$sql_table."main_pass(
+id INT UNSIGNED NOT NULL PRIMARY KEY AUTO_INCREMENT,
+level smallint UNSIGNED,
+data varchar(8138),
+score mediumint UNSIGNED,
+mkey varchar(32),
+pk_version smallint UNSIGNED,
+time INT UNSIGNED
+)",$connect)or die("message=F,Invalid query: " . mysql_error()); 
 
 
 
