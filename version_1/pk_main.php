@@ -18,7 +18,7 @@
 			break;
 		}
 		
-		$level = $userData->main_game->level;
+		$level = $userData->main_game->level + 1;
 		require_once($filePath."cache/main_game".ceil($level/100).".php");
 		
 		$pkUserInfo = new stdClass();
@@ -58,7 +58,7 @@
 			
 			if($team2Data->fight >= $team1Data->fight && count($userData->main_game->kill) == 0)//如果战力小于等于对方，会奖励战力
 			{
-				$awardForce = ceil(($userData->main_game->level + 100)/200);
+				$awardForce = ceil(($userData->main_game->level + 100 + 1)/200);
 				$returnData->main_award = $awardForce;
 				$userData->addAwardForce($awardForce);
 				require_once($filePath."add_main_pass.php");

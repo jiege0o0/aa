@@ -185,6 +185,7 @@ class player{
 		}
 		$this->speed += $value;
 		$this->setSkillEffect(pk_skillType('STAT',numToStr($id).'0'.$value));
+		$this->setRoundEffect();
 		return $value;
 	}
 	
@@ -777,6 +778,9 @@ class player{
 			$this->mp = $this->maxMp;
 		else if($this->mp < 0)
 			$this->mp = 0;	
+			
+		if($v)
+			$this->setRoundEffect();
 		
 	}
 	

@@ -10,30 +10,34 @@
 	$len = count($sqlResult);
 	$sameMin = null;
 	$sameMax = null;
-	foreach($sqlResult as $key=>$value)
+	if($len > 0)
 	{
-		foreach($value as $key2=>$value2)
+		foreach($sqlResult as $key=>$value)
 		{
-			if($key2 == 'mkey' || $key2 == 'data')
-				continue;
-			$sqlResult[$key][$key2] = (int)($value2);
-		}
-		
-		if($myKey == $value['mkey'])
-		{
-			if(!$sameMax)
+			foreach($value as $key2=>$value2)
 			{
-				$sameMax = $value;
-				$sameMin = $value;
+				if($key2 == 'mkey' || $key2 == 'data')
+					continue;
+				$sqlResult[$key][$key2] = (int)($value2);
 			}
-			else{
-				if($sameMax['score'] < $value['score'])
+			
+			if($myKey == $value['mkey'])
+			{
+				if(!$sameMax)
+				{
 					$sameMax = $value;
-				else if($sameMin['score'] > $value['score'])
 					$sameMin = $value;
+				}
+				else{
+					if($sameMax['score'] < $value['score'])
+						$sameMax = $value;
+					else if($sameMin['score'] > $value['score'])
+						$sameMin = $value;
+				}
 			}
 		}
 	}
+	
 	do{
 		if($len <10)
 		{

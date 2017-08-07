@@ -243,7 +243,7 @@
 				return 0;
 			$user->addEffectCount(abs($value)*2*($user->getForceRate()));
 			$value = round($value);
-			$target->mp += $value;
+			$target->addMP($value);
 			$this->setSkillEffect($target,pk_skillType('MP',$value));
 			return $value;
 		}

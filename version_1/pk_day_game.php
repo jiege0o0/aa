@@ -74,7 +74,7 @@
 		$award->prop = new stdClass();
 		if($result)
 		{
-			$userLevel = $userData->main_game->level;
+			$userLevel = $userData->main_game->level+1;
 			$userData->day_game->level ++;
 			$userData->day_game->score ++;
 			if($userData->day_game->score%2 == 0)

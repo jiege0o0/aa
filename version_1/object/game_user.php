@@ -49,7 +49,7 @@ class GameUser{
 		
 		$this->server_game = $this->decode($data['server_game'],'{"choose":null,"exp":0,"win":0,"total":0,"last":0,"time":0,"pkdata":null,"enemy":null,"pk":0,"pktime":0,"top":0,"lastpker":[]}');
 		$this->server_game_equal = $this->decode($data['server_game_equal'],'{"choose":null,"exp":0,"win":0,"total":0,"last":0,"max":0,"time":0,"pkdata":null,"enemy":null,"pk":0,"pktime":0,"top":0,"open":false,"lastpker":[]}');
-		$this->main_game = $this->decode($data['main_game'],'{"choose":null,"level":1,"kill":[],"awardtime":0,"time":0,"pkdata":null}');
+		$this->main_game = $this->decode($data['main_game'],'{"choose":null,"level":0,"kill":[],"awardtime":0,"time":0,"pkdata":null}');
 		
 		$this->day_game = $this->decode($data['day_game'],'{"level":0,"lasttime":0,"times":0,"pkdata":null,"score":0,"yscore":0,"ytime":0}');
 		if($isRank)

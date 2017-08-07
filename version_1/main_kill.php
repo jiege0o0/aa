@@ -20,7 +20,7 @@
 			break;
 		}
 		
-		$level = $userData->main_game->level;
+		$level = $userData->main_game->level + 1;
 		$needCoin = $level*100*(count($userData->main_game->kill)+1)*2;//2倍于每天收益
 		
 		if($userData->coin < $needCoin)//不够￥
