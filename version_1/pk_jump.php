@@ -1,16 +1,13 @@
 <?php 
 	do{
-		if($userData->getEnergy() < 1)//体力不够
+		if(!$userData->pk_common->pk_jump)
 		{
-			$returnData->fail = 1;
-			$returnData->sync_energy = $userData->energy;
+			$returnData->fail = 1;//没有跳过次数了
 			break;
 		}
-		$userData->pk_common->map->enemy->is_pk = false;
+		$userData->pk_common->pk_jump --;
 		$userData->setChangeKey('pk_common');
-		$userData->addEnergy(-1);
 		$userData->write2DB();	
-		
 		$returnData->data = 'ok';
 	}while(false);
 		

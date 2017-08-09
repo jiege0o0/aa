@@ -67,10 +67,12 @@
 			
 			
 			$userData->main_game->level++;
+			$userData->main_game->show_pass = false;
 			$userData->main_game->time = time();
 			$userData->main_game->kill = array();
 			$returnData->sync_main_game->kill = array();
 			$returnData->sync_main_game->level = $userData->main_game->level;	
+			$returnData->sync_main_game->show_pass = false;	
 		}
 		else
 		{

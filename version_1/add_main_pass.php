@@ -38,57 +38,64 @@
 		}
 	}
 	
+	$saveData = new stdClass();
+	$saveData->pkdata = $team1Data;
+	$saveData->gameid = $userData->gameid;
+	$saveData->nick = base64_encode($userData->nick);
 	do{
-		if($len <10)
+		if($len <20)
 		{
-			if($len >= 5)
+			if($len >= 10)
 			{
 			
 				if($sameMin && $sameMin['score'] <= $fight)
 					break;
 			}
 			//插入数据
-			$sql = "insert into ".$tableName."(level,data,score,mkey,pk_version,time) values(".$level.",'".json_encode($team1Data).
+			$sql = "insert into ".$tableName."(level,data,score,mkey,pk_version,time) values(".$level.",'".json_encode($saveData).
 			"',".$fight.",'".$myKey."',".$pk_version.",".time().")";
 			$conne->uidRst($sql);
 			break;
 		}
 		
-		if($sameMax && $sameMax['score'] <= $fight)//相同并分不低于最差的
+		if($sameMax && $sameMax['score'] <= $fight && time() - $sameMax['time'] < 3600*24*7)//相同并分不低于最差的
 			break;
 			
 		
 		//选择一个数据来替换
-		usort($sqlResult,sortMainPass1);//战力最低的不会被提换
-		array_shift($sqlResult);
+		// usort($sqlResult,sortMainPass1);//战力最低的不会被提换
+		// array_shift($sqlResult);
 		
-		usort($sqlResult,sortMainPass2);//战力排第2，3低的不受PK版本影响
+		usort($sqlResult,sortMainPass2);//战力排前3低的不受PK版本影响
+		array_shift($sqlResult);
 		array_shift($sqlResult);
 		array_shift($sqlResult);
 		
 		usort($sqlResult,sortMainPass3);//旧版本最高分的
 		$replaceID = $sqlResult[0]['id'];
 		
-		$sql = "update ".$tableName." set time=".time().",data='".json_encode($team1Data)."',score=".$fight.",mkey='".$myKey.
+
+		
+		$sql = "update ".$tableName." set time=".time().",data='".json_encode($saveData)."',score=".$fight.",mkey='".$myKey.
 		"',pk_version=".$pk_version." where id=".$replaceID;
 		
 		$conne->uidRst($sql);	
 	}while(false);
 	
 	
-	function sortMainPass1($a,$b){
-		if($a['score'] < $b['score'])
-			return -1;
-		if($a['score'] > $b['score'])
-			return 1;
-		if($a['pk_version'] > $b['pk_version'])
-			return -1;
-		if($a['pk_version'] < $b['pk_version'])
-			return 1;
-		if($a['time'] < $b['time'])
-			return -1;
-		return 1;
-	}
+	// function sortMainPass1($a,$b){
+		// if($a['score'] < $b['score'])
+			// return -1;
+		// if($a['score'] > $b['score'])
+			// return 1;
+		// if($a['pk_version'] > $b['pk_version'])
+			// return -1;
+		// if($a['pk_version'] < $b['pk_version'])
+			// return 1;
+		// if($a['time'] < $b['time'])
+			// return -1;
+		// return 1;
+	// }
 	
 	function sortMainPass2($a,$b){
 		if($a['score'] < $b['score'])
@@ -109,12 +116,13 @@
 			return -1;
 		if($a['pk_version'] > $b['pk_version'])
 			return 1;
+		if($a['time'] < $b['time'])
+			return -1;		
+		if($a['time'] > $b['time'])
+			return 1;
 		if($a['score'] > $b['score'])
 			return -1;
-		if($a['score'] < $b['score'])
-			return 1;
-		if($a['time'] < $b['time'])
-			return -1;
+		
 		return 1;
 	}
 
