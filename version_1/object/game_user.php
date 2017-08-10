@@ -443,6 +443,7 @@ class GameUser{
 		{
 			$this->tec_force += $i;//ceil(($i+1)/10);
 		}
+		$this->tec_force --;
 		
 		
 		$this->tec_force += $this->_getTecAdd($this->tec->main);

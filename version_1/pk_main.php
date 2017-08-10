@@ -51,9 +51,9 @@
 		{
 			if($userData->exp < 30 && $userData->level == 1)//新手副利
 			{
-				$award->coin = 200;
+				$award->coin = 100;
 				require_once($filePath."get_monster_collect.php");
-				$award->collect = addMonsterCollect(5);
+				$award->collect = addMonsterCollect(1);
 			}
 			
 			if($team2Data->fight >= $team1Data->fight && count($userData->main_game->kill) == 0)//如果战力小于等于对方，会奖励战力
