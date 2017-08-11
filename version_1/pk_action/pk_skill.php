@@ -118,16 +118,20 @@
 			
 		if($skillData->isAtk && $enemy->hp <= 0)
 		{	
-			if($skillData->isMain)
-			{
-				trace($skillData->owner->monsterID);
-				trace($enemy->monsterID);
-				trace($enemy->maxHp);
-				trace($enemy->hp);
-				die("why?");
-			}
-
-				return false;
+			// if($skillData->isMain)
+			// {
+				// trace($skillData->owner->monsterID);
+				// trace($enemy->monsterID);
+				// trace($enemy->maxHp);
+				// trace($enemy->hp);
+				// die("why?");
+			// }
+			return false;
+		}
+		
+		if(!$skillData->isAtk && $self->hp <= 0 && $skillData->type!='DIE')
+		{	
+			return false;
 		}
 			
 		$pkData->startSkillMV($user);
