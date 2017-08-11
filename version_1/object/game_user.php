@@ -439,14 +439,14 @@ class GameUser{
 		
 		$this->tec_force = 0;
 		//等级影响
-		for($i=1;$i<=$this->level;$i++)
-		{
-			$this->tec_force += $i;//ceil(($i+1)/10);
-		}
-		$this->tec_force --;
+		// for($i=1;$i<=$this->level;$i++)
+		// {
+			// $this->tec_force += $i;//ceil(($i+1)/10);
+		// }
+		// $this->tec_force --;
 		
 		
-		$this->tec_force += $this->_getTecAdd($this->tec->main);
+		// $this->tec_force += $this->_getTecAdd($this->tec->main);
 		// $this->tec_force += $this->_getTecAdd($this->tec->ring);
 		$this->tec_force += $this->_getTecAdd($this->tec->monster);
 
@@ -491,7 +491,7 @@ class GameUser{
 		global $conne,$msg,$mySendData,$sql_table;
 		$arr = array();
 		
-		if($this->changeKey['level'] || $this->changeKey['tec'])//会影响战力
+		if($this->changeKey['tec'])//会影响战力  $this->changeKey['level'] || 
 			$this->resetForce();
 		
 		if($this->changeKey['exp'])
