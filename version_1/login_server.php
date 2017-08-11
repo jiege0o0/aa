@@ -60,12 +60,12 @@
 		if($msg->logtime < $logtime)
 		{
 			$returnData->logtext = new stdClass();
-			$returnData->logtext->text = 'UI和体验再次优化升级|'.
-				'卡兵属性和技能小范围调整|'.
-				'加入布阵自定义功能|'.
-				'优化新手引导|'.
-				'加入任务系统|'.
-				'重做野外清剿动画，更有团战的感觉';
+			$returnData->logtext->text = 
+				'调整卡兵的出现等级，降低玩家上手复杂度|'.
+				'增加低战通关奖励，鼓励玩家挑战难度|'.
+				'加入低战通关提示，可查看其它玩家低战通关的布阵|'.
+				'加上快进功能|'.
+				'跳过按钮加上使用限制|';
 			$returnData->logtext->time = $logtime;
 		}
 		

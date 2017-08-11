@@ -77,6 +77,7 @@
 			$userLevel = $userData->main_game->level+1;
 			$userData->day_game->level ++;
 			$userData->day_game->score ++;
+			$userData->day_game->show_pass = false;
 			if($userData->day_game->score%2 == 0)
 			{
 				$returnData->day_award = true;
@@ -86,6 +87,7 @@
 			
 			$returnData->sync_day_game->level = $userData->day_game->level;
 			$returnData->sync_day_game->score = $userData->day_game->score;
+			$returnData->sync_day_game->show_pass = false;	
 			
 			$award->exp = ceil(30*(1+$userData->day_game->level/4));
 			$award->coin = floor(pow(1.3 + $userLevel/500,$userData->day_game->level/2)*50);
@@ -100,6 +102,10 @@
 			
 			if($userData->day_game->level == 10)
 				$userData->day_game->times ++;
+				
+			require_once($filePath."add_day_pass.php");
+			
+			
 		}
 		else
 		{				
