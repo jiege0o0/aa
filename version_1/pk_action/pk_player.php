@@ -29,6 +29,7 @@ class player{
 	public $orginPKData;	//初始化后的数据	
 
 	public $isPKing = false;//是否场上PK中的玩家
+	public $isDie = false;//
 	public $teamID = 0;//所属队伍
 	public $team;//所属队伍
 	
@@ -130,6 +131,9 @@ class player{
 	//初始化为宠物战斗数值 $add宠物战力加成 $fight总体战力加成
 	function initData($add,$fight){
 		global $equalPK;
+		
+		// debug($add.'_'.$fight);
+		
 		if($equalPK)
 		{
 			$add = 1000;
@@ -141,6 +145,8 @@ class player{
 		
 		
 		$fight += $add;
+		
+		
 		
 			
 			
@@ -349,6 +355,7 @@ class player{
 		$this->tag = array();
 		$this->buffArr = array();
 		$this->stat = array();
+		$this->isDie = false;
 	}
 	
 	function addStat($id,$num){
@@ -751,8 +758,9 @@ class player{
 	}
 	
 	function testDie(){
-		if($this->hp <= 0)	
+		if($this->hp <= 0 && !$this->isDie)	
 		{
+			$this->isDie = true;
 			$this->testTSkill('DIE');
 			$this->team->enemy->currentMonster[0]->testTSkill('EDIE');
 			
@@ -785,6 +793,7 @@ class player{
 	}
 	
 	function reborn($v){
+		$this->isDie = false;
 		$lastMaxHp = $this->maxHp;
 		$this->maxHp = max($this->maxHp,$this->base_hp + $this->add_hp);
 		$this->hp = round($this->maxHp*$v);	
