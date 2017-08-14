@@ -56,16 +56,18 @@
 
 		$returnData->data = $userData;
 		
-		$logtime = 1501639499;
+		$logtime = 1502678519;
 		if($msg->logtime < $logtime)
 		{
 			$returnData->logtext = new stdClass();
 			$returnData->logtext->text = 
 				'调整卡兵的出现等级，降低玩家上手复杂度|'.
 				'增加低战通关奖励，鼓励玩家挑战难度|'.
-				'加入低战通关提示，可查看其它玩家低战通关的布阵|'.
+				'卡士公会加入低战通关提示，可查看其它玩家低战通关的布阵|'.
+				'研究院也加入过关提示|'.
 				'加上快进功能|'.
-				'跳过按钮加上使用限制|';
+				'跳过按钮加上使用限制|'.
+				'UI优化及BUG修复';
 			$returnData->logtext->time = $logtime;
 		}
 		

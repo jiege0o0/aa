@@ -67,10 +67,12 @@
 			
 			
 			$userData->main_game->level++;
+			$userData->main_game->fail = 0;
 			$userData->main_game->show_pass = false;
 			$userData->main_game->time = time();
 			$userData->main_game->kill = array();
 			$returnData->sync_main_game->kill = array();
+			$returnData->sync_main_game->fail = 0;
 			$returnData->sync_main_game->level = $userData->main_game->level;	
 			$returnData->sync_main_game->show_pass = false;	
 		}
@@ -78,6 +80,10 @@
 		{
 			$award->exp = 10 + floor($level/50);
 			$award->coin = 0;
+			if(!$userData->main_game->fail)
+				$userData->main_game->fail = 0;
+			$userData->main_game->fail ++;
+			$returnData->sync_main_game->fail = $userData->main_game->fail;
 		}
 
 		

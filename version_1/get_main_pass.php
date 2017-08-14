@@ -7,8 +7,10 @@
 	if($len > 0)
 	{
 		$need = ceil($level/10);
+		$free = $userData->main_game->level < 100 && $userData->main_game->fail &&
+		$userData->main_game->fail > 5 + floor($userData->main_game->level/100);
 		do{
-			if(!$userData->main_game->show_pass && $userData->getDiamond() < $need)//钻石不够
+			if(!$free && !$userData->main_game->show_pass && $userData->getDiamond() < $need)//钻石不够
 			{
 				$returnData->fail = 1;//钻石不够
 				$returnData->sync_diamond = $userData->diamond;
@@ -18,7 +20,8 @@
 			$userData->main_game->show_pass = true;
 			$userData->setChangeKey('main_game');
 			$returnData->list = $sqlResult;	
-			$userData->addDiamond(-$need);
+			if(!$free)
+				$userData->addDiamond(-$need);
 			$userData->write2DB();	
 			$returnData->data = 'ok';
 		}while(false);
