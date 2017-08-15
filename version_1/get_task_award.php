@@ -57,6 +57,7 @@
 				break;
 			}
 		}
+		debug($finishTask);
 		
 		$taskVO = $task_base[$taskID];
 		//任务前置条件

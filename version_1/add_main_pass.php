@@ -43,9 +43,9 @@
 	$saveData->gameid = $userData->gameid;
 	$saveData->nick = base64_encode($userData->nick);
 	do{
-		if($len <20)
+		if($len <10)
 		{
-			if($len >= 10)
+			if($len >= 5)
 			{
 			
 				if($sameMin && $sameMin['score'] <= $fight)
@@ -66,10 +66,10 @@
 		// usort($sqlResult,sortMainPass1);//战力最低的不会被提换
 		// array_shift($sqlResult);
 		
-		usort($sqlResult,sortMainPass2);//战力排前3低的不受PK版本影响
+		usort($sqlResult,sortMainPass2);//战力排前2低的不受PK版本影响
 		array_shift($sqlResult);
 		array_shift($sqlResult);
-		array_shift($sqlResult);
+		// array_shift($sqlResult);
 		
 		usort($sqlResult,sortMainPass3);//旧版本最高分的
 		$replaceID = $sqlResult[0]['id'];
