@@ -6,7 +6,12 @@
 		
 		
 		if(!$userData->active->guess)
+		{
 			$userData->active->guess = new stdClass();
+			$userData->active->guess->num = 0;
+			$userData->active->guess->win = 0;
+			$userData->active->guess->total = 0;
+		}
 		if(!$userData->active->guess->list1)
 		{
 			$returnData->fail = 3;//无数据
@@ -14,7 +19,9 @@
 		}
 		
 		$maxNum = $userData->level + 9;
-		if($userData->active->guess->num && $userData->active->guess->num > $maxNum)
+		if($userData->active->guess->lasttime && !isSameDate($userData->active->guess->lasttime))
+			$userData->active->guess->num = 0;
+		if($userData->active->guess->num && $userData->active->guess->num >= $maxNum)
 		{
 			$returnData->fail = 4;//次数不足
 			break;
@@ -49,23 +56,25 @@
 		{
 			$num = -$num;
 		}
+		else
+			$userData->active->guess->win ++;
 		
 		if($type == 'coin')
 			$userData->addCoin($num);
 		else
 			$userData->addCollect(0,$num);
 			
-		if(!$userData->active->guess->num)
-			$userData->active->guess->num = 0;
 			
+		$userData->active->guess->lasttime = time();
 		$userData->active->guess->num ++;
+		$userData->active->guess->total ++;
 		$userData->active->guess->list1 = null;
 		$userData->active->guess->list2 = null;
 
 		$userData->setChangeKey('active');
 		$userData->write2DB();	
 		
-		$returnData->data = $oo;
+		$returnData->guess_win = $num > 0;
 	}while(false);
 		
 ?> 
