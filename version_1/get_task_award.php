@@ -86,6 +86,10 @@
                 if($stat->{'draw'})
                     $isFinsih = true;
                 break;
+			case 'guess':
+                if($userData->active->guess && $userData->active->guess->total)
+                    $isFinsih = true;
+                break;
             case 'main_game':
                 $isFinsih = $userData->main_game->level >= $value1;
                 break;
