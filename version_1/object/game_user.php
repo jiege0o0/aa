@@ -362,6 +362,21 @@ class GameUser{
 		$returnData->{'sync_tec_'.$type}->{$id} = $this->tec->{$type}->{$id};
 	}
 	
+	function addLeaderExp($mid,$value){
+		global $returnData;
+		if($this->tec->leader->{$mid})
+			$this->tec->leader->{$mid} += $value;
+		else
+			$this->tec->leader->{$mid} = $value;
+		$this->setChangeKey('tec');
+		
+		if(!$returnData->sync_leader)
+		{
+			$returnData->sync_leader = new stdClass();
+		}
+		$returnData->sync_leader->{$mid} = $this->tec->leader->{$mid};
+	}
+	
 	//取道具数量
 	function getPropNum($propID){
 		if($this->prop->{$propID})
@@ -394,6 +409,31 @@ class GameUser{
 		$id = 0;
 		if($this->collect->num->{$id})
 			return $this->collect->num->{$id};
+		return 0;
+	}
+	
+	//取统帅等级
+	function getLeaderExp($id){
+		if(!$userData->tec->leader)
+			$userData->tec->leader = new stdClass();
+		if($userData->tec->leader->{$id})
+			return $userData->tec->leader->{$id};
+		return 0;
+	}
+	
+	//取统帅等级
+	function getLeaderLevel($id){
+		$leaderExp = $this->getLeaderExp($id);
+		if($leaderExp)
+		{
+			for($i=0;$i<=30;$i++)
+			{
+				$exp = floor(pow($i,10/3.5) + 40*$i);
+				if($leaderExp < $exp)
+					return $i - 1;
+			}
+			return 30;
+		}
 		return 0;
 	}
 	
