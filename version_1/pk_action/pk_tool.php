@@ -1,4 +1,9 @@
 <?php
+	$HardBase = array(
+		"force"=>array(0,100,1000,3000,6000,10000,15000),
+		"level"=>array(0,4,10,15,20,25,30),
+		"leader"=>array(0,0,5,15,20,25,30)
+	);
 	//生成对应表
 	function createPKTable($pkType,$pkLevel){
 		if($pkLevel == 1)
@@ -189,6 +194,18 @@
 		}
 		return max(0,$level-1);
 	}
+	//这个战力下对应的怪物统帅
+	function getForceLeader($force){
+		$force = pow(max(0,$force- 450),0.64);
+		$level = 0;
+		$levelForce = 0;
+		while($levelForce + $level < $force)
+		{
+			$levelForce += $level;
+			$level ++;
+		}
+		return max(0,$level-1);
+	}
 	//怪物对应战力
 	function getMonsetrForce($level){
 		$count = 0;
@@ -199,23 +216,38 @@
 		return $count;
 	}
 	
-	function resetTeam2Data(){
-		global $team2Data;
+	function resetTeam2Data($hard=0){
+		global $team2Data,$HardBase;
 		$mLevel = getForceLevel($team2Data->fight);
-		if(!mLevel)
-			return;
-			
-		$mForce = getMonsetrForce($mLevel);
+		$mLeader = getForceLeader($team2Data->fight);
+		if($hard)
+		{
+			$mLevel = min($mLevel,$HardBase['level'][$hard]);
+			$mLeader = min($mLeader,$HardBase['leader'][$hard]);
+		}
 		$team2Data->tec = new stdClass();
-		$team2Data->mlevel = new stdClass();
-		foreach($team2Data->list as $key=>$monsterID)
-		{	
-			if($monsterID && !isset($team2Data->tec->{$monsterID}))
-			{
-				$team2Data->mlevel->{$monsterID} = $mLevel;
-				$team2Data->tec->{$monsterID} = $mForce;
+		if($mLevel)
+		{
+			$mForce = getMonsetrForce($mLevel);
+			$team2Data->mlevel = new stdClass();
+			foreach($team2Data->list as $key=>$monsterID)
+			{	
+				if($monsterID && !isset($team2Data->tec->{$monsterID}))
+				{
+					$team2Data->mlevel->{$monsterID} = $mLevel;
+					$team2Data->tec->{$monsterID} = $mForce;
+				}
 			}
 		}
+
+		if($mLeader)
+		{
+			$team2Data->leader = new stdClass();
+			$team2Data->leader->{'1'} = $mLeader;
+			$team2Data->leader->{'2'} = $mLeader;
+			$team2Data->leader->{'3'} = $mLeader;
+		}			
+		
 		
 	}
 	

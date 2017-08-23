@@ -129,7 +129,7 @@ class player{
 	
 
 	//初始化为宠物战斗数值 $add宠物战力加成 $fight总体战力加成
-	function initData($add,$fight){
+	function initData($add,$fight,$leader){
 		global $equalPK;
 		
 		// debug($add.'_'.$fight);
@@ -159,6 +159,15 @@ class player{
 			$this->base_hp = round($this->base_hp * (1+$fight/100));
 			$this->base_atk = round($this->base_atk * (1+$fight/100));
 			// $this->base_speed = round($this->base_speed * (1+$fight/100));
+		}
+		if($leader)
+		{
+			if($leader->{'2'})
+				$this->base_hp = round($this->base_hp * (1+$leader->{'2'}/100));
+			if($leader->{'1'})
+				$this->base_atk = round($this->base_atk * (1+$leader->{'1'}/100));
+			if($leader->{'3'})
+				$this->base_speed = round($this->base_speed * (1+$leader->{'3'}/100));
 		}
 		
 		$this->add_hp = 0;

@@ -8,10 +8,11 @@ class Team{
 	public $monsterBase;//备份怪物的战斗数据，用于传去客户端
 	
 	//16伤害增强，17防御增强，18回复增强，19克制加强，20克制压制
-	public $tecLevel = array();
+	// public $tecLevel = array();
 	//队伍信息
 	public $teamInfo = array();
 	public $list;//对方怪物的排序
+	public $leader;
 	
 	// 最开始计算出的加成
 	// public $speedRateOrgin = 1;			
@@ -49,11 +50,13 @@ class Team{
 			// $this->ring = $data->ring->id;
 			// $this->ringLevel = $data->ring->level;
 			$this->fight = $data->fight;
-			$this->tecLevel = $data->stec;
+			// $this->tecLevel = $data->stec;
 			$this->list = $data->list;
+			$this->leader = $data->leader;
 			if($equalPK)
 				$this->ringLevel = 10;
 			$tec = $data->tec;//"tec":{"107":{"hp":15,"atk":15,"sp":15}}}
+			$leader = $data->leader;
 			$list = $data->list;
 			$len = count($list);
 			$skill = array();//回合前执行的技能
@@ -76,12 +79,12 @@ class Team{
 				$player->id = 10 + ($this->teamID-1)*20 + $index;
 				if($this->monsterBase->{''.$player->monsterID})
 				{
-					$player->initData($tec->{$player->monsterID},$this->fight);
+					$player->initData($tec->{$player->monsterID},$this->fight,$leader);
 					$this->monsterBase->{''.$player->monsterID}->num++;
 				}
 				else
 				{
-					$this->monsterBase->{''.$player->monsterID} = $player->initData($tec->{$player->monsterID},$this->fight);
+					$this->monsterBase->{''.$player->monsterID} = $player->initData($tec->{$player->monsterID},$this->fight,$leader);
 					$this->monsterBase->{''.$player->monsterID}->lv = $data->mlevel->{''.$player->monsterID};
 				}
 
@@ -294,8 +297,9 @@ class Team{
 		$oo->rl = $this->ringLevel;
 		// $oo->r = $this->ring;
 		// $oo->f = $this->fight;
-		$oo->tl = $this->tecLevel;
+		// $oo->tl = $this->tecLevel;
 		$oo->list = $this->list;
+		$oo->ld = $this->leader;
 		$oo->mb = $this->monsterBase;
 		$oo->f = $this->fight;
 		return $oo;
@@ -306,7 +310,8 @@ class Team{
 		$this->ringLevel = $baseoo->rl;
 		// $this->ring = $baseoo->r;
 		$this->fight = $baseoo->f;
-		$this->tecLevel = $baseoo->tl;
+		$this->leader = $baseoo->ld;
+		// $this->tecLevel = $baseoo->tl;
 		$this->list = $baseoo->list;
 		$this->monsterBase = $baseoo->mb;
 		

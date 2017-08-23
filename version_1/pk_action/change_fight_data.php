@@ -153,12 +153,27 @@
 			return $count;
 		}
 	}
+	
+	function getLeaderLevel($mid){
+		global $userData;
+		if(!$userData->tec->leader->{$mid})
+			return 0;
+		$leaderExp = $userData->tec->leader->{$mid};
+		
+		for($i=1;$i<=30;$i++)
+		{
+			$exp = floor(pow($i,10/3.5) + 40*$i);
+			if($leaderExp < $exp)
+				return $i - 1;
+		}
+		return 30;
+	}
 
 	////用玩家数据填充PK数据 玩家的选择，$type战斗类型
 	function changePKData($data,$type,$isEqual=false,$chooseListIn = null,$hardLevel = 0){
 		//$data：{list:[],ring:1,index:0}
 		//out {list:[],ring:{id:1,level:1},tec:{id:"hp,sp,atk",...},fight:0}  fight:战斗加成，前面的是基础加成
-		global $userData,$monster_base;
+		global $userData,$monster_base,$HardBase;
 		$outData = new stdClass();
 		if($chooseListIn)
 		{
@@ -218,29 +233,30 @@
 				// $outData->ring->level = $userData->tec->ring->{$data->ring};
 				
 			// 16伤害增强，17防御增强，18回复增强，19克制加强，20克制压制
-			$outData->stec = new stdClass();//特殊科技（16-20）
-			for($i=16;$i<=20;$i++)
-			{
-				$v = 0;
-				if(isset($userData->tec->main->{$i}))
-					$v = $userData->tec->main->{$i};
-				if($v)
-					$outData->stec->{'t'.$i} = $v;	
-			}
+			// $outData->stec = new stdClass();//特殊科技（16-20）
+			// for($i=16;$i<=20;$i++)
+			// {
+				// $v = 0;
+				// if(isset($userData->tec->main->{$i}))
+					// $v = $userData->tec->main->{$i};
+				// if($v)
+					// $outData->stec->{'t'.$i} = $v;	
+			// }
 			
 			
 			$outData->tec = new stdClass();
+			$outData->leader = new stdClass();
 			$outData->mlevel = new stdClass();
 				
 			//开始计算基础加成
 			//通用   13攻击，14血量，15速度，1-12对应属性加强（12个，攻血同加）
 			$comment = array('hp'=>$force,'atk'=>$force,'spd'=>0);
-			if(isset($userData->tec->main->{'13'}))
-				$comment['atk'] += getTecAdd('main',$userData->tec->main->{'13'});
-			if(isset($userData->tec->main->{'14'}))
-				$comment['hp'] += getTecAdd('main',$userData->tec->main->{'14'});
-			if(isset($userData->tec->main->{'15'}))
-				$comment['spd'] += getTecAdd('main',$userData->tec->main->{'15'});
+			// if(isset($userData->tec->main->{'13'}))
+				// $comment['atk'] += getTecAdd('main',$userData->tec->main->{'13'});
+			// if(isset($userData->tec->main->{'14'}))
+				// $comment['hp'] += getTecAdd('main',$userData->tec->main->{'14'});
+			// if(isset($userData->tec->main->{'15'}))
+				// $comment['spd'] += getTecAdd('main',$userData->tec->main->{'15'});
 				
 			
 			for($i=0;$i<$len;$i++)
@@ -255,6 +271,11 @@
 					$tecAdd = getTecAdd('monster',$userData->tec->monster->{$monsterID});
 					if($tecAdd)
 						$outData->tec->{$monsterID} = $tecAdd;
+						
+					$leaderLevel = getLeaderLevel($monsterID);
+					if(!$outData->leader->{$vo['mtype']} || $leaderLevel > $outData->leader->{$vo['mtype']})	
+						$outData->leader->{$vo['mtype']} = $leaderLevel;
+						
 					// $add = 0;
 					// if(isset($userData->tec->monster->{$monsterID}))
 						// $add = getTecAdd('monster',$userData->tec->monster->{$monsterID});
@@ -270,10 +291,9 @@
 		
 		if($hardLevel)//有上限
 		{
-			$forceLimit = array(0,100,1000,3000,6000,10000,15000);
-			$levelLimit = array(0,4,10,15,20,25,30);
-			$forceLimit = $forceLimit[$hardLevel];
-			$levelLimit = $levelLimit[$hardLevel];
+			$forceLimit = $HardBase['force'][$hardLevel];
+			$levelLimit = $HardBase['level'][$hardLevel];
+			$leaderLimit = $HardBase['leader'][$hardLevel];
 			
 			
 			if($outData->fight > $forceLimit)
@@ -282,6 +302,11 @@
 			{
 				if($value > $levelLimit)
 					$outData->mlevel->{$key} = $levelLimit;
+			}
+			foreach($outData->leader as $key=>$value)
+			{
+				if($value > $leaderLimit)
+					$outData->leader->{$key} = $leaderLimit;
 			}
 	
 		}

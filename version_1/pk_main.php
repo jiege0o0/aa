@@ -61,7 +61,8 @@
 				$awardForce = ceil(($userData->main_game->level + 100 + 1)/200);
 				$returnData->main_award = $awardForce;
 				$userData->addAwardForce($awardForce);
-				require_once($filePath."add_main_pass.php");
+				if($level != 1)
+					require_once($filePath."add_main_pass.php");
 				
 			}
 			
