@@ -34,6 +34,7 @@
 	}
 	else
 	{
+		$returnData->stopLog = true;
 		$returnData->fail = -1;//没有数据，不扣
 	}
 	

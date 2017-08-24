@@ -94,6 +94,7 @@
 			}
 			else
 			{
+				$returnData->stopLog = true;
 				$returnData->fail = 21;
 				break;
 			}

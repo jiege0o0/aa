@@ -138,6 +138,7 @@
 					require_once($filePath."tool/conn.php");
 					$sql = "select * from test_monster";
 					$returnData->data = $conne->getRowsArray($sql);
+					$returnData->stopLog = true;
 					break;
 				}
 				case 'client_error':
@@ -177,7 +178,7 @@
 					// $userData->addProp(2,100);
 					// $userData->addProp(3,100);
 					//$userData->write2DB();
-					
+					$returnData->stopLog = true;
 					break;
 				}
 				default:
@@ -207,10 +208,18 @@
 			echo $e->__toString(); 			
 	}
 	
-	if($returnData->fail && !$returnData->stopLog)
+	if(!$returnData->stopLog)
 	{
-		errorLog("#".$_POST['head'].$_POST['msg'].json_encode($returnData));
+		if($returnData->fail)
+		{
+			errorLog("#".$_POST['head'].$_POST['msg'].'__'.json_encode($returnData));
+		}
+		else if(isset($msg->landid) && isset($msg->gameid))
+		{
+			userLog($msg->gameid,"#".$_POST['head'].$_POST['msg'].'__'.json_encode($returnData));
+		}
 	}
+	
 	unset($returnData->stopLog);	
 	sendToClient($mySendData);
 ?>

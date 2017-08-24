@@ -64,6 +64,7 @@
 			$result = $conne->getRowsArray($sql);
 			if(!$result)//还是没找到PK对象
 			{
+				$returnData->stopLog = true;
 				$returnData->fail = 21;
 				break;
 			}
