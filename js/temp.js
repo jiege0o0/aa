@@ -77,7 +77,7 @@ aa('friend_pk_answer',{"landid":1449732148,"gameid":"1_10001","choose":{"list":[
 
 
 
-http://172.17.196.195:9010/index.html?debug_server=1&debug=1&openid2=1_10239&openkey=hange0o0
+http://172.17.196.195:9010/index.html?debug_server=1&debug=1&openid2=1_10243&openkey=hange0o0
 http://172.17.196.195:90/game/egret_pay.php
 
 http://172.17.196.195:9010/index.html?host=com&debug_server=1&debug=1
