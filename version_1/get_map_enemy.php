@@ -15,7 +15,7 @@
 		$level = $userData->pk_common->map->level;
 		require_once($filePath."random_fight_card.php");
 		$oo = new stdClass();
-		$oo->list = randomFightCard(ceil($level));
+		$oo->list = randomFightCard(ceil($level))['list'];
 		$force = ceil(pow($level,1.6))*25 - 24;
 		$oo->force = $force + rand(0,$level*9);
 		$oo->level = $level; 

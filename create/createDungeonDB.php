@@ -48,15 +48,30 @@ function createMonsterData($name,$num,$level){
 	$result = array();
 	for($i=0;$i<$num;$i++)
 	{
-		$oo = new stdClass();
-		$oo->list = randomFightCard($level);
+		$oo = randomFightCard($level);
 		array_push($result,$oo);
 	}
+	usort($result,sortCost);
+	
+	for($i=0;$i<$num;$i++)
+	{
+		$list = $result[$i]['list'];
+		$result[$i] = new stdClass();
+		$result[$i]->list = $list;
+	}
+	
 	$content = new stdClass();
 	$content->levels = $result;
 	$content = json_encode($content);
 	file_put_contents($file,$content,LOCK_EX);
 }
+
+	function sortCost($a,$b){
+		if($a['cost'] < $b['cost'])
+			return -1;
+		if($a['cost'] > $b['cost'])
+			return 1;
+	}
 
 
 

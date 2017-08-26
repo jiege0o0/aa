@@ -34,7 +34,7 @@
 				for($i=0;$i<10;$i++)
 				{
 					$oo = new stdClass();
-					$oo->list = randomFightCard($msg->level);
+					$oo->list = randomFightCard($msg->level)['list'];
 					array_push($result,$oo);
 				}
 			}

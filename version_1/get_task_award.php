@@ -86,6 +86,16 @@
                 if($stat->{'draw'})
                     $isFinsih = true;
                 break;
+			case 'leader':
+				if($userData->tec->leader)
+				{
+					 foreach($userData->tec->leader as $key=>$value)
+					{
+						$isFinsih = true;
+						break;
+					}
+				}
+                break;
 			case 'guess':
                 if($userData->active->guess && $userData->active->guess->total)
                     $isFinsih = true;

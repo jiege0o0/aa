@@ -49,6 +49,6 @@
 			}
 		}
 		usort($returnArr,randomSortFun);
-		return $returnArr;
+		return array('list'=>$returnArr,'cost'=>$cost);
 	}		
 ?> 
