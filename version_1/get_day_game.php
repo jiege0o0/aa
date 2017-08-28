@@ -33,8 +33,9 @@
 				require_once($filePath."random_fight_card.php");
 				for($i=0;$i<10;$i++)
 				{
+					$tempArr = randomFightCard($msg->level);
 					$oo = new stdClass();
-					$oo->list = randomFightCard($msg->level)['list'];
+					$oo->list = $tempArr['list'];
 					array_push($result,$oo);
 				}
 			}
