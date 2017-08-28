@@ -116,7 +116,7 @@
 		if(!$skillData->canUse($user,$self,$enemy))
 			return false;
 			
-		if($skillData->isAtk && $enemy->hp <= 0)
+		if($skillData->isAtk && ($enemy->hp <= 0 || $user->hp <= 0))
 		{	
 			// if($skillData->isMain)
 			// {
