@@ -29,6 +29,7 @@ class GameUser{
 	public $prop;
 	public $energy;
 	public $collect;
+	public $public_value;
 	
 	private $changeKey = array();
 
@@ -77,6 +78,7 @@ class GameUser{
 		$this->energy = $this->decode($data['energy'],'{"v":0,"t":0}');
 		$this->diamond = $this->decode($data['diamond'],'{"free":0,"rmb":0}');
 		$this->active = $this->decode($data['active'],'{"task":{}}');//活动
+		$this->public_value = $this->decode($data['public_value'],'{"map":{}}');//会被别人写的
 	}
 	
 	function decode($v,$default = null){

@@ -55,7 +55,7 @@
 		if($errno == 8)
 			return;
 		
-		errorLog("#".$_POST['head'].$_POST['msg']."=>code:".$errstr."=>code:".$errno.'=>file:'.$errfile."=>line:".$errline);//.$errstr."=>code:".$errno'=>file:'.$errfile."=>line:".$errline
+		errorLog($_POST['msg_index']."#".$_POST['head'].$_POST['msg']."=>code:".$errstr."=>code:".$errno.'=>file:'.$errfile."=>line:".$errline);//.$errstr."=>code:".$errno'=>file:'.$errfile."=>line:".$errline
 		if($debugC)
 			echo "=>code:".$errstr."=>code:".$errno.'=>file:'.$errfile."=>line:".$errline;
 		sendErroClient();	
@@ -202,7 +202,7 @@
 		}while(false);
 	}
 	catch(Exception $e){
-		errorLog("#".$_POST['head'].$_POST['msg'].$e->getMessage()."=>code:".$e->getCode().'=>file:'.$e->getFile()."=>line:".$e->getLine());
+		errorLog($_POST['msg_index']."#".$_POST['head'].$_POST['msg'].$e->getMessage()."=>code:".$e->getCode().'=>file:'.$e->getFile()."=>line:".$e->getLine());
 		$mySendData->error = 3;
 		if($debugC)
 			echo $e->__toString(); 			
@@ -212,11 +212,11 @@
 	{
 		if($returnData->fail)
 		{
-			errorLog("#".$_POST['head'].$_POST['msg'].'__'.json_encode($returnData));
+			errorLog($_POST['msg_index']."#".$_POST['head'].$_POST['msg'].'__'.json_encode($returnData));
 		}
 		else if(isset($msg->landid) && isset($msg->gameid))
 		{
-			userLog($msg->gameid,"#".$_POST['head'].$_POST['msg'].'__'.json_encode($returnData));
+			userLog($msg->gameid,$_POST['msg_index']."#".$_POST['head'].$_POST['msg'].'__'.json_encode($returnData));
 		}
 	}
 	

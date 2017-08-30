@@ -301,7 +301,10 @@
 			foreach($outData->mlevel as $key=>$value)
 			{
 				if($value > $levelLimit)
+				{
 					$outData->mlevel->{$key} = $levelLimit;
+					$outData->tec->{$key} = getTecAdd('monster',$levelLimit);
+				}
 			}
 			foreach($outData->leader as $key=>$value)
 			{

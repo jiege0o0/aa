@@ -28,6 +28,8 @@
 		
 		$userData->addTaskStat('map_buy');
 		$userData->pk_common->map->value -= $value;
+		require_once($filePath."map_add_fight.php");
+		
 		$userData->setChangeKey('pk_common');
 		$userData->write2DB();	
 		$returnData->data = "OK";		

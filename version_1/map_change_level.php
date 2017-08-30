@@ -34,6 +34,7 @@
 		$userData->pk_common->map->lasttime = time();
 		
 		resetMapData();
+		require_once($filePath."map_add_fight.php");
 		$userData->setChangeKey('pk_common');
 		$userData->write2DB();	
 		$returnData->data = $userData->pk_common->map;

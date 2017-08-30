@@ -6,36 +6,55 @@
 	$team1Data = changePKData($myChoose,'my_card');
 	do{
 		
-		if($userData->getEnergy() < 1)//浣撳姏涓嶅
+		if($userData->getEnergy() < 1)//体力不够
 		{
 			$returnData->fail = 2;
 			$returnData->sync_energy = $userData->energy;
 			break;
 		}
 		
-		if(property_exists($team1Data,'fail'))//鐜╁鐗岀殑鏁版嵁涓嶅
+		if(property_exists($team1Data,'fail'))//玩家牌的数据不对
 		{
 			$returnData -> fail = $team1Data->fail;
 			break;
 		}
 		
-		if($userData->pk_common->map->enemy->is_pk)
+		if(!$userData->pk_common->map->get_fight_enemy)
 		{
 			$returnData -> fail = 1;
 			break;
 		}
 		
+		$level = $userData->pk_common->map->get_fight_enemy->level;
+		if($userData->pk_common->map->get_fight_enemy->gameid == 'npc')
+		{
+			require_once($filePath."random_fight_card.php");
+			$tempArr = randomFightCard(ceil($level));	
+			$team2Data = new stdClass();
+			$team2Data->list = $tempArr['list'];
+			$team2Data->fight = ceil(pow($level,1.6))*25 - 24 + rand(0,$level*9);
+			resetTeam2Data();
+		}
+		else
+		{
+			$sql = "select pk_common from ".$sql_table."user_data where gameid='".$userData->pk_common->map->get_fight_enemy->gameid."'";
+			$result = $conne->getRowsRst($sql);
+			if(!$result)
+			{
+				$returnData -> fail = 2;
+				break;
+			}
+			$result['pk_common'];
+			$team2Data = ;
+		}
 		
-		$team2Data = new stdClass();
-		$team2Data->list = $userData->pk_common->map->enemy->list;
-		$team2Data->fight = $userData->pk_common->map->enemy->force;
-		resetTeam2Data();
+		
 		
 		$currentLevel = $userData->pk_common->map->level;
 		
 		$level = $userData->pk_common->map->enemy->level;
 		
-		if($currentLevel != $level)//閫氳緫浠や笌褰撳墠鍏冲崱涓嶅
+		if($currentLevel != $level)//通辑令与当前关卡不对
 {
 			$returnData -> fail = 3;
 			break;
@@ -45,7 +64,7 @@
 		require_once($filePath."pk_action/pk.php");
 		addMonsterUse($myChoose,$result);
 		
-		//澶勬洿鐜╁鏁版嵁,濂栧姳
+		//处更玩家数据,奖励
 		
 		$award = new stdClass();
 		$returnData->award = $award;

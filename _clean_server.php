@@ -8,7 +8,11 @@
 	
 	$sql = "DELETE FROM ".$sql_table."friend_log where time<".$time;
 	$result = $conne->uidRst($sql);
-	echo $result.'-'.time();
+	echo $result.'-friend_log<br/>';
+	
+	$sql = "DELETE FROM ".$sql_table."map_fight_log where time<".$time;
+	$result = $conne->uidRst($sql);
+	echo $result.'-map_fight_log<br/>';
 	
 	//向前删7天前的任务表
 	$time = time() - 3600*24*7;
@@ -35,6 +39,6 @@
 	}
 	
 	
-	
+	echo 'success-'.time();
 		
 ?> 

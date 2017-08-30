@@ -32,6 +32,7 @@ day_game Text,
 honor Text,
 active Text,
 pk_common Text,
+public_value Text,
 land_key varchar(63),
 last_land INT UNSIGNED
 )",$connect)or die("message=F,Invalid query: " . mysql_error()); 
@@ -111,7 +112,7 @@ time INT UNSIGNED
 
 
 
-*/
+
 
 mysql_query("
 Create TABLE ".$sql_table."main_pass(
@@ -123,6 +124,38 @@ mkey varchar(32),
 pk_version smallint UNSIGNED,
 time INT UNSIGNED
 )",$connect)or die("message=F,Invalid query: " . mysql_error()); 
+*/
+
+mysql_query("
+Create TABLE ".$sql_table."map_fight_log(
+id INT UNSIGNED NOT NULL PRIMARY KEY AUTO_INCREMENT,
+from_gameid varchar(16),
+to_gameid varchar(16),
+type TINYINT UNSIGNED,
+content varchar(8138),
+time INT UNSIGNED
+)",$connect)or die("message=F,Invalid query: " . mysql_error()); 
+
+
+
+mysql_query("
+Create TABLE ".$sql_table."map_fight(
+id INT UNSIGNED NOT NULL PRIMARY KEY AUTO_INCREMENT,
+level smallint UNSIGNED,
+gameid varchar(16),
+content varchar(1023),
+time INT UNSIGNED
+)",$connect)or die("message=F,Invalid query: " . mysql_error()); 
+
+for($j = 1;$j<=100;$j++)
+{
+	for($i=1;$i<=50;$i++)
+	{
+		mysql_query("
+		insert into ".$sql_table."map_fight(level,time) values(".$j.",0)",
+		$connect)or die("message=F,Invalid query: " . mysql_error()); 
+	}
+}
 
 
 

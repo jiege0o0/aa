@@ -93,6 +93,11 @@ http://172.17.196.195:9010/index.html?host=com&openid=n2&debug_server=1&debug=1
 
 
 
+var PVEM = TeamPVEManager.getInstance();
+PVEM.data.player2 = PVEM.data.player1;
+PVEM.data.player3 = PVEM.data.player1;
+
+
 
 
 
