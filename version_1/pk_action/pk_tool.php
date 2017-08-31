@@ -196,15 +196,18 @@
 	}
 	//这个战力下对应的怪物统帅
 	function getForceLeader($force){
-		$force = pow(max(0,$force- 450),0.64);
-		$level = 0;
-		$levelForce = 0;
-		while($levelForce + $level < $force)
-		{
-			$levelForce += $level;
-			$level ++;
-		}
-		return max(0,$level-1);
+		if($force < 450)
+            return 0
+        return floor(pow(($force-450)/10,0.42));
+		// $force = pow(max(0,$force- 450),0.64);
+		// $level = 0;
+		// $levelForce = 0;
+		// while($levelForce + $level < $force)
+		// {
+			// $levelForce += $level;
+			// $level ++;
+		// }
+		// return max(0,$level-1);
 	}
 	//怪物对应战力
 	function getMonsetrForce($level){

@@ -37,30 +37,23 @@
 		}
 		else
 		{
-			$sql = "select pk_common from ".$sql_table."user_data where gameid='".$userData->pk_common->map->get_fight_enemy->gameid."'";
-			$result = $conne->getRowsRst($sql);
-			if(!$result)
+			$sql = "select pk_common,public_value from ".$sql_table."user_data where gameid='".$userData->pk_common->map->get_fight_enemy->gameid."'";
+			$otherResult = $conne->getRowsRst($sql);
+			if(!$otherResult)
 			{
 				$returnData -> fail = 2;
 				break;
 			}
-			$result['pk_common'];
-			$team2Data = ;
+			$pkComment = json_decode($otherResult['pk_common']);
+			pkComment->map->last_pk_data;
+			if(!pkComment->map->last_pk_data)
+			{
+				$returnData -> fail = 3;
+				break;
+			}
+			$team2Data = pkComment->map->last_pk_data;
 		}
-		
-		
-		
-		$currentLevel = $userData->pk_common->map->level;
-		
-		$level = $userData->pk_common->map->enemy->level;
-		
-		if($currentLevel != $level)//通辑令与当前关卡不对
-{
-			$returnData -> fail = 3;
-			break;
-		}
-		
-	
+
 		require_once($filePath."pk_action/pk.php");
 		addMonsterUse($myChoose,$result);
 		
@@ -71,20 +64,66 @@
 		$award->exp = ceil(20*(1+$level/10));
 		if($result)
 		{
-
-			$award->g_exp = ceil(pow($level,1.2)) + 4;
+			$currentAward = ceil(pow($level,1.3));
+			$maxAward = $currentAward *(140 + $level*10);
+			$award->g_exp = floor($maxAward/10);
 			$userData->pk_common->map->value += $award->g_exp;
 			
-			if($currentLevel == $userData->pk_common->map->max_level)
-				$userData->pk_common->map->step ++;
+			//更新对方的数据
+			if($otherResult)
+			{
+				if($otherResult['public_value'])
+					$public_value = json_decode($otherResult['public_value']);
+				else 
+					$public_value = new stdClass();
+				if(!$public_value->map)	
+					$public_value->map = new stdClass();
+				
+				if($public_value->map->value)
+					$public_value->map->value += $award->g_exp;
+				else
+					$public_value->map->value = $award->g_exp;
+					
+				$sql = "update ".$sql_table."user_data set public_value='".json_encode($public_value)."' where gameid='".$userData->pk_common->map->get_fight_enemy->gameid."'";
+				$conne->uidRst($sql)
+			}
+			
 		}
 		else
 		{
 			$award->exp = 10 + floor($level/5);
 		}
-		$userData->pk_common->map->enemy->is_pk = true;
-		$userData->pk_common->map->last_pk_data = $team1Data;
 		
+		//写日志
+		if($otherResult)
+		{
+			$oo = new stdClass();
+			$oo->result = $result;
+			$oo->value = $award->g_exp;
+			$oo->from_nick = base64_encode($userData->nick);
+			$oo->to_nick = $userData->pk_common->map->get_fight_enemy->nick;
+			$oo->team1 = $team1Data;
+			$oo->team2 = $team2Data;
+			$oo->pk_version = $pk_version;
+			
+			$type = 0;
+			if($result)
+				$type = 1;
+			$sql = "insert into ".$sql_table."map_fight_log(from_gameid,to_gameid,type,content,time) values('".$userData->gameid."','".$userData->pk_common->map->get_fight_enemy->gameid."',".$type.",'".json_encode($oo)."',".time().")";
+			if(!$conne->uidRst($sql))
+			{
+				$returnData->fail = 5;
+				break;
+			}
+		}
+
+		
+		$userData->pk_common->map->last_pk_data = $team1Data;
+		$userData->pk_common->map->get_fight_enemy = null;
+		
+		if(!isSameDate($userData->pk_common->map->get_fight_time))
+			$userData->pk_common->map->fight_times = 0;
+		$userData->pk_common->map->fight_times ++;
 		require_once($filePath."map_add_fight.php");
 		
 		$userData->setChangeKey('pk_common');
@@ -92,8 +131,7 @@
 		renewMyCard();
 		$userData->addHistory($team1Data->list);
 		$userData->addEnergy(-1);
-		$userData->write2DB();	
-		
+		$userData->write2DB();		
 	}while(false);
 	
 ?> 

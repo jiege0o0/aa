@@ -176,9 +176,11 @@
 		
 		$pkData->startSkillMV($play1);
 		$pkData->addSkillMV($play1,$play2,pk_skillType('HP',$hp));	
+		$pkData->addSkillMV(null,$play2,pk_skillType('DIE',1));
 		$pkData->endSkillMV(51);	
 				
 		$play1->setRoundEffect();
 		$play2->setRoundEffect();
+		
 	}
 ?> 
