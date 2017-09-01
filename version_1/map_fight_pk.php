@@ -69,7 +69,7 @@
 		$award->exp = ceil(20*(1+$level/10));
 		if($result)
 		{
-			$currentAward = floor(2 + $userData->pk_common->map->level*1.2);
+			$currentAward = floor(2 + $userData->pk_common->map->level + $userData->pk_common->map->level/3);
 			$maxAward = $currentAward *(120);
 			$award->g_exp = floor($maxAward/6);
 			$userData->pk_common->map->value += $award->g_exp;

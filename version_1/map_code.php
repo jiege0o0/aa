@@ -83,7 +83,7 @@
 
         if($addNum) //要结算
         {
-			$currentAward = floor(2 + $userData->pk_common->map->level*1.2);
+			$currentAward = floor(2 + $userData->pk_common->map->level + $userData->pk_common->map->level/3);
 			$maxAward = $currentAward *(120);
 		
 			$userData->pk_common->map->pk_value += $addNum;
