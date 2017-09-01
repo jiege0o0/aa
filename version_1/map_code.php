@@ -34,7 +34,7 @@
 		
 		$userData->pk_common->map->cd_key = $cd_key;
 		$boss = array('atk'=>90,'hp'=>600,'speed'=>50);
-        $force = pow(1+$userData->pk_common->map->level/2,1.3);
+        $force = pow(1+$userData->pk_common->map->level/2,1.5);
         $boss['atk'] = floor($boss['atk'] * $force);
         $boss['hp'] = floor($boss['hp'] * $force*20);	
 		
@@ -56,7 +56,7 @@
 		
 		$totalHurt = $totalHurt/$monsterNum;//平均伤害值
 		
-        $userData->pk_common->map->cd = max(30,ceil($boss['hp']/$totalHurt) * 5);
+        $userData->pk_common->map->cd = max(3*60,ceil($boss['hp']/$totalHurt) * 5);
 		return true;
 	 }
 	 
@@ -67,13 +67,24 @@
 		resetMapCD();
 		$cd = $userData->pk_common->map->cd;
 		
+		$decValue = 0;
+		if($userData->public_value->map && $userData->public_value->map->value)
+			$decValue = $userData->public_value->map->value;
+			
+		if($decValue)
+		{
+			$userData->pk_common->map->bag -= $decValue;
+			$userData->public_value->map->value = 0;
+			$userData->setChangeKey('public_value');
+		}
+		
         $passcd = time() - $userData->pk_common->map->lasttime;
         $addNum =  floor($passcd/$cd);
 
         if($addNum) //要结算
         {
-			$currentAward = ceil(pow($userData->pk_common->map->level,1.3));
-			$maxAward = $currentAward *(140 + $userData->pk_common->map->level*10);
+			$currentAward = floor(2 + $userData->pk_common->map->level*1.2);
+			$maxAward = $currentAward *(120);
 		
 			$userData->pk_common->map->pk_value += $addNum;
 			$userData->pk_common->map->bag += $addNum*$currentAward;
@@ -83,6 +94,8 @@
                 $userData->pk_common->map->bag = $maxAward;
 			return true;
         }
+		if($decValue)
+			return true;
 		return false;
 	 }
 		

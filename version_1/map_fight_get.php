@@ -12,6 +12,7 @@
 			
 		$level = $userData->pk_common->map->level;
 		$tableName = $sql_table."map_fight";
+		// $sql = "select * from ".$tableName." where level=".$level." and time>0 order by time asc limit 1";
 		$sql = "select * from ".$tableName." where gameid!='".$userData->gameid."' and level=".$level." and time>0 order by time asc limit 1";
 		$result = $conne->getRowsRst($sql);
 

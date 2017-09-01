@@ -1,7 +1,6 @@
 <?php 
 	$logid = $msg->logid;
-	$time = time();
-	$maxFriend = 30;
+	$isFromBack = true;
 	do{
 		$sql = "select * from ".$sql_table."map_fight_log where id=".$logid." and to_gameid='".$userData->gameid."'";
 		$result = $conne->getRowsRst($sql);
@@ -22,6 +21,25 @@
 			$returnData->fail = 13;
 			break;
 		}
+		
+		$sql = "select pk_common,public_value,nick from ".$sql_table."user_data where gameid='".$result['from_gameid']."'";
+		$otherResult = $conne->getRowsRst($sql);
+		if(!$otherResult)
+		{
+			$returnData -> fail = 4;
+			break;
+		}
+		$pkComment = json_decode($otherResult['pk_common']);
+		if(!$pkComment->map->last_pk_data)
+		{
+			$returnData -> fail = 3;
+			break;
+		}
+		$team2Data = $pkComment->map->last_pk_data;
+		$level = $pkComment->map->level;
+		$fightEnemy = new stdClass();
+		$fightEnemy->nick = base64_encode($otherResult['nick']);
+		$fightEnemy->gameid = $result['from_gameid'];
 
 		require_once($filePath."map_fight_pk.php");
 		if($returnData->fail)

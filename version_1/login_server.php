@@ -56,13 +56,13 @@
 
 		$returnData->data = $userData;
 		
-		$logtime = 1503884338;
+		$logtime = 1503884339;
 		if($msg->logtime < $logtime)
 		{
 			$returnData->logtext = new stdClass();
 			$returnData->logtext->text = 
-				'加入统帅技能系统，该系统职称达到卡使后开放|'.
-				'优化过关提示，前期花费降低|'.
+				'野外加入掠夺系统，可掠夺同关卡玩家的功勋|'.
+				'优化野外收益，加入收益效率上限|'.
 				'UI优化及BUG修复';
 			$returnData->logtext->time = $logtime;
 		}

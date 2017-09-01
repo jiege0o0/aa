@@ -197,7 +197,7 @@
 	//这个战力下对应的怪物统帅
 	function getForceLeader($force){
 		if($force < 450)
-            return 0
+            return 0;
         return floor(pow(($force-450)/10,0.42));
 		// $force = pow(max(0,$force- 450),0.64);
 		// $level = 0;

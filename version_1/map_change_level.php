@@ -21,8 +21,12 @@
 		
 	
 		resetMapData();
-		$userData->pk_common->map->value += $userData->pk_common->map->bag;
-		$userData->pk_common->map->bag = 0;
+		if($userData->pk_common->map->bag > 0)
+		{
+			$userData->pk_common->map->value += $userData->pk_common->map->bag;
+			$userData->pk_common->map->bag = 0;
+		}
+		
 		$userData->pk_common->map->pk_value = 0;
 		$userData->pk_common->map->level = $level;
 		$userData->pk_common->map->enemy = null;

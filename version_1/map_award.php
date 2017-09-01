@@ -5,6 +5,7 @@
 		if($userData->pk_common->map->bag <= 0)
 		{
 			$returnData->fail = 1;
+			$returnData->data = $userData->pk_common->map;
 			break;
 		}
 		$userData->pk_common->map->value += $userData->pk_common->map->bag;

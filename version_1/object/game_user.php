@@ -577,6 +577,8 @@ class GameUser{
 			array_push($arr,addKey('active',$this->active,true));	
 		if($this->changeKey['pk_common'])
 			array_push($arr,addKey('pk_common',$this->pk_common,true));
+		if($this->changeKey['public_value'])
+			array_push($arr,addKey('public_value',$this->public_value,true));
 			
 			
 			

@@ -1,6 +1,6 @@
 <?php
 	$PKConfig = new stdClass();
-	$PKConfig->actionRound = 20;
+	$PKConfig->actionRound = 15;
 	$PKConfig->atkMP = 10;
 	$PKConfig->defMP = 5;
 	
@@ -196,7 +196,11 @@
 		if(!$haveSkill && $user->setHaveAction($haveAction))
 		{
 			if($user->isPKing)
-				pk_kill($user,$enemy);
+			{
+				$pkData->dealTArray();//特性生效
+				if($user->hp > 0 && $enemy->hp > 0)
+					pk_kill($user,$enemy);
+			}
 		}
 		
 		
