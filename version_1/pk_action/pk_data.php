@@ -337,6 +337,7 @@ class PKData{//主要记录一些PK中的数据
 			return;
 		array_push($this->skillRecord,array($player,$target,$skillAction));
 	}
+	//51秒杀  52回合结束时血量改变
 	function endSkillMV($skillID){
 		if(!$this->outDetail)
 			return;

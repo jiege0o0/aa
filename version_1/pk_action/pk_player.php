@@ -314,7 +314,6 @@ class player{
 		$this->atk = $this->base_atk + $this->add_atk;
 		$this->__cdCount = 0;
 		$this->actionCount = 0;
-		// $this->buffArr = array();
 		$this->mp = 0;
 		$this->maxMp = $this->monsterData['mp'];
 		if(!$this->maxMp)
@@ -326,30 +325,7 @@ class player{
 		$this->missTimes = 0;
 		$this->hitTimes = 0;
 		$this->dieMissTimes = array();
-		
-		// $this->action1 = 0;
-		// $this->action2 = 0;
-		// $this->action3 = 0;
-		// $this->action4 = 0;
-		// $this->action5 = 0;	
-		// $this->stat1 = 0;
-		// $this->stat2 = 0;
-		// $this->stat3 = 0;
-		// $this->stat4 = 0;
-		// $this->stat5 = 0;
-		// $this->stat6 = 0;
-		// $this->stat7 = 0;
-		// $this->stat8 = 0;
-		// $this->stat9 = 0;
-		// $this->stat10 = 0;
-		
-		
-		// $this->healAdd = 0;
-		// $this->restrain = 0;
-		// $this->unRestrain = 0;
-		// $this->cdhp = 0;
-		// $this->temp1 = 0;
-		// $this->temp2 = 0;
+	
 		$this->temp = array();
 		
 		$this->haveSetCDCount = false;
@@ -622,6 +598,8 @@ class player{
 		$this->buffAction('AFTER');
 		$pkData->endSkillMV(52);	
 		
+		
+		
 		$b = $this->testStateCD(1);
 		if($b)
 			$this->testOutStat();
@@ -739,7 +717,7 @@ class player{
 		}
 						
 			
-		if($this->hp > 0)	
+		if($this->hp > 0 && $v < 0)	
 			$this->testTSkill('HP');
 		/*else
 		{

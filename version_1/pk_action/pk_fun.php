@@ -202,6 +202,11 @@
 					pk_kill($user,$enemy);
 			}
 		}
+		else
+		{
+			$self->testDie();
+			$enemy->testDie();
+		}
 		
 		
 		

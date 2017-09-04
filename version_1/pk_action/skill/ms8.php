@@ -48,6 +48,9 @@
 		public $isAtk = true;
 		public $order = 100;
 		
+		function localReInit(){
+			$this->order = 100;
+		}
 		function action($user,$self,$enemy){
 			$this->order --;
 			$this->decHp($user,$enemy,$user->atk*1);
@@ -59,6 +62,10 @@
 	class sm_8_f2 extends SkillBase{
 		public $cd = 1;
 		public $order = 100;
+		
+		function localReInit(){
+			$this->order = 100;
+		}
 		function action($user,$self,$enemy){
 			$this->order --;
 			$this->addHp($user,$self,$user->atk*0.9);

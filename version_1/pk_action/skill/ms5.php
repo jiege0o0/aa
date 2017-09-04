@@ -72,6 +72,7 @@
 	}
 	class sm_5_f5 extends SkillBase{
 		public $cd = 0;
+		public $order = 1000;//优先级，互斥时越大的越起作用
 		function action($user,$self,$enemy){
 			array_push($self->dieMissTimes,array("id"=>$user->id,'mid'=>$user->monsterID,"type"=>'atk'));
 		}

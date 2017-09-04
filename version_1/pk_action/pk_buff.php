@@ -147,6 +147,10 @@
 
 		function onAction(){
 			global $pkData;
+			if($this->target->hp <= 0 || $this->target->isDie)//已死的不会再受buff影响
+			{
+				return false;
+			}
 			
 			if($this->value<0 && $this->user->teamID != $this->target->teamID)
 				$this->target->addHpCount(-$value);
