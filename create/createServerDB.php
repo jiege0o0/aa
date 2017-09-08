@@ -15,6 +15,7 @@ nick varchar(30),
 head varchar(128),
 word varchar(64),
 exp INT UNSIGNED default 0,
+rmb INT UNSIGNED default 0,
 level TINYINT UNSIGNED default 1,
 tec_force SMALLINT UNSIGNED default 0,
 award_force SMALLINT UNSIGNED default 0,
@@ -124,7 +125,7 @@ mkey varchar(32),
 pk_version smallint UNSIGNED,
 time INT UNSIGNED
 )",$connect)or die("message=F,Invalid query: " . mysql_error()); 
-*/
+
 
 mysql_query("
 Create TABLE ".$sql_table."map_fight_log(
@@ -155,7 +156,31 @@ for($j = 1;$j<=100;$j++)
 		insert into ".$sql_table."map_fight(level,time) values(".$j.",0)",
 		$connect)or die("message=F,Invalid query: " . mysql_error()); 
 	}
+}*/
+
+mysql_query("
+Create TABLE ".$sql_table."skill_log(
+id INT UNSIGNED NOT NULL PRIMARY KEY AUTO_INCREMENT,
+skillid TINYINT UNSIGNED,
+gameid varchar(16),
+content varchar(256),
+time INT UNSIGNED
+)",$connect)or die("message=F,Invalid query: " . mysql_error()); 
+
+
+mysql_query("
+Create TABLE ".$sql_table."skill_total(
+id TINYINT UNSIGNED NOT NULL PRIMARY KEY AUTO_INCREMENT,
+num TINYINT UNSIGNED
+)",$connect)or die("message=F,Invalid query: " . mysql_error()); 
+for($j = 1;$j<=200;$j++)
+{
+	mysql_query("
+	insert into ".$sql_table."skill_total(num) values(0)",
+	$connect)or die("message=F,Invalid query: " . mysql_error()); 
 }
+
+
 
 
 

@@ -30,6 +30,7 @@ class GameUser{
 	public $energy;
 	public $collect;
 	public $public_value;
+	public $rmb;
 	
 	private $changeKey = array();
 
@@ -69,6 +70,7 @@ class GameUser{
 		if($isOther)
 			return;
 		$this->coin = (int)$data['coin'];
+		$this->rmb = (int)$data['rmb'];
 		$this->next_exp = $this->getNextExp();
 		$this->land_key = $data['land_key'];	
 		$this->tec = $this->decode($data['tec'],'{"main":{},"monster":{}}');
@@ -539,6 +541,8 @@ class GameUser{
 		
 		if($this->changeKey['exp'])
 			array_push($arr,addKey('exp',$this->exp));
+		if($this->changeKey['rmb'])
+			array_push($arr,addKey('rmb',$this->rmb));
 		if($this->changeKey['level'])
 			array_push($arr,addKey('level',$this->level));
 		if($this->changeKey['tec_force'])

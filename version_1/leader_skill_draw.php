@@ -1,84 +1,160 @@
 <?php 
 	require_once($filePath."cache/monster.php");
-	$type=$msg->type;//类型
+	$num=$msg->num;//数量
+	$userDiamond=$msg->diamond;//用钻石补充
 	
 	do{
-		if(!$userData->tec->leader)
-			$userData->tec->leader = new stdClass();
-		if($userData->tec->leader->list)
+		$propNum = $userData->getPropNum(41);
+		if($propNum < $num && !$userDiamond)
 		{
-			$returnData->fail = 3;
-			$returnData->list = $userData->tec->leader->list;
+			$returnData->fail = 1;
+			$returnData->sync_prop = new stdClass();
+			$returnData->sync_prop->{'41'} = $propNum;
 			break;
 		}
-		$free = false;
-		if($type == 1)
+		if($propNum < $num)
 		{
-			if(!$userData->tec->leader->lasttime || !isSameDate($userData->tec->leader->lasttime))
+			$needDiamond = ($num - $propNum)*100;
+			$num = $propNum;
+			if($userData->getDiamond() < $needDiamond)//钻石不够
 			{
-				$free = true;
-				$returnData->isFree = true;
-				$userData->tec->leader->lasttime = time();
+				$returnData->fail = 2;//钻石不够
+				$returnData->sync_diamond = $userData->diamond;
+				break;
 			}
-			if(!$free)
-			{
-				$propNum = $userData->getPropNum(31);
-				if($propNum == 0)
-				{
-					$returnData->fail = 1;
-					$returnData->sync_prop = new stdClass();
-					$returnData->sync_prop->{'31'} = 0;
-					break;
-				}
-				$userData->addProp(31,-1);
-			}
+			$userData->addDiamond(-$needDiamond);
 		}
-		else
+		if($num)
+			$userData->addProp(41,-$num);
+
+			
+		if(!$userData->active->skill_draw)
 		{
-			$propNum = $userData->getPropNum(32);
-			if($propNum)
+			$userData->active->skill_draw = new stdClass();
+			$userData->active->skill_draw->fail = 0;
+		}
+		$drawSkill;
+		$award = array();
+		$returnData->award = $award;
+		
+		
+		
+		for($i=0;$i<$msg->num;$i++)
+		{
+			$base = $userData->active->skill_draw->fail + 10;
+			if(rand(0,100000) < $base)//抽中技能
 			{
-				$userData->addProp(32,-1);
+				$userData->active->skill_draw->fail = 0;
+				//可抽的技能
+				if(!$drawSkill)
+				{
+					$drawSkill = array();
+					$day = (int)((time() - $serverOpenTime)/(24*3600));
+					$sql = "select * from ".$tableName." where num>0";
+					$sqlResult = $conne->getRowsArray($sql);
+					$drawNum = array();
+					foreach($sqlResult as $key=>$value)
+					{
+						$drawNum[$value['id']] = $value['num'];
+					}
+					foreach($leader_skill as $key=>$value)
+					{
+						if($day >= $value['day'] && $drawNum[$key] < $value['num'])
+						{	
+							$skillID = (int)$key;
+							if(!in_array($skillID,$userData->tec->skill,true))
+								array_push($drawSkill,$skillID);
+						}
+					}
+					usort($drawSkill,randomSortFun);
+				}
+				//没技能奖一个32（高级学习卡）
+				if(count($drawSkill) == 0)
+				{
+					$userData->addProp(32,1);
+					array_push($award,array('key'=>'prop','value'=>32));
+				}
+				else
+				{
+					if(!$userData->tec->skill)
+						$userData->tec->skill = array();
+					$skillID = array_pop($drawSkill);
+					array_push($userData->tec->skill,$skillID);
+					
+					array_push($award,array('key'=>'skill','value'=>$skillID));
+					$userData->setChangeKey('tec');
+				}
 			}
 			else
 			{
-				$cost = 500;
-				if($userData->getDiamond() < $cost)
+				$userData->active->skill_draw->fail += 1 + min(100,ceil($userData->rmb/100));
+				//round(pow(1.2,$userLevel+3)*1000*$rate);coin
+				// round(pow(1.2,$userLevel+3)*10*$rate);card
+				//diamond*100,energy*40,energy*50,21*6,31*1
+				//energy*60,diamond*150,31*2,41*2,21*10
+				$rate = rand(0,1000);
+				if($rate < 300)//coin
 				{
-					$returnData->fail = 2;
-					$returnData->sync_diamond = $userData->diamond;
-					break;
+					$coin = round(pow(1.2,$userLevel+3)*1000*(1+lcg_value()));
+					array_push($award,array('key'=>'coin','value'=>$coin));
+					$userData->addCoin($coin);
 				}
-				$userData->addDiamond(-$cost);
+				else if($rate < 600)//card
+				{
+					$card = round(pow(1.2,$userLevel+3)*10*(1+lcg_value()));
+					array_push($award,array('key'=>'card','value'=>$card));
+					require_once($filePath."get_monster_collect.php");
+					addMonsterCollect($card);
+				}
+				else if($rate < 700)//energy
+				{
+					$energy = round(30 + lcg_value()*30);
+					array_push($award,array('key'=>'energy','value'=>$energy));
+					$userData->addEnergy($energy);
+				}
+				else if($rate < 800)//修正
+				{
+					$pNum = round(6 + lcg_value()*4);
+					$userData->addProp(21,$pNum);
+					array_push($award,array('key'=>'prop','value'=>21,'num'=>$pNum));
+				}
+				else if($rate < 860)//diamond
+				{
+					$diamond = round(100 + lcg_value()*50);
+					array_push($award,array('key'=>'diamond','value'=>$diamond));
+					$userData->addDiamond($diamond);
+				}
+				else if($rate < 960)//初级卡
+				{
+					$r = lcg_value();
+					if($r > 0.9)
+						$pNum = 3;
+					else if($r > 0.7)
+						$pNum = 2;
+					else
+						$pNum = 1;
+					$userData->addProp(31,$pNum);
+					array_push($award,array('key'=>'prop','value'=>31,'num'=>$pNum));
+				}
+				else if($rate < 999)//抽奖机会
+				{
+					$pNum = 2;
+					$userData->addProp(41,$pNum);
+					array_push($award,array('key'=>'prop','value'=>41,'num'=>$pNum));
+				}
+				else //高级学习卡
+				{
+					$userData->addProp(32,1);
+					array_push($award,array('key'=>'prop','value'=>32));
+				}
 			}
 		}
 		
-		//随机
-		$userLevel = $userData->level;
-		$levelArr = array();
-		foreach($monster_base as $key=>$value)
-		{
-			if($userLevel >= $value['level'])
-			{	
-				array_push($levelArr,$key);
-			}
-		}
-		usort($levelArr,randomSortFun);
-		
-		if($type==1)
-			$returnArr = array_slice($levelArr,0,2);
-		else
-			$returnArr = array_slice($levelArr,0,6);
-			
-		$userData->tec->leader->list = $returnArr;	
-		$returnData->list = $returnArr;	
-		$userData->setChangeKey('tec');
+		$userData->setChangeKey('active');
 		$userData->write2DB();
 
 		
 	}while(false)	
-	
-
-
+			
 
 ?> 
