@@ -96,13 +96,14 @@ class GameUser{
 		global $returnData;
 		if(!$this->active->task->stat)
 			$this->active->task->stat = new stdClass();
-		$this->active->task->stat->{$key} = 1;
-		
-		
-		$this->setChangeKey('active');
-		if(!$returnData->sync_task)
-			$returnData->sync_task = array();
-		$returnData->sync_task['stat'] = $this->active->task->stat;
+		if(!$this->active->task->stat->{$key})
+		{
+			$this->active->task->stat->{$key} = 1;
+			$this->setChangeKey('active');
+			if(!$returnData->sync_task)
+				$returnData->sync_task = array();
+			$returnData->sync_task['stat'] = $this->active->task->stat;
+		}
 	}
 	
 	function resetDayGame(){

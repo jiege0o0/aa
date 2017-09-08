@@ -29,7 +29,7 @@
 				$userData->addLeaderExp($mid,50);
 			}
 			else if($userData->tec->leader->list[0] == $mid){
-				$userData->addLeaderExp($mid,300);
+				$userData->addLeaderExp($mid,200);
 			}
 			else{
 				$userData->addLeaderExp($mid,150);

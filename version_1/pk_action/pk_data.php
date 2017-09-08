@@ -343,6 +343,7 @@ class PKData{//主要记录一些PK中的数据
 			return;
 		$len = count($this->skillRecord);
 		$addMV = false;
+		$addNoMagic = false;
 		$out8 = false;
 		if($len > 0)// - $this->skillRecordCountDec > 0)
 		{
@@ -360,12 +361,18 @@ class PKData{//主要记录一些PK中的数据
 					{
 						$addMV = true;
 					}
+					else if($this->skillRecord[$i][2] == 'f1' && $addNoMagic == $this->to)//MV（6）改变值为1(魔免只显示一个)
+					{
+						$addMV = true;
+					}
 					// else if($this->skillRecord[$i][2] == 'effectStart')//技能效果开始
 					// {
 						// $this->out_str('3');
 					// }
 					else
 					{
+						if($this->skillRecord[$i][2] == 'f1')
+							$addNoMagic = $this->to;
 						$this->out_str('8'.$this->skillRecord[$i][2]);
 						$out8 = true;
 					}

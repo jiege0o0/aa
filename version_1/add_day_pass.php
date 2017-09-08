@@ -52,9 +52,9 @@
 		usort($sqlResult,sortMainPass);//时间小的在前	
 		
 		$replaceID = $sqlResult[0]['id'];
-		$sql = "update ".$tableName." set time=".time().",data='".json_encode($saveData)."',score=".$fight.",mkey='".$myKey.
+		$sql = "update ".$tableName." set time=".time().",data='".json_encode($saveData)."',score=0,mkey='".$myKey.
 		"',pk_version=".$pk_version." where id=".$replaceID;
-		
+		debug($sql);
 		$conne->uidRst($sql);	
 		
 	}while(false);

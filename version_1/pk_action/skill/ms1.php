@@ -5,6 +5,7 @@
 	class sm_1_0 extends SkillBase{
 		public $isAtk = true;
 		function action($user,$self,$enemy){
+			debug($enemy->id);
 			$buff = new HPBuff(-$user->atk*1.8,2,'1_0');
 			$buff->isDebuff = true;
 			$buff->addToTarget($user,$enemy);

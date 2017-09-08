@@ -76,10 +76,10 @@
 		{
 			$userLevel = $userData->main_game->level+1;
 			$userData->day_game->level ++;
-			$userData->day_game->score ++;
 			$userData->day_game->show_pass = false;
-			if($userData->day_game->score%2 == 0)
+			if($userData->day_game->level%2 == 0)
 			{
+				$userData->day_game->score++;
 				$returnData->day_award = true;
 				$userData->addAwardForce(1);
 			}

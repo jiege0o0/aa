@@ -78,6 +78,8 @@ aa('friend_pk_answer',{"landid":1449732148,"gameid":"1_10001","choose":{"list":[
 
 
 http://172.17.196.195:9010/index.html?debug_server=1&debug=1&openid2=1_10243&openkey=hange0o0
+http://172.17.196.195:9010/index.html?debug_server=1&debug=1&openid2=1_10067&openkey=hange0o0
+http://172.17.196.195:9010/index.html?debug_server=1&debug=1&openid2=1_10176&openkey=hange0o0//幻魔之眼
 http://172.17.196.195:90/game/egret_pay.php
 
 http://172.17.196.195:9010/index.html?host=com&debug_server=1&debug=1
@@ -96,6 +98,11 @@ http://172.17.196.195:9010/index.html?host=com&openid=n2&debug_server=1&debug=1
 var PVEM = TeamPVEManager.getInstance();
 PVEM.data.player2 = PVEM.data.player1;
 PVEM.data.player3 = PVEM.data.player1;
+
+DM.debugFromFile({"team1":{"list":[7,7,7],"fight":0,"tec":{"7":0}},"team2":{"list":[7,7,7],"fight":0,"tec":{"1":0,"7":0,"15":0,"56":0}},"isequal":true})
+PKManager.getInstance().onPK(PKManager.PKType.REPLAY,); PKMainUI.getInstance().show(null,true);//播放动画
+PKManager.getInstance().pkResult.detail = {};VideoManager.getInstance().videoData = {}//清录像，以重新请求
+DM.recallPK()
 
 
 

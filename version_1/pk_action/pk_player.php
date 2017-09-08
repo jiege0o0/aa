@@ -519,10 +519,15 @@ class player{
 	}
 	
 	function addBuff($buff){
-		if($buff->isDebuff && $this->stat[31])
-			return false;
 		if($this->hp <= 0)
+			return;
+		if($buff->isDebuff && $this->stat[31])
+		{
+			global $pkData;
+			$pkData->addSkillMV(null,$this,pk_skillType('NOMAGIC',1));
 			return false;
+		}
+		
 		array_push($this->buffArr,$buff);
 		$this->setRoundEffect();
 		return true;

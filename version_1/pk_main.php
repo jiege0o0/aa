@@ -63,6 +63,12 @@
 				$userData->addAwardForce($awardForce);
 				if($level != 1)
 					require_once($filePath."add_main_pass.php");
+				if($userData->main_game->award_force)
+					$userData->main_game->award_force += $awardForce;
+				else
+					$userData->main_game->award_force = $awardForce;
+					
+				$returnData->sync_main_game->award_force = $userData->main_game->award_force;
 				
 			}
 			
