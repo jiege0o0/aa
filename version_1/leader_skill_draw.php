@@ -1,21 +1,22 @@
 <?php 
 	require_once($filePath."cache/monster.php");
-	$num=$msg->num;//数量
+	$num=$msg->num;//抽的次数
+	$needProp = $num;
 	$userDiamond=$msg->diamond;//用钻石补充
 	
 	do{
 		$propNum = $userData->getPropNum(41);
-		if($propNum < $num && !$userDiamond)
+		if($propNum < $needProp && !$userDiamond)
 		{
 			$returnData->fail = 1;
 			$returnData->sync_prop = new stdClass();
 			$returnData->sync_prop->{'41'} = $propNum;
 			break;
 		}
-		if($propNum < $num)
+		if($propNum < $needProp)
 		{
-			$needDiamond = ($num - $propNum)*100;
-			$num = $propNum;
+			$needDiamond = ($needProp - $propNum)*100;
+			$needProp = $propNum;
 			if($userData->getDiamond() < $needDiamond)//钻石不够
 			{
 				$returnData->fail = 2;//钻石不够
@@ -24,8 +25,8 @@
 			}
 			$userData->addDiamond(-$needDiamond);
 		}
-		if($num)
-			$userData->addProp(41,-$num);
+		if($needProp)
+			$userData->addProp(41,-$needProp);
 
 			
 		if(!$userData->active->skill_draw)
@@ -72,7 +73,7 @@
 				if(count($drawSkill) == 0)
 				{
 					$userData->addProp(32,1);
-					array_push($award,array('key'=>'prop','value'=>32));
+					array_push($award,array('type'=>'prop','id'=>32));
 				}
 				else
 				{
@@ -81,8 +82,20 @@
 					$skillID = array_pop($drawSkill);
 					array_push($userData->tec->skill,$skillID);
 					
-					array_push($award,array('key'=>'skill','value'=>$skillID));
+					array_push($award,array('type'=>'skill','id'=>$skillID));
 					$userData->setChangeKey('tec');
+					
+					//加日志
+					$oo = new stdClass();
+					$oo->head = $userData->head;
+					$oo->nick = base64_encode($userData->nick);
+					$oo = json_encode($oo);
+					$sql = "insert into ".$sql_table."skill_log(skillid,gameid,content,time) values(".$skillID.",'".$userData->gameid."','".$oo."',".$time.")";
+					$conne->uidRst($sql);
+					
+					
+					$sql = "update ".$sql_table."skill_total set num=num+1 where id=".$skillID;
+					$conne->uidRst($sql)
 				}
 			}
 			else
@@ -96,32 +109,32 @@
 				if($rate < 300)//coin
 				{
 					$coin = round(pow(1.2,$userLevel+3)*1000*(1+lcg_value()));
-					array_push($award,array('key'=>'coin','value'=>$coin));
+					array_push($award,array('type'=>'coin','value'=>$coin));
 					$userData->addCoin($coin);
 				}
 				else if($rate < 600)//card
 				{
 					$card = round(pow(1.2,$userLevel+3)*10*(1+lcg_value()));
-					array_push($award,array('key'=>'card','value'=>$card));
+					array_push($award,array('type'=>'card','value'=>$card));
 					require_once($filePath."get_monster_collect.php");
 					addMonsterCollect($card);
 				}
 				else if($rate < 700)//energy
 				{
 					$energy = round(30 + lcg_value()*30);
-					array_push($award,array('key'=>'energy','value'=>$energy));
+					array_push($award,array('type'=>'energy','value'=>$energy));
 					$userData->addEnergy($energy);
 				}
 				else if($rate < 800)//修正
 				{
 					$pNum = round(6 + lcg_value()*4);
 					$userData->addProp(21,$pNum);
-					array_push($award,array('key'=>'prop','value'=>21,'num'=>$pNum));
+					array_push($award,array('type'=>'prop','id'=>21,'value'=>$pNum));
 				}
 				else if($rate < 860)//diamond
 				{
 					$diamond = round(100 + lcg_value()*50);
-					array_push($award,array('key'=>'diamond','value'=>$diamond));
+					array_push($award,array('type'=>'diamond','value'=>$diamond));
 					$userData->addDiamond($diamond);
 				}
 				else if($rate < 960)//初级卡
@@ -134,18 +147,18 @@
 					else
 						$pNum = 1;
 					$userData->addProp(31,$pNum);
-					array_push($award,array('key'=>'prop','value'=>31,'num'=>$pNum));
+					array_push($award,array('type'=>'prop','id'=>31,'value'=>$pNum));
 				}
 				else if($rate < 999)//抽奖机会
 				{
-					$pNum = 2;
-					$userData->addProp(41,$pNum);
-					array_push($award,array('key'=>'prop','value'=>41,'num'=>$pNum));
+					$pNum = 10 + rand(1,10);
+					$userData->addProp(42,$pNum);
+					array_push($award,array('type'=>'prop','id'=>42,'value'=>$pNum));
 				}
 				else //高级学习卡
 				{
 					$userData->addProp(32,1);
-					array_push($award,array('key'=>'prop','value'=>32));
+					array_push($award,array('type'=>'prop','id'=>32));
 				}
 			}
 		}
