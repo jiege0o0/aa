@@ -36,7 +36,7 @@
 		}
 		$drawSkill;
 		$award = array();
-		$returnData->award = $award;
+		
 		
 		
 		
@@ -51,6 +51,7 @@
 				{
 					$drawSkill = array();
 					$day = (int)((time() - $serverOpenTime)/(24*3600));
+					$tableName = $sql_table.'skill_total';
 					$sql = "select * from ".$tableName." where num>0";
 					$sqlResult = $conne->getRowsArray($sql);
 					$drawNum = array();
@@ -90,12 +91,12 @@
 					$oo->head = $userData->head;
 					$oo->nick = base64_encode($userData->nick);
 					$oo = json_encode($oo);
-					$sql = "insert into ".$sql_table."skill_log(skillid,gameid,content,time) values(".$skillID.",'".$userData->gameid."','".$oo."',".$time.")";
+					$sql = "insert into ".$sql_table."skill_log(skillid,gameid,content,time) values(".$skillID.",'".$userData->gameid."','".$oo."',".time().")";
 					$conne->uidRst($sql);
 					
 					
 					$sql = "update ".$sql_table."skill_total set num=num+1 where id=".$skillID;
-					$conne->uidRst($sql)
+					$conne->uidRst($sql);
 				}
 			}
 			else
@@ -127,13 +128,13 @@
 				}
 				else if($rate < 800)//修正
 				{
-					$pNum = round(6 + lcg_value()*4);
+					$pNum = round(5 + lcg_value()*5);
 					$userData->addProp(21,$pNum);
 					array_push($award,array('type'=>'prop','id'=>21,'value'=>$pNum));
 				}
 				else if($rate < 860)//diamond
 				{
-					$diamond = round(100 + lcg_value()*50);
+					$diamond = round(80 + lcg_value()*50);
 					array_push($award,array('type'=>'diamond','value'=>$diamond));
 					$userData->addDiamond($diamond);
 				}
@@ -151,7 +152,7 @@
 				}
 				else if($rate < 999)//抽奖机会
 				{
-					$pNum = 10 + rand(1,10);
+					$pNum = 8 + rand(0,7);
 					$userData->addProp(42,$pNum);
 					array_push($award,array('type'=>'prop','id'=>42,'value'=>$pNum));
 				}
@@ -163,6 +164,7 @@
 			}
 		}
 		
+		$returnData->award = $award;
 		$userData->setChangeKey('active');
 		$userData->write2DB();
 

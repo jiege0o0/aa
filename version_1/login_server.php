@@ -55,7 +55,7 @@
 		$userData->pk_version = $pk_version;
 
 		$returnData->data = $userData;
-		$returnData->opentime = $serverOpenTime;
+		$userData->opentime = $serverOpenTime;
 		
 		$logtime = 1504494614;
 		if($msg->logtime < $logtime)
