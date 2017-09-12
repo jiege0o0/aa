@@ -31,6 +31,13 @@
 		return false;
 	}
 	
+	//团队技能对象
+	function pk_leaderSkill($skillID){
+		pk_requireLeaderSkill($skillID);
+		$skillName = 'ls_'.$skillID;
+		return pk_decodeSkill($skillName);
+	}
+	
 	//怪物的技能对象
 	function pk_monsterSkill($monsterID,$index){
 		$skillName = 'sm_'.$monsterID.'_'.$index;
@@ -84,6 +91,14 @@
 			return;
 		$skillLoad[$monsterID] = true;
 		require($filePath."pk_action/skill/ms".$monsterID.".php");
+	}
+	function pk_requireLeaderSkill($skillID){
+		global $filePath,$skillLoad;
+		$key = 'leader_skill'.ceil($skillID/10);
+		if($skillLoad[$key])
+			return;
+		$skillLoad[$key] = true;
+		require($filePath."pk_action/skill/".$key.".php");
 	}
 	
 	//把技能放回去，已备重用

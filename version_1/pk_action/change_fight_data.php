@@ -247,6 +247,8 @@
 			$outData->tec = new stdClass();
 			$outData->leader = new stdClass();
 			$outData->mlevel = new stdClass();
+			if($userData->tec->use_skill)
+				$outData->skill = $userData->tec->use_skill;
 				
 			//开始计算基础加成
 			//通用   13攻击，14血量，15速度，1-12对应属性加强（12个，攻血同加）

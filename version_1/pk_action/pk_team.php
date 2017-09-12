@@ -7,6 +7,8 @@ class Team{
 	public $stopRing;//令牌技能无效
 	public $monsterBase;//备份怪物的战斗数据，用于传去客户端
 	
+	public $leaderSkill=0;
+	
 	//16伤害增强，17防御增强，18回复增强，19克制加强，20克制压制
 	// public $tecLevel = array();
 	//队伍信息
@@ -52,6 +54,7 @@ class Team{
 			$this->fight = $data->fight;
 			// $this->tecLevel = $data->stec;
 			$this->list = $data->list;
+			$this->leaderSkill = $data->skill;
 			$this->leader = $data->leader;
 			if($equalPK)
 				$this->ringLevel = 10;
@@ -198,6 +201,7 @@ class Team{
 		$this->teamPlayer->maxHp = $player->maxHp;
 		$this->teamPlayer->speed = $player->speed;
 		
+		
 		//令牌相关		
 		/*if($this->ring && !$this->stopRing)
 		{
@@ -247,6 +251,29 @@ class Team{
 			}
 			
 		}*/
+		
+		
+		if($this->skill)
+		{
+			$skill = pk_leaderSkill($this->skill);
+			$skill->index = $skillIndex;
+			$skill->owner = $this->teamPlayer;
+			$this->teamPlayer->allSkillArr[$skill->index] = $skill;
+			if($skill->cd == 0)
+			{
+				array_push($pkData->frontArray,$skill);
+			}
+			else 
+			{
+				$this->teamPlayer->skillArr[$skill->index] = $skill;
+				if($skill->type)//特性技能
+				{
+					if(!$this->tArr[$skill->type])
+						$this->tArr[$skill->type] = array();
+					array_push($this->tArr[$skill->type],$skill);
+				}
+			}
+		}
 		$skillIndex++;
 		
 		//遗留技能相关
@@ -302,6 +329,7 @@ class Team{
 		$oo->ld = $this->leader;
 		$oo->mb = $this->monsterBase;
 		$oo->f = $this->fight;
+		$oo->s = $this->leaderSkill;
 		return $oo;
 	}
 	
@@ -313,6 +341,7 @@ class Team{
 		$this->leader = $baseoo->ld;
 		// $this->tecLevel = $baseoo->tl;
 		$this->list = $baseoo->list;
+		$this->leaderSkill = $baseoo->s;
 		$this->monsterBase = $baseoo->mb;
 		
 		$len = count($oo->ac);
