@@ -52,6 +52,9 @@
 		$team2Data->list = $userData->active->guess->list2;
 		require_once($filePath."pk_action/pk.php");
 
+		$returnAward = new stdClass();
+		$returnData->award = $returnAward;
+		
 		if($iswin == $result)//猜中
 		{
 			$userData->active->guess->win ++;
@@ -59,15 +62,27 @@
 			 switch($award->type)
 			 {
 				 case 'coin':
-					 return $userData->addCoin($award->value);
+					$returnAward->coin = $award->value;
+					 $userData->addCoin($award->value);
+					 break;
 				 case 'card':
-					 return $userData->addCollect(0,$award->value);
+					$returnAward->card = $award->value;
+					 $userData->addCollect(0,$award->value);
+					 break;
 				 case 'energy':
-					 return $userData->addEnergy($award->value);
+					$returnAward->energy = $award->value;
+					 $userData->addEnergy($award->value);
+					 break;
 				 case 'diamond':
-					 return $userData->addDiamond($award->value);
+					$returnAward->diamond = $award->value;
+					 $userData->addDiamond($award->value);
+					 break;
 				 case 'prop':
-					 return $userData->addProp($award->id,$award->value);
+					$returnAward->prop = new stdClass();
+					$returnAward->prop->{$award->id} = $award->value;
+					$userData->addProp($award->id,$award->value);
+					break;
+					
 			 }
 		}
 			

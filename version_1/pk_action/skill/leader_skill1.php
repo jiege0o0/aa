@@ -30,9 +30,11 @@
 	class ls_4 extends SkillBase{
 		public $type = 'OVER';
 		function canUse($user,$self=null,$enemy=null){
+			debug('add'.$self->hp);
 			return $self->hp > 0;
 		}
 		function action($user,$self,$enemy){
+			debug($self->maxHp*0.1);
 			$this->addHp($user,$self,$self->maxHp*0.1);
 		}
 	}

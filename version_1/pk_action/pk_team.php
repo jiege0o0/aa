@@ -252,10 +252,10 @@ class Team{
 			
 		}*/
 		
-		
-		if($this->skill)
+
+		if($this->leaderSkill)
 		{
-			$skill = pk_leaderSkill($this->skill);
+			$skill = pk_leaderSkill($this->leaderSkill);
 			$skill->index = $skillIndex;
 			$skill->owner = $this->teamPlayer;
 			$this->teamPlayer->allSkillArr[$skill->index] = $skill;

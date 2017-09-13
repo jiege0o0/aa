@@ -43,6 +43,7 @@
 		for($i=0;$i<$msg->num;$i++)
 		{
 			$base = $userData->active->skill_draw->fail + 10;
+			$base = 9999999;
 			if(rand(0,100000) < $base)//抽中技能
 			{
 				$userData->active->skill_draw->fail = 0;
@@ -117,8 +118,7 @@
 				{
 					$card = round(pow(1.2,$userLevel+3)*10*(1+lcg_value()));
 					array_push($award,array('type'=>'card','value'=>$card));
-					require_once($filePath."get_monster_collect.php");
-					addMonsterCollect($card);
+					$userData->addCollect(0,$card);
 				}
 				else if($rate < 700)//energy
 				{

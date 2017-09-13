@@ -33,8 +33,8 @@
 			$result = pkOnePlayer($list);
 		}
 		
-		$enemy = $user->team->enemy->currentMonster[0];
-		$self = $user->team->currentMonster[0];
+		$enemy = $playArr2[0];
+		$self = $playArr1[0];
 		$self->testTSkill('OVER');
 		$enemy->testTSkill('OVER');
 		$pkData->dealTArray();//特性生效

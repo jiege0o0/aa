@@ -2,9 +2,12 @@
 	do{
 		if(!$userData->active->guess)
 			$userData->active->guess = new stdClass();
-		if($userData->active->guess->list1)
+		if($userData->active->guess->award)
 		{
 			$returnData->fail = 1;//已有数据
+			$returnData->list1 = $userData->active->guess->list1;
+			$returnData->list2 = $userData->active->guess->list2;
+			$returnData->award = $userData->active->guess->award;
 			break;
 		}
 		$level = $userData->level;
@@ -17,7 +20,6 @@
 		}
 		
 		$len = count($arr);
-		debug($len);
 
 		
 		$userData->active->guess->list1 = $arr[rand(0,$len - 1)];
@@ -30,7 +32,7 @@
 		else
 			$rate = rand(0,800);
 		
-		
+		// $rate = 900;
 		if($rate < 300)//coin
 		{
 			$coin = round(pow(1.2,$userLevel+3)*50*(1+lcg_value()));
@@ -84,6 +86,7 @@
 		
 		$returnData->list1 = $userData->active->guess->list1;
 		$returnData->list2 = $userData->active->guess->list2;
+		$returnData->award = $userData->active->guess->award;
 	}while(false);
 		
 ?> 
