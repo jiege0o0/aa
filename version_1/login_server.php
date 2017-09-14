@@ -62,9 +62,11 @@
 		{
 			$returnData->logtext = new stdClass();
 			$returnData->logtext->text = 
-				'野外加入掠夺系统，可掠夺同关卡玩家的功勋|'.
-				'优化野外收益，加入收益效率上限|'.
-				'UI优化及BUG修复';
+				'优化竞猜系统，现在可以不用投注就能获取奖励|'.
+				'调整研究院战力为偶数关获得|'.
+				'加入命运之门系统，该系统卡使五阶开放|'.
+				'加入队伍技能系统，该系统卡使五阶开放|'.
+				'UI体验优化及BUG修复';
 			$returnData->logtext->time = $logtime;
 		}
 		

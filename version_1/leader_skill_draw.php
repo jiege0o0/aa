@@ -43,10 +43,12 @@
 		for($i=0;$i<$msg->num;$i++)
 		{
 			$base = $userData->active->skill_draw->fail + 10;
-			$base = 9999999;
+			// $base = 9999999;
 			if(rand(0,100000) < $base)//抽中技能
 			{
 				$userData->active->skill_draw->fail = 0;
+				if(!$userData->tec->skill)
+					$userData->tec->skill = array();
 				//可抽的技能
 				if(!$drawSkill)
 				{
@@ -79,8 +81,7 @@
 				}
 				else
 				{
-					if(!$userData->tec->skill)
-						$userData->tec->skill = array();
+					
 					$skillID = array_pop($drawSkill);
 					array_push($userData->tec->skill,$skillID);
 					
@@ -102,7 +103,7 @@
 			}
 			else
 			{
-				$userData->active->skill_draw->fail += 1 + min(100,ceil($userData->rmb/100));
+				$userData->active->skill_draw->fail += 1 + min(100,ceil($userData->rmb/100)) + 5000;//暂时更容易抽到
 				//round(pow(1.2,$userLevel+3)*1000*$rate);coin
 				// round(pow(1.2,$userLevel+3)*10*$rate);card
 				//diamond*100,energy*40,energy*50,21*6,31*1
@@ -110,13 +111,13 @@
 				$rate = rand(0,1000);
 				if($rate < 300)//coin
 				{
-					$coin = round(pow(1.2,$userLevel+3)*1000*(1+lcg_value()));
+					$coin = round(pow(1.2,$userData->level+3)*1000*(0.8+lcg_value()*0.8));
 					array_push($award,array('type'=>'coin','value'=>$coin));
 					$userData->addCoin($coin);
 				}
 				else if($rate < 600)//card
 				{
-					$card = round(pow(1.2,$userLevel+3)*10*(1+lcg_value()));
+					$card = round(pow(1.2,$userData->level+3)*10*(0.8+lcg_value()*0.8));
 					array_push($award,array('type'=>'card','value'=>$card));
 					$userData->addCollect(0,$card);
 				}

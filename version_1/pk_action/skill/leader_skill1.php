@@ -30,11 +30,9 @@
 	class ls_4 extends SkillBase{
 		public $type = 'OVER';
 		function canUse($user,$self=null,$enemy=null){
-			debug('add'.$self->hp);
 			return $self->hp > 0;
 		}
 		function action($user,$self,$enemy){
-			debug($self->maxHp*0.1);
 			$this->addHp($user,$self,$self->maxHp*0.1);
 		}
 	}
@@ -45,6 +43,7 @@
 		public $order = 1000;//优先级，互斥时越大的越起作用
 		function action($user,$self,$enemy){
 			array_push($self->dieMissTimes,array("id"=>$user->id,'mid'=>5,"type"=>'atk'));
+			$this->setSkillEffect($self,pk_skillType('NOHURT',-1));
 		}
 	}
 ?> 

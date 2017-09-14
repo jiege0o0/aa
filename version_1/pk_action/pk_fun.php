@@ -37,7 +37,8 @@
 		$self = $playArr1[0];
 		$self->testTSkill('OVER');
 		$enemy->testTSkill('OVER');
-		$pkData->dealTArray();//特性生效
+		if($pkData->dealTArray())//特性生效
+			$pkData->out_end();
 		
 		$pkData->roundFinish($result);
 	}

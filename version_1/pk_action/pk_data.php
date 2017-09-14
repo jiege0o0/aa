@@ -195,6 +195,7 @@ class PKData{//主要记录一些PK中的数据
 	//异步技能处理
 	function dealTArray(){
 		$len = count($this->tArray);
+		$deal = false;
 		if($len)
 		{
 			usort($this->tArray,tArraySortFun);
@@ -204,10 +205,11 @@ class PKData{//主要记录一些PK中的数据
 				$enemyX = $userX->team->enemy->currentMonster[0];
 				$selfX = $userX->team->currentMonster[0];
 				// trace($userX->id.'-'.$selfX->id.'-'.$enemyX->id.'-');
-				pk_action_skill($skillData,$userX,$selfX,$enemyX);
+				$deal = pk_action_skill($skillData,$userX,$selfX,$enemyX) || $deal;
 			}
 			$this->tArray = array();
 		}
+		return $deal;
 	}
 	
 	//前置技能处理
@@ -361,7 +363,7 @@ class PKData{//主要记录一些PK中的数据
 					{
 						$addMV = true;
 					}
-					else if($this->skillRecord[$i][2] == 'f1' && $addNoMagic == $this->to)//MV（6）改变值为1(魔免只显示一个)
+					else if($this->skillRecord[$i][2] == 'f1' && $addNoMagic === $this->to)//MV（6）改变值为1(魔免只显示一个)
 					{
 						$addMV = true;
 					}
