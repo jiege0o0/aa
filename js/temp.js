@@ -66,6 +66,9 @@ http://172.17.196.195:9010/index.html?host=com&openid=h1&serverid=1
 {"isagain":false,"landid":1458716565,"gameid":"1_10011"}
 
 
+http://hangegame.com/client/index.html?new_version=9
+
+
 
 aa('friend_log',{"landid":1449732148,"gameid":"1_10001","lasttime":0})
 aa('friend_refuse',{"landid":1449732148,"gameid":"1_10001","logid":2})

@@ -17,8 +17,8 @@
 		{
 			$userData->active->draw_num = 0;
 		}
-		
-		if($userData->active->draw_num == 3)
+		$maxDrawNum = $userData->isVip(202)?5:3;
+		if($userData->active->draw_num >= $maxDrawNum)
 		{
 			$returnData->fail = 2;
 			$returnData->sync_active = new stdClass();

@@ -12,7 +12,7 @@
 		else
 			$need = ceil($level/10);
 		$free = $userData->main_game->level < 100 && $userData->main_game->fail &&
-		$userData->main_game->fail > 5 + floor($userData->main_game->level/100);
+		$userData->main_game->fail >= ceil($userData->main_game->level/5);
 		if($need == 0)
 			$free = true;
 		do{

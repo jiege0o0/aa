@@ -81,6 +81,9 @@ class GameUser{
 		$this->diamond = $this->decode($data['diamond'],'{"free":0,"rmb":0}');
 		$this->active = $this->decode($data['active'],'{"task":{}}');//活动
 		$this->public_value = $this->decode($data['public_value'],'{"map":{}}');//会被别人写的
+		
+		if(!$this->tec->vip)
+			$this->tec->vip = array();
 	}
 	
 	function decode($v,$default = null){
@@ -174,6 +177,9 @@ class GameUser{
 		return false;
 	}
 	
+	function isVip($id){
+		return in_array($id,$this->tec->vip,true);
+	}
 	
 	//体力相关==============================================
 	function getEnergy(){
@@ -191,7 +197,10 @@ class GameUser{
 		}
 	}
 	function resetEnergy(){//每一段时间回复一定量
-		$cd = ($this->energy->vip?24:30)*60; 
+		if($this->isVip(201))
+			$cd = 24*60;
+		else
+			$cd = 30*60;
 		$time = time();
 		$add = floor(($time - $this->energy->t)/$cd);
 		if($add > 0)
@@ -419,10 +428,10 @@ class GameUser{
 	
 	//取统帅等级
 	function getLeaderExp($id){
-		if(!$userData->tec->leader)
-			$userData->tec->leader = new stdClass();
-		if($userData->tec->leader->{$id})
-			return $userData->tec->leader->{$id};
+		if(!$this->tec->leader)
+			$this->tec->leader = new stdClass();
+		if($this->tec->leader->{$id})
+			return $this->tec->leader->{$id};
 		return 0;
 	}
 	

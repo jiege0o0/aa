@@ -15,6 +15,10 @@
 		'31'=>array('cost'=>60,'rmb'=>false,'rate'=>5),
 		'32'=>array('cost'=>300,'rmb'=>false,'rate'=>30)
 	);
+	if($id == 2 && $userData->isVip(201))
+	{
+		$arr[$id]['cost'] = 48;
+	}
 	do{
 		$data = $arr[$id];
 		$isTask = $id == 31 && (!$userData->active->task->stat || !$userData->active->task->stat->ticket);
