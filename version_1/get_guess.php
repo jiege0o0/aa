@@ -35,7 +35,7 @@
 		// $rate = 900;
 		if($rate < 300)//coin
 		{
-			$coin = round(pow(1.2,$userLevel+3)*50*(1+lcg_value()));
+			$coin = round(pow(1.2,$userLevel+4)*50*(1+lcg_value()));
 			$award->type = 'coin';
 			$award->value = $coin;
 		}

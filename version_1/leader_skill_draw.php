@@ -111,7 +111,7 @@
 				$rate = rand(0,1000);
 				if($rate < 300)//coin
 				{
-					$coin = round(pow(1.2,$userData->level+3)*1000*(0.8+lcg_value()*0.8));
+					$coin = round(pow(1.2,$userData->level+4)*1000*(0.8+lcg_value()*0.8));
 					array_push($award,array('type'=>'coin','value'=>$coin));
 					$userData->addCoin($coin);
 				}

@@ -36,7 +36,7 @@
 			$rate = $data['rate'];
 			$award = new stdClass();
 			$returnData->award = $award;
-			$award->coin = round(pow(1.2,$userLevel+3)*1000*$rate);
+			$award->coin = round(pow(1.2,$userLevel+4)*1000*$rate);
 			$userData->addCoin($award->coin);
 		}
 		else if($id >20 && $id < 30)
