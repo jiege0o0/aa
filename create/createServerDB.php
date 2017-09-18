@@ -164,7 +164,8 @@ id INT UNSIGNED NOT NULL PRIMARY KEY AUTO_INCREMENT,
 skillid TINYINT UNSIGNED,
 gameid varchar(16),
 content varchar(256),
-time INT UNSIGNED
+time INT UNSIGNED,
+copy_time INT UNSIGNED
 )",$connect)or die("message=F,Invalid query: " . mysql_error()); 
 
 

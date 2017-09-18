@@ -1,12 +1,17 @@
 <?php 
 	$skillID = $msg->skillid;
 	do{
+		
 		if(!$userData->tec->skill)
 		{
-			$returnData->fail = 1;
-			break;
+			$userData->tec->skill = array();
 		}
-		if($skillID && !in_array($skillID,$userData->tec->skill,true))
+		if(!$userData->tec->copy_skill)
+		{
+			$userData->tec->copy_skill = new stdClass();
+		}
+		
+		if($skillID && (!in_array($skillID,$userData->tec->skill,true) && !$userData->tec->copy_skill->{$skillID} ))
 		{
 			$returnData->fail = 2;
 			break;

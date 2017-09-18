@@ -374,6 +374,8 @@ class GameUser{
 			$returnData->{'sync_tec_'.$type} = new stdClass();
 		}
 		$returnData->{'sync_tec_'.$type}->{$id} = $this->tec->{$type}->{$id};
+		
+		$this->resetForce();
 	}
 	
 	function addLeaderExp($mid,$value){
@@ -389,6 +391,8 @@ class GameUser{
 			$returnData->sync_leader = new stdClass();
 		}
 		$returnData->sync_leader->{$mid} = $this->tec->leader->{$mid};
+		
+		
 	}
 	
 	//取道具数量
@@ -545,8 +549,8 @@ class GameUser{
 		global $conne,$msg,$mySendData,$sql_table;
 		$arr = array();
 		
-		if($this->changeKey['tec'])//会影响战力  $this->changeKey['level'] || 
-			$this->resetForce();
+		// if($this->changeKey['tec'])//会影响战力  $this->changeKey['level'] || 
+			// $this->resetForce();
 		
 		if($this->changeKey['exp'])
 			array_push($arr,addKey('exp',$this->exp));
