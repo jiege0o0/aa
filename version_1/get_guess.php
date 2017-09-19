@@ -28,7 +28,7 @@
 		$userData->active->guess->award = $award;
 		
 		if($userData->main_game->level > 95)
-			$rate = rand(0,1000);
+			$rate = rand(0,1060);
 		else
 			$rate = rand(0,800);
 		
@@ -69,6 +69,13 @@
 			$pNum = rand(1,3);
 			$award->type = 'prop';
 			$award->id = 42;
+			$award->value = $pNum;
+		}
+		else if($rate < 1050)//技能分身
+		{
+			$pNum = 1;
+			$award->type = 'prop';
+			$award->id = 22;
 			$award->value = $pNum;
 		}
 		else//初级卡

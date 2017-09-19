@@ -108,7 +108,7 @@
 				// round(pow(1.2,$userLevel+3)*10*$rate);card
 				//diamond*100,energy*40,energy*50,21*6,31*1
 				//energy*60,diamond*150,31*2,41*2,21*10
-				$rate = rand(0,1000);
+				$rate = rand(0,1050);
 				if($rate < 300)//coin
 				{
 					$coin = round(pow(1.2,$userData->level+4)*1000*(0.8+lcg_value()*0.8));
@@ -156,6 +156,12 @@
 					$pNum = 8 + rand(0,7);
 					$userData->addProp(42,$pNum);
 					array_push($award,array('type'=>'prop','id'=>42,'value'=>$pNum));
+				}
+				else if($rate < 1049)//技能分身
+				{
+					$pNum = 1 + rand(0,1);
+					$userData->addProp(22,$pNum);
+					array_push($award,array('type'=>'prop','id'=>22,'value'=>$pNum));
 				}
 				else //高级学习卡
 				{

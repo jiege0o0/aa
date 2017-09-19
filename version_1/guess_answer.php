@@ -55,8 +55,10 @@
 		$returnAward = new stdClass();
 		$returnData->award = $returnAward;
 		
+		
 		if($iswin == $result)//猜中
 		{
+			$returnData->guess_win = true;
 			$userData->active->guess->win ++;
 			$award = $userData->active->guess->award;
 			 switch($award->type)
@@ -87,10 +89,10 @@
 		}
 			
 		
-		if($type == 'coin')
-			$userData->addCoin($num);
-		else
-			$userData->addCollect(0,$num);
+		// if($type == 'coin')
+			// $userData->addCoin($num);
+		// else
+			// $userData->addCollect(0,$num);
 			
 			
 		$userData->active->guess->lasttime = time();
@@ -103,7 +105,7 @@
 		$userData->setChangeKey('active');
 		$userData->write2DB();	
 		
-		$returnData->guess_win = $num > 0;
+		
 	}while(false);
 		
 ?> 
