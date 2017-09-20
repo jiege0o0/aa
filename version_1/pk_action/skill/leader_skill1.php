@@ -54,8 +54,8 @@
 	
 	//行动后对敌方额外造成一次[r100%]伤害，施法间隔：[3]
 	class ls_6 extends SkillBase{
-		public $type = 'AFTER';
-		public $order = 1000;//优先级，互斥时越大的越起作用
+		// public $type = 'AFTER';
+		public $order = -1000;//优先级，互斥时越大的越起作用
 		public $cd = 3;
 		public $isAtk = true;
 		function action($user,$self,$enemy){

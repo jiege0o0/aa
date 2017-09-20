@@ -199,7 +199,8 @@ class Team{
 		$this->teamPlayer->resetPKData();
 		$this->teamPlayer->atk = $player->atk;
 		$this->teamPlayer->maxHp = $player->maxHp;
-		$this->teamPlayer->speed = $player->speed;
+		$this->teamPlayer->speed = 50;//固定50速度
+		$this->teamPlayer->hp = $player->maxHp;
 		
 		
 		//令牌相关		

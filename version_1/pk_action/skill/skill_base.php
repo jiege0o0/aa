@@ -98,8 +98,8 @@
 			$this->temp1 = 0;
 			$this->temp2 = 0;
 			$this->temp3 = 0;
-			if($this->type)
-				$this->actionCount = 0;
+			// if($this->type)
+				// $this->actionCount = 0;
 				
 			$this->localReInit();
 		}

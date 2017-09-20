@@ -174,7 +174,9 @@
 		if(!$skillData->type)
 			$user->setSkillUse($skillData->index);
 		else if($skillData->cd != 1)//Ä¬ÈÏCDÊÇ1
+		{
 			$skillData->actionCount = $skillData->cd;
+		}
 			
 		if($skillData->once)
 			$skillData->disabled = true;

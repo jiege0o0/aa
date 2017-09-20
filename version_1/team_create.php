@@ -60,7 +60,6 @@
 		else
 		{
 			$returnData -> fail = 3;
-			debug($sql);
 		}
 		
 	}while(false);

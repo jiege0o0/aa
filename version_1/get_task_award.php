@@ -57,7 +57,6 @@
 				break;
 			}
 		}
-		debug($finishTask);
 		
 		$taskVO = $task_base[$taskID];
 		//任务前置条件
@@ -76,7 +75,6 @@
 		$stat = $userData->active->task->stat;
 		$value1 = $taskVO['value1'];
 		$value2 = $taskVO['value2'];
-		debug($line);
 		
 		if(!$stat)
 			$stat = new stdClass();
@@ -199,7 +197,6 @@
 			$returnData->sync_task = $userData->active->task;
 			break;
 		}
-		debug($line);
 		//发放奖励
 		$returnData->award = array();
 		if($taskVO['diamond'])
@@ -224,7 +221,6 @@
 			$returnData->award['card'] = $taskVO['card'];
 		}
 		
-		debug($task_base[$taskID]);
 		$userData->active->task->{$line} = $taskID;
 		$returnData->sync_task = array();
 		$returnData->sync_task[$line] = $taskID;

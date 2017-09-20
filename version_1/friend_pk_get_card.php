@@ -38,7 +38,6 @@
 			
 			if(!$conne->uidRst($sql))//写数据库失败
 			{
-				debug($sql);
 				$returnData->fail =2;
 				break;
 			}

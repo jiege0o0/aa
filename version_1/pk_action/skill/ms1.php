@@ -1,11 +1,8 @@
 <?php
-    
-
 	//喷毒(技)：对对手每次行动后-血，并-速,round2             -30%速，ATK*1.3
 	class sm_1_0 extends SkillBase{
 		public $isAtk = true;
 		function action($user,$self,$enemy){
-			debug($enemy->id);
 			$buff = new HPBuff(-$user->atk*1.8,2,'1_0');
 			$buff->isDebuff = true;
 			$buff->addToTarget($user,$enemy);

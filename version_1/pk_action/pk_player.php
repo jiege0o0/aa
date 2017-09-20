@@ -132,8 +132,6 @@ class player{
 	function initData($add,$fight,$leader){
 		global $equalPK;
 		
-		// debug($add.'_'.$fight);
-		
 		if($equalPK)
 		{
 			$add = 1000;
@@ -445,7 +443,11 @@ class player{
 			if($skillData->type == $type)
 			{
 				if($skillData->actionCount > 0)//CD中
-					continue;	
+				{
+					//$skillData->actionCount --;
+					
+					continue;
+				}					
 				if($skillData->owner->stat[23])
 					continue;
 					
@@ -590,7 +592,6 @@ class player{
 		global $PKConfig,$pkData;
 		$this->__cdCount = $this->cdCount;
 		$this->setRoundEffect();
-		
 		//技能CD
 		foreach($this->skillArr as $key=>$value)
 		{
@@ -680,7 +681,6 @@ class player{
 			
 		
 		$this->lastStatKey = $statKey;
-		//debug($statKey);
 		$pkData->out_stat($this,$statKey);
 	}
 	
@@ -723,29 +723,7 @@ class player{
 						
 			
 		if($this->hp > 0 && $v < 0)	
-			$this->testTSkill('HP');
-		/*else
-		{
-			$this->testTSkill('DIE');
-			$this->team->enemy->currentMonster[0]->testTSkill('EDIE');
-			
-			//死后清除BUFF
-			$len = count($this->buffArr);
-			for($i=0;$i<$len && $num > 0;$i++)
-			{
-				$this->buffArr[$i]->cd = 0;
-			}
-			$b = $this->testStateCD(0);
-			if($b)
-				$this->testOutStat();
-		}*/
-		
-		// if($this->id == 10)
-		// {
-			// global $pkData;
-			// debug($pkData->step.'-'.$this->hp.'_'.$v);
-		// }
-			
+			$this->testTSkill('HP');			
 		return $v;
 	}
 	

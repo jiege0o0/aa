@@ -15,7 +15,6 @@
 		{
 			$returnData->fail = 2;
 		}
-		debug($sql);
 		$returnData->data = 'ok';
 	}
 	while(false);		

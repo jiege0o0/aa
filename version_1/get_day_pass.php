@@ -1,4 +1,10 @@
 <?php 
+	if(!isSameDate($userData->day_game->lasttime))
+	{
+		$userData->resetDayGame();
+		$userData->day_game->level = 0;
+		$userData->day_game->lasttime = time();
+	}
 	$level = $userData->day_game->level + 1;
 	$tableName = $sql_table.'main_pass';
 	$sql = "select * from ".$tableName." where level=".($level + 5000);

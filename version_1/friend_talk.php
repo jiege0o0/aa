@@ -35,7 +35,6 @@
 		if(!$conne->uidRst($sql))
 		{
 			$returnData->fail = 2;
-			debug($sql);
 			break;
 		}
 		

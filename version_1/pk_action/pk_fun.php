@@ -39,7 +39,7 @@
 		$enemy->testTSkill('OVER');
 		if($pkData->dealTArray())//特性生效
 			$pkData->out_end();
-		
+		debug('pkonefinish');
 		$pkData->roundFinish($result);
 	}
 	
@@ -84,6 +84,7 @@
 	//其中一个单位出手
 	function pkOnePlayer($list){
 		global $pkData,$PKConfig;
+		$pkData->step ++;
 		// $pkingPlayer = array('1'=>$pkData->team1->currentMonster[0],'2'=>$pkData->team2->currentMonster[0]);
 		$len = count($list);
 		$user = null;
@@ -99,10 +100,7 @@
 			
 			if(!$user || cdCountSortFun($user,$player) == 1)
 				$user = $player;
-				
-				// debug($player->id.'-'.$player->cdCount);
 		}
-		// debug('***'.$user->id);
 		
 		//得到要行动的单位
 		
