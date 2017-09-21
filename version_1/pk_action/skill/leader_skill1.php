@@ -14,7 +14,7 @@
 		public $cd = 0;
 		public $order = 1000;//优先级，互斥时越大的越起作用
 		function action($user,$self,$enemy){
-			$buff = new ValueBuff('atk',round($self->base_atk * 0.1),5);
+			$buff = new ValueBuff('atk',round($self->base_atk * 0.12),5);
 			$buff->addToTarget($user,$self);
 		}
 	}
@@ -59,7 +59,7 @@
 		public $cd = 3;
 		public $isAtk = true;
 		function action($user,$self,$enemy){
-			$this->decHp($user,$enemy,$self->atk*1);
+			$this->decHp($user,$enemy,$self->atk*1.1);
 		}
 	}
 	
@@ -78,7 +78,7 @@
 	class ls_8 extends SkillBase{
 		public $cd = 2;
 		function action($user,$self,$enemy){
-			$this->addHp($user,$self,$self->maxHp*0.03);
+			$this->addHp($user,$self,$self->maxHp*0.04);
 		}
 	}
 	
@@ -91,7 +91,11 @@
 			for($i=0;$i<$len;$i++)
 			{
 				$player = $enemy->team->currentMonster[$i];
-				$buff = new ValueBuff('speed',-round($self->base_speed * 0.1),3);
+				$buff = new ValueBuff('speed',-round($player->base_speed * 0.06),3);
+				$buff->isDebuff = true; 
+				$buff->addToTarget($user,$player);
+				
+				$buff = new ValueBuff('def',-6,3);
 				$buff->isDebuff = true; 
 				$buff->addToTarget($user,$player);
 			}

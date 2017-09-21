@@ -42,7 +42,7 @@
 	class ls_14 extends SkillBase{
 		public $cd = 0;
 		function action($user,$self,$enemy){
-			$this->decHp($user,$self,$self->hp*0.2);
+			$this->decHp($user,$self,$self->hp*0.15);
 			$this->decHp($user,$enemy,$enemy->hp*0.2);
 		}
 	}
@@ -110,7 +110,7 @@
 	class ls_20 extends SkillBase{
 		public $type = 'EAFTER';
 		function action($user,$self,$enemy){
-			$this->addAtk($user,$enemy,-$enemy->base_atk*0.04);
+			$this->addAtk($user,$enemy,-$enemy->base_atk*0.05);
 		}
 	}
 ?> 

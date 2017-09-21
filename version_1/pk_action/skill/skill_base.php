@@ -132,7 +132,7 @@
 				$value = $user->getHurt($value,$target);
 				
 				
-			if($user->teamID != $target->teamID && $target->hp <= $value && ($temp = $target->isDieMiss('atk')))
+			if($user->hitTimes <= 0 && $user->teamID != $target->teamID && $target->hp <= $value && ($temp = $target->isDieMiss('atk')))
 			{
 				$value = 0;
 				$pkData->addSkillMV(null,$target,pk_skillType('NOHURT',$temp['id']));	
