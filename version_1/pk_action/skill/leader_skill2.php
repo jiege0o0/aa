@@ -7,8 +7,8 @@
 			return $self->hp<=0 && $self->monsterData['mtype'] == 1;
 		}
 		function action($user,$self,$enemy){
-			$self->reborn(0.2);
-			$user->addEffectCount($self->maxHp*0.2);
+			$self->reborn(0.05);
+			$user->addEffectCount($self->maxHp*0.05);
 		}
 	}
 	
@@ -20,8 +20,8 @@
 			return $self->hp<=0 && $self->monsterData['mtype'] == 2;
 		}
 		function action($user,$self,$enemy){
-			$self->reborn(0.2);
-			$user->addEffectCount($self->maxHp*0.2);
+			$self->reborn(0.05);
+			$user->addEffectCount($self->maxHp*0.05);
 		}
 	}
 	
@@ -33,8 +33,8 @@
 			return $self->hp<=0 && $self->monsterData['mtype'] == 3;
 		}
 		function action($user,$self,$enemy){
-			$self->reborn(0.2);
-			$user->addEffectCount($self->maxHp*0.2);
+			$self->reborn(0.05);
+			$user->addEffectCount($self->maxHp*0.05);
 		}
 	}
 	
@@ -99,7 +99,7 @@
 	class ls_19 extends SkillBase{
 		public $cd = 0;
 		function action($user,$self,$enemy){
-			$buff = new StatBuff(22,5);
+			$buff = new StatBuff(22,3);
 			$buff->isDebuff = true;
 			$buff->removeAble = false;
 			$buff->addToTarget($user,$enemy);
@@ -110,7 +110,7 @@
 	class ls_20 extends SkillBase{
 		public $type = 'EAFTER';
 		function action($user,$self,$enemy){
-			$this->addAtk($user,$enemy,-$enemy->base_atk*0.05);
+			$this->addAtk($user,$enemy,-$enemy->base_atk*0.06);
 		}
 	}
 ?> 

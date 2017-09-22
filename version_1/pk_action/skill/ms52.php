@@ -5,7 +5,7 @@
 	class sm_52_0 extends SkillBase{
 		function action($user,$self,$enemy){
 			$this->addAtk($user,$user,$user->base_atk*0.3);
-			array_push($user->dieMissTimes,array("id"=>$user->id,'mid'=>$user->monsterID));
+			array_unshift($user->dieMissTimes,array("id"=>$user->id,'mid'=>$user->monsterID));
 		}
 	}
 	

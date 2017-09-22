@@ -138,6 +138,8 @@
 				$pkData->addSkillMV(null,$target,pk_skillType('NOHURT',$temp['id']));	
 				$temp['decHp'] = $value;
 				$target->testTSkill('DMISS',$temp);
+				if($temp['skill'])
+					$temp['skill']->onDMiss();
 			}
 			else
 			{

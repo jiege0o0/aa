@@ -42,6 +42,7 @@
 	//特：本命牌：当造成伤害会致命时，无视本次伤害，只触发一次
 	class sm_1_3 extends SkillBase{
 		public $cd = 0;
+		public $order = 1001;//优先级，互斥时越大的越起作用
 		function action($user,$self,$enemy){
 			array_push($user->dieMissTimes,array("id"=>$user->id,'mid'=>$user->monsterID));
 		}
