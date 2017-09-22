@@ -57,15 +57,13 @@
 		$returnData->data = $userData;
 		$userData->opentime = $serverOpenTime;
 		
-		$logtime = 1505437723;
+		$logtime = 1506045914;
 		if($msg->logtime < $logtime)
 		{
 			$returnData->logtext = new stdClass();
 			$returnData->logtext->text = 
-				'优化竞猜系统，现在可以不用投注就能获取奖励|'.
-				'调整研究院战力为偶数关获得|'.
-				'加入命运之门系统，该系统卡使五阶开放|'.
-				'加入队伍技能系统，该系统卡使五阶开放|'.
+				'增加技能分身的设定，玩家可使用其它玩家的技能了|'.
+				'增加队伍技能到20个|'.
 				'UI体验优化及BUG修复';
 			$returnData->logtext->time = $logtime;
 		}

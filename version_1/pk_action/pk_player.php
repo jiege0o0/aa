@@ -218,6 +218,7 @@ class player{
 		}
 		$this->atk += $value;
 		$this->setSkillEffect(pk_skillType('STAT',numToStr($id).'0'.$value));
+		debug('----:'.$value);
 		return $value;
 	}
 	
