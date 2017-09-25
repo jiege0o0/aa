@@ -4,6 +4,7 @@
 
 	$myChoose = $msg->choose;
 	$data_key = $msg->data_key;
+	$hard = $msg->hard;
 	$team1Data = changePKData($myChoose,'main_game');
 	do{
 		if($userData->getEnergy() < 1)//体力不够
@@ -19,6 +20,12 @@
 		}
 		
 		$level = $userData->main_game->level + 1;
+		if($hard)
+		{
+			if(!$userData->main_game->hlevel)
+				$userData->main_game->hlevel = 0;
+			$level = $userData->main_game->hlevel + 1;
+		}
 		require_once($filePath."cache/main_game".ceil($level/100).".php");
 		
 		$pkUserInfo = new stdClass();
@@ -36,6 +43,39 @@
 			$team2Data->list[$value] = 0;
 		}
 		resetTeam2Data();
+		
+		if($hard)
+		{
+			//重置team1Data
+			$forceLimit = $team2Data->fight;
+			$levelLimit = getForceLevel($team2Data->fight);
+			$leaderLimit = getForceLeader($team2Data->fight);
+			if($team1Data->fight > $forceLimit)
+				$team1Data->fight = $forceLimit;
+			foreach($team1Data->mlevel as $key=>$value)
+			{
+				if($team1Data > $levelLimit)
+				{
+					$team1Data->mlevel->{$key} = $levelLimit;
+					$team1Data->tec->{$key} = getTecAdd('monster',$levelLimit);
+				}
+			}
+			foreach($team1Data->leader as $key=>$value)
+			{
+				if($value > $leaderLimit)
+					$team1Data->leader->{$key} = $leaderLimit;
+			}	
+			if($level < 145)
+				$team1Data->skill = 0;
+		}
+		
+		
+		
+		
+		
+		
+		
+		
 		require_once($filePath."pk_action/pk.php");
 		addMonsterUse($myChoose,$result);
 		$returnData->sync_main_game = new stdClass();
@@ -49,48 +89,64 @@
 		
 		if($result)
 		{
-			if($level == 1)//新手副利
+			if($hard)//精英关
 			{
-				$award->coin = 100;
-				require_once($filePath."get_monster_collect.php");
-				$award->collect = addMonsterCollect(1);
-			}
-			
-			if($team2Data->fight >= $team1Data->fight && count($userData->main_game->kill) == 0)//如果战力小于等于对方，会奖励战力
-			{
-				$awardForce = ceil(($userData->main_game->level + 100 + 1)/200);
+				$award->coin = $award->coin * 2;
+				$awardForce = ceil(($userData->main_game->hlevel + 100 + 1)/200);
 				$returnData->main_award = $awardForce;
 				$userData->addAwardForce($awardForce);
-				if($level != 1)
-					require_once($filePath."add_main_pass.php");
-				if($userData->main_game->award_force)
-					$userData->main_game->award_force += $awardForce;
-				else
-					$userData->main_game->award_force = $awardForce;
+				// if($level != 1)
+					// require_once($filePath."add_main_pass.php");
+				// if($userData->main_game->award_force)
+					// $userData->main_game->award_force += $awardForce;
+				// else
+					// $userData->main_game->award_force = $awardForce;
 					
-				$returnData->sync_main_game->award_force = $userData->main_game->award_force;
+				// $returnData->sync_main_game->award_force = $userData->main_game->award_force;
+				
+				$userData->main_game->hlevel++;
+				$userData->main_game->fail = 0;
+				$userData->main_game->show_pass = false;
+				
+				$returnData->sync_main_game->hlevel = $userData->main_game->hlevel;
+				$returnData->sync_main_game->fail = 0;
+				$returnData->sync_main_game->show_pass = false;	
+				
+			}
+			else
+			{
+				if($level == 1)//新手副利
+				{
+					$award->coin = 100;
+					require_once($filePath."get_monster_collect.php");
+					$award->collect = addMonsterCollect(1);
+				}
+				$userData->main_game->level++;
+				$userData->main_game->kill = array();
+				
+				$returnData->sync_main_game->kill = array();
+				$returnData->sync_main_game->level = $userData->main_game->level;	
 				
 			}
 			
-			
-			$userData->main_game->level++;
-			$userData->main_game->fail = 0;
-			$userData->main_game->show_pass = false;
 			$userData->main_game->time = time();
-			$userData->main_game->kill = array();
-			$returnData->sync_main_game->kill = array();
-			$returnData->sync_main_game->fail = 0;
-			$returnData->sync_main_game->level = $userData->main_game->level;	
-			$returnData->sync_main_game->show_pass = false;	
+			
+			
+			
 		}
 		else
 		{
 			$award->exp = 10 + floor($level/50);
 			$award->coin = 0;
-			if(!$userData->main_game->fail)
+			
+			if($hard)//精英关
+			{
+				if(!$userData->main_game->fail)
 				$userData->main_game->fail = 0;
-			$userData->main_game->fail ++;
-			$returnData->sync_main_game->fail = $userData->main_game->fail;
+				$userData->main_game->fail ++;
+				$returnData->sync_main_game->fail = $userData->main_game->fail;
+			}
+			
 		}
 
 		
