@@ -1,5 +1,8 @@
 <?php 
-	$level = $userData->main_game->hlevel + 1;
+	if($msg->level)
+		$level = $msg->level;
+	else
+		$level = $userData->main_game->hlevel + 1;
 	$tableName = $sql_table.'main_pass';
 	$sql = "select * from ".$tableName." where level=".$level;
 	$sqlResult = $conne->getRowsArray($sql);

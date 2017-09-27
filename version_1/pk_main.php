@@ -118,9 +118,9 @@
 			{
 				if($level == 1)//新手副利
 				{
-					$award->coin = 100;
+					$award->coin = 400;
 					require_once($filePath."get_monster_collect.php");
-					$award->collect = addMonsterCollect(1);
+					$award->collect = addMonsterCollect(5);
 				}
 				$userData->main_game->level++;
 				$userData->main_game->kill = array();
