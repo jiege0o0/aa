@@ -39,7 +39,7 @@
 		$enemy->testTSkill('OVER');
 		if($pkData->dealTArray())//特性生效
 			$pkData->out_end();
-		debug('pkonefinish');
+		// debug('pkonefinish');
 		$pkData->roundFinish($result);
 	}
 	

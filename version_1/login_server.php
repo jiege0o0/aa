@@ -62,9 +62,9 @@
 		{
 			$returnData->logtext = new stdClass();
 			$returnData->logtext->text = 
-				'增加技能分身的设定，玩家可使用其它玩家的技能了|'.
-				'增加队伍技能到20个|'.
-				'UI体验优化及BUG修复';
+				'取消低战通关获得战力的设定|'.
+				'增加精英挑战。在挑战中会限制玩家的属性上限，获胜后可得到战力奖励|'.
+				'BUG修复';
 			$returnData->logtext->time = $logtime;
 		}
 		

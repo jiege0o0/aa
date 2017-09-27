@@ -44,7 +44,7 @@
 			
 			
 			require_once($filePath."pk_action/get_pk_card.php");
-			$choose = getPKCard($msg->user_level);
+			$choose = getPKCard(max(4,$msg->user_level));
 			$content = new stdClass();
 			$content->choose = $choose;
 			$content->levels = $result;

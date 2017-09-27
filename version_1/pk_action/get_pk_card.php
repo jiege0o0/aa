@@ -4,6 +4,7 @@
 	//取玩家能用的怪物组合
 	function getPKCard($userLevel){
 		global $monster_base;
+		$isShort = $userLevel <= 3;
 		
 		//得到用到的5个属性宠物
 		$levelArr1 = array();
@@ -36,9 +37,13 @@
 			if($id)
 				array_push($returnMonsterArr,$id);
 				
-			$id = array_pop($levelArr2);
-			if($id)
-				array_push($returnMonsterArr,$id);
+			if(!$isShort)
+			{
+				$id = array_pop($levelArr2);
+				if($id)
+					array_push($returnMonsterArr,$id);
+			}			
+			
 				
 			$id = array_pop($levelArr3);
 			if($id)
@@ -46,11 +51,12 @@
 		}
 		
 		//不足，要补
-		if(count($returnMonsterArr) < 8)
+		$num = $isShort?6:8;
+		if(count($returnMonsterArr) < $num)
 		{
 			$newArr = array_merge($levelArr1,$levelArr2,$levelArr3);
 			usort($newArr,randomSortFun);
-			while(count($returnMonsterArr) < 8 && count($newArr) > 0)
+			while(count($returnMonsterArr) < $num && count($newArr) > 0)
 			{
 				$id = array_pop($newArr);
 				if($id)

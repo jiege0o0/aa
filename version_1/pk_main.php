@@ -54,7 +54,7 @@
 				$team1Data->fight = $forceLimit;
 			foreach($team1Data->mlevel as $key=>$value)
 			{
-				if($team1Data > $levelLimit)
+				if($team1Data->mlevel->{$key} > $levelLimit)
 				{
 					$team1Data->mlevel->{$key} = $levelLimit;
 					$team1Data->tec->{$key} = getTecAdd('monster',$levelLimit);
@@ -95,6 +95,7 @@
 				$awardForce = ceil(($userData->main_game->hlevel + 100 + 1)/200);
 				$returnData->main_award = $awardForce;
 				$userData->addAwardForce($awardForce);
+				require_once($filePath."add_main_pass.php");
 				// if($level != 1)
 					// require_once($filePath."add_main_pass.php");
 				// if($userData->main_game->award_force)
