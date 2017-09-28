@@ -35,6 +35,7 @@
 				$team2Data = new stdClass();
 				$team2Data->list = $tempArr['list'];
 				$team2Data->fight = ceil(pow($level,1.6))*25 - 24 + rand(0,$level*9);
+				$team2Data->skill = getForceSkill($team2Data->fight);
 				resetTeam2Data();
 			}
 			else

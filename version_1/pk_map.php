@@ -29,6 +29,8 @@
 		$team2Data = new stdClass();
 		$team2Data->list = $userData->pk_common->map->enemy->list;
 		$team2Data->fight = $userData->pk_common->map->enemy->force;
+		if($userData->pk_common->map->enemy->skill)
+			$team2Data->skill = $userData->pk_common->map->enemy->skill;
 		resetTeam2Data();
 		
 		$currentLevel = $userData->pk_common->map->level;

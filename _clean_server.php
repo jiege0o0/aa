@@ -1,9 +1,9 @@
 <?php 
 	ini_set('date.timezone','Asia/Shanghai');
 	$serverID = $_GET["serverid"];
-	$filePath = dirname(__FILE__).'/';
-	require_once($filePath."_config.php");
-	require_once($filePath."create/conn.php");
+	require_once(dirname(__FILE__).'/'."_create_config.php");
+	require_once($dataFilePath."_config.php");
+	require_once($dataFilePath."create/conn.php");
 	$time = time() - 3600*24*3;//3天前
 	
 	$sql = "DELETE FROM ".$sql_table."friend_log where time<".$time;

@@ -61,6 +61,8 @@
 		$forceArr = $HardBase['force'];
 		$team2Data->fight = $forceArr[$gameData->hard] + floor((pow($gameData->hard,0) - 0.5)*($level - 1));
 		resetTeam2Data();
+		if($content[$level-1]->skill)
+			$team2Data->skill = $content[$level-1]->skill;
 
 
 		

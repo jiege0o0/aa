@@ -42,6 +42,43 @@
 		{
 			$team2Data->list[$value] = 0;
 		}
+		//技能
+		if($level > 200)
+		{
+			$skillID = 0;
+			$dec = $level - 200;
+			for($i=0;$i<10;$i++)
+			{
+				$temp = 100 + $i*100;
+				$skillRate = 10 + $i*10;
+				if($dec <= $temp)
+				{
+					$skillID = $dec % $skillRate;
+					if($skillID == 0)
+						$skillID = $skillRate;
+					break;
+				}
+			}
+			$skillID = $dec % 100;
+			if($skillID == 0)
+				$skillID = 100;
+			$team2Data->skill = $skillID;
+		}
+		  // public getMainSkill(level){
+         // if(level<=200)
+            // return 0;
+        // var dec = level - 200
+
+        // for(var i=0;i<10;i++)
+        // {
+            // var temp = 100 + i*100;
+            // var skillRate = 10 + i*10;
+            // if(dec <= temp)
+                // return dec%skillRate || skillRate
+        // }
+        // return dec%100 || 100;
+    // }
+		
 		resetTeam2Data();
 		
 		if($hard)
@@ -91,7 +128,7 @@
 		{
 			if($hard)//精英关
 			{
-				$award->coin = $award->coin * 2;
+				$award->coin = $award->coin * ceil(2 + pow($level/100,1.2)/3);
 				$awardForce = ceil(($userData->main_game->hlevel + 100 + 1)/200);
 				$returnData->main_award = $awardForce;
 				$userData->addAwardForce($awardForce);

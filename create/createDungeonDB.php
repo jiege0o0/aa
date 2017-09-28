@@ -58,6 +58,10 @@ function createMonsterData($name,$num,$level){
 		$list = $result[$i]['list'];
 		$result[$i] = new stdClass();
 		$result[$i]->list = $list;
+		if($level > 10)
+		{
+			$result[$i]->skill = rand(1,20 + ($level/5 - 3)*25);
+		}
 	}
 	
 	$content = new stdClass();

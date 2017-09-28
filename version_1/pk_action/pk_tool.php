@@ -182,6 +182,13 @@
 		);
     }
 	
+	//这个战力下对应的怪物技能
+	function getForceSkill($force){
+		if($force < 2000)
+			return 0;
+		return rand(1,min(100,ceil(pow(($force - 1500)/200,0.85))));
+	}
+	
 	//这个战力下对应的怪物等级
 	function getForceLevel($force){
 		$force = pow($force,0.62)-6;

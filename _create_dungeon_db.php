@@ -1,7 +1,6 @@
 ﻿<?php 
 	// header('Access-Control-Allow-Origin:*');
-	$filePath = dirname(__FILE__).'/version_1/';
-	$dataFilePath = dirname(__FILE__).'/';
+	require_once(dirname(__FILE__).'/'."_create_config.php");
 	$serverID = $_GET["serverid"];
 	if(!$serverID)
 		die('no serverID');
