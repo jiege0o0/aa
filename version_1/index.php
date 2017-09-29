@@ -84,6 +84,7 @@
 			}
 			if($_POST['version'] > $game_version){
 				$mySendData->error = 5;
+				$mySendData->version = $game_version;
 				break;
 			}
 			
@@ -111,7 +112,18 @@
 				}
 				case 'login_server':
 				{
-					if($msg->cdkey == 'hange0o0' || testCDKey($msg->id,$msg->cdkey))
+					if($msg->h5)
+					{	
+						$loginOK = false;
+						require_once($filePath."platform/login_".$msg->h5.".php");
+						if($loginOK)
+						{
+							require_once($filePath."login_server.php");
+						}
+						else
+							$returnData->fail = 1;
+					}
+					else if($msg->cdkey == 'hange0o0' || testCDKey($msg->id,$msg->cdkey))
 					{
 						require_once($filePath."login_server.php");
 					}
@@ -124,7 +136,18 @@
 				}
 				case 'register_server':
 				{
-					if(testCDKey($msg->id,$msg->cdkey))
+					if($msg->h5)
+					{	
+						$loginOK = false;
+						require_once($filePath."platform/login_".$msg->h5.".php");
+						if($loginOK)
+						{
+							require_once($filePath."register_server.php");
+						}
+						else
+							$returnData->fail = 1;
+					}
+					else if(testCDKey($msg->id,$msg->cdkey))
 					{
 						require_once($filePath."register_server.php");
 					}

@@ -108,7 +108,50 @@ PKManager.getInstance().pkResult.detail = {};VideoManager.getInstance().videoDat
 DM.recallPK()
 
 
+//user:gender,hp,year,hp,atk,speed,face,
 
+// city :id,name,posX,poxY,
+//task: id,city,name,need1,need2,need3,des,pic,award1,award2,award3
+//npc:id,name,hp,atk,speed,skill
+
+//prop: id,name
+//skill:id,name,des,effect1,effect2,effect3,beforevalue,actionvalue
+//equip: id,name,hp,atk,speed,skill
+
+
+
+ttp://open.qunhei.com/
+
+http://172.17.196.195:9010/index.html?host=com&debug_server=1&debug=1
+
+1、找对接人申请账号
+2、用账号登录后台，在后台添加游戏以及相关配置
+3、在游戏列表里面查询游戏ID
+4、用测试地址调试接口
+5、测试成功通知对接人测试
+6、切换正式服务器，游戏上线
+7、整体流程完毕
+注：登录测试地址->http://m.qunhei.com/game/login/gid/游戏id.html
+登录测试账号-> qhtest 密码->123456
+
+http://172.17.196.195:9010/index_qunhei.html?host=com&openid=han2&debug_server=1&debug=1
+
+
+http://m.qunhei.com/game/login/gid/3697.html?username=62&serverid=1&time=134234562&isadult=1&nname=张晓珊&unid=qhtest&flag=test111111&uimg=xxxx
+
+http://m.qunhei.com/game/login/gid/3697.html
+
+
+http://m.qunhei.com/game/login/gid/3697.html
+
+http://172.17.196.195:9010/index.html?host=com&openid=han2&debug_server=1&debug=1
+
+http://172.17.196.195:9010/index_qunhei.html?host=com&debug_server=1&debug=1&username=5028262&serverid=1&time=1506653351&isadult=1&flag=001dd884dd89702aebb6007e78c4fac7&unid=&uimg=http://m.qunhei.com/Static/Default/Home/images/bg_touxiang_wutouxiang.png&nname=卡斗士
+
+
+http://172.17.196.195:9010/index_qunhei.html?host=com&debug_server=1&debug=1&username=419104&serverid=1&time=1506668204&isadult=1&flag=dacecc074b603e0a377b47ad352dd522&unid=&uimg=http://m.qunhei.com/Static/Default/Home/images/bg_touxiang_wutouxiang.png&nname=张晓杰
+
+http://m.qunhei.com/game/login/gid/3697.html
 
 
 

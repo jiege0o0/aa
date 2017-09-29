@@ -9,7 +9,7 @@ mysql_query("set names utf8");
 
 /*mysql_query("
 Create TABLE ".$sql_table."user_data(
-gameid varchar(16) NOT NULL Unique Key,
+gameid varchar(32) NOT NULL Unique Key,
 uid INT UNSIGNED NOT NULL PRIMARY KEY AUTO_INCREMENT,
 nick varchar(30),
 head varchar(128),
@@ -156,7 +156,7 @@ for($j = 1;$j<=100;$j++)
 		insert into ".$sql_table."map_fight(level,time) values(".$j.",0)",
 		$connect)or die("message=F,Invalid query: " . mysql_error()); 
 	}
-}*/
+}
 
 mysql_query("
 Create TABLE ".$sql_table."skill_log(
@@ -179,7 +179,16 @@ for($j = 1;$j<=200;$j++)
 	mysql_query("
 	insert into ".$sql_table."skill_total(num) values(0)",
 	$connect)or die("message=F,Invalid query: " . mysql_error()); 
-}
+}*/
+
+mysql_query("
+Create TABLE ".$sql_table."pay_log(
+id INT UNSIGNED NOT NULL PRIMARY KEY AUTO_INCREMENT,
+orderno varchar(32),
+gameid varchar(32),
+time INT UNSIGNED,
+INDEX(orderno,gameid)
+)",$connect)or die("message=F,Invalid query: " . mysql_error()); 
 
 
 
