@@ -690,7 +690,8 @@ class player{
 	function getHurt($v,$enemy){
 		$hurt = $this->hurt;
 		$def = $enemy->def;
-		return min(1,round($v * (1+($hurt - $def)/100)));
+		return max(1,round($v * (1+($hurt - $def)/100)));
+		// return round($v * (1+($hurt - $def)/100));
 		
 	}
 	

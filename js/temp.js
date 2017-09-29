@@ -67,6 +67,7 @@ http://172.17.196.195:9010/index.html?host=com&openid=h1&serverid=1
 
 
 http://hangegame.com/client/index.html?new_version=9
+http://hangegame.com/pay_qunhei
 
 
 
@@ -152,6 +153,10 @@ http://172.17.196.195:9010/index_qunhei.html?host=com&debug_server=1&debug=1&use
 http://172.17.196.195:9010/index_qunhei.html?host=com&debug_server=1&debug=1&username=419104&serverid=1&time=1506668204&isadult=1&flag=dacecc074b603e0a377b47ad352dd522&unid=&uimg=http://m.qunhei.com/Static/Default/Home/images/bg_touxiang_wutouxiang.png&nname=ÕÅÏþ½Ü
 
 http://m.qunhei.com/game/login/gid/3697.html
+
+http://172.17.196.195:90/pay_qunhei.php?ext=1_10024|1|101
+http://hangegame.com/pay_qunhei.php?ext=1_10024|1|101
+http://hangegame.com/pay_qunhei.php?ext=1_10024|1|101&orderno=123
 
 
 
