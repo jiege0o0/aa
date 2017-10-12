@@ -12,7 +12,7 @@ $month = $_GET["month"];
 require_once($filePath."random_fight_card.php");
 require_once($filePath."tool/tool.php");
 
-//不要服务器ID，所有服共同评论
+//
 for($i = 1;$i<=31;$i++)
 {
 	mysql_query("
@@ -60,7 +60,7 @@ function createMonsterData($name,$num,$level){
 		$result[$i]->list = $list;
 		if($level > 10)
 		{
-			$result[$i]->skill = rand(1,20 + ($level/5 - 3)*25);
+			$result[$i]->skill = rand(1,min(50,10 + ($level/5 - 3)*15));
 		}
 	}
 	

@@ -36,7 +36,7 @@
 		
 		if($msg->order)
 		{	
-			$sql = "insert into ".$sql_table."pay_log(gameid,orderno,time) values('".$userData->gameid."','".$msg->order."',".time().")";
+			$sql = "insert into ".$sql_table."pay_log(gameid,orderno,orderno2,time,goodsid) values('".$userData->gameid."','".$msg->order."','".$msg->localOrder."',".time().",'".$id."')";
 			$conne->uidRst($sql);
 		}
 		

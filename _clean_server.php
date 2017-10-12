@@ -25,6 +25,7 @@
 			$sql = "DROP TABLE IF EXISTS ".$sql_table."team_pve_".$month.'_'.$day;
 			$result = $conne->uidRst($sql);
 			$day --;
+			echo $sql.'<br/>';
 			if($day == 0)
 			{
 				$month --;

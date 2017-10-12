@@ -9,6 +9,7 @@
 		$sql_table = 'no'.$serverID.'_';
 		$sql = "select * from ".$sql_table."user_data where gameid='".$msg->gameid."'";
 		$userData = $conne->getRowsRst($sql);
+		// echo $sql.'<br/>';
 		
 		if(!$userData)//µÇÂ¼Ê§Ð§
 		{

@@ -7,7 +7,7 @@ mysql_query("set names utf8");
 //ALTER TABLE `no1_user_data` ADD `pk_common` TEXT
 
 
-/*mysql_query("
+mysql_query("
 Create TABLE ".$sql_table."user_data(
 gameid varchar(32) NOT NULL Unique Key,
 uid INT UNSIGNED NOT NULL PRIMARY KEY AUTO_INCREMENT,
@@ -49,13 +49,20 @@ last_time INT UNSIGNED,
 INDEX(data_key)
 )",$connect)or die("message=F,Invalid query: " . mysql_error()); 
 
+$sql = "insert into ".$sql_table."server_game(last_time,data_key) values";
+$arr = array();
 for($i=1;$i<=10000;$i++)
 {
-	$arr = $server1[$i]; 
-	mysql_query("
-	insert into ".$sql_table."server_game(last_time,data_key) values(0,'".$i."')",
-	$connect)or die("message=F,Invalid query: " . mysql_error()); 
+	array_push($arr,"(0,'".$i."')");
+	if($i %100 == 0)
+	{
+		$sql2 = implode(',',$arr);
+		mysql_query($sql.$sql2,
+		$connect)or die("message=F,Invalid query: " . mysql_error()); 
+		$arr = array();
+	}
 }
+
 
 mysql_query("
 Create TABLE ".$sql_table."server_game_equal(
@@ -68,12 +75,19 @@ last_time INT UNSIGNED,
 INDEX(data_key)
 )",$connect)or die("message=F,Invalid query: " . mysql_error()); 
 
+
+$sql = "insert into ".$sql_table."server_game_equal(last_time,data_key) values";
+$arr = array();
 for($i=1;$i<=10000;$i++)
 {
-	$arr = $server1[$i]; 
-	mysql_query("
-	insert into ".$sql_table."server_game_equal(last_time,data_key) values(0,'".$i."')",
-	$connect)or die("message=F,Invalid query: " . mysql_error()); 
+	array_push($arr,"(0,'".$i."')");
+	if($i %100 == 0)
+	{
+		$sql2 = implode(',',$arr);
+		mysql_query($sql.$sql2,
+		$connect)or die("message=F,Invalid query: " . mysql_error()); 
+		$arr = array();
+	}
 }
 
 
@@ -150,10 +164,13 @@ time INT UNSIGNED
 
 for($j = 1;$j<=100;$j++)
 {
+	$arr = array();
 	for($i=1;$i<=50;$i++)
 	{
+		array_push($arr,"(".$j.",0)");
+		$sql2 = implode(',',$arr);
 		mysql_query("
-		insert into ".$sql_table."map_fight(level,time) values(".$j.",0)",
+		insert into ".$sql_table."map_fight(level,time) values".$sql2,
 		$connect)or die("message=F,Invalid query: " . mysql_error()); 
 	}
 }
@@ -174,20 +191,26 @@ Create TABLE ".$sql_table."skill_total(
 id TINYINT UNSIGNED NOT NULL PRIMARY KEY AUTO_INCREMENT,
 num TINYINT UNSIGNED
 )",$connect)or die("message=F,Invalid query: " . mysql_error()); 
-for($j = 1;$j<=200;$j++)
+
+$arr = array();
+for($j = 1;$j<=100;$j++)
 {
-	mysql_query("
-	insert into ".$sql_table."skill_total(num) values(0)",
-	$connect)or die("message=F,Invalid query: " . mysql_error()); 
-}*/
+	array_push($arr,"(0)");
+}
+$sql2 = implode(',',$arr);
+mysql_query("
+insert into ".$sql_table."skill_total(num) values".$sql2,
+$connect)or die("message=F,Invalid query: " . mysql_error()); 
 
 mysql_query("
 Create TABLE ".$sql_table."pay_log(
 id INT UNSIGNED NOT NULL PRIMARY KEY AUTO_INCREMENT,
 orderno varchar(32),
+orderno2 varchar(8),
+goodsid varchar(32),
 gameid varchar(32),
 time INT UNSIGNED,
-INDEX(orderno,gameid)
+INDEX(orderno,gameid,orderno2)
 )",$connect)or die("message=F,Invalid query: " . mysql_error()); 
 
 

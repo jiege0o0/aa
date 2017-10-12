@@ -227,7 +227,7 @@
 			
 			if(!$this->type)//不是特性加血，会触发事件
 			{			
-				$user->testTSkill('HEAL',$value);
+				$user->testTSkill('HEAL',array('value'=>$value,'user'=>$user));
 				$target->testTSkill('BEHEAL',$value);
 				$target->team->enemy->currentMonster[0]->testTSkill('EBEHEAL',$value);
 				//有治疗情况发生

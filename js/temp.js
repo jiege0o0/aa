@@ -38,10 +38,12 @@ http://172.17.196.195:90/game/_create_monster_db.php?table=server_monster,server
 http://172.17.196.195:90/game/_create_monster_db.php?table=test_monster
 
 http://172.17.196.195:90/game/_clean_server.php?serverid=1
+
 http://172.17.196.195:90/game/_create_db.php?serverid=1
 http://172.17.196.195:90/game/_create_dungeon_db.php?serverid=1&month=6
 http://172.17.196.195:90/game/_create_talk_db.php
-http://172.17.196.195:90/game/_create_monster_db.php?serverid=1
+http://172.17.196.195:90/game/_create_monster_db.php
+
 http://172.17.196.195:90/user/_create_db.php?serverid=1
 http://qxu1606510485.my3w.com/game/_create_db.php?serverid=1
 http://qxu1606510485.my3w.com/user/_create_db.php?serverid=1
@@ -52,11 +54,16 @@ http://172.17.196.195:90/test.php
 http://172.17.196.195:90/new_index.php
 http://hangegame.com/new_index.php
 http://hangegame.com/user/_create_db.php
+
+
 http://hangegame.com/game/_create_db.php?serverid=1
-http://hangegame.com/game/_create_talk_db.php
 http://hangegame.com/game/_create_dungeon_db.php?serverid=1&month=6
-http://hangegame.com/game/_clean_server.php?serverid=1
+http://hangegame.com/game/_create_talk_db.php
 http://hangegame.com/game/_create_monster_db.php?table=server_monster,server_equal_monster
+
+
+http://hangegame.com/game/_clean_server.php?serverid=1
+
 http://hangegame.com/index.html?host1=com&openid=h1
 http://hangegame.com/client/index.html
 
@@ -67,7 +74,22 @@ http://172.17.196.195:9010/index.html?host=com&openid=h1&serverid=1
 
 
 http://hangegame.com/client/index.html?new_version=9
+http://hangegame.com/client/index.html?new_version=11
+http://hangegame.com/client/index_test.html
 http://hangegame.com/pay_qunhei
+
+
+蔡伟汉  |  研发
+待命名工作室
+Add:广东省佛山市汾江南路131号1区5座501
+T:13925490910
+QQ: 284303917
+E-Mail：284303917@qq.com
+地址：http://hangegame.com/client/index_test.html
+
+
+http://172.17.196.195:9010/index_test.html
+
 
 
 
@@ -154,9 +176,13 @@ http://172.17.196.195:9010/index_qunhei.html?host=com&debug_server=1&debug=1&use
 
 http://m.qunhei.com/game/login/gid/3697.html
 
-http://172.17.196.195:90/pay_qunhei.php?ext=1_10024|1|101
+http://172.17.196.195:90/pay_qunhei.php?ext=1_10024|1|101|99362&orderno=123
 http://hangegame.com/pay_qunhei.php?ext=1_10024|1|101
-http://hangegame.com/pay_qunhei.php?ext=1_10024|1|101&orderno=123
+http://hangegame.com/pay_qunhei.php?ext=1_10024|1|101|99362&orderno=123
+
+
+http://hangegame.com/pay_qunhei.php?serverid=1&orderno=20171010103716CU&username=5028262&addgold=0&rmb=1&ext=1_qh5028262|1|105|03110&paytime=1507603063&sign=e75503511c821d824f9cdb36029b71a4 
+
 
 
 

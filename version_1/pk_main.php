@@ -50,7 +50,7 @@
 			for($i=0;$i<10;$i++)
 			{
 				$temp = 100 + $i*100;
-				$skillRate = 10 + $i*10;
+				$skillRate = min(50,5 + $i*5);
 				if($dec <= $temp)
 				{
 					$skillID = $dec % $skillRate;
@@ -59,9 +59,9 @@
 					break;
 				}
 			}
-			$skillID = $dec % 100;
+			$skillID = $dec % 50;
 			if($skillID == 0)
-				$skillID = 100;
+				$skillID = 50;
 			$team2Data->skill = $skillID;
 		}
 		  // public getMainSkill(level){
