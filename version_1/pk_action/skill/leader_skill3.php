@@ -3,7 +3,14 @@
 	class ls_21 extends SkillBase{
 		public $cd = 1;
 		function action($user,$self,$enemy){
-			$this->cleanStat($user,$self,true,1);
+			$len = count($self->team->currentMonster);
+			for($i=0;$i<$len;$i++)
+			{
+				$player = $self->team->currentMonster[$i];
+				$b = $this->cleanStat($user,$player,true,1);
+				if($b)
+					break;
+			}
 		}
 	}
 	
@@ -11,7 +18,14 @@
 	class ls_22 extends SkillBase{
 		public $cd = 1;
 		function action($user,$self,$enemy){
-			$this->cleanStat($user,$enemy,false,1);
+			$len = count($enemy->team->currentMonster);
+			for($i=0;$i<$len;$i++)
+			{
+				$player = $enemy->team->currentMonster[$i];
+				$b = $this->cleanStat($user,$player,false,1);
+				if($b)
+					break;
+			}
 		}
 	}
 	
@@ -21,6 +35,7 @@
 		public $order = 1000;
 		function action($user,$self,$enemy){
 			$buff = new StatBuff(31,3);
+			$buff->removeAble = false;
 			$buff->addToTarget($user,$self);
 		}
 	}
@@ -48,7 +63,7 @@
 		public $type='EBEHEAL';
 		public $isAtk = true;
 		function action($user,$self,$enemy){
-			$this->decHp($user,$enemy,$self->atk*0.25);
+			$this->decHp($user,$enemy,$self->atk*0.4);
 		}
 	}
 	
@@ -65,7 +80,7 @@
 	class ls_28 extends SkillBase{
 		public $type = 'SKILL';
 		function action($user,$self,$enemy){
-			$this->addMp($user,$self,10);
+			$this->addMp($user,$self,15);
 		}
 	}
 	

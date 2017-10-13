@@ -51,6 +51,7 @@ http://172.17.196.195:90/test.php
 
 http://172.17.196.195:90/test.php
 
+
 http://172.17.196.195:90/new_index.php
 http://hangegame.com/new_index.php
 http://hangegame.com/user/_create_db.php
@@ -78,6 +79,8 @@ http://hangegame.com/client/index.html?new_version=11
 http://hangegame.com/client/index_test.html
 http://hangegame.com/pay_qunhei
 
+http://172.17.196.195:90/game/index.php?username=419104&serverid=1&time=1506668204&isadult=1&flag=dacecc074b603e0a377b47ad352dd522&unid=&uimg=http://m.qunhei.com/Static/Default/Home/images/bg_touxiang_wutouxiang.png&nname=张晓杰
+
 
 蔡伟汉  |  研发
 待命名工作室
@@ -85,9 +88,9 @@ Add:广东省佛山市汾江南路131号1区5座501
 T:13925490910
 QQ: 284303917
 E-Mail：284303917@qq.com
-地址：http://hangegame.com/client/index_test.html
+地址：http://hangegame.com/client_test.php
 
-
+http://hangegame.com/client_qunhei.php?username=5028262&serverid=1&time=1506653351&isadult=1&flag=001dd884dd89702aebb6007e78c4fac7&unid=&uimg=http://m.qunhei.com/Static/Default/Home/images/bg_touxiang_wutouxiang.png&nname=卡斗士
 http://172.17.196.195:9010/index_test.html
 
 

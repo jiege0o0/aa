@@ -48,7 +48,7 @@
 		public $type='EAFTER';
 		public $isAtk = true;
 		function action($user,$self,$enemy){
-			$this->decHp($user,$enemy,$enemy->maxHp*0.03);
+			$this->decHp($user,$enemy,$enemy->maxHp*0.04);
 		}
 	}
 	
@@ -76,6 +76,7 @@
 		}
 		function action($user,$self,$enemy){
 			$buff = new StatBuff(31,5);
+			$buff->removeAble = false;
 			$buff->addToTarget($user,$self);
 		}
 	}
@@ -85,7 +86,7 @@
 		public $cd = 0;
 		public $order = 1000;
 		function action($user,$self,$enemy){
-			$buff = new StatBuff(23,5);
+			$buff = new StatBuff(23,4);
 			$buff->isDebuff = true;
 			$buff->addToTarget($user,$enemy);
 		}
@@ -106,7 +107,7 @@
 	
 	//造成[r5000%]伤害，施法间隔：[12]
 	class ls_50 extends SkillBase{
-		public $cd = 12;
+		public $cd = 10;
 		public $isAtk = true;
 		function action($user,$self,$enemy){
 			$this->decHp($user,$enemy,$self->atk*50);

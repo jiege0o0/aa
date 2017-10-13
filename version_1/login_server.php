@@ -57,14 +57,13 @@
 		$returnData->data = $userData;
 		$userData->opentime = $serverOpenTime;
 		
-		$logtime = 1506568412;
+		$logtime = 150656841;
 		if($msg->logtime < $logtime)
 		{
 			$returnData->logtext = new stdClass();
 			$returnData->logtext->text = 
-				'取消低战通关获得战力的设定|'.
-				'增加精英挑战。在挑战中会限制玩家的属性上限，获胜后可得到战力奖励|'.
-				'UI优化及BUG修复';
+				'增加了30个队伍技能|'.
+				'UI优化';
 			$returnData->logtext->time = $logtime;
 		}
 		

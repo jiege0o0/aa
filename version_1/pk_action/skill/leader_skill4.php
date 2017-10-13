@@ -37,7 +37,7 @@
 		}
 		
 		function action($user,$self,$enemy){
-			$this->decHp($user,$enemy,$self->atk*1.6);
+			$this->decHp($user,$enemy,$self->atk*1.5);
 		}
 	}
 	
@@ -53,7 +53,7 @@
 	class ls_35 extends SkillBase{
 		public $type='BEHEAL';
 		function action($user,$self,$enemy){
-			$this->addAtk($user,$self,$self->base_atk * 0.05);
+			$this->addAtk($user,$self,$self->base_atk * 0.06);
 		}
 	}
 	
@@ -81,7 +81,7 @@
 			return $self->getHpRate() <= 0.3;
 		}
 		function action($user,$self,$enemy){
-			$buff = new ValueBuff('atk',round($self->base_atk * 0.10),1);
+			$buff = new ValueBuff('atk',round($self->base_atk * 0.2),1);
 			$buff->addToTarget($user,$self);
 		}
 	}
