@@ -28,7 +28,7 @@
 		public $type='HEAL';
 		function action($user,$self,$enemy){
 			$player = $this->tData['user'];
-			$this->addAtk($user,$player,$player->base_atk * 0.1);
+			$this->addAtk($user,$player,$player->base_atk * 0.12);
 		}
 	}
 	
@@ -72,7 +72,7 @@
 		public $type = 'HP';
 		public $once = true;
 		function canUse($user,$self=null,$enemy=null){
-			return $self->getHpRate() <= 0.3;
+			return $self->getHpRate() <= 0.4;
 		}
 		function action($user,$self,$enemy){
 			$buff = new StatBuff(31,5);
@@ -97,7 +97,7 @@
 		public $cd = 5;
 		public $isAtk = true;
 		function action($user,$self,$enemy){
-			$this->decHp($user,$enemy,$self->atk*0.8);
+			$this->decHp($user,$enemy,$self->atk*1);
 		
 			$buff = new StatBuff(24,1);
 			$buff->isDebuff = true;
@@ -107,7 +107,7 @@
 	
 	//造成[r5000%]伤害，施法间隔：[12]
 	class ls_50 extends SkillBase{
-		public $cd = 10;
+		public $cd = 9;
 		public $isAtk = true;
 		function action($user,$self,$enemy){
 			$this->decHp($user,$enemy,$self->atk*50);

@@ -57,12 +57,12 @@
 		$returnData->data = $userData;
 		$userData->opentime = $serverOpenTime;
 		
-		$logtime = 150656841;
+		$logtime = 1508117174;
 		if($msg->logtime < $logtime)
 		{
 			$returnData->logtext = new stdClass();
 			$returnData->logtext->text = 
-				'增加了30个队伍技能|'.
+				'队伍技能增加至50个|'.
 				'UI优化';
 			$returnData->logtext->time = $logtime;
 		}

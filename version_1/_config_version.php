@@ -1,4 +1,4 @@
 <?php
-	$game_version = 14;
+	$game_version = 15;
 	$pk_version = 4;
 ?>

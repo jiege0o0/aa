@@ -109,6 +109,7 @@ aa('friend_pk_answer',{"landid":1449732148,"gameid":"1_10001","choose":{"list":[
 http://172.17.196.195:9010/index.html?debug_server=1&debug=1&openid2=1_10243&openkey=hange0o0
 http://172.17.196.195:9010/index.html?debug_server=1&debug=1&openid2=1_10066&openkey=hange0o0
 http://172.17.196.195:9010/index.html?debug_server=1&debug=1&openid2=1_10176&openkey=hange0o0//»ÃÄ§Ö®ÑÛ
+http://172.17.196.195:9010/index.html?debug_server=1&debug=1&openid2=1_10246&openkey=hange0o0//Âé»¨ÌÛ
 http://172.17.196.195:90/game/egret_pay.php
 
 http://172.17.196.195:9010/index.html?host=com&debug_server=1&debug=1
@@ -120,7 +121,7 @@ http://172.17.196.195:9010/index.html?host=com&openid=han4&debug_server=1&debug=
 http://172.17.196.195:9010/index.html?host=com&openid=han5&debug_server=1&debug=1
 http://172.17.196.195:9012/index.html?host=com&openid=han2&debug_server=1&debug=1
 
-http://172.17.196.195:9010/index.html?host=com&openid=n2&debug_server=1&debug=1
+http://172.17.196.195:9010/index.html?host=com&debug_server=1&debug=1
 
 
 

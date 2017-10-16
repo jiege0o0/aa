@@ -63,7 +63,7 @@
 		public $type='EBEHEAL';
 		public $isAtk = true;
 		function action($user,$self,$enemy){
-			$this->decHp($user,$enemy,$self->atk*0.4);
+			$this->decHp($user,$enemy,$self->atk*0.45);
 		}
 	}
 	
