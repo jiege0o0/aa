@@ -5,6 +5,7 @@
 		if($userData->pk_common->map->bag <= 0)
 		{
 			$returnData->fail = 1;
+			$returnData->stopLog = true;
 			$returnData->data = $userData->pk_common->map;
 			break;
 		}

@@ -153,12 +153,7 @@
 			}
 			else
 			{
-				if($level == 1)//新手副利
-				{
-					$award->coin = 400;
-					require_once($filePath."get_monster_collect.php");
-					$award->collect = addMonsterCollect(5);
-				}
+				
 				$userData->main_game->level++;
 				$userData->main_game->kill = array();
 				
@@ -177,12 +172,20 @@
 			$award->exp = 10 + floor($level/50);
 			$award->coin = 0;
 			
+			
+			
 			if($hard)//精英关
 			{
 				if(!$userData->main_game->fail)
 				$userData->main_game->fail = 0;
 				$userData->main_game->fail ++;
 				$returnData->sync_main_game->fail = $userData->main_game->fail;
+			}
+			else if($level == 1 && $userData->exp <20 && $userData->level == 1)//新手副利
+			{
+				$award->coin = 400;
+				require_once($filePath."get_monster_collect.php");
+				$award->collect = addMonsterCollect(5);
 			}
 			
 		}

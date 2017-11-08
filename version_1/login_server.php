@@ -71,5 +71,6 @@
 	else//没这个玩家，要新增
 	{
 		$returnData-> fail = 2;
+		$returnData-> stopLog = true;
 	}
 ?> 
